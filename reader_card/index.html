@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业读者卡片生成器</title>
+    
+    <!-- Third-party Libraries -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Long+Cang&family=ZCOOL+KuaiLe&family=Liu+Jian+Mao+Cao&display=swap">
+    
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>专业读者卡片生成器</h1>
+        <p class="subtitle">创建精美阅读卡片，记录您的阅读精华，生成高清图片分享给朋友</p>
+        
+        <div class="feature-list">
+            <div class="feature">完全自定义内容</div>
+            <div class="feature">6种专业字体选择</div>
+            <div class="feature">添加个人照片</div>
+            <div class="feature">高清图片导出</div>
+            <div class="feature">专业排版设计</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="card-customizer">
+            <div class="customizer-section">
+                <h2 class="customizer-title">卡片内容</h2>
+                
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="card-title-input">卡片标题：</label>
+                        <input type="text" id="card-title-input" placeholder="例如：致所有不甘平凡的你">
+                    </div>
+                    <div class="form-item">
+                        <label for="name-input">摘录者：</label>
+                        <input type="text" id="name-input" placeholder="输入您的名字">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="book-title-input">书籍标题：</label>
+                        <input type="text" id="book-title-input" placeholder="输入书籍名称">
+                    </div>
+                    <div class="form-item">
+                        <label for="author-input">书籍作者：</label>
+                        <input type="text" id="author-input" placeholder="输入作者姓名">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="date-input">摘录日期：</label>
+                        <input type="date" id="date-input">
+                        <div class="date-note">默认显示当前日期</div>
+                    </div>
+                    <div class="form-item">
+                        <label for="image-upload-input">个人照片：</label>
+                        <div class="image-upload">
+                            <div class="image-upload-btn" id="upload-btn">选择图片</div>
+                            <div class="image-preview" id="image-preview">
+                                <div class="image-preview-placeholder">无图片</div>
+                            </div>
+                            <input type="file" id="image-upload-input" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="customizer-section">
+                <h2 class="customizer-title">段落摘抄</h2>
+                <div class="instructions">
+                    <p>您可以直接在下方输入框编辑段落，或点击下方的预设段落快速填充。</p>
+                </div>
+                <label for="quote-textarea">摘抄内容：</label>
+                <textarea id="quote-textarea" placeholder="在此输入或选择摘抄内容..."></textarea>
+                <div class="predefined-quotes">
+                    <div class="quote-option" data-quote="一个人知道自己为什么而活，就能忍受任何一种生活。">一个人知道自己为什么而活...</div>
+                    <div class="quote-option" data-quote="独立之思想，自由之精神——陈寅恪">独立之思想，自由之精神——陈寅恪</div>
+                    <div class="quote-option" data-quote="我生来就是高山而非溪流，我欲于群峰之巅俯视平庸的沟壑；我生来就是人杰而非草芥，我站在伟人之肩俯视卑微的懦夫。">我生来就是高山而非溪流...</div>
+                    <div class="quote-option" data-quote="请你务必一而再、再而三、三而不竭，千次万次，毫不犹豫地救自己于水火之中。">请你务必一而再、再而三...</div>
+                </div>
+            </div>
+            
+            <div class="customizer-section">
+                <h2 class="customizer-title">自定义样式</h2>
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="title-font">标题字体：</label>
+                        <select id="title-font">
+                            <option value="'Ma Shan Zheng', cursive">马善政体 (典雅)</option>
+                            <option value="'ZCOOL XiaoWei', serif">站酷小薇体 (传统)</option>
+                            <option value="'Long Cang', cursive">龙藏体 (书法)</option>
+                            <option value="'Liu Jian Mao Cao', cursive">流金毛草体 (手写)</option>
+                            <option value="'Noto Serif SC', serif">思源宋体 (现代)</option>
+                            <option value="'ZCOOL KuaiLe', cursive">站酷快乐体 (活泼)</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="title-color">标题颜色：</label>
+                        <div class="color-picker">
+                            <input type="color" id="title-color" value="#3a1c71">
+                            <div class="color-preview" id="title-preview"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="text-font">正文字体：</label>
+                        <select id="text-font">
+                            <option value="'Noto Serif SC', serif">思源宋体 (清晰)</option>
+                            <option value="'ZCOOL XiaoWei', serif">站酷小薇体 (传统)</option>
+                            <option value="'Long Cang', cursive">龙藏体 (书法)</option>
+                            <option value="'Liu Jian Mao Cao', cursive">流金毛草体 (手写)</option>
+                            <option value="'Ma Shan Zheng', cursive">马善政体 (典雅)</option>
+                            <option value="'ZCOOL KuaiLe', cursive">站酷快乐体 (活泼)</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="text-color">正文颜色：</label>
+                        <div class="color-picker">
+                            <input type="color" id="text-color" value="#3a1c71">
+                            <div class="color-preview" id="text-preview"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="bg-color">背景颜色：</label>
+                        <div class="color-picker">
+                            <input type="color" id="bg-color" value="#ffffff">
+                            <div class="color-preview" id="bg-preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <label for="accent-color">强调色：</label>
+                        <div class="color-picker">
+                            <input type="color" id="accent-color" value="#8a5dff">
+                            <div class="color-preview" id="accent-preview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="random-example-btn" class="btn btn-secondary">加载随机示例</button>
+            <button id="generate-btn" class="btn">更新卡片预览</button>
+            <button id="export-btn" class="btn btn-export">导出为高清图片</button>
+        </div>
+        
+        <div class="card-container">
+            <div class="card" id="card">
+                <div class="card-header">
+                    <div class="card-title" id="card-title-display">卡片标题</div>
+                    <div class="card-subtitle">
+                        <span id="display-name">摘录者</span>
+                        摘录于 <span id="display-date"></span>
+                    </div>
+                </div>
+                <div class="quote-content" id="quote-content">此处显示摘抄内容...</div>
+                <div class="card-footer">
+                    <div class="image-container" id="image-container">
+                        <div class="image-placeholder">个人照片</div>
+                    </div>
+                    <div class="signature-container">
+                        <div>—— 摘自</div>
+                        <span class="signature"><span id="display-book-title">书籍标题</span> · <span id="display-author">作者姓名</span></span>
+                    </div>
+                </div>
+                <div class="watermark">摘抄</div>
+            </div>
+            
+            <div class="output-container" id="output-container">
+                <h3 class="output-title">导出的卡片图片</h3>
+                <img id="output-image" alt="导出的卡片">
+                <a id="download-link" class="download-btn">下载高清图片</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
