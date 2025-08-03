@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页快照生成器</title>
+
+    <!-- Third-party Libraries -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>网页快照生成器</h1>
+        </header>
+
+        <main class="main-content">
+            <!-- Input Section -->
+            <fluent-card class="content-section">
+                <div class="input-group">
+                    <fluent-text-field id="url-input" placeholder="输入或粘贴一个完整的网址"></fluent-text-field>
+                    <fluent-button id="paste-btn" appearance="outline">
+                        <fluent-symbol-icon name="clipboard-paste-20-regular" slot="start"></fluent-symbol-icon>
+                        粘贴
+                    </fluent-button>
+                    <fluent-button id="load-btn" appearance="accent">加载网页</fluent-button>
+                </div>
+            </fluent-card>
+
+            <!-- Important Note Section -->
+            <div class="important-note content-section">
+                <h3>重要说明</h3>
+                <p>由于浏览器安全策略，本工具无法捕获所有网站。若目标网站禁止被嵌入，则快照将失败或显示为空白。</p>
+            </div>
+            
+            <!-- Browser Headers Info Section -->
+            <fluent-card class="content-section" id="headers-section" style="display: none;">
+                <h3>浏览器信息 (影响请求头)</h3>
+                <pre id="headers-display"></pre>
+            </fluent-card>
+
+            <!-- Result Section -->
+            <div class="result-area">
+                <fluent-card id="status-card" class="content-section">
+                    <p id="status-message">请在上方输入网址以开始。</p>
+                    <div id="progress-container">
+                        <fluent-progress id="capture-progress" min="0" max="100"></fluent-progress>
+                        <span id="progress-text">0%</span>
+                    </div>
+                    <fluent-anchor id="download-link" href="#" download="snapshot.png">
+                        <fluent-button appearance="accent">下载 PNG 图片</fluent-button>
+                    </fluent-anchor>
+                </fluent-card>
+
+                <div class="capture-controls">
+                    <fluent-button id="capture-btn" appearance="accent">手动捕获 (完整页面)</fluent-button>
+                </div>
+
+                <div class="preview-container">
+                    <iframe id="preview-iframe" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
