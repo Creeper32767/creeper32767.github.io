@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluent Code Editor</title>
+    
+    <!-- Fluent UI Web Components -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    
+    <!-- CodeMirror 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/markdown/markdown.min.js"></script>
+
+    <!-- Google Fonts: JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="editor-container">
+        <!-- 第1行：标题行 -->
+        <div class="header-row">
+            <fluent-text size="1000" weight="bold">Fluent Code Editor</fluent-text>
+            <fluent-text size="400" weight="semibold">version 2.12</fluent-text>
+        </div>
+        
+        <!-- 第2行：按钮行 -->
+        <div class="button-row">
+            <div class="button-group">
+                <fluent-button id="upload-button" appearance="outline">
+                    <span slot="start">📂</span> 上传文件
+                </fluent-button>
+                <fluent-button id="download-button" appearance="accent">
+                    <span slot="start">💾</span> 下载文件
+                </fluent-button>
+            </div>
+            <div class="button-group">
+                <fluent-button id="theme-toggle" appearance="outline">
+                    <span slot="start">🎨</span> 更换主题
+                </fluent-button>
+            </div>
+        </div>
+        
+        <!-- 第3行：文件名和语言行 -->
+        <div class="input-row">
+            <div class="input-group">
+                <fluent-text-field id="filename-input" placeholder="输入文件名" value="myfile">文件名</fluent-text-field>
+            </div>
+            <div class="input-group">
+                <fluent-select id="language-selector" position="below">
+                    <fluent-option value="text/plain" selected>Plain Text</fluent-option>
+                    <fluent-option value="javascript">JavaScript</fluent-option>
+                    <fluent-option value="python">Python</fluent-option>
+                    <fluent-option value="html">HTML</fluent-option>
+                    <fluent-option value="css">CSS</fluent-option>
+                    <fluent-option value="text/x-csrc">C</fluent-option>
+                    <fluent-option value="text/x-c++src">C++</fluent-option>
+                    <fluent-option value="text/x-java">Java</fluent-option>
+                    <fluent-option value="markdown">Markdown</fluent-option>
+                </fluent-select>
+            </div>
+        </div>
+        
+        <!-- 第4行：编辑区域 -->
+        <div class="editor-area">
+            <div id="code-editor"></div>
+        </div>
+        
+        <!-- 第5行：状态栏 -->
+        <div class="status-row">
+            <div class="status-section status-left">
+                <fluent-text id="status-message">就绪 - 开始编写代码</fluent-text>
+            </div>
+            <div class="status-section status-center">
+                <a class="help-link" id="help-link">使用说明</a>
+            </div>
+            <div class="status-section status-right">
+                <div class="position-display" id="position-display">行数: 1 | 列数: 1</div>
+            </div>
+        </div>
+        
+        <!-- 第6行：清空按钮 -->
+        <div class="clear-row">
+            <fluent-button id="clear-button" appearance="accent">
+                <span slot="start">🧹</span> 清空内容
+            </fluent-button>
+        </div>
+    </div>
+    
+    <!-- 使用说明模态框 -->
+    <div class="modal" id="help-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2 class="modal-title">使用说明</h2>
+            <p>欢迎使用 Fluent 代码编辑器！这是一个专业的代码编辑工具...</p>
+            <h3>核心功能</h3>
+            <ul>...</ul>
+            <h3>编辑器特性</h3>
+            <ul>...</ul>
+            <h3>快捷键</h3>
+            <ul>...</ul>
+            <p>祝您编码愉快！</p>
+        </div>
+    </div>
+
+    <!-- 确认清空模态框 -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content">
+            <h2 class="modal-title">确认操作</h2>
+            <p>您确定要清空编辑器中的所有内容吗？此操作无法撤销。</p>
+            <div class="modal-actions">
+                <fluent-button id="cancel-clear-button" appearance="outline">取消</fluent-button>
+                <fluent-button id="confirm-clear-button" appearance="accent">确认清空</fluent-button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
