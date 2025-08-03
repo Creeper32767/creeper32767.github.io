@@ -1,0 +1,172 @@
+:root {
+    --neutral-layer-1: #ffffff;
+    --neutral-layer-2: #f8f8f8;
+    --accent-color: #0078d4;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background-color: var(--neutral-layer-2);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll caused by full-bleed element */
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Spacing between sections */
+}
+
+.content-section {
+    padding: 10px; /* Internal padding for all sections */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--accent-color);
+}
+
+.input-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 15px; /* Add padding inside the input card */
+}
+
+fluent-text-field {
+    flex-grow: 1;
+}
+
+.important-note {
+    background-color: #fff4ce;
+    border-left: 4px solid #ffc80a;
+    border-radius: 4px;
+}
+.important-note h3 { margin-top: 0; }
+.important-note code { background: #eee; padding: 2px 4px; border-radius: 3px; }
+
+#headers-section h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+#headers-display {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+#status-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+#status-message {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+#download-link, #progress-container {
+    display: none;
+}
+
+#progress-container {
+    display: none;
+    width: 100%;
+    max-width: 400px;
+    align-items: center;
+    gap: 10px;
+}
+fluent-progress {
+    width: 100%;
+}
+
+.preview-container {
+    width: 100%;
+    height: 720px; /* Fixed height for consistent view */
+    overflow-x: auto; /* Allow horizontal scroll for desktop view */
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background-color: white;
+}
+
+#preview-iframe {
+    width: 1280px; /* Force desktop width */
+    height: 100%;
+    border: none;
+    overflow: scroll !important;
+}
+
+
+/* --- CSS CHANGES FOR FULL-WIDTH BUTTON --- */
+.capture-controls {
+    /* This container will break out of the parent's constraints */
+    width: 100vw; /* Make it as wide as the viewport */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* Give it some vertical spacing */
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding: 0; /* Remove any side padding */
+    box-sizing: border-box;
+}
+
+#capture-btn {
+    display: none;
+    width: 100%; /* The button will now fill its full-viewport-width container */
+    
+    /* We need to override the default border-radius of the button for a sharp look */
+    --control-corner-radius: 0; 
+}
+/* --- END OF CSS CHANGES --- */
+
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    .main-content {
+        gap: 20px;
+    }
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    #status-message {
+        font-size: 1rem;
+    }
+    #status-card {
+        flex-direction: column;
+    }
+    .capture-controls {
+        margin-top: 20px;
+    }
+}
