@@ -1,0 +1,108 @@
+:root {
+    --neutral-layer-1: #ffffff;
+    --neutral-layer-2: #f8f8f8;
+    --accent-color: #0078d4;
+    --sidebar-width: 280px;
+    --sidebar-transition-duration: 0.3s;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background-color: var(--neutral-layer-2);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Collapsible Sidebar & Overlay --- */
+.sidebar { width: var(--sidebar-width); height: 100vh; background-color: var(--neutral-layer-1); border-right: 1px solid #e0e0e0; padding: 20px 0; box-sizing: border-box; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 1000; transform: translateX(-100%); transition: transform var(--sidebar-transition-duration) ease-in-out; }
+.sidebar.open { transform: translateX(0); box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+#sidebar-toggle { position: fixed; top: 15px; left: 15px; z-index: 1001; }
+.sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); z-index: 999; opacity: 0; pointer-events: none; transition: opacity var(--sidebar-transition-duration) ease-in-out; }
+.sidebar-overlay.visible { opacity: 1; pointer-events: auto; }
+
+/* --- Nav Structure --- */
+.nav-header { padding: 0 20px; text-align: center; margin-bottom: 20px; }
+.nav-header fluent-avatar { width: 80px; height: 80px; margin-bottom: 10px; }
+.nav-header h3 { margin: 0; font-weight: 600; }
+.nav-links { list-style: none; padding: 0; margin: 0; }
+.nav-item { display: flex; align-items: center; gap: 15px; padding: 12px 25px; text-decoration: none; color: #333; transition: background-color 0.2s ease-in-out; border-left: 4px solid transparent; }
+.nav-item:hover { background-color: #f0f0f0; }
+.nav-item.active { background-color: #eaf3fb; border-left-color: var(--accent-color); font-weight: 600; color: var(--accent-color); }
+.nav-item fluent-symbol-icon { font-size: 20px; }
+
+/* --- Main Content & Container --- */
+.main-content { width: 100%; padding: 20px; box-sizing: border-box; }
+.container { width: 100%; max-width: 960px; margin: 0 auto; padding: 40px 20px; box-sizing: border-box; }
+.header { text-align: center; margin-bottom: 50px; }
+.header h1 { font-size: 3.5rem; font-weight: 300; color: var(--accent-color); margin: 0 0 10px 0; }
+.header p { font-size: 1.25rem; color: #666; margin: 0; }
+.section-title { font-size: 2rem; font-weight: 400; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0; }
+footer { text-align: center; margin-top: 50px; color: #888; }
+
+/* --- Homepage Specific Styles --- */
+.profile-header { margin-bottom: 30px; }
+.profile-avatar { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid var(--neutral-layer-1); box-shadow: 0 4px 15px rgba(0, 120, 212, 0.2); }
+.profile-header h1 { font-size: 2.5rem; font-weight: 600; color: #333; }
+.bio { font-style: italic; color: #555; }
+.intro-card { padding: 20px 25px 25px 25px; }
+.language-panel p { color: var(--accent-color); line-height: 1.75; margin-top: 20px; margin-bottom: 0; }
+.lang-en { font-family: 'JetBrains Mono', 'Courier New', monospace; }
+.lang-zh { font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', sans-serif; font-size: 1rem; }
+fluent-tab[aria-selected="true"]::after { height: 3px; }
+
+/* --- GitHub Analysis Section --- */
+.analysis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
+.analysis-card h3 { display: flex; align-items: center; gap: 10px; }
+.lang-bar { display: flex; width: 100%; height: 25px; border-radius: 5px; overflow: hidden; font-size: 0.8rem; color: white; margin-top: 15px; }
+.lang-python { background-color: #3572A5; }
+.lang-js { background-color: #F7DF1E; color: #000; }
+.lang-other { background-color: #777; }
+
+/* --- Project Page Grid & Cards --- */
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 50px; }
+fluent-card { background-color: var(--neutral-layer-1); border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; display: flex; flex-direction: column; padding: 25px; }
+fluent-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
+.card-content { flex-grow: 1; }
+.card-content .icon { font-size: 3rem; color: var(--accent-color); margin-bottom: 15px; }
+.card-content h3 { font-size: 1.5rem; margin: 0 0 10px 0; }
+.card-content p { font-size: 1rem; line-height: 1.6; color: #555; margin-bottom: 20px; }
+
+/* --- Reusable Developer Card (UPDATED) --- */
+.developer-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    padding: 30px;
+}
+.developer-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.developer-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.75rem;
+}
+.developer-links {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* --- 404 Page --- */
+body.center-content { justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; }
+.text-center { text-align: center; }
+.error-code { font-size: 8rem; font-weight: 700; color: var(--accent-color); line-height: 1; }
+.error-title { font-size: 2.5rem; margin: 10px 0; font-weight: 300; }
+.error-message { font-size: 1.2rem; color: #666; margin-bottom: 30px; }
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .header h1, .profile-header h1 { font-size: 2.5rem; }
+    /* Styles for developer-card are now global, no need to repeat here */
+}

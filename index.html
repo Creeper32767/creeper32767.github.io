@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - By Haley</title>
+
+    <!-- Google Fonts: JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Fluent UI Web Components -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Sidebar (Loaded via JS) -->
+    <nav class="sidebar" id="nav-placeholder"></nav>
+    <!-- Overlay for when sidebar is open -->
+    <div class="sidebar-overlay"></div>
+
+    <!-- Toggle Button -->
+    <fluent-button appearance="stealth" id="sidebar-toggle">
+        <fluent-symbol-icon name="list-24-regular"></fluent-symbol-icon>
+    </fluent-button>
+
+    <div class="main-content">
+        <div class="container">
+
+            <header class="header profile-header">
+                <img src="https://avatars.githubusercontent.com/u/141244291?s=96&v=4" alt="Haley Avatar" class="profile-avatar">
+                <h1>Haley (Creeper32767)</h1>
+                <p class="bio">A high school student & passionate coder from China.</p>
+            </header>
+
+            <main>
+                <!-- Introduction Section (UPDATED) -->
+                <fluent-card class="intro-card">
+                    <fluent-tabs activeid="tab-en">
+                        <!-- Tab Headers -->
+                        <fluent-tab id="tab-en">English</fluent-tab>
+                        <fluent-tab id="tab-zh">中文</fluent-tab>
+
+                        <!-- English Panel -->
+                        <fluent-tab-panel id="panel-en" class="language-panel">
+                            <p class="lang-en">Hello there! I'm Haley, a friendly orange cat from the vibrant land of China, but you can also call me Kitten! I'm absolutely passionate about two things: connecting with amazing people like you and the incredible world of coding. There's something magical about bringing ideas to life, line by line, and building innovative solutions that can make a real difference. I truly believe that through collaboration and the power of code, we can create a better, more connected world for everyone. Whether you're a seasoned developer or just starting your coding journey, I'd be thrilled to team up, share knowledge, and build something wonderful together. Let's combine our creativity and skills to turn our dreams into reality and leave a positive paw print on the world. Let's code together and build the future!</p>
+                        </fluent-tab-panel>
+
+                        <!-- Chinese Panel -->
+                        <fluent-tab-panel id="panel-zh" class="language-panel">
+                             <p class="lang-zh">你好呀！我叫Haley，一只来自中国的可爱橘猫，你也可以叫我猫猫！我满怀热情地致力于两件事：与像你一样优秀的人交流，以及投身于奇妙的编程世界。将想法一行行代码变为现实，并构建能够真正改变世界的创新解决方案，这其中蕴含着一种魔力。我坚信，通过协作和代码的力量，我们可以为每个人创造一个更美好、更紧密联系的世界。无论你是经验丰富的开发者，还是刚刚开启你的编程之旅，我都非常乐意与你合作，分享知识，共同创造美好的事物。让我们结合彼此的创造力和技能，将梦想变为现实，为世界留下积极的爪印。一起用代码构筑未来吧！</p>
+                        </fluent-tab-panel>
+                    </fluent-tabs>
+                </fluent-card>
+                
+                <!-- GitHub Analysis Section -->
+                <h2 class="section-title">GitHub 技术分析</h2>
+                <div class="analysis-grid">
+                    <fluent-card class="analysis-card">
+                        <h3><fluent-symbol-icon name="code-24-regular" slot="start"></fluent-symbol-icon> 常用语言</h3>
+                        <p>主要使用 Python 进行后端开发和数据处理，并熟练掌握 JavaScript、HTML 和 CSS 构建前端界面。</p>
+                        <div class="lang-bar">
+                            <div class="lang-python" style="width: 50%;">Python 50%</div>
+                            <div class="lang-js" style="width: 30%;">JS 30%</div>
+                            <div class="lang-other" style="width: 20%;">Other 20%</div>
+                        </div>
+                    </fluent-card>
+                    <fluent-card class="analysis-card">
+                        <h3><fluent-symbol-icon name="clock-24-regular" slot="start"></fluent-symbol-icon> 编码习惯</h3>
+                        <p>活跃于夜间，专注于代码的健壮性和可读性。倾向于编写详细的文档和注释。</p>
+                    </fluent-card>
+                </div>
+                
+                <!-- "About Me" Section -->
+                <h2 class="section-title">关于我</h2>
+                <fluent-card class="developer-card">
+                    <img src="https://avatars.githubusercontent.com/u/141244291?s=96&v=4" alt="Haley Avatar" class="developer-avatar">
+                    <div class="developer-info">
+                        <h3>Haley (Creeper32767)</h3>
+                        <div class="developer-links">
+                            <fluent-anchor href="https://github.com/Creeper32767" target="_blank" rel="noopener noreferrer">
+                                <fluent-button>
+                                    <fluent-symbol-icon name="logo-github-24-regular" slot="start"></fluent-symbol-icon>
+                                    GitHub Profile
+                                </fluent-button>
+                            </fluent-anchor>
+                            <fluent-anchor href="https://x.com/ConsoleCreeper" target="_blank" rel="noopener noreferrer">
+                                <fluent-button appearance="outline">
+                                    <fluent-symbol-icon name="person-circle-24-regular" slot="start"></fluent-symbol-icon>
+                                    Follow on X
+                                </fluent-button>
+                            </fluent-anchor>
+                        </div>
+                    </div>
+                </fluent-card>
+                
+                <!-- Organization Section -->
+                <h2 class="section-title">我的组织</h2>
+                 <fluent-card class="developer-card">
+                    <img src="https://avatars.githubusercontent.com/u/128388434?s=200&v=4" alt="SMS-COSMO Avatar" class="developer-avatar">
+                    <div class="developer-info">
+                        <h3>SMS-COSMO</h3>
+                        <p class="bio">一个专注于开源协作和技术创新的学生开发者社区。</p>
+                        <div class="developer-links">
+                            <fluent-anchor href="https://github.com/SMS-COSMO" target="_blank" rel="noopener noreferrer">
+                                <fluent-button>
+                                    <fluent-symbol-icon name="logo-github-24-regular" slot="start"></fluent-symbol-icon>
+                                    访问 GitHub
+                                </fluent-button>
+                            </fluent-anchor>
+                        </div>
+                    </div>
+                </fluent-card>
+
+            </main>
+
+            <footer>
+                <p>© <span id="current-year"></span> - 本页面由 Fluent UI Web Components 构建</p>
+            </footer>
+
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
