@@ -1,0 +1,128 @@
+/* 全局样式和变量定义 */
+:root {
+    --card-light-color: rgba(255, 255, 255, 0.1);
+    --card-gradient-size: 150px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    background-color: #f8f8f8;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* 卡片网格布局 */
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+/* 单个卡片样式 */
+.card {
+    position: relative;
+    width: 280px;
+    height: 360px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    /* Fluent Design 亚克力材质效果 */
+    background: rgba(44, 44, 44, 0.6);
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Fluent Design 光感效果 (Reveal Highlight) */
+.card::before {
+    content: '';
+    position: absolute;
+    top: var(--y, 0);
+    left: var(--x, 0);
+    width: var(--card-gradient-size);
+    height: var(--card-gradient-size);
+    background: radial-gradient(circle closest-side, var(--card-light-color), transparent);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* 确保伪元素不会干扰鼠标事件 */
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-content {
+    padding: 1.5rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.app-icon {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #ffffff;
+}
+
+.app-description {
+    font-size: 0.9rem;
+    color: #cccccc;
+    line-height: 1.5;
+    flex-grow: 1; /* 让描述占据剩余空间，将按钮推到底部 */
+}
+
+.install-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #1a1a1a;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: flex-start; /* 按钮左对齐 */
+}
+
+.install-button:hover {
+    background-color: rgba(255, 255, 255, 1);
+}

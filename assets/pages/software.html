@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>软件推荐 - By Haley</title>
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    <link rel="stylesheet" href="/assets/static/style.css">
+</head>
+
+<body>
+
+    <nav class="sidebar" id="nav-placeholder"></nav>
+    <div class="sidebar-overlay"></div>
+
+    <fluent-button appearance="stealth" id="sidebar-toggle">
+        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+    </fluent-button>
+
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <h1>软件推荐</h1>
+                <p>这里是我推荐的一些实用软件。</p>
+            </header>
+
+            <main>
+                <h2 class="section-title">开发工具 / Development Tools</h2>
+                <div class="apps-grid">
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://www.realvnc.com/wp-content/uploads/2023/05/cropped-realvnc-favicon-192x192.png"
+                                    alt="VNC Viewer Icon" width="48" height="48">
+                            </div><br>
+                            <h3>RVNC Viewer</h3>
+                            <p>RVNC Viewer是一款开源的远程控制软件，功能强大且高效实用，其性能不逊色同类软件，它的工作原理和Windows远程控制软件类似。</p>
+                        </div>
+                        <fluent-anchor href="https://www.realvnc.com/en/connect/download/viewer/" target="_blank"
+                            appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://www.python.org/static/favicon.ico" alt="Python Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>Python</h3>
+                            <p>Python 是一种多功能且易于学习的语言，它让你能够快速工作并更有效地整合系统。</p>
+                        </div>
+                         <fluent-anchor href="https://www.python.org/downloads/" target="_blank"
+                            appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://code.visualstudio.com/favicon.ico" alt="VSCode Icon" width="48" height="48">
+                            </div><br>
+                            <h3>VSCode</h3>
+                            <p>Visual Studio Code 通过 GitHub Copilot 重新定义了 AI 驱动的编码，用于构建和调试现代 Web 和云应用程序。Visual Studio Code 免费提供，可在您的设备上使用。</p>
+                        </div>
+                            <fluent-anchor href="https://code.visualstudio.com/download" target="_blank"
+                                appearance="accent">
+                                <fluent-button appearance="accent">获取</fluent-button>
+                            </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://www.jetbrains.com.cn/pycharm/img/logo-with-shadow.jpg" alt="PyCharm Icon" width="48" height="48">
+                            </div><br>
+                            <h3>PyCharm</h3>
+                            <p>PyCharm 是一个用于数据科学和网页开发的 Python 集成开发环境，兼容 Windows、macOS 和 Linux。</p>
+                        </div>
+                            <fluent-anchor href="https://www.jetbrains.com/pycharm/download/" target="_blank"
+                                appearance="accent">
+                                <fluent-button appearance="accent">获取</fluent-button>
+                            </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://www.rust-lang.org/static/images/rust-logo-blk.svg" alt="Rust Icon" width="48" height="48">
+                            </div><br>
+                            <h3>Rust</h3>
+                            <p>Rust 是一种具有高性能、高可靠性和高生产力的编程语言，适用于各个领域的应用开发。</p>
+                        </div>
+                            <fluent-anchor href="https://www.rust-lang.org/tools/install" target="_blank"
+                                appearance="accent">
+                                <fluent-button appearance="accent">获取</fluent-button>
+                            </fluent-anchor>
+                    </fluent-card>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; <span id="current-year"></span> - 本页面由 Fluent UI Web Components 构建</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/assets/static/script.js"></script>
+</body>
+
+</html>
