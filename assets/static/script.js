@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Initialize nav-related icons after navigation HTML is inserted
                 // (the toggle button may not exist at initial DOMContentLoaded)
                 setNavIcons();
+                // Add submenu toggle buttons and interactions
+                initNavSubmenus();
             })
             .catch(error => console.error('Error loading navigation:', error));
     }
@@ -113,4 +115,57 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     setNavIcons();
+
+    /* --- Submenu behaviors: click-to-toggle, hover (CSS), and auto-expand current page --- */
+    function initNavSubmenus() {
+        const parents = document.querySelectorAll('.nav-item-parent');
+
+        parents.forEach(parentLink => {
+            // Ensure aria-expanded default
+            if (!parentLink.hasAttribute('aria-expanded')) parentLink.setAttribute('aria-expanded', 'false');
+
+            // Create a toggle button inside the parent link for click-to-toggle
+            const toggleBtn = document.createElement('button');
+            toggleBtn.className = 'nav-toggle-btn';
+            toggleBtn.setAttribute('aria-label', '切换子菜单');
+            toggleBtn.innerHTML = `<img src="/assets/static/icons/arrow.svg" alt="Toggle Submenu Icon" />`;
+
+            // Insert the button as the last child of the link
+            parentLink.appendChild(toggleBtn);
+
+            const submenu = parentLink.nextElementSibling;
+            if (!submenu || !submenu.classList.contains('nav-submenu')) return;
+
+            // Clicking the toggle button toggles aria-expanded and prevents navigation
+            toggleBtn.addEventListener('click', (ev) => {
+                ev.preventDefault();
+                ev.stopPropagation();
+                const expanded = parentLink.getAttribute('aria-expanded') === 'true';
+                parentLink.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            });
+
+            // Keyboard accessibility for toggle button
+            toggleBtn.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    ev.preventDefault();
+                    toggleBtn.click();
+                }
+            });
+        });
+
+        // Auto-expand parent when a submenu child matches the current page
+        const currentPageName = (function () {
+            let name = window.location.pathname.split('/').pop().replace('.html', '');
+            return name === '' ? 'index' : name;
+        })();
+
+        const activeChild = document.querySelector(`.nav-submenu .nav-item[data-page="${currentPageName}"]`);
+        if (activeChild) {
+            activeChild.classList.add('active');
+            const parentLink = activeChild.closest('ul.nav-submenu').previousElementSibling;
+            if (parentLink && parentLink.classList.contains('nav-item-parent')) {
+                parentLink.setAttribute('aria-expanded', 'true');
+            }
+        }
+    }
 });

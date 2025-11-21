@@ -113,6 +113,73 @@ body {
     color: var(--accent-color);
 }
 
+.nav-submenu .nav-item.active {
+    background-color: transparent;
+    border-left-color: transparent;
+}
+
+/* --- Submenu styles (hidden by default, reveal on toggle/hover) --- */
+.nav-submenu {
+    list-style: none;
+    margin: 0;
+    padding-left: 12px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.6s ease;
+    opacity: 0;
+}
+
+/* Visible when parent has aria-expanded or when hovered */
+.nav-item-parent[aria-expanded="true"]+.nav-submenu,
+.nav-item-parent:hover+.nav-submenu {
+    max-height: 1000px;
+    /* sufficiently large to fit content */
+    opacity: 1;
+}
+
+.nav-submenu .nav-item {
+    padding: 8px 25px;
+    padding-left: 36px;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+/* Toggle button inside parent item (small chevron) */
+.nav-toggle-btn {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.nav-toggle-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    color: #666;
+    transition: transform 0.2s ease;
+}
+
+.nav-item-parent[aria-expanded="true"] .nav-toggle-btn svg {
+    transform: rotate(90deg);
+}
+
+/* If toggle uses an <img> instead of inline SVG, rotate it as well */
+.nav-toggle-btn img {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item-parent[aria-expanded="true"] .nav-toggle-btn img {
+    transform: rotate(90deg);
+}
+
 /* --- Main Content & Container --- */
 .main-content {
     width: 100%;
@@ -250,14 +317,16 @@ fluent-tab[aria-selected="true"]::after {
 }
 
 /* --- Project Page Grid & Cards --- */
-.project-grid, .apps-grid {
+.project-grid,
+.apps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
     margin-bottom: 50px;
 }
 
-.app-icon, .project-icon {
+.app-icon,
+.project-icon {
     text-align: center;
     border-bottom: 2px solid var(--accent-color);
 }
@@ -281,7 +350,8 @@ fluent-card:hover {
     flex-grow: 1;
 }
 
-.card-content .icon, .app-icon {
+.card-content .icon,
+.app-icon {
     font-size: 3rem;
     color: var(--accent-color);
     margin-bottom: 15px;

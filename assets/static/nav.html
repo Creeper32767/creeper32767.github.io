@@ -1,9 +1,9 @@
 <div class="nav-header">
     <fluent-avatar shape="circle">
-        <img src="/assets/static/profile_photo.jpg" alt="Haley Avatar" class="profile-avatar"/>
+        <img src="/assets/static/profile_photo.jpg" alt="Haley Avatar" class="profile-avatar" />
     </fluent-avatar>
     <h3>Haley Herzog</h3>
-</div>
+</div><br>
 <fluent-divider></fluent-divider>
 <ul class="nav-links">
     <li>
@@ -13,21 +13,47 @@
         </a>
     </li>
     <li>
-        <a href="/assets/pages/projects.html" class="nav-item" data-page="projects">
+        <a href="/assets/pages/projects.html" class="nav-item nav-item-parent" data-page="projects"
+            aria-expanded="false">
             <img src="/assets/static/icons/box_toolbox.svg" alt="Projects Icon">
             我的项目
         </a>
+        <ul class="nav-submenu">
+            <li>
+                <a href="/assets/pages/projects.html#FrontendProjects" class="nav-item" data-page="projects">前端工具集</a>
+            </li>
+            <li>
+                <a href="/assets/pages/projects.html#BackendProjects" class="nav-item" data-page="projects">后端项目 (Python)</a>
+            </li>
+        </ul>
     </li>
     <li>
-        <a href="/assets/pages/software.html" class="nav-item" data-page="software">
+        <a href="/assets/pages/software.html" class="nav-item nav-item-parent" data-page="software"
+            aria-expanded="false">
             <img src="/assets/static/icons/apps.svg" alt="Software Icon">
             软件推荐
         </a>
+        <ul class="nav-submenu">
+            <li>
+                <a href="/assets/pages/software.html#DevelopmentTools" class="nav-item" data-page="software">开发 / Development</a>
+            </li>
+            <li>
+                <a href="/assets/pages/software.html#EntertainmentTools" class="nav-item" data-page="software">娱乐 / Entertainment</a>
+            </li>
+            <li>
+                <a href="/assets/pages/software.html#PracticalTools" class="nav-item" data-page="software">实用工具 / Practical Tools</a>
+            </li>
+        </ul>
     </li>
     <li>
-        <a href="/assets/pages/notes.html" class="nav-item" data-page="notes">
+        <a href="/assets/pages/notes.html" class="nav-item nav-item-parent" data-page="notes" aria-expanded="false">
             <img src="/assets/static/icons/book.svg" alt="Book Icon">
             学习笔记
         </a>
+        <ul class="nav-submenu">
+            <li>
+                <a href="/assets/pages/notes.html" class="nav-item" data-page="notes">诗意日常</a>
+            </li>
+        </ul>
     </li>
 </ul>
