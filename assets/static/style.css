@@ -231,9 +231,10 @@ fluent-tab[aria-selected="true"]::after {
     height: 25px;
     border-radius: 5px;
     overflow: hidden;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: white;
     margin-top: 15px;
+    font-family: 'MapleMono', monospace;
 }
 
 .lang-python {

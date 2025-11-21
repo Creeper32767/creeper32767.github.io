@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 navPlaceholder.innerHTML = data;
                 highlightActiveLink();
+                // Initialize nav-related icons after navigation HTML is inserted
+                // (the toggle button may not exist at initial DOMContentLoaded)
+                setNavIcons();
             })
             .catch(error => console.error('Error loading navigation:', error));
     }
