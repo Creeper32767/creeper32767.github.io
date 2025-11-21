@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fluent Code Editor</title>
-    
+
     <!-- Fluent UI Web Components -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
-    
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+
     <!-- CodeMirror 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
@@ -20,12 +22,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/clike/clike.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/markdown/markdown.min.js"></script>
 
-    <!-- Google Fonts: JetBrains Mono -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/assets/static/icons/code.svg" type="image/svg+xml">
 </head>
+
 <body>
     <div class="editor-container">
         <!-- 第1行：标题行 -->
@@ -33,7 +34,7 @@
             <fluent-text size="1000" weight="bold">Fluent Code Editor</fluent-text>
             <fluent-text size="400" weight="semibold">version 2.12</fluent-text>
         </div>
-        
+
         <!-- 第2行：按钮行 -->
         <div class="button-row">
             <div class="button-group">
@@ -50,32 +51,34 @@
                 </fluent-button>
             </div>
         </div>
-        
+
         <!-- 第3行：文件名和语言行 -->
         <div class="input-row">
             <div class="input-group">
-                <fluent-text-field id="filename-input" placeholder="输入文件名" value="myfile">文件名</fluent-text-field>
+                <div style="width: 80px;">文件名</div>
+                <fluent-text-field id="filename-input" placeholder="输入文件名" value="myfile"></fluent-text-field>
             </div>
             <div class="input-group">
+                <div style="width: 80px;">语言</div>
                 <fluent-select id="language-selector" position="below">
-                    <fluent-option value="text/plain" selected>Plain Text</fluent-option>
-                    <fluent-option value="javascript">JavaScript</fluent-option>
-                    <fluent-option value="python">Python</fluent-option>
-                    <fluent-option value="html">HTML</fluent-option>
-                    <fluent-option value="css">CSS</fluent-option>
-                    <fluent-option value="text/x-csrc">C</fluent-option>
-                    <fluent-option value="text/x-c++src">C++</fluent-option>
-                    <fluent-option value="text/x-java">Java</fluent-option>
-                    <fluent-option value="markdown">Markdown</fluent-option>
+                    <fluent-option value="text/plain" selected>&nbsp;&nbsp;&nbsp;Plain Text</fluent-option>
+                    <fluent-option value="javascript">&nbsp;&nbsp;&nbsp;JavaScript</fluent-option>
+                    <fluent-option value="python">&nbsp;&nbsp;&nbsp;Python</fluent-option>
+                    <fluent-option value="html">&nbsp;&nbsp;&nbsp;HTML</fluent-option>
+                    <fluent-option value="css">&nbsp;&nbsp;&nbsp;CSS</fluent-option>
+                    <fluent-option value="text/x-csrc">&nbsp;&nbsp;&nbsp;C</fluent-option>
+                    <fluent-option value="text/x-c++src">&nbsp;&nbsp;&nbsp;C++</fluent-option>
+                    <fluent-option value="text/x-java">&nbsp;&nbsp;&nbsp;Java</fluent-option>
+                    <fluent-option value="markdown">&nbsp;&nbsp;&nbsp;Markdown</fluent-option>
                 </fluent-select>
             </div>
         </div>
-        
+
         <!-- 第4行：编辑区域 -->
         <div class="editor-area">
             <div id="code-editor"></div>
         </div>
-        
+
         <!-- 第5行：状态栏 -->
         <div class="status-row">
             <div class="status-section status-left">
@@ -88,7 +91,7 @@
                 <div class="position-display" id="position-display">行数: 1 | 列数: 1</div>
             </div>
         </div>
-        
+
         <!-- 第6行：清空按钮 -->
         <div class="clear-row">
             <fluent-button id="clear-button" appearance="accent">
@@ -96,19 +99,46 @@
             </fluent-button>
         </div>
     </div>
-    
+
     <!-- 使用说明模态框 -->
     <div class="modal" id="help-modal">
         <div class="modal-content">
             <span class="close-btn" id="close-modal">&times;</span>
             <h2 class="modal-title">使用说明</h2>
             <p>欢迎使用 Fluent 代码编辑器！这是一个专业的代码编辑工具...</p>
-            <h3>核心功能</h3>
-            <ul>...</ul>
-            <h3>编辑器特性</h3>
-            <ul>...</ul>
-            <h3>快捷键</h3>
-            <ul>...</ul>
+            <h3>核心功能</h3><br>
+            <div class="introduction">
+                <ul>
+                    <li>多语言支持：支持多种编程语言的语法高亮和代码编辑。</li>
+                    <li>主题切换：提供暗色和亮色主题，满足不同环境下的使用需求。</li>
+                    <li>文件操作：支持本地文件的上传和下载，方便代码的保存与管理。</li>
+                    <li>快捷键支持：提供多种快捷键操作，提高编辑效率。</li>
+                    <li>状态反馈：实时显示编辑器状态和光标位置，提升用户体验。</li>
+                </ul>
+            </div><br>
+            <h3>编辑器特性</h3><br>
+            <div class="introduction">
+                <ul>
+                    <li>语法高亮：基于 CodeMirror，支持 JavaScript、Python、HTML、CSS、C/C++、Java、Markdown 等多种语言。</li>
+                    <li>主题切换：一键更换编辑器主题（示例包含暗色 Dracula 主题），后续可扩展更多主题。</li>
+                    <li>文件操作：支持本地文件上传以在编辑器中打开，编辑完成后可一键下载保存修改。</li>
+                    <li>编辑体验：行号显示、智能缩进、自动换行与括号匹配，提升代码可读性与输入效率。</li>
+                    <li>状态反馈：实时状态栏显示当前行列与编辑状态，并提供使用说明的快速入口。</li>
+                    <li>安全保护：清空内容前会弹出确认对话框，防止误操作造成数据丢失。</li>
+                    <li>界面与无障碍：基于 Fluent UI 构建的响应式界面，兼顾可访问性与跨设备适配。</li>
+                </ul>
+            </div><br>
+            <h3>快捷键</h3><br>
+            <p>快捷键说明（Windows / Linux 使用 Ctrl，macOS 使用 ⌘）：</p>
+            <div class="introduction">
+                <ul>
+                    <li><strong>保存 / 下载</strong>：Ctrl / ⌘ + S — 将当前编辑内容下载为指定文件名。</li>
+                    <li><strong>切换主题</strong>：Ctrl / ⌘ + T — 在暗色 / 亮色主题之间切换（或点击“更换主题”按钮）。</li>
+                    <li><strong>缩进 / 反缩进</strong>：Tab / Shift + Tab — 增加或减少选中行的缩进。</li>
+                    <li><strong>清空内容</strong>：Ctrl / ⌘ + E — 清空编辑器（会出现确认对话以防误操作）。</li>
+                    <li><strong>撤销 / 重做</strong>：Ctrl / ⌘ + Z / Ctrl / ⌘ + Y（或 Ctrl / ⌘ + Shift + Z）— 撤销或重做编辑操作。</li>
+                </ul>
+            </div><br><br>
             <p>祝您编码愉快！</p>
         </div>
     </div>
@@ -128,4 +158,5 @@
     <!-- External JavaScript -->
     <script src="script.js"></script>
 </body>
+
 </html>

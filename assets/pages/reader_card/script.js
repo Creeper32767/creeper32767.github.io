@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // DOM Element Lookups
     const elements = {
         quoteTextarea: document.getElementById('quote-textarea'),
@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
         imageUploadInput: document.getElementById('image-upload-input'),
         imagePreview: document.getElementById('image-preview'),
         imageContainer: document.getElementById('image-container'),
-        
+
         displayQuote: document.getElementById('quote-content'),
         displayName: document.getElementById('display-name'),
         displayDate: document.getElementById('display-date'),
         cardTitleDisplay: document.getElementById('card-title-display'),
         displayBookTitle: document.getElementById('display-book-title'),
         displayAuthor: document.getElementById('display-author'),
-        
+
         titleFont: document.getElementById('title-font'),
         titleColor: document.getElementById('title-color'),
         titlePreview: document.getElementById('title-preview'),
@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
         bgPreview: document.getElementById('bg-preview'),
         accentColor: document.getElementById('accent-color'),
         accentPreview: document.getElementById('accent-preview'),
-        
+
         outputContainer: document.getElementById('output-container'),
         outputImage: document.getElementById('output-image'),
         downloadLink: document.getElementById('download-link'),
-        
+
         generateBtn: document.getElementById('generate-btn'),
         exportBtn: document.getElementById('export-btn'),
         randomExampleBtn: document.getElementById('random-example-btn'),
@@ -54,41 +54,41 @@ document.addEventListener('DOMContentLoaded', function() {
         const date = new Date(elements.dateInput.value);
         elements.displayDate.textContent = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
     }
-    
+
     function updateCard() {
         elements.displayQuote.textContent = elements.quoteTextarea.value || "此处显示摘抄内容...";
         elements.displayName.textContent = elements.nameInput.value || "摘录者";
         elements.cardTitleDisplay.textContent = elements.cardTitleInput.value || "卡片标题";
         elements.displayBookTitle.textContent = elements.bookTitleInput.value || "书籍标题";
         elements.displayAuthor.textContent = elements.authorInput.value || "作者姓名";
-        
+
         updateCardDate();
-        
+
         elements.cardTitleDisplay.style.fontFamily = elements.titleFont.value;
         elements.cardTitleDisplay.style.color = elements.titleColor.value;
         elements.displayQuote.style.fontFamily = elements.textFont.value;
         elements.displayQuote.style.color = elements.textColor.value;
-        
+
         const cardElement = document.querySelector('.card');
         cardElement.style.backgroundColor = elements.bgColor.value;
         document.querySelector('.card-footer').style.borderTop = `1px solid ${elements.textColor.value}33`;
-        
+
         cardElement.style.transform = 'scale(0.98)';
         setTimeout(() => { cardElement.style.transform = 'scale(1)'; }, 200);
     }
-    
+
     function initColorPreview() {
         elements.titlePreview.style.backgroundColor = elements.titleColor.value;
         elements.textPreview.style.backgroundColor = elements.textColor.value;
         elements.bgPreview.style.backgroundColor = elements.bgColor.value;
         elements.accentPreview.style.backgroundColor = elements.accentColor.value;
     }
-    
+
     function exportToPNG() {
         const card = document.getElementById('card');
         elements.exportBtn.textContent = '正在生成图片...';
         elements.exportBtn.disabled = true;
-        
+
         html2canvas(card, { scale: 4, backgroundColor: null, useCORS: true })
             .then(canvas => {
                 elements.outputImage.src = canvas.toDataURL('image/png');
@@ -115,15 +115,15 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.textColor.value = "#3a1c71";
         elements.bgColor.value = "#ffffff";
         elements.accentColor.value = "#8a5dff";
-        
+
         initColorPreview();
         updateCard();
     }
-    
+
     function handleImageUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
-        
+
         const reader = new FileReader();
         reader.onload = e => {
             const imgHtml = `<img src="${e.target.result}" alt="预览">`;
@@ -132,28 +132,28 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         reader.readAsDataURL(file);
     }
-    
+
     // Event Listeners
     elements.generateBtn.addEventListener('click', updateCard);
     elements.exportBtn.addEventListener('click', exportToPNG);
     elements.randomExampleBtn.addEventListener('click', loadRandomExample);
     elements.dateInput.addEventListener('change', updateCardDate);
-    
+
     [elements.titleColor, elements.textColor, elements.bgColor, elements.accentColor].forEach(picker => {
         picker.addEventListener('input', initColorPreview);
     });
-    
+
     elements.quoteOptions.forEach(option => {
-        option.addEventListener('click', function() {
+        option.addEventListener('click', function () {
             elements.quoteTextarea.value = this.getAttribute('data-quote');
             this.style.backgroundColor = 'rgba(138, 93, 255, 0.2)';
             setTimeout(() => { this.style.backgroundColor = ''; }, 500);
         });
     });
-    
+
     elements.uploadBtn.addEventListener('click', () => elements.imageUploadInput.click());
     elements.imageUploadInput.addEventListener('change', handleImageUpload);
-    
+
     // Initializer calls
     setCurrentDate();
     initColorPreview();

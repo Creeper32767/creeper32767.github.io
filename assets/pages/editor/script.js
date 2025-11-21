@@ -53,13 +53,13 @@ function saveFile() {
         statusMessage.textContent = '提示：编辑器内容为空';
         return;
     }
-    
+
     let filename = filenameInput.value.trim() || 'file';
     filenameInput.value = filename;
-    
+
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
-    
+
     const link = document.createElement('a');
     link.href = url;
     link.download = filename;
@@ -67,7 +67,7 @@ function saveFile() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    
+
     statusMessage.textContent = `文件已下载: ${filename}`;
 }
 
@@ -105,39 +105,39 @@ uploadButton.addEventListener('click', () => {
 fileUploader.addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (!file) return;
-    
+
     if (file.size > 10 * 1024 * 1024) {
         statusMessage.textContent = '错误：文件过大（最大支持10MB）';
         event.target.value = '';
         return;
     }
-    
+
     const reader = new FileReader();
-    
+
     reader.onload = (e) => {
         editor.setValue(e.target.result);
         filenameInput.value = file.name;
-        
+
         const fileExt = '.' + file.name.split('.').pop().toLowerCase();
         const languageMap = {
             '.js': 'javascript', '.py': 'python', '.html': 'html', '.css': 'css',
             '.c': 'text/x-csrc', '.cpp': 'text/x-c++src', '.java': 'text/x-java',
             '.md': 'markdown', '.txt': 'text/plain'
         };
-        
+
         const lang = languageMap[fileExt] || 'text/plain';
         languageSelector.value = lang;
         editor.setOption("mode", lang);
-        
+
         statusMessage.textContent = `已加载文件: ${file.name}`;
         updateCursorPosition();
     };
-    
+
     reader.onerror = (e) => {
         statusMessage.textContent = "错误: 无法读取文件";
         console.error("Error reading file:", e);
     };
-    
+
     reader.readAsText(file);
     event.target.value = '';
 });

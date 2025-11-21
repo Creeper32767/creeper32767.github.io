@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>专业读者卡片生成器</title>
-    
+
     <!-- Third-party Libraries -->
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    
+
     <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Long+Cang&family=ZCOOL+KuaiLe&family=Liu+Jian+Mao+Cao&display=swap">
-    
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Long+Cang&family=ZCOOL+KuaiLe&family=Liu+Jian+Mao+Cao&display=swap">
+
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/assets/static/icons/card.svg" type="image/svg+xml">
 </head>
+
 <body>
     <div class="header">
         <h1>专业读者卡片生成器</h1>
         <p class="subtitle">创建精美阅读卡片，记录您的阅读精华，生成高清图片分享给朋友</p>
-        
+
         <div class="feature-list">
             <div class="feature">完全自定义内容</div>
             <div class="feature">6种专业字体选择</div>
@@ -27,12 +31,12 @@
             <div class="feature">专业排版设计</div>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="card-customizer">
             <div class="customizer-section">
                 <h2 class="customizer-title">卡片内容</h2>
-                
+
                 <div class="form-group">
                     <div class="form-item">
                         <label for="card-title-input">卡片标题：</label>
@@ -43,7 +47,7 @@
                         <input type="text" id="name-input" placeholder="输入您的名字">
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <div class="form-item">
                         <label for="book-title-input">书籍标题：</label>
@@ -54,7 +58,7 @@
                         <input type="text" id="author-input" placeholder="输入作者姓名">
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <div class="form-item">
                         <label for="date-input">摘录日期：</label>
@@ -73,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="customizer-section">
                 <h2 class="customizer-title">段落摘抄</h2>
                 <div class="instructions">
@@ -84,11 +88,12 @@
                 <div class="predefined-quotes">
                     <div class="quote-option" data-quote="一个人知道自己为什么而活，就能忍受任何一种生活。">一个人知道自己为什么而活...</div>
                     <div class="quote-option" data-quote="独立之思想，自由之精神——陈寅恪">独立之思想，自由之精神——陈寅恪</div>
-                    <div class="quote-option" data-quote="我生来就是高山而非溪流，我欲于群峰之巅俯视平庸的沟壑；我生来就是人杰而非草芥，我站在伟人之肩俯视卑微的懦夫。">我生来就是高山而非溪流...</div>
+                    <div class="quote-option" data-quote="我生来就是高山而非溪流，我欲于群峰之巅俯视平庸的沟壑；我生来就是人杰而非草芥，我站在伟人之肩俯视卑微的懦夫。">
+                        我生来就是高山而非溪流...</div>
                     <div class="quote-option" data-quote="请你务必一而再、再而三、三而不竭，千次万次，毫不犹豫地救自己于水火之中。">请你务必一而再、再而三...</div>
                 </div>
             </div>
-            
+
             <div class="customizer-section">
                 <h2 class="customizer-title">自定义样式</h2>
                 <div class="form-group">
@@ -148,12 +153,12 @@
                     </div>
                 </div>
             </div>
-            
+
             <button id="random-example-btn" class="btn btn-secondary">加载随机示例</button>
             <button id="generate-btn" class="btn">更新卡片预览</button>
             <button id="export-btn" class="btn btn-export">导出为高清图片</button>
         </div>
-        
+
         <div class="card-container">
             <div class="card" id="card">
                 <div class="card-header">
@@ -170,12 +175,13 @@
                     </div>
                     <div class="signature-container">
                         <div>—— 摘自</div>
-                        <span class="signature"><span id="display-book-title">书籍标题</span> · <span id="display-author">作者姓名</span></span>
+                        <span class="signature"><span id="display-book-title">书籍标题</span> · <span
+                                id="display-author">作者姓名</span></span>
                     </div>
                 </div>
                 <div class="watermark">摘抄</div>
             </div>
-            
+
             <div class="output-container" id="output-container">
                 <h3 class="output-title">导出的卡片图片</h3>
                 <img id="output-image" alt="导出的卡片">
@@ -183,8 +189,9 @@
             </div>
         </div>
     </div>
-    
+
     <!-- External JavaScript -->
     <script src="script.js"></script>
 </body>
+
 </html>

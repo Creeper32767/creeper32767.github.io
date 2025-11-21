@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'MapleMono';
+    src: url("https://esm.sh/gh/subframe7536/maple-font@v7.8/woff2/var/MapleMono[wght]-VF.woff2") format("woff2-variations");
+}
+
+/* styles for Screenshot Tool Page */
 :root {
     --neutral-layer-1: #ffffff;
     --neutral-layer-2: #f8f8f8;
@@ -10,7 +16,8 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scroll caused by full-bleed element */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll caused by full-bleed element */
 }
 
 .container {
@@ -21,14 +28,38 @@ body {
     box-sizing: border-box;
 }
 
+/* Two-column grid: inputs on the left, status/control on the right */
 .main-content {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 20px;
+    align-items: start;
+    grid-auto-rows: auto;
+}
+
+.left-column {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Spacing between sections */
+    gap: 20px;
+    grid-column: 1 / 2;
+}
+
+.headers-area {
+    grid-column: 1 / -1;
+}
+
+.result-area {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+    grid-column: 2 / 3;
 }
 
 .content-section {
-    padding: 10px; /* Internal padding for all sections */
+    padding: 10px;
+    /* Internal padding for all sections */
     width: 100%;
     box-sizing: border-box;
 }
@@ -48,7 +79,8 @@ body {
     display: flex;
     gap: 15px;
     align-items: center;
-    padding: 15px; /* Add padding inside the input card */
+    padding: 15px;
+    /* Add padding inside the input card */
 }
 
 fluent-text-field {
@@ -60,20 +92,29 @@ fluent-text-field {
     border-left: 4px solid #ffc80a;
     border-radius: 4px;
 }
-.important-note h3 { margin-top: 0; }
-.important-note code { background: #eee; padding: 2px 4px; border-radius: 3px; }
+
+.important-note h3 {
+    margin-top: 0;
+}
+
+.important-note code {
+    background: #eee;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
 
 #headers-section h3 {
     margin-top: 0;
     margin-bottom: 10px;
 }
+
 #headers-display {
     background-color: #f5f5f5;
     padding: 10px;
     border-radius: 4px;
     white-space: pre-wrap;
     word-break: break-all;
-    font-family: 'Consolas', 'Courier New', monospace;
+    font-family: "MapleMono", monospace;
 }
 
 #status-card {
@@ -85,11 +126,12 @@ fluent-text-field {
 }
 
 #status-message {
-    font-size: 1.2rem;
+    font-size: 16px;
     margin: 0;
 }
 
-#download-link, #progress-container {
+#download-link,
+#progress-container {
     display: none;
 }
 
@@ -100,72 +142,125 @@ fluent-text-field {
     align-items: center;
     gap: 10px;
 }
+
 fluent-progress {
     width: 100%;
 }
 
+/* Preview area: spans full width below the two-column row */
 .preview-container {
     width: 100%;
-    height: 720px; /* Fixed height for consistent view */
-    overflow-x: auto; /* Allow horizontal scroll for desktop view */
+    height: 720px;
+    /* Fixed height for consistent view on desktop */
+    overflow: auto;
     border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     background-color: white;
+    padding: 0;
+    /* let inner iframe fill the card */
+    border-radius: 6px;
+    grid-column: 1 / -1;
+    /* span full width under inputs and result */
 }
 
 #preview-iframe {
-    width: 1280px; /* Force desktop width */
+    width: 100%;
     height: 100%;
+    min-height: 520px;
     border: none;
-    overflow: scroll !important;
+    display: block;
 }
-
 
 /* --- CSS CHANGES FOR FULL-WIDTH BUTTON --- */
-.capture-controls {
-    /* This container will break out of the parent's constraints */
-    width: 100vw; /* Make it as wide as the viewport */
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    
-    /* Give it some vertical spacing */
-    margin-top: 30px;
-    margin-bottom: 20px;
-    padding: 0; /* Remove any side padding */
-    box-sizing: border-box;
-}
-
 #capture-btn {
     display: none;
-    width: 100%; /* The button will now fill its full-viewport-width container */
-    
-    /* We need to override the default border-radius of the button for a sharp look */
-    --control-corner-radius: 0; 
+    width: 100%;
 }
+
 /* --- END OF CSS CHANGES --- */
 
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-container {
+        height: 420px;
+    }
+
+    .left-column,
+    .result-area {
+        width: 100%;
+        grid-column: 1 / -1;
+    }
+}
 
 @media (max-width: 768px) {
     .container {
         padding: 15px;
     }
+
     .main-content {
         gap: 20px;
     }
+
     .header h1 {
         font-size: 1.8rem;
     }
+
     .input-group {
         flex-direction: column;
         align-items: stretch;
     }
+
     #status-message {
-        font-size: 1rem;
+        font-size: 16px;
     }
+
     #status-card {
         flex-direction: column;
     }
+
+    .capture-controls {
+        margin-top: 20px;
+    }
+}
+
+.preview-container {
+    height: 420px;
+}
+
+.left-column,
+.result-area {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .main-content {
+        gap: 20px;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #status-message {
+        font-size: 16px;
+    }
+
+    #status-card {
+        flex-direction: column;
+    }
+
     .capture-controls {
         margin-top: 20px;
     }
