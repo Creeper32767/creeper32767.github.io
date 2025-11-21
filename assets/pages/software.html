@@ -8,6 +8,7 @@
     <script type="module"
         src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
     <link rel="stylesheet" href="/assets/static/style.css">
+    <link rel="shortcut icon" href="/assets/static/icons/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -53,7 +54,22 @@
                             <h3>Python</h3>
                             <p>Python 是一种多功能且易于学习的语言，它让你能够快速工作并更有效地整合系统。</p>
                         </div>
-                         <fluent-anchor href="https://www.python.org/downloads/" target="_blank"
+                        <fluent-anchor href="https://www.python.org/downloads/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://code.visualstudio.com/favicon.ico" alt="VSCode Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>VSCode</h3>
+                            <p>Visual Studio Code 通过 GitHub Copilot 重新定义了 AI 驱动的编码，用于构建和调试现代 Web 和云应用程序。Visual Studio
+                                Code 免费提供，可在您的设备上使用。</p>
+                        </div>
+                        <fluent-anchor href="https://code.visualstudio.com/download" target="_blank"
                             appearance="accent">
                             <fluent-button appearance="accent">获取</fluent-button>
                         </fluent-anchor>
@@ -62,43 +78,388 @@
                     <fluent-card>
                         <div class="card-content">
                             <div class="app-icon">
-                                <img src="https://code.visualstudio.com/favicon.ico" alt="VSCode Icon" width="48" height="48">
-                            </div><br>
-                            <h3>VSCode</h3>
-                            <p>Visual Studio Code 通过 GitHub Copilot 重新定义了 AI 驱动的编码，用于构建和调试现代 Web 和云应用程序。Visual Studio Code 免费提供，可在您的设备上使用。</p>
-                        </div>
-                            <fluent-anchor href="https://code.visualstudio.com/download" target="_blank"
-                                appearance="accent">
-                                <fluent-button appearance="accent">获取</fluent-button>
-                            </fluent-anchor>
-                    </fluent-card>
-
-                    <fluent-card>
-                        <div class="card-content">
-                            <div class="app-icon">
-                                <img src="https://www.jetbrains.com.cn/pycharm/img/logo-with-shadow.jpg" alt="PyCharm Icon" width="48" height="48">
+                                <img src="https://www.jetbrains.com.cn/pycharm/img/logo-with-shadow.jpg"
+                                    alt="PyCharm Icon" width="48" height="48">
                             </div><br>
                             <h3>PyCharm</h3>
                             <p>PyCharm 是一个用于数据科学和网页开发的 Python 集成开发环境，兼容 Windows、macOS 和 Linux。</p>
                         </div>
-                            <fluent-anchor href="https://www.jetbrains.com/pycharm/download/" target="_blank"
-                                appearance="accent">
-                                <fluent-button appearance="accent">获取</fluent-button>
-                            </fluent-anchor>
+                        <fluent-anchor href="https://www.jetbrains.com/pycharm/download/" target="_blank"
+                            appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
                     </fluent-card>
 
                     <fluent-card>
                         <div class="card-content">
                             <div class="app-icon">
-                                <img src="https://www.rust-lang.org/static/images/rust-logo-blk.svg" alt="Rust Icon" width="48" height="48">
+                                <img src="https://www.rust-lang.org/static/images/rust-logo-blk.svg" alt="Rust Icon"
+                                    width="48" height="48">
                             </div><br>
                             <h3>Rust</h3>
                             <p>Rust 是一种具有高性能、高可靠性和高生产力的编程语言，适用于各个领域的应用开发。</p>
                         </div>
-                            <fluent-anchor href="https://www.rust-lang.org/tools/install" target="_blank"
-                                appearance="accent">
-                                <fluent-button appearance="accent">获取</fluent-button>
-                            </fluent-anchor>
+                        <fluent-anchor href="https://www.rust-lang.org/tools/install" target="_blank"
+                            appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://zerotermux.dev/favicon.png" alt="ZeroTermux Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>ZeroTermux</h3>
+                            <p>ZeroTermux 是一个基于 Termux 的终端模拟器，提供了丰富的功能和良好的用户体验，适合在移动设备上进行开发和管理任务。</p>
+                        </div>
+                        <fluent-anchor href="https://zerotermux.dev/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://git-scm.com/favicon.ico" alt="Git Icon" width="48" height="48">
+                            </div><br>
+                            <h3>Git</h3>
+                            <p>Git 是一个分布式版本控制系统，帮助开发者高效地管理代码和协作开发。</p>
+                        </div>
+                        <fluent-anchor href="https://git-scm.com/downloads" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://nodejs.org/static/images/favicons/favicon.png" alt="Node.js Icon"
+                                    width="48" height="48">
+                            </div><br>
+                            <h3>Node.js</h3>
+                            <p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时，允许开发者在服务器端运行 JavaScript 代码。</p>
+                        </div>
+                        <fluent-anchor href="https://nodejs.org/en/download/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://cdn-icons-png.flaticon.com/512/919/919853.png" alt="Docker Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>Docker</h3>
+                            <p>Docker 是一个开源的容器化平台，帮助开发者打包、分发和运行应用程序。</p>
+                        </div>
+                        <fluent-anchor href="https://www.docker.com/get-started" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+                </div><br>
+
+
+                <h2 class="section-title">娱乐 / Entertainment</h2>
+                <div class="apps-grid">
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://images.videolan.org/images/favicon.ico" alt="VLC Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>VLC Media Player</h3>
+                            <p>VLC Media Player 是一个免费且开源的跨平台多媒体播放器，支持几乎所有的音频和视频格式。</p>
+                        </div>
+                        <fluent-anchor href="https://www.videolan.org/vlc/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://t1.daumcdn.net/potplayer/main/img/favicon.ico" alt="PotPlayer Icon"
+                                    width="48" height="48">
+                            </div><br>
+                            <h3>PotPlayer</h3>
+                            <p>PotPlayer 是一个数字多媒体播放器，支持多种音频和视频格式，提供丰富的功能和良好的用户体验。</p>
+                        </div>
+                        <fluent-anchor href="https://potplayer.tv/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://hmcl.huangyuhui.net/favicon.ico" alt="HMCL Launcher Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>HMCL Launcher</h3>
+                            <p>HMCL Launcher 是一个 Minecraft 启动器，提供了便捷的游戏管理和启动功能，支持多种版本和模组。</p>
+                        </div>
+                        <fluent-anchor href="https://hmcl.huangyuhui.net/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://pcl.ruanmao.net/pcl.webp" alt="Plain Craft Launcher Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>Plain Craft Launcher</h3>
+                            <p>Plain Craft Launcher 是一个 Minecraft 启动器，提供了便捷的游戏管理和启动功能，支持多种版本和模组。</p>
+                        </div>
+                        <fluent-anchor href="https://pcl.ruanmao.net/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://pclce-web.demo.fis.ink/img/logo.ico"
+                                    alt="Plain Craft Launcher CE Icon" width="48" height="48">
+                            </div><br>
+                            <h3>Plain Craft Launcher CE</h3>
+                            <p>Plain Craft Launcher CE 是一个 Minecraft 启动器，提供了便捷的游戏管理和启动功能，支持多种版本和模组。</p>
+                        </div>
+                        <fluent-anchor href="https://pclce-web.demo.fis.ink/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://fcl.tslcyh.cn/fcl.jpg" alt="Fold Craft Launcher Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>Fold Craft Launcher</h3>
+                            <p>Fold Craft Launcher 是一个专为 Android 平台开发的 Minecraft: Java Edition
+                                启动器，提供了便捷的游戏管理和启动功能，支持多种版本和模组。</p>
+                        </div>
+                        <fluent-anchor href="https://next.foldcraftlauncher.cn/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://klpwiki.com/favicon.ico" alt="klpbbs.com Icon" width="48" height="48">
+                            </div><br>
+                            <h3>klpbbs.com</h3>
+                            <p>klpbbs.com 是一个提供 Minecraft 模组下载和资讯的网站，拥有丰富的模组资源和活跃的社区。</p>
+                        </div>
+                        <fluent-anchor href="https://klpbbs.com/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://store.steamchina.com/favicon.ico" alt="Steam Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>Steam</h3>
+                            <p>Steam 是一个数字游戏分发平台，提供了丰富的游戏资源和社区功能。</p>
+                        </div>
+                        <fluent-anchor href="https://store.steamchina.com/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://www.myfreemp3.com.cn/favicon.ico" alt="MyFreeMP3 Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>MyFreeMP3</h3>
+                            <p>MyFreeMP3 是一个免费的音乐下载平台，提供了丰富的音乐资源和便捷的下载服务。</p>
+                        </div>
+                        <fluent-anchor href="https://www.myfreemp3.com.cn/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+                </div><br>
+
+                <h2 class="section-title">工具 / Tools</h2>
+                <div class="apps-grid">
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://www.7-zip.org/favicon.ico" alt="7-Zip Icon" width="48" height="48">
+                            </div><br>
+                            <h3>7-Zip</h3>
+                            <p>7-Zip 是一个开源的文件压缩和解压工具，支持多种压缩格式，提供高压缩比和强大的功能。</p>
+                        </div>
+                        <fluent-anchor href="https://www.7-zip.org/download.html" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://winmemorycleaner.com/assets/images/win-memory-cleaner.png"
+                                    alt="Windows Memory Cleaner Icon" width="48" height="48">
+                            </div><br>
+                            <h3>Windows Memory Cleaner</h3>
+                            <p>Windows Memory Cleaner 是一个内存优化工具，帮助用户释放和管理系统内存，提高计算机性能。</p>
+                        </div>
+                        <fluent-anchor href="https://winmemorycleaner.com/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://geekuninstaller.com/favicon.ico" alt="Geek Uninstaller Icon"
+                                    width="48" height="48">
+                            </div><br>
+                            <h3>Geek Uninstaller</h3>
+                            <p>Geek Uninstaller 是一个强大的卸载工具，帮助用户彻底删除不需要的软件和插件，释放系统空间。</p>
+                        </div>
+                        <fluent-anchor href="https://geekuninstaller.com/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://www.dudues.com/wp-content/uploads/2023/01/00-0-130x130.png" alt="HEU KMS Activator Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>HEU KMS Activator</h3>
+                            <p>HEU KMS Activator 是一个激活工具，帮助用户激活 Windows 和 Office 产品，确保软件的合法使用。</p>
+                        </div>
+                        <fluent-anchor href="https://github.com/zbezj/HEU_KMS_Activator/releases" target="_blank"
+                            appearance="accent">
+                            <fluent-button appearance="accent">获取 (GitHub)</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://cdn2.iconfinder.com/data/icons/mixd/512/1-idm_internet_downloader_download_manage-128.png"
+                                    alt="Internet Download Manager Icon" width="48" height="48">
+                            </div><br>
+                            <h3>Internet Download Manager</h3>
+                            <p>Internet Download Manager 是一个下载管理工具，帮助用户加快下载速度，管理下载任务。</p>
+                        </div>
+                        <fluent-anchor href="https://www.internetdownloadmanager.com/" target="_blank"
+                            appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="/assets/static/icons/github.svg" alt="IDM Activation Script Icon" width="48"
+                                    height="48">
+                            </div><br>
+                            <h3>IDM Activation Script</h3>
+                            <p>IDM Activation Script 是一个激活工具，帮助用户激活 Internet Download Manager，确保软件的合法使用。</p>
+                        </div>
+                        <fluent-anchor href="https://github.com/lstprjct/IDM-Activation-Script" target="_blank"
+                            appearance="accent">
+                            <fluent-button appearance="accent">获取 (GitHub)</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://www.sd173.com/uploads/240819/2-240Q9111440453.png" alt="Windows Optimizer Icon" width="64"
+                                    height="48">
+                            </div><br>
+                            <h3>Windows Optimizer</h3>
+                            <p>Windows Optimizer 是一组免费的系统工具，帮助用户管理和优化计算机性能。</p>
+                        </div>
+                        <fluent-anchor href="https://github.com/hellzerg/optimizer" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取 (GitHub)</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://rufus.ie/pics/rufus-256.png" alt="Rufus Icon" width="48" height="48">
+                            </div><br>
+                            <h3>Rufus</h3>
+                            <p>Rufus 是一个开源的启动盘制作工具，帮助用户创建可启动的 USB 驱动器，用于安装操作系统。</p>
+                        </div>
+                        <fluent-anchor href="https://github.com/pbatard/rufus" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取 (GitHub)</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://image.winudf.com/v2/image1/Y29tLmR2LmFkbV9pY29uXzE1NjYwOTAxMjVfMDcz/icon.png?w=120&fakeurl=1" alt="Advance Download Manager Icon"
+                                    width="48" height="48">
+                            </div><br>
+                            <h3>Advance Download Manager</h3>
+                            <p>Advance Download Manager 是一个 Android 下载管理工具，帮助用户更有效地管理和加速下载任务。</p>
+                        </div>
+                        <fluent-anchor href="https://www.puresys.net/9111.html" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://pixpin.cn/favicon.ico" alt="PixPin Icon"
+                                    width="48" height="48">
+                            </div><br>
+                            <h3>PixPin</h3>
+                            <p>PixPin 是一款功能强大的免费截图工具，支持截图、录屏、长截图、OCR文字识别等功能，旨在为用户提供高效的屏幕操作体验。</p>
+                        </div>
+                        <fluent-anchor href="https://pixpin.cn/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico" alt="Weixin Icon"
+                                    width="48" height="48">
+                            </div><br>
+                            <h3>微信</h3>
+                            <p>微信是一个多功能的社交媒体应用，提供消息发送、语音通话、视频通话等功能。</p>
+                        </div>
+                        <fluent-anchor href="https://weixin.qq.com/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
+                    </fluent-card>
+
+                    <fluent-card>
+                        <div class="card-content">
+                            <div class="app-icon">
+                                <img src="https://qq-web.cdn-go.cn//im.qq.com_new/7bce6d6d/asset/favicon.ico"
+                                    alt="QQ Icon" width="48" height="48">
+                            </div><br>
+                            <h3>QQ</h3>
+                            <p>QQ 是一个即时通讯软件，提供消息发送、语音通话、视频通话等功能。</p>
+                        </div>
+                        <fluent-anchor href="https://im.qq.com/" target="_blank" appearance="accent">
+                            <fluent-button appearance="accent">获取</fluent-button>
+                        </fluent-anchor>
                     </fluent-card>
                 </div>
             </main>
