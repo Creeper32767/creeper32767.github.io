@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - By Haley</title>
+
+    <meta name="description" content="Kitten Haley 的观测报告：阅读、游戏、生活与频道简介。">
+    <meta name="keywords" content="Kitten Haley, Creeper32767, 个人简介, 阅读, 游戏, 频道">
+    <meta name="author" content="Haley Herzog">
+
+    <!-- Fluent UI Web Components -->
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="/assets/static/style.css">
+    <link rel="stylesheet" href="/assets/static/intro_style.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- Sidebar (Loaded via JS) -->
+    <nav class="sidebar" id="nav-placeholder"></nav>
+    <!-- Overlay for when sidebar is open -->
+    <div class="sidebar-overlay"></div>
+
+    <!-- Toggle Button -->
+    <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
+        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+    </fluent-button>
+
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <h1>Kitten Haley · 更深的自我解构</h1>
+                <p>⚠️ 暂停一下 | 信号接入 ⚠️ — 一份来自黄狸猫的观测报告。</p>
+            </header>
+
+            <section class="intro-banner">
+                <p class="signal-line">🐾 自介条载入中... |･ω･｀) 这是一只猫的观测报告 🐾</p>
+                <p class="typewriter" id="typewriter-text"></p>
+            </section>
+
+            <main>
+                <fluent-card class="section-card fade-in" data-delay="0">
+                    <div class="card-content">
+                        <h3>📖 阅·读 | 思想的避难所 <span>(Reading Preferences)</span></h3>
+                        <ul class="info-list">
+                            <li>
+                                <strong>杂食性阅读者</strong>
+                                <small>像在图书馆废墟里寻宝，什么都看，Z-library 是精神粮仓。</small>
+                            </li>
+                            <li>
+                                <strong>深度迷恋</strong>
+                                <small>更偏爱能刺痛灵魂的文字，《茶馆》《龙须沟》《巴黎圣母院》里的悲伤底色与人性微光是心头好。</small>
+                            </li>
+                            <li>
+                                <strong>拾回碎片</strong>
+                                <small>试图用文字雕刻认知，从曾经的懒散中走出，认真潜入书海。</small>
+                            </li>
+                            <li>
+                                <strong>网文绝缘体</strong>
+                                <small>网络文学的庞大分类系统仍未 comprehend，只能抱歉旁观。</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+
+                <fluent-card class="section-card fade-in" data-delay="120">
+                    <div class="card-content">
+                        <h3>🎮 游·戏 & 兽·设 | 第二人生的投影 <span>(Gaming & Fursona)</span></h3>
+                        <ul class="info-list">
+                            <li>
+                                <strong>Minecraft 守望者</strong>
+                                <small>更多时候拆解安装包、研读 Dream 速通、在 C418 的 BGM 里冥想。</small>
+                            </li>
+                            <li>
+                                <strong>Changed 玩家</strong>
+                                <small>游戏已入库，等待在雨夜投入与未知共生的紧张感。</small>
+                            </li>
+                            <li>
+                                <strong>番剧萌新</strong>
+                                <small>真·小白猫，知识储备趋近于零。</small>
+                            </li>
+                            <li>
+                                <strong>Project: Kitten Haley</strong>
+                                <small>另一个维度的黄狸猫，自豪地朝 Fursuit 梦想迈进，想彻底成为猫猫人。</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+
+                <fluent-card class="section-card fade-in" data-delay="240">
+                    <div class="card-content">
+                        <h3>🌐 生·活 | 现实与理想的缝隙 <span>(Real Life & Quirks)</span></h3>
+                        <ul class="info-list">
+                            <li>
+                                <strong>代号与呼号</strong>
+                                <small>海外：Kitten Haley / Haley Herzog</small>
+                                <small>B 站：FreedomDrones</small>
+                                <small>线下：直接叫“猫猫”</small>
+                            </li>
+                            <li>
+                                <strong>旋律捕食者</strong>
+                                <small>偏爱 ALisa、C418、Hea2t 等纯旋律音乐，它们是对抗虚无的武器。</small>
+                            </li>
+                            <li>
+                                <strong>代码编织者</strong>
+                                <small>GitHub (Creeper32767) 是后花园，COSMO 打工攒罐头</small>
+                                <small>目标：专属 Win 笔记本</small>
+                            </li>
+                            <li>
+                                <strong>技能树</strong>
+                                <small>🍳 会做饭</small>
+                                <small>🐔 养过一年半的鸡</small>
+                            </li>
+                            <li>
+                                <strong>世界观设定</strong>
+                                <small>乐观的悲观主义者，在瓦砾间寻找群星，立志做清醒、独立、温暖的好猫。</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+
+                <fluent-card class="section-card fade-in" data-delay="360">
+                    <div class="card-content">
+                        <h3>📬 联系方式 <span>(Where to ping me)</span></h3>
+                        <ul class="contact-list">
+                            <li><strong>🐾 海外呼号</strong> <code>Kitten Haley</code>&nbsp;&nbsp;/&nbsp;&nbsp;<code>Haley Herzog</code></li>
+                            <li><strong>📺 Bilibili</strong> <code>FreedomDrones</code>&nbsp;&nbsp;<code>ID: 3546616696932529</code></li>
+                            <li><strong>▶️ YouTube</strong> <code>@FreedomDrones</code></li>
+                            <li><strong>💻 GitHub</strong> <code>@Creeper32767</code></li>
+                            <li><strong>✖️ X</strong> <code>@ConsoleCreeper</code></li>
+                            <li><strong>💬 微信 / QQ</strong> <code>暂时不公开喵~ 再等等，也许熟了之后猫猫就会悄悄告诉你了喵😸</code></li>
+                            <li><strong>🤝 线下/好友</strong> 叫我 <code>“猫猫”</code> 即刻响应</li>
+                        </ul>
+                    </div>
+                </fluent-card>
+                <fluent-card class="section-card fade-in" data-delay="480">
+                    <div class="card-content channel-list">
+                        <h3>📡 频·道 | 猫的信号发射塔 <span>(My Channels)</span></h3>
+                        <p>这里有我的一点小秘密，有些公开广播，有些只留给懂我的同类。</p>
+                        <ul>
+                            <li>
+                                <strong>#LifeRecord · 公开</strong>
+                                <small>生活切片：风把浪雕刻成的碎花、雨夜里的蛋糕，以及值得被记录的“一二”。</small>
+                            </li>
+                            <li>
+                                <strong>#Minds&Thoughts · 白名单</strong>
+                                <small>思想暗房：不那么温顺但真实的自我对话，是我审视世界的方式。</small>
+                            </li>
+                            <li>
+                                <strong>#MusicWorld · 白名单</strong>
+                                <small>私藏歌单与拙劣琴音，欢迎交换旋律引起的共鸣。</small>
+                            </li>
+                            <li>
+                                <strong>#BeFurry · 白名单</strong>
+                                <small>Kitten Haley 相关创作与毛绒艺术收藏，专属柔软灵魂的绝对领域。</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card><br>
+                
+                <fluent-card class="section-card fade-in" data-delay="600">
+                    <div class="card-content conclusion-content">
+                        <h3>🐾 结·语 | 信号终端 <span>(End of the Journey)</span><h3>
+                        <ul>
+                            <li>
+                                <strong>格式 Credit：<code>不可导</code></strong>
+                            </li>
+                            <li>
+                                <strong>鸣谢：<code>硫酰氯喵</code></strong>
+                            </li>
+                            <li>
+                                <strong>期待与你在某个频率产生回响。🐾</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+            </main>
+
+            <footer>
+                <p>© <span id="current-year"></span> - 本页面由 Fluent UI Web Components 构建</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/assets/static/script.js"></script>
+    <script src="/assets/static/intro_script.js"></script>
+</body>
+
+</html>

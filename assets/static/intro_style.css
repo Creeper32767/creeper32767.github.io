@@ -1,0 +1,159 @@
+.intro-banner {
+    width: 100%;
+    height: 120px;
+    max-width: 980px;
+    margin: 18px auto;
+    padding: 18px 22px;
+    background: linear-gradient(90deg, #3eabff, #66baff);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    color: #333;
+    position: relative;
+    overflow: hidden;
+}
+
+.intro-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.6), transparent 70%);
+    pointer-events: none;
+}
+
+.signal-line {
+    font-family: 'MapleMono', monospace;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: 0.75rem;
+}
+
+.typewriter {
+    display: inline-flex;
+    align-items: center;
+    border-right: 2px solid rgba(255, 255, 255, 0.6);
+    padding: 6px 12px;
+    border-radius: 999px;
+    background-color: #2ba3ff;
+    color: #fff;
+    min-height: 32px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-card {
+    margin-bottom: 18px;
+}
+
+.section-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.section-card h3 span {
+    font-size: 0.9rem;
+    color: #888;
+    font-weight: 500;
+}
+
+.info-list,
+.channel-list ul,
+.contact-list,
+.conclusion-content ul {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-list li,
+.channel-list li,
+.contact-list li,
+.conclusion-content li {
+    width: 95%;
+    padding: 12px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    background: var(--neutral-layer-1, #fff);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.info-list strong,
+.channel-list strong,
+.contact-list strong,
+.conclusion-content strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+    color: #222;
+    font-weight: 600;
+}
+
+.channel-list p {
+    margin: 0.4em 0 1em;
+}
+
+.info-list small,
+.channel-list small,
+.contact-list small,
+.conclusion-content small {
+    display: block;
+    margin-top: 4px;
+    color: #666;
+}
+
+.contact-list code,
+.conclusion-content code {
+    background: rgba(0, 0, 0, 0.08);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: 'MapleMono', monospace;
+}
+
+/* Ensure list groups align visually with Fluent cards */
+.info-list li::before,
+.channel-list li::before,
+.contact-list li::before,
+.conclusion-content li::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+}
+
+.info-list li,
+.channel-list li,
+.contact-list li,
+.conclusion-content li {
+    position: relative;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info-list li:hover,
+.channel-list li:hover,
+.contact-list li:hover,
+.conclusion-content li:hover {
+    border-color: rgba(0, 120, 212, 0.25);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
