@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluent Design 读者卡片生成器</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Long+Cang&family=ZCOOL+KuaiLe&family=Liu+Jian+Mao+Cao&family=Zhi+Mang+Xing&family=Noto+Sans+SC:wght@400;700&family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&family=Raleway:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Fluent Design <span class="fluent-accent">读者卡片生成器</span></h1>
+        <p class="subtitle">创建精美阅读卡片，记录您的阅读精华，生成高清图片分享给朋友</p>
+
+        <div class="feature-list">
+            <div class="feature">微软Fluent设计风格</div>
+            <div class="feature">14种精选字体</div>
+            <div class="feature">添加读书感悟</div>
+            <div class="feature">高清图片导出</div>
+            <div class="feature">完全自定义</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card-customizer">
+            <div class="customizer-section">
+                <h2 class="customizer-title">卡片内容</h2>
+
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="card-title-input">卡片标题：</label>
+                        <input type="text" id="card-title-input" placeholder="例如：致所有不甘平凡的你" value="致所有不甘平凡的你">
+                    </div>
+
+                    <div class="form-item">
+                        <label for="name-input">摘录者：</label>
+                        <input type="text" id="name-input" placeholder="输入您的名字" value="佚名">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="book-title-input">书籍标题：</label>
+                        <input type="text" id="book-title-input" placeholder="输入书籍名称" value="我要上北大：一个普通女孩的逆袭">
+                    </div>
+
+                    <div class="form-item">
+                        <label for="author-input">书籍作者：</label>
+                        <input type="text" id="author-input" placeholder="输入作者姓名" value="苏苏">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="date-input">摘录日期：</label>
+                        <input type="date" id="date-input">
+                        <div class="date-note">默认显示当前日期</div>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="image-upload">个人照片：</label>
+                        <div class="image-upload">
+                            <div class="image-upload-btn" id="upload-btn">选择图片</div>
+                            <div class="image-preview" id="image-preview">
+                                <div class="image-preview-placeholder">无图片</div>
+                            </div>
+                            <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customizer-section">
+                <h2 class="customizer-title">阅读内容</h2>
+
+                <div class="instructions">
+                    <p>您可以直接在下方输入框编辑段落，或点击下方的预设段落快速填充。<br>段落将保持原格式显示，不添加额外空格。</p>
+                </div>
+
+                <label for="quote-textarea">摘抄内容：</label>
+                <textarea id="quote-textarea">你今天受的苦、吃的亏、担的责任、忍的痛，到最后都会变成光，照亮你的行的路。</textarea>
+
+                <label for="insight-textarea" style="margin-top: 15px;">读书感悟（可选）：</label>
+                <textarea id="insight-textarea"
+                    placeholder="输入您的读书感悟...">这段话让我明白，人生中的每一次挑战都是成长的契机，苦难终将成为照亮前路的光。</textarea>
+
+                <div class="predefined-quotes">
+                    <div class="quote-option" data-quote="一个人知道自己为什么而活，就能忍受任何一种生活。">一个人知道自己为什么而活，就能忍受任何一种生活。</div>
+                    <div class="quote-option" data-quote="独立之思想，自由之精神——陈寅恪">独立之思想，自由之精神——陈寅恪</div>
+                    <div class="quote-option" data-quote="我生来就是高山而非溪流，我欲于群峰之巅俯视平庸的沟壑；我生来就是人杰而非草芥，我站在伟人之肩俯视卑微的懦夫。">
+                        我生来就是高山而非溪流，我欲于群峰之巅俯视平庸的沟壑；我生来就是人杰而非草芥，我站在伟人之肩俯视卑微的懦夫。</div>
+                </div>
+            </div>
+
+            <div class="customizer-section">
+                <h2 class="customizer-title">自定义样式</h2>
+
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="title-font">标题字体：</label>
+                        <select id="title-font">
+                            <option value="'Segoe UI', system-ui, sans-serif">Segoe UI (默认)</option>
+                            <option value="'Ma Shan Zheng', cursive">马善政体 (典雅)</option>
+                            <option value="'ZCOOL XiaoWei', serif">站酷小薇体 (传统)</option>
+                            <option value="'Long Cang', cursive">龙藏体 (书法)</option>
+                            <option value="'Liu Jian Mao Cao', cursive">流金毛草体 (手写)</option>
+                            <option value="'Zhi Mang Xing', cursive">稚茫星体 (可爱)</option>
+                            <option value="'Noto Serif SC', serif">思源宋体 (现代)</option>
+                            <option value="'Noto Sans SC', sans-serif">思源黑体 (简洁)</option>
+                            <option value="'Playfair Display', serif">Playfair Display (经典)</option>
+                            <option value="'Montserrat', sans-serif">Montserrat (现代)</option>
+                            <option value="'Raleway', sans-serif">Raleway (优雅)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="text-font">正文字体：</label>
+                        <select id="text-font">
+                            <option value="'Segoe UI', system-ui, sans-serif">Segoe UI (默认)</option>
+                            <option value="'Noto Serif SC', serif">思源宋体 (清晰)</option>
+                            <option value="'Noto Sans SC', sans-serif">思源黑体 (简洁)</option>
+                            <option value="'ZCOOL XiaoWei', serif">站酷小薇体 (传统)</option>
+                            <option value="'Long Cang', cursive">龙藏体 (书法)</option>
+                            <option value="'Liu Jian Mao Cao', cursive">流金毛草体 (手写)</option>
+                            <option value="'Roboto', sans-serif">Roboto (科技)</option>
+                            <option value="'Open Sans', sans-serif">Open Sans (友好)</option>
+                            <option value="'Montserrat', sans-serif">Montserrat (现代)</option>
+                            <option value="'Raleway', sans-serif">Raleway (优雅)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="title-color">标题颜色：</label>
+                        <div class="color-picker">
+                            <input type="color" id="title-color" value="#106EBE">
+                            <div class="color-preview" id="title-preview" style="background-color: #106EBE;"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="text-color">正文颜色：</label>
+                        <div class="color-picker">
+                            <input type="color" id="text-color" value="#1A1A1A">
+                            <div class="color-preview" id="text-preview" style="background-color: #1A1A1A;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-item">
+                        <label for="bg-color">背景颜色：</label>
+                        <div class="color-picker">
+                            <input type="color" id="bg-color" value="#FFFFFF">
+                            <div class="color-preview" id="bg-preview" style="background-color: #FFFFFF;"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="accent-color">强调色：</label>
+                        <div class="color-picker">
+                            <input type="color" id="accent-color" value="#0078D7">
+                            <div class="color-preview" id="accent-preview" style="background-color: #0078D7;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="generate-btn" class="btn">更新卡片预览</button>
+            <button id="export-btn" class="btn btn-export">导出为高清图片</button>
+        </div>
+
+        <div class="card-container">
+            <div class="card" id="card">
+                <div class="card-header">
+                    <div class="card-title" id="card-title-display">致所有不甘平凡的你</div>
+                    <div class="card-subtitle">
+                        <span id="display-name">佚名</span>
+                        摘录于 <span id="display-date">2025/6/12</span>
+                    </div>
+                </div>
+
+                <div class="quote-content" id="quote-content">
+                    你今天受的苦、吃的亏、担的责任、忍的痛，到最后都会变成光，照亮你的行的路。
+                </div>
+
+                <div class="insight-content" id="insight-content">
+                    这段话让我明白，人生中的每一次挑战都是成长的契机，苦难终将成为照亮前路的光。
+                </div>
+
+                <div class="card-footer">
+                    <div class="image-container" id="image-container">
+                        <div class="image-placeholder">个人照片</div>
+                    </div>
+
+                    <div class="signature-container">
+                        <div>—— 摘自</div>
+                        <span class="signature"><span id="display-book-title">我要上北大：一个普通女孩的逆袭</span> · <span
+                                id="display-author">苏苏</span></span>
+                    </div>
+                </div>
+
+                <div class="watermark">阅读</div>
+            </div>
+
+            <div class="output-container" id="output-container">
+                <h3 class="output-title">导出的卡片图片</h3>
+                <img id="output-image" alt="导出的卡片">
+                <a id="download-link" class="download-btn">下载高清图片</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

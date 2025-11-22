@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>读书笔记 - By Haley</title>
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    <link rel="stylesheet" href="/assets/static/style.css">
+    <link rel="stylesheet" href="/assets/static/notes_style.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <nav class="sidebar" id="nav-placeholder"></nav>
+    <div class="sidebar-overlay"></div>
+
+    <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
+        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+    </fluent-button>
+
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <h1>读书笔记</h1>
+                <p>总结阅读过的书籍，提炼其中的精华。</p>
+            </header>
+
+            <main>
+                <h2 class="section-title" id="PoemEveryday">书海修行</h2>
+                <fluent-card>
+                    <div class="card-content">
+                        <h3>自由在高处&nbsp;&nbsp;&nbsp;&nbsp;熊培云</h3>
+                        <p>
+                            <i>“追求真理，但不强加于⼈”，或者说“我的真理以你不接受为边界”。</i>
+                        </p>
+                        <p>
+                            <i>国家和个⼈有边界，你和我也有边界。在公域，我们因互相妥协⽽保全社会；在私域，我们因互不⼲涉⽽保全⾃⼰。</i>
+                        </p>
+                        <p>
+                            <i>真正伟⼤的⾰命，不在于解开奴⾪⾝上的枷锁，让他们“翻⾝做主⼈”；⽽在于打破枷锁，让这个国家从此不再⽣产奴⾪；在于每个⼈保有私⺠的基本权利，并做为⾃由担起责任的公⺠。</i>
+                        </p>
+                        <p>
+                            <i>直到那天，当我在塞纳河边体会到了⼀种从未有过的⽆助感，⼀种失去了写作能⼒的悲哀，我才真正意识到思考与表达对于我来说有着怎样⽆可替代的意义与欢乐。我知道，如果失去了⼿中的笔，我将惶惶不可终⽇；如果失去了⾃由思想的权利，我的⽣命将不复存在。</i>
+                        </p>
+                        <p>
+                            <i>在苦难与阳光之间，我更愿意看到阳光的⼀⾯、积极的⼀⾯，看到万物⽣⻓，⽽不是百花凋零、独⾃叹息。我希望⾃⼰⽬光明亮、明辨是⾮，但也知道每个⼈，由着⼀个渐次开放的环境，都在向着好的⽅向⾛。我不憎恨，我的⼼中没有敌⼈。</i>
+                        </p>
+                        <p>
+                            <i>我中学有位⽼师说“河流弯曲是为了哺育更多的⽣灵”，想来社会改造也是如此吧。是的，它发展得⼗分缓慢，简直让⼈⽆以忍受，可这种表⾯上的弯曲何尝不是为照顾更多⼈的利益呢？暴⼒⾰命如瀑布⽓势磅礴，从天⽽降，⻜流直下三千尺，但它不为任何⼈停留，只有噪声⽽⽆营养。</i>
+                        </p>
+                        <p>
+                            <i>偶尔⾛失，从未离开。没有⽐⽣活更古⽼的过去，也没有⽐⽣活更⾼远的未来。⽆论经历多少波折、困苦与残酷，⼈们对美好⽣活的追寻，亘古如新。</i>
+                        </p>
+                        <p>
+                            <i>这样的时代常常让我想起亨利•梭罗，那位在⽡尔登湖畔离群索居的思想者。梭罗坚称：“如果我像⼤多数⼈那样，把⾃⼰的上午和下午都卖给社会，我敢肯定，⽣活也就没什么值得过的了。”梭罗同样看破⼈类⽂明的悖谬与困境：“如果⼀个⼈因为喜欢树林，每天在树林⾥度过半天时光，那他可能被⼈看作是流浪汉；可要是他全天做个投机者，锯光树⽊，让⼤地光秃秃，⼈们却把他看成是勤勉进取的好公⺠。”</i>
+                        </p>
+                    </div>
+                    <div class="category">
+                        <strong class="author">熊培云</strong>
+                        <strong class="society">社会</strong>
+                        <strong class="history">历史</strong>
+                        <strong class="philosophy">哲学</strong>
+                    </div>
+                </fluent-card>
+            </main>
+
+            <footer>
+                <p>© <span id="current-year"></span> - 本页面由 Fluent UI Web Components 构建</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/assets/static/script.js"></script>
+    <script src="/assets/static/notes_script.js"></script>
+</body>
+
+</html>
