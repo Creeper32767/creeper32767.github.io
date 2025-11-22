@@ -1,3 +1,4 @@
+/* --- Banner & Header Styles --- */
 .intro-banner {
     height: 120px;
     margin: 18px auto;
@@ -42,6 +43,7 @@
     letter-spacing: 0.5px;
 }
 
+/* --- Animation Utilities --- */
 .fade-in {
     opacity: 0;
     transform: translateY(12px);
@@ -53,6 +55,7 @@
     transform: translateY(0);
 }
 
+/* --- Section Card Layout --- */
 .section-card {
     margin-bottom: 18px;
 }
@@ -70,6 +73,8 @@
     font-weight: 500;
 }
 
+/* --- List Components (Info, Channel, Contact) --- */
+/* Container */
 .info-list,
 .channel-list ul,
 .contact-list,
@@ -83,6 +88,7 @@
     gap: 10px;
 }
 
+/* List Items */
 .info-list li,
 .channel-list li,
 .contact-list li,
@@ -93,8 +99,31 @@
     border-radius: 12px;
     background: var(--neutral-layer-1, #fff);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Hover Effects */
+.info-list li:hover,
+.channel-list li:hover,
+.contact-list li:hover,
+.conclusion-content li:hover {
+    border-color: rgba(0, 120, 212, 0.25);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.info-list li::before,
+.channel-list li::before,
+.contact-list li::before,
+.conclusion-content li::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+}
+
+/* Typography within Lists */
 .info-list strong,
 .channel-list strong,
 .contact-list strong,
@@ -107,10 +136,6 @@
     font-weight: 600;
 }
 
-.channel-list p {
-    margin: 0.4em 0 1em;
-}
-
 .info-list small,
 .channel-list small,
 .contact-list small,
@@ -120,38 +145,14 @@
     color: #666;
 }
 
+.channel-list p {
+    margin: 0.4em 0 1em;
+}
+
 .contact-list code,
 .conclusion-content code {
     background: rgba(0, 0, 0, 0.08);
     padding: 2px 6px;
     border-radius: 6px;
     font-family: 'MapleMono', monospace;
-}
-
-/* Ensure list groups align visually with Fluent cards */
-.info-list li::before,
-.channel-list li::before,
-.contact-list li::before,
-.conclusion-content li::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    opacity: 0;
-}
-
-.info-list li,
-.channel-list li,
-.contact-list li,
-.conclusion-content li {
-    position: relative;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.info-list li:hover,
-.channel-list li:hover,
-.contact-list li:hover,
-.conclusion-content li:hover {
-    border-color: rgba(0, 120, 212, 0.25);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }

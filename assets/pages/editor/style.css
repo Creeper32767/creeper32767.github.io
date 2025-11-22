@@ -1,3 +1,4 @@
+/* --- Base & Variables --- */
 @font-face {
     font-family: 'MapleMono';
     src: url("https://esm.sh/gh/subframe7536/maple-font@v7.8/woff2/var/MapleMono[wght]-VF.woff2") format("woff2-variations");
@@ -40,11 +41,11 @@ body.dark-theme {
     color: var(--dark-text-color);
 }
 
+/* --- Layout Structure --- */
 .editor-container {
     width: 100%;
     max-width: 1080px;
     height: 100vh;
-    /* Use viewport height for responsiveness */
     max-height: 768px;
     background: var(--card-bg);
     border-radius: 8px;
@@ -66,10 +67,9 @@ body.dark-theme .editor-container {
 .clear-row {
     padding: 15px 25px;
     flex-shrink: 0;
-    /* Prevent rows from shrinking */
 }
 
-/* Row 1: Title */
+/* --- Header & Toolbar --- */
 .header-row {
     display: flex;
     justify-content: space-between;
@@ -78,7 +78,6 @@ body.dark-theme .editor-container {
     color: white;
 }
 
-/* Row 2: Buttons */
 .button-row {
     display: flex;
     justify-content: space-between;
@@ -96,7 +95,7 @@ body.dark-theme .button-row {
     gap: 12px;
 }
 
-/* Row 3: Inputs */
+/* --- Input Area --- */
 .input-row {
     display: flex;
     justify-content: space-between;
@@ -117,14 +116,26 @@ body.dark-theme .input-row {
     width: 47.5%;
 }
 
-/* Row 4: Editor */
+/* --- Editor Area --- */
 .editor-area {
     flex: 1;
     position: relative;
     overflow: hidden;
 }
 
-/* Row 5: Status */
+#code-editor,
+.CodeMirror {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: 'MapleMono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* --- Status Bar --- */
 .status-row {
     display: flex;
     justify-content: space-between;
@@ -170,7 +181,7 @@ body.dark-theme .position-display {
     color: #a0d0ff;
 }
 
-/* Row 6: Clear Button */
+/* --- Footer Actions --- */
 .clear-row {
     background: #f0f7ff;
     border-top: 1px solid var(--border-color);
@@ -185,20 +196,7 @@ body.dark-theme .clear-row {
     width: 100%;
 }
 
-/* CodeMirror styles */
-#code-editor,
-.CodeMirror {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-family: 'MapleMono', monospace;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-/* Fluent Component Overrides & Dark Theme Fixes */
+/* --- Fluent UI Overrides --- */
 fluent-text-field,
 fluent-select {
     width: 100%;
@@ -238,7 +236,7 @@ body.dark-theme fluent-button[appearance="outline"]:hover::part(control) {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Modal styles */
+/* --- Modal System --- */
 .modal {
     display: none;
     position: fixed;
@@ -296,8 +294,9 @@ body.dark-theme .close-btn {
     text-align: center;
 }
 
-.modal-content p {
-    margin-bottom: 15px;
+.modal-content p,
+.modal-content li {
+    margin-bottom: 10px;
     line-height: 1.3;
 }
 
@@ -305,11 +304,6 @@ body.dark-theme .close-btn {
     padding-left: 25px;
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-.modal-content li {
-    margin-bottom: 10px;
-    line-height: 1.3;
 }
 
 .modal-content code {
@@ -330,7 +324,6 @@ body.dark-theme .modal-content code {
     margin-top: 25px;
 }
 
-/* Help link styles */
 .help-link {
     color: var(--primary-color);
     text-decoration: none;
@@ -349,11 +342,10 @@ body.dark-theme .help-link {
     border-radius: 8px;
 }
 
-/* --- RESPONSIVE DESIGN --- */
+/* --- Responsive Design --- */
 @media (max-width: 768px) {
     body {
         padding: 0;
-        /* Full screen on mobile */
     }
 
     .editor-container {
@@ -370,24 +362,20 @@ body.dark-theme .help-link {
         padding: 12px 15px;
     }
 
-    /* Make rows 2, 3, 5 wrap and center content */
     .button-row,
     .input-row,
     .status-row {
         flex-direction: column;
         align-items: center;
-        /* Center the groups */
         gap: 10px;
     }
 
     .input-group,
     .status-section {
         width: 100%;
-        /* Make groups take full width */
     }
 
     .status-section {
         justify-content: center !important;
-        /* Force center alignment */
     }
 }

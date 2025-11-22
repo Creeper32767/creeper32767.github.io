@@ -1,171 +1,127 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
+    initSidebar();
+    initNavigation();
+    initFooter();
+});
 
-    // --- Collapsible Sidebar Logic ---
+/* --- Sidebar System --- */
+function initSidebar() {
     const sidebar = document.querySelector('.sidebar');
-    const toggleButton = document.getElementById('sidebar-toggle');
+    const toggleBtn = document.getElementById('sidebar-toggle');
     const overlay = document.querySelector('.sidebar-overlay');
 
-    if (sidebar && toggleButton && overlay) {
-        const openSidebar = () => {
-            sidebar.classList.add('open');
-            overlay.classList.add('visible');
+    if (!sidebar || !toggleBtn || !overlay) return;
+
+    // 1. Toggle Actions
+    const setSidebarState = (isOpen) => {
+        sidebar.classList.toggle('open', isOpen);
+        overlay.classList.toggle('visible', isOpen);
+    };
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setSidebarState(!sidebar.classList.contains('open'));
+    });
+
+    overlay.addEventListener('click', () => setSidebarState(false));
+
+    // 2. Icon Sync (Observer Pattern)
+    const iconImg = toggleBtn.querySelector('img');
+    if (iconImg) {
+        const openSrc = '/assets/static/icons/pane_open.svg';
+        const closeSrc = '/assets/static/icons/pane_close.svg';
+
+        const updateIcon = () => {
+            const isOpen = sidebar.classList.contains('open');
+            iconImg.src = isOpen ? closeSrc : openSrc;
         };
 
-        const closeSidebar = () => {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('visible');
-        };
+        const observer = new MutationObserver(updateIcon);
+        observer.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
 
-        toggleButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
-        });
-
-        overlay.addEventListener('click', closeSidebar);
+        // Initial check
+        updateIcon();
     }
+}
 
+/* --- Navigation System --- */
+function initNavigation() {
+    const navPlaceholder = document.getElementById('nav-placeholder');
+    if (!navPlaceholder) return;
 
-    // --- Set current year in the footer ---
+    fetch('/assets/static/nav.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.text();
+        })
+        .then(data => {
+            navPlaceholder.innerHTML = data;
+            highlightActiveLink();
+            initSubmenus();
+        })
+        .catch(error => console.error('Error loading navigation:', error));
+}
+
+function highlightActiveLink() {
+    const pageName = getCurrentPageName();
+    const navLinks = document.querySelectorAll('.nav-item');
+
+    navLinks.forEach(link => {
+        if (link.dataset.page === pageName) {
+            link.classList.add('active');
+        }
+    });
+}
+
+function initSubmenus() {
+    const parents = document.querySelectorAll('.nav-item-parent');
+
+    // 1. Setup Toggle Buttons
+    parents.forEach(parentLink => {
+        if (!parentLink.hasAttribute('aria-expanded')) {
+            parentLink.setAttribute('aria-expanded', 'false');
+        }
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'nav-toggle-btn';
+        toggleBtn.setAttribute('aria-label', '切换子菜单');
+        toggleBtn.innerHTML = `<img src="/assets/static/icons/arrow.svg" alt="Toggle Submenu Icon" />`;
+
+        parentLink.appendChild(toggleBtn);
+
+        // Toggle Event
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isExpanded = parentLink.getAttribute('aria-expanded') === 'true';
+            parentLink.setAttribute('aria-expanded', !isExpanded);
+        });
+    });
+
+    // 2. Auto-expand Active Section
+    const pageName = getCurrentPageName();
+    const activeChild = document.querySelector(`.nav-submenu .nav-item[data-page="${pageName}"]`);
+
+    if (activeChild) {
+        activeChild.classList.add('active');
+        const parentSubmenu = activeChild.closest('ul.nav-submenu');
+        const parentLink = parentSubmenu?.previousElementSibling;
+
+        if (parentLink?.classList.contains('nav-item-parent')) {
+            parentLink.setAttribute('aria-expanded', 'true');
+        }
+    }
+}
+
+function getCurrentPageName() {
+    let name = window.location.pathname.split('/').pop().replace('.html', '');
+    return name === '' ? 'index' : name;
+}
+
+/* --- Footer System --- */
+function initFooter() {
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
-
-
-    // --- Load navigation and highlight the active link ---
-    const navPlaceholder = document.getElementById('nav-placeholder');
-    if (navPlaceholder) {
-        fetch('/assets/static/nav.html')
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.text();
-            })
-            .then(data => {
-                navPlaceholder.innerHTML = data;
-                highlightActiveLink();
-                // Initialize nav-related icons after navigation HTML is inserted
-                // (the toggle button may not exist at initial DOMContentLoaded)
-                setNavIcons();
-                // Add submenu toggle buttons and interactions
-                initNavSubmenus();
-            })
-            .catch(error => console.error('Error loading navigation:', error));
-    }
-
-    function highlightActiveLink() {
-        let currentPageName = window.location.pathname.split('/').pop().replace('.html', '');
-        if (currentPageName === '') {
-            currentPageName = 'index';
-        }
-
-        const navLinks = document.querySelectorAll('.nav-item');
-
-        navLinks.forEach(link => {
-            if (link.dataset.page === currentPageName) {
-                link.classList.add('active');
-            }
-        });
-    }
-
-    function setNavIcons() {
-        const toggleBtn = document.getElementById('sidebar-toggle');
-        if (!toggleBtn) return;
-        const iconImg = toggleBtn.querySelector('img');
-        if (!iconImg) return;
-
-        const openSrc = '/assets/static/icons/pane_open.svg';
-        const closeSrc = '/assets/static/icons/pane_close.svg';
-
-        function setIconForOpen(isOpen) {
-            iconImg.src = isOpen ? closeSrc : openSrc;
-        }
-
-        // Keep a data attribute to track state for immediate feedback
-        function setDataOpen(val) {
-            iconImg.setAttribute('data-open', val ? 'true' : 'false');
-        }
-
-        // Click handler provides immediate toggle feedback; the MutationObserver
-        // will reconcile if another script changes the sidebar state later.
-        toggleBtn.addEventListener('click', () => {
-            const currentlyOpen = iconImg.getAttribute('data-open') === 'true';
-            setIconForOpen(!currentlyOpen);
-            setDataOpen(!currentlyOpen);
-        });
-
-        // Observe sidebar attribute/class changes so icon reflects actual state.
-        const sidebar = document.querySelector('.sidebar');
-        if (sidebar) {
-            const observer = new MutationObserver(() => {
-                const isOpen = sidebar.classList.contains('open') || sidebar.classList.contains('is-open') || sidebar.hasAttribute('open');
-                setIconForOpen(isOpen);
-                setDataOpen(isOpen);
-            });
-            observer.observe(sidebar, { attributes: true, attributeFilter: ['class', 'open'] });
-
-            // Initialize icon based on current sidebar state
-            const initOpen = sidebar.classList.contains('open') || sidebar.classList.contains('is-open') || sidebar.hasAttribute('open');
-            setIconForOpen(initOpen);
-            setDataOpen(initOpen);
-        } else {
-            // Default
-            setIconForOpen(false);
-            setDataOpen(false);
-        }
-    }
-
-    setNavIcons();
-
-    /* --- Submenu behaviors: click-to-toggle, hover (CSS), and auto-expand current page --- */
-    function initNavSubmenus() {
-        const parents = document.querySelectorAll('.nav-item-parent');
-
-        parents.forEach(parentLink => {
-            // Ensure aria-expanded default
-            if (!parentLink.hasAttribute('aria-expanded')) parentLink.setAttribute('aria-expanded', 'false');
-
-            // Create a toggle button inside the parent link for click-to-toggle
-            const toggleBtn = document.createElement('button');
-            toggleBtn.className = 'nav-toggle-btn';
-            toggleBtn.setAttribute('aria-label', '切换子菜单');
-            toggleBtn.innerHTML = `<img src="/assets/static/icons/arrow.svg" alt="Toggle Submenu Icon" />`;
-
-            // Insert the button as the last child of the link
-            parentLink.appendChild(toggleBtn);
-
-            const submenu = parentLink.nextElementSibling;
-            if (!submenu || !submenu.classList.contains('nav-submenu')) return;
-
-            // Clicking the toggle button toggles aria-expanded and prevents navigation
-            toggleBtn.addEventListener('click', (ev) => {
-                ev.preventDefault();
-                ev.stopPropagation();
-                const expanded = parentLink.getAttribute('aria-expanded') === 'true';
-                parentLink.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-            });
-
-            // Keyboard accessibility for toggle button
-            toggleBtn.addEventListener('keydown', (ev) => {
-                if (ev.key === 'Enter' || ev.key === ' ') {
-                    ev.preventDefault();
-                    toggleBtn.click();
-                }
-            });
-        });
-
-        // Auto-expand parent when a submenu child matches the current page
-        const currentPageName = (function () {
-            let name = window.location.pathname.split('/').pop().replace('.html', '');
-            return name === '' ? 'index' : name;
-        })();
-
-        const activeChild = document.querySelector(`.nav-submenu .nav-item[data-page="${currentPageName}"]`);
-        if (activeChild) {
-            activeChild.classList.add('active');
-            const parentLink = activeChild.closest('ul.nav-submenu').previousElementSibling;
-            if (parentLink && parentLink.classList.contains('nav-item-parent')) {
-                parentLink.setAttribute('aria-expanded', 'true');
-            }
-        }
-    }
-});
+}

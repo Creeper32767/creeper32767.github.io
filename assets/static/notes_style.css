@@ -1,5 +1,4 @@
-/* --- Strong as Tag / Badge styles --- */
-/* Default badge style for strong elements used as tags */
+/* --- Base Badge Styles --- */
 strong {
     display: inline-block;
     padding: 2px 8px;
@@ -13,12 +12,7 @@ strong {
     margin-left: 8px;
 }
 
-/* Specific tag variations used in notes pages */
-fluent-card .category {
-    margin-top: 20px;
-    align-self: flex-end;
-}
-
+/* --- Badge Variations --- */
 strong.poem {
     width: max-content;
     background: #fff7e6;
@@ -125,17 +119,22 @@ strong.philosophy {
     border-color: rgba(94, 53, 177, 0.09);
 }
 
+/* --- Card Content Layout --- */
+fluent-card .category {
+    margin-top: 20px;
+    align-self: flex-end;
+}
+
 .card-content p {
     margin: 0.5em 0;
 }
 
-/* Make sure badges are visually compact inside cards */
 .card-content strong {
     margin-left: 6px;
     vertical-align: middle;
 }
 
-/* --- Article collapse styles for notes pages --- */
+/* --- Article Collapse Component --- */
 .card-content h3 {
     display: flex;
     align-items: center;

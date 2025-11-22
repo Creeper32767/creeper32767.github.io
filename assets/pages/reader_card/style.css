@@ -1,3 +1,17 @@
+/* --- Variables & Base --- */
+:root {
+    --primary-color: #3a1c71;
+    --secondary-color: #8a5dff;
+    --accent-color: #ffaf7b;
+    --text-color: #333333;
+    --text-light: #7a7a9c;
+    --bg-gradient: linear-gradient(135deg, #f5f0ff 0%, #e8f4ff 100%);
+    --card-shadow: 0 25px 50px rgba(0, 0, 0, 0.18);
+    --panel-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    --font-main: 'Noto Serif SC', serif;
+    --font-art: 'Ma Shan Zheng', cursive;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,16 +19,17 @@
 }
 
 body {
-    font-family: 'Noto Serif SC', serif;
-    background: linear-gradient(135deg, #f5f0ff 0%, #e8f4ff 100%);
+    font-family: var(--font-main);
+    background: var(--bg-gradient);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    color: #333;
+    color: var(--text-color);
 }
 
+/* --- Header Section --- */
 .header {
     text-align: center;
     margin: 20px 0 30px;
@@ -28,9 +43,9 @@ body {
 }
 
 h1 {
-    font-family: 'Ma Shan Zheng', cursive;
+    font-family: var(--font-art);
     font-size: 3.5rem;
-    color: #3a1c71;
+    color: var(--primary-color);
     margin-bottom: 15px;
     background: linear-gradient(90deg, #3a1c71, #d76d77, #ffaf7b);
     background-clip: text;
@@ -48,6 +63,7 @@ h1 {
     line-height: 1.7;
 }
 
+/* --- Main Layout --- */
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -58,10 +74,11 @@ h1 {
     margin-bottom: 50px;
 }
 
+/* --- Customizer Panel --- */
 .card-customizer {
     background: white;
     border-radius: 18px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--panel-shadow);
     padding: 35px;
     width: 100%;
     max-width: 600px;
@@ -77,7 +94,7 @@ h1 {
 
 .customizer-title {
     font-size: 1.8rem;
-    color: #3a1c71;
+    color: var(--primary-color);
     margin-bottom: 30px;
     position: relative;
     padding-bottom: 12px;
@@ -95,6 +112,7 @@ h1 {
     border-radius: 4px;
 }
 
+/* Form Elements */
 .form-group {
     margin-bottom: 25px;
     display: flex;
@@ -122,7 +140,7 @@ textarea {
     padding: 14px 18px;
     border: 1px solid #d0d0e0;
     border-radius: 10px;
-    font-family: 'Noto Serif SC', serif;
+    font-family: var(--font-main);
     font-size: 1.1rem;
     background: #f8f9ff;
     transition: all 0.3s ease;
@@ -138,10 +156,11 @@ select:focus,
 input:focus,
 textarea:focus {
     outline: none;
-    border-color: #8a5dff;
+    border-color: var(--secondary-color);
     box-shadow: 0 0 0 4px rgba(138, 93, 255, 0.2);
 }
 
+/* Color Picker */
 .color-picker {
     display: flex;
     align-items: center;
@@ -155,6 +174,78 @@ textarea:focus {
     border: 1px solid #ddd;
 }
 
+/* Image Upload */
+.image-upload {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.image-upload-btn {
+    padding: 10px 20px;
+    background: #f0f0ff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px dashed var(--secondary-color);
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.image-upload-btn:hover {
+    background: rgba(138, 93, 255, 0.15);
+}
+
+.image-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #e0e0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9ff;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-preview-placeholder {
+    font-size: 0.8rem;
+    color: #8a8aaa;
+    text-align: center;
+    padding: 5px;
+}
+
+/* Predefined Quotes */
+.predefined-quotes {
+    margin-top: 20px;
+    padding: 18px;
+    background: #f8f9ff;
+    border-radius: 10px;
+    border-left: 5px solid var(--secondary-color);
+}
+
+.quote-option {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.quote-option:hover {
+    background: rgba(138, 93, 255, 0.12);
+}
+
+/* Buttons */
 .btn {
     display: block;
     width: 100%;
@@ -163,7 +254,7 @@ textarea:focus {
     color: white;
     border: none;
     border-radius: 12px;
-    font-family: 'Noto Serif SC', serif;
+    font-family: var(--font-main);
     font-size: 1.25rem;
     font-weight: 600;
     cursor: pointer;
@@ -194,6 +285,7 @@ textarea:focus {
     margin-top: 25px;
 }
 
+/* --- Card Preview --- */
 .card-container {
     width: 100%;
     max-width: 650px;
@@ -205,7 +297,7 @@ textarea:focus {
 .card {
     background: white;
     border-radius: 22px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--card-shadow);
     padding: 60px 55px;
     position: relative;
     overflow: hidden;
@@ -231,22 +323,22 @@ textarea:focus {
 }
 
 .card-title {
-    font-family: 'Ma Shan Zheng', cursive;
+    font-family: var(--font-art);
     font-size: 3.2rem;
-    color: #3a1c71;
+    color: var(--primary-color);
     margin-bottom: 20px;
     line-height: 1.3;
 }
 
 .card-subtitle {
     font-size: 1.3rem;
-    color: #7a7a9c;
+    color: var(--text-light);
 }
 
 .quote-content {
     font-size: 1.45rem;
     line-height: 1.9;
-    color: #3a1c71;
+    color: var(--primary-color);
     margin-bottom: 30px;
     min-height: 150px;
     white-space: pre-wrap;
@@ -262,16 +354,16 @@ textarea:focus {
 
 .signature-container {
     text-align: right;
-    color: #7a7a9c;
+    color: var(--text-light);
     font-size: 1.25rem;
     padding-top: 25px;
     flex: 1;
 }
 
 .signature {
-    font-family: 'Ma Shan Zheng', cursive;
+    font-family: var(--font-art);
     font-size: 1.9rem;
-    color: #3a1c71;
+    color: var(--primary-color);
     margin-top: 8px;
     display: block;
 }
@@ -309,11 +401,12 @@ textarea:focus {
     right: 30px;
     opacity: 0.04;
     font-size: 7rem;
-    font-family: 'Ma Shan Zheng', cursive;
+    font-family: var(--font-art);
     transform: rotate(-15deg);
     pointer-events: none;
 }
 
+/* --- Output & Export --- */
 .output-container {
     width: 100%;
     max-width: 650px;
@@ -327,7 +420,7 @@ textarea:focus {
 
 .output-title {
     font-size: 1.8rem;
-    color: #3a1c71;
+    color: var(--primary-color);
     margin-bottom: 25px;
 }
 
@@ -345,7 +438,7 @@ textarea:focus {
     color: white;
     border: none;
     border-radius: 10px;
-    font-family: 'Noto Serif SC', serif;
+    font-family: var(--font-main);
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
@@ -358,75 +451,7 @@ textarea:focus {
     box-shadow: 0 10px 25px rgba(138, 93, 255, 0.35);
 }
 
-.predefined-quotes {
-    margin-top: 20px;
-    padding: 18px;
-    background: #f8f9ff;
-    border-radius: 10px;
-    border-left: 5px solid #8a5dff;
-}
-
-.quote-option {
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 1.1rem;
-    line-height: 1.7;
-}
-
-.quote-option:hover {
-    background: rgba(138, 93, 255, 0.12);
-}
-
-.image-upload {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.image-upload-btn {
-    padding: 10px 20px;
-    background: #f0f0ff;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px dashed #8a5dff;
-    color: #8a5dff;
-    font-weight: 600;
-}
-
-.image-upload-btn:hover {
-    background: rgba(138, 93, 255, 0.15);
-}
-
-.image-preview {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid #e0e0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f8f9ff;
-}
-
-.image-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.image-preview-placeholder {
-    font-size: 0.8rem;
-    color: #8a8aaa;
-    text-align: center;
-    padding: 5px;
-}
-
+/* --- Instructions & Features --- */
 .instructions {
     background: #e6f7ff;
     border-left: 5px solid #1890ff;
@@ -463,11 +488,12 @@ textarea:focus {
 
 .date-note {
     font-size: 0.9rem;
-    color: #7a7a9c;
+    color: var(--text-light);
     margin-top: 5px;
     font-style: italic;
 }
 
+/* --- Responsive Design --- */
 @media (max-width: 1100px) {
     .container {
         flex-direction: column;

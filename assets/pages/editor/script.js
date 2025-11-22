@@ -1,4 +1,4 @@
-// 初始化CodeMirror编辑器
+/* --- Initialization --- */
 const editor = CodeMirror(document.getElementById('code-editor'), {
     lineNumbers: true,
     mode: "text/plain",
@@ -17,50 +17,46 @@ const editor = CodeMirror(document.getElementById('code-editor'), {
     }
 });
 
-// 获取DOM元素
-const uploadButton = document.getElementById('upload-button');
+// DOM Elements
+const elements = {
+    uploadBtn: document.getElementById('upload-button'),
+    downloadBtn: document.getElementById('download-button'),
+    clearBtn: document.getElementById('clear-button'),
+    themeToggle: document.getElementById('theme-toggle'),
+    filenameInput: document.getElementById('filename-input'),
+    langSelector: document.getElementById('language-selector'),
+    statusMsg: document.getElementById('status-message'),
+    posDisplay: document.getElementById('position-display'),
+    // Modals
+    helpLink: document.getElementById('help-link'),
+    helpModal: document.getElementById('help-modal'),
+    closeModal: document.getElementById('close-modal'),
+    confirmModal: document.getElementById('confirm-modal'),
+    confirmClearBtn: document.getElementById('confirm-clear-button'),
+    cancelClearBtn: document.getElementById('cancel-clear-button')
+};
+
+// Hidden File Input
 const fileUploader = document.createElement('input');
 fileUploader.type = 'file';
 fileUploader.style.display = 'none';
 document.body.appendChild(fileUploader);
 
-const downloadButton = document.getElementById('download-button');
-const clearButton = document.getElementById('clear-button');
-const themeToggle = document.getElementById('theme-toggle');
-const filenameInput = document.getElementById('filename-input');
-const languageSelector = document.getElementById('language-selector');
-const statusMessage = document.getElementById('status-message');
-const positionDisplay = document.getElementById('position-display');
-
-// 模态框元素
-const helpLink = document.getElementById('help-link');
-const helpModal = document.getElementById('help-modal');
-const closeModal = document.getElementById('close-modal');
-const confirmModal = document.getElementById('confirm-modal');
-const confirmClearButton = document.getElementById('confirm-clear-button');
-const cancelClearButton = document.getElementById('cancel-clear-button');
-
-// 更新光标位置
-function updateCursorPosition() {
-    const cursor = editor.getCursor();
-    positionDisplay.textContent = `行数: ${cursor.line + 1} | 列数: ${cursor.ch + 1}`;
-}
-
-// 保存文件
+/* --- Core Logic --- */
 function saveFile() {
     const content = editor.getValue();
     if (!content.trim()) {
-        statusMessage.textContent = '提示：编辑器内容为空';
+        updateStatus('提示：编辑器内容为空');
         return;
     }
 
-    let filename = filenameInput.value.trim() || 'file';
-    filenameInput.value = filename;
+    let filename = elements.filenameInput.value.trim() || 'file';
+    elements.filenameInput.value = filename;
 
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
-
     const link = document.createElement('a');
+
     link.href = url;
     link.download = filename;
     document.body.appendChild(link);
@@ -68,55 +64,38 @@ function saveFile() {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 
-    statusMessage.textContent = `文件已下载: ${filename}`;
+    updateStatus(`文件已下载: ${filename}`);
 }
 
-// 显示清空确认模态框
-function showClearConfirm() {
-    if (editor.getValue().trim() === '') {
-        statusMessage.textContent = '提示：编辑器内容已为空';
-        return;
-    }
-    confirmModal.style.display = 'flex';
-}
-
-// 实际执行清空操作
 function performClear() {
     editor.setValue("");
-    filenameInput.value = "myfile";
-    languageSelector.value = "text/plain";
+    elements.filenameInput.value = "myfile";
+    elements.langSelector.value = "text/plain";
     editor.setOption("mode", "text/plain");
-    statusMessage.textContent = '编辑器内容已清空';
+    updateStatus('编辑器内容已清空');
     updateCursorPosition();
 }
 
-// 切换主题
 function toggleTheme() {
     const isDark = document.body.classList.toggle("dark-theme");
     editor.setOption("theme", isDark ? "dracula" : "default");
-    statusMessage.textContent = isDark ? '已切换至暗色主题' : '已切换至亮色主题';
+    updateStatus(isDark ? '已切换至暗色主题' : '已切换至亮色主题');
 }
 
-// 上传文件处理
-uploadButton.addEventListener('click', () => {
-    fileUploader.click();
-});
-
-fileUploader.addEventListener('change', (event) => {
+function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
 
     if (file.size > 10 * 1024 * 1024) {
-        statusMessage.textContent = '错误：文件过大（最大支持10MB）';
+        updateStatus('错误：文件过大（最大支持10MB）');
         event.target.value = '';
         return;
     }
 
     const reader = new FileReader();
-
     reader.onload = (e) => {
         editor.setValue(e.target.result);
-        filenameInput.value = file.name;
+        elements.filenameInput.value = file.name;
 
         const fileExt = '.' + file.name.split('.').pop().toLowerCase();
         const languageMap = {
@@ -126,46 +105,73 @@ fileUploader.addEventListener('change', (event) => {
         };
 
         const lang = languageMap[fileExt] || 'text/plain';
-        languageSelector.value = lang;
+        elements.langSelector.value = lang;
         editor.setOption("mode", lang);
 
-        statusMessage.textContent = `已加载文件: ${file.name}`;
+        updateStatus(`已加载文件: ${file.name}`);
         updateCursorPosition();
     };
 
     reader.onerror = (e) => {
-        statusMessage.textContent = "错误: 无法读取文件";
+        updateStatus("错误: 无法读取文件");
         console.error("Error reading file:", e);
     };
 
     reader.readAsText(file);
     event.target.value = '';
-});
+}
 
-// 事件监听
-downloadButton.addEventListener('click', saveFile);
-clearButton.addEventListener('click', showClearConfirm);
-themeToggle.addEventListener('click', toggleTheme);
+/* --- UI Helpers --- */
+function updateCursorPosition() {
+    const cursor = editor.getCursor();
+    elements.posDisplay.textContent = `行数: ${cursor.line + 1} | 列数: ${cursor.ch + 1}`;
+}
 
-languageSelector.addEventListener('change', () => {
-    const lang = languageSelector.value;
+function updateStatus(msg) {
+    elements.statusMsg.textContent = msg;
+}
+
+function showClearConfirm() {
+    if (editor.getValue().trim() === '') {
+        updateStatus('提示：编辑器内容已为空');
+        return;
+    }
+    elements.confirmModal.style.display = 'flex';
+}
+
+/* --- Event Listeners --- */
+// Toolbar Actions
+elements.uploadBtn.addEventListener('click', () => fileUploader.click());
+fileUploader.addEventListener('change', handleFileUpload);
+elements.downloadBtn.addEventListener('click', saveFile);
+elements.clearBtn.addEventListener('click', showClearConfirm);
+elements.themeToggle.addEventListener('click', toggleTheme);
+
+// Settings
+elements.langSelector.addEventListener('change', () => {
+    const lang = elements.langSelector.value;
     editor.setOption("mode", lang);
-    statusMessage.textContent = `已切换到: ${languageSelector.selectedOptions[0].textContent}`;
+    updateStatus(`已切换到: ${elements.langSelector.selectedOptions[0].textContent}`);
 });
 
+// Editor Events
 editor.on("cursorActivity", updateCursorPosition);
 
-// 模态框事件
-helpLink.addEventListener('click', () => { helpModal.style.display = 'flex'; });
-closeModal.addEventListener('click', () => { helpModal.style.display = 'none'; });
-confirmClearButton.addEventListener('click', () => { performClear(); confirmModal.style.display = 'none'; });
-cancelClearButton.addEventListener('click', () => { confirmModal.style.display = 'none'; });
+// Modal Actions
+elements.helpLink.addEventListener('click', () => elements.helpModal.style.display = 'flex');
+elements.closeModal.addEventListener('click', () => elements.helpModal.style.display = 'none');
+elements.confirmClearBtn.addEventListener('click', () => {
+    performClear();
+    elements.confirmModal.style.display = 'none';
+});
+elements.cancelClearBtn.addEventListener('click', () => elements.confirmModal.style.display = 'none');
+
 window.addEventListener('click', (event) => {
-    if (event.target === helpModal || event.target === confirmModal) {
+    if (event.target === elements.helpModal || event.target === elements.confirmModal) {
         event.target.style.display = 'none';
     }
 });
 
-// 设置初始状态
+/* --- Startup --- */
 updateCursorPosition();
 editor.focus();

@@ -1,69 +1,68 @@
+/* --- Variables & Base --- */
+:root {
+    --neutral-layer-1: #ffffff;
+    --neutral-layer-2: #f8f8f8;
+    --accent-color: #0078d4;
+    --text-primary: #333333;
+    --border-color: #e0e0e0;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --font-main: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    --font-mono: 'MapleMono', monospace;
+}
+
 @font-face {
     font-family: 'MapleMono';
     src: url("https://esm.sh/gh/subframe7536/maple-font@v7.8/woff2/var/MapleMono[wght]-VF.woff2") format("woff2-variations");
 }
 
-/* styles for Screenshot Tool Page */
-:root {
-    --neutral-layer-1: #ffffff;
-    --neutral-layer-2: #f8f8f8;
-    --accent-color: #0078d4;
+* {
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    font-family: var(--font-main);
     background-color: var(--neutral-layer-2);
-    color: #333;
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    /* Prevent horizontal scroll caused by full-bleed element */
 }
 
+/* --- Layout --- */
 .container {
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
     padding: 20px;
-    box-sizing: border-box;
 }
 
-/* Two-column grid: inputs on the left, status/control on the right */
 .main-content {
     display: grid;
     grid-template-columns: 1fr 420px;
     gap: 20px;
     align-items: start;
-    grid-auto-rows: auto;
 }
 
 .left-column {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    grid-column: 1 / 2;
-}
-
-.headers-area {
-    grid-column: 1 / -1;
 }
 
 .result-area {
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 12px;
     width: 100%;
-    height: 100%;
-    grid-column: 2 / 3;
 }
 
 .content-section {
     padding: 10px;
-    /* Internal padding for all sections */
     width: 100%;
-    box-sizing: border-box;
 }
 
+/* --- Header --- */
 .header {
     text-align: center;
     margin-bottom: 20px;
@@ -73,24 +72,31 @@ body {
     font-size: 2.5rem;
     font-weight: 300;
     color: var(--accent-color);
+    margin: 0;
 }
 
+/* --- Input & Controls --- */
 .input-group {
     display: flex;
     gap: 15px;
     align-items: center;
     padding: 15px;
-    /* Add padding inside the input card */
 }
 
 fluent-text-field {
     flex-grow: 1;
 }
 
+#paste-btn img {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
 .important-note {
     background-color: #fff4ce;
     border-left: 4px solid #ffc80a;
     border-radius: 4px;
+    padding: 15px;
 }
 
 .important-note h3 {
@@ -101,6 +107,11 @@ fluent-text-field {
     background: #eee;
     padding: 2px 4px;
     border-radius: 3px;
+}
+
+.headers-area {
+    grid-column: 1 / -1;
+    width: 100%;
 }
 
 #headers-section h3 {
@@ -114,9 +125,10 @@ fluent-text-field {
     border-radius: 4px;
     white-space: pre-wrap;
     word-break: break-all;
-    font-family: "MapleMono", monospace;
+    font-family: var(--font-mono);
 }
 
+/* --- Status & Progress --- */
 #status-card {
     display: flex;
     justify-content: center;
@@ -128,11 +140,6 @@ fluent-text-field {
 #status-message {
     font-size: 16px;
     margin: 0;
-}
-
-#download-link,
-#progress-container {
-    display: none;
 }
 
 #progress-container {
@@ -147,20 +154,26 @@ fluent-progress {
     width: 100%;
 }
 
-/* Preview area: spans full width below the two-column row */
+#download-link {
+    display: none;
+}
+
+#capture-btn {
+    display: none;
+    width: 100%;
+}
+
+/* --- Preview Area --- */
 .preview-container {
     width: 100%;
     height: 720px;
-    /* Fixed height for consistent view on desktop */
     overflow: auto;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
     background-color: white;
     padding: 0;
-    /* let inner iframe fill the card */
     border-radius: 6px;
     grid-column: 1 / -1;
-    /* span full width under inputs and result */
 }
 
 #preview-iframe {
@@ -171,14 +184,7 @@ fluent-progress {
     display: block;
 }
 
-/* --- CSS CHANGES FOR FULL-WIDTH BUTTON --- */
-#capture-btn {
-    display: none;
-    width: 100%;
-}
-
-/* --- END OF CSS CHANGES --- */
-
+/* --- Responsive Design --- */
 @media (max-width: 900px) {
     .main-content {
         grid-template-columns: 1fr;
@@ -187,21 +193,11 @@ fluent-progress {
     .preview-container {
         height: 420px;
     }
-
-    .left-column,
-    .result-area {
-        width: 100%;
-        grid-column: 1 / -1;
-    }
 }
 
 @media (max-width: 768px) {
     .container {
         padding: 15px;
-    }
-
-    .main-content {
-        gap: 20px;
     }
 
     .header h1 {
@@ -213,55 +209,7 @@ fluent-progress {
         align-items: stretch;
     }
 
-    #status-message {
-        font-size: 16px;
-    }
-
     #status-card {
         flex-direction: column;
-    }
-
-    .capture-controls {
-        margin-top: 20px;
-    }
-}
-
-.preview-container {
-    height: 420px;
-}
-
-.left-column,
-.result-area {
-    width: 100%;
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    .main-content {
-        gap: 20px;
-    }
-
-    .header h1 {
-        font-size: 1.8rem;
-    }
-
-    .input-group {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    #status-message {
-        font-size: 16px;
-    }
-
-    #status-card {
-        flex-direction: column;
-    }
-
-    .capture-controls {
-        margin-top: 20px;
     }
 }
