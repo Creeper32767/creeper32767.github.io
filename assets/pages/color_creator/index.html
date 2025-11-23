@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>色彩转换器</title>
+
+    <!-- Third-party Libraries -->
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/assets/static/icons/color.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>色彩转换器</h1>
+            <p>全能颜色格式转换与调色工具</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Controls Section -->
+            <div class="left-column">
+                <!-- Visual Picker -->
+                <fluent-card class="content-section">
+                    <h3>视觉调色</h3>
+                    <div class="picker-container">
+                        <input type="color" id="native-color-picker" value="#0078d4">
+                        <span class="picker-label">点击选择颜色</span>
+                    </div>
+                </fluent-card>
+
+                <!-- RGB Sliders -->
+                <fluent-card class="content-section">
+                    <h3>RGB 调节</h3>
+                    <div class="slider-group">
+                        <div class="slider-row">
+                            <label>R (红)</label>
+                            <fluent-slider id="r-slider" min="0" max="255" value="0"></fluent-slider>
+                            <span id="r-val" class="val-display">0</span>
+                        </div>
+                        <div class="slider-row">
+                            <label>G (绿)</label>
+                            <fluent-slider id="g-slider" min="0" max="255" value="120"></fluent-slider>
+                            <span id="g-val" class="val-display">120</span>
+                        </div>
+                        <div class="slider-row">
+                            <label>B (蓝)</label>
+                            <fluent-slider id="b-slider" min="0" max="255" value="212"></fluent-slider>
+                            <span id="b-val" class="val-display">212</span>
+                        </div>
+                    </div>
+                </fluent-card>
+
+                <!-- HSL Sliders -->
+                <fluent-card class="content-section">
+                    <h3>HSL 调节</h3>
+                    <div class="slider-group">
+                        <div class="slider-row">
+                            <label>H (色相)</label>
+                            <fluent-slider id="h-slider" min="0" max="360" value="206"></fluent-slider>
+                            <span id="h-val" class="val-display">206°</span>
+                        </div>
+                        <div class="slider-row">
+                            <label>S (饱和度)</label>
+                            <fluent-slider id="s-slider" min="0" max="100" value="100"></fluent-slider>
+                            <span id="s-val" class="val-display">100%</span>
+                        </div>
+                        <div class="slider-row">
+                            <label>L (亮度)</label>
+                            <fluent-slider id="l-slider" min="0" max="100" value="42"></fluent-slider>
+                            <span id="l-val" class="val-display">42%</span>
+                        </div>
+                    </div>
+                </fluent-card>
+
+                <!-- Alpha Slider -->
+                <fluent-card class="content-section">
+                    <h3>透明度 (Alpha)</h3>
+                    <div class="slider-group">
+                        <div class="slider-row">
+                            <label>A</label>
+                            <fluent-slider id="a-slider" min="0" max="100" value="100"></fluent-slider>
+                            <span id="a-val" class="val-display">1.00</span>
+                        </div>
+                    </div>
+                </fluent-card>
+
+                <!-- Gradient Generator -->
+                <fluent-card class="content-section">
+                    <h3>线性渐变生成器</h3>
+                    <div id="gradient-preview" class="gradient-preview"></div>
+                    <div class="gradient-controls">
+                        <input type="color" id="grad-start" value="#0078d4" title="起始颜色">
+                        <fluent-slider id="grad-angle" min="0" max="360" value="90"
+                            style="flex-grow: 1;"></fluent-slider>
+                        <span id="grad-angle-val" style="width: 40px; text-align: right;">90°</span>
+                        <input type="color" id="grad-end" value="#00bcf2" title="结束颜色">
+                    </div>
+                    <div class="input-with-copy">
+                        <fluent-text-field id="gradient-css" readonly></fluent-text-field>
+                        <fluent-button class="copy-btn" data-target="gradient-css"
+                            appearance="neutral">复制</fluent-button>
+                    </div>
+                </fluent-card>
+            </div>
+
+            <!-- Result Section -->
+            <div class="result-area">
+                <!-- Preview -->
+                <fluent-card class="content-section preview-card">
+                    <div id="color-preview" class="color-preview-box"></div>
+                    <div class="contrast-check">
+                        <span id="contrast-white" style="color: white;">White Text</span>
+                        <span id="contrast-black" style="color: black;">Black Text</span>
+                    </div>
+                </fluent-card>
+
+                <!-- Paste & Apply -->
+                <fluent-card class="content-section">
+                    <h3>粘贴颜色代码并更新</h3>
+                    <p class="helper-text">将任意 HEX、RGB、HSL、HSLA 或 CSS 颜色字符串粘贴到下方，点击“应用颜色”即可同步所有数值与预览。</p>
+                    <div class="paste-area">
+                        <fluent-text-area id="color-paste-input"
+                            placeholder="#0078d4 或 rgb(0,120,212) 或 hsl(206,100%,42%)"></fluent-text-area>
+                    </div>
+                    <div class="paste-actions">
+                        <fluent-button id="apply-pasted-color" appearance="accent">应用颜色</fluent-button>
+                        <fluent-button id="clear-pasted-color" appearance="outline">清空</fluent-button>
+                        <span id="paste-feedback" class="status-label status-idle">等待输入…</span>
+                    </div>
+                </fluent-card>
+
+                <!-- Variations (Shades & Tints) -->
+                <fluent-card class="content-section">
+                    <h3>色调变化 (点击应用)</h3>
+                    <div class="variations-grid" id="variations-container">
+                        <!-- Generated by JS -->
+                    </div>
+                </fluent-card>
+
+                <!-- Codes -->
+                <fluent-card class="content-section">
+                    <h3>颜色代码</h3>
+                    <div class="code-list">
+                        <div class="code-item">
+                            <label>HEX</label>
+                            <div class="input-with-copy">
+                                <fluent-text-field id="hex-input" placeholder="#RRGGBB"></fluent-text-field>
+                                <fluent-button class="copy-btn" data-target="hex-input"
+                                    appearance="neutral">复制</fluent-button>
+                            </div>
+                        </div>
+                        <div class="code-item">
+                            <label>RGB</label>
+                            <div class="input-with-copy">
+                                <fluent-text-field id="rgb-input" placeholder="rgb(r, g, b)"></fluent-text-field>
+                                <fluent-button class="copy-btn" data-target="rgb-input"
+                                    appearance="neutral">复制</fluent-button>
+                            </div>
+                        </div>
+                        <div class="code-item">
+                            <label>RGBA</label>
+                            <div class="input-with-copy">
+                                <fluent-text-field id="rgba-input" placeholder="rgba(r, g, b, a)"></fluent-text-field>
+                                <fluent-button class="copy-btn" data-target="rgba-input"
+                                    appearance="neutral">复制</fluent-button>
+                            </div>
+                        </div>
+                        <div class="code-item">
+                            <label>HSL</label>
+                            <div class="input-with-copy">
+                                <fluent-text-field id="hsl-input" placeholder="hsl(h, s%, l%)"></fluent-text-field>
+                                <fluent-button class="copy-btn" data-target="hsl-input"
+                                    appearance="neutral">复制</fluent-button>
+                            </div>
+                        </div>
+                        <div class="code-item">
+                            <label>HSLA</label>
+                            <div class="input-with-copy">
+                                <fluent-text-field id="hsla-input" placeholder="hsla(h, s%, l%, a)"></fluent-text-field>
+                                <fluent-button class="copy-btn" data-target="hsla-input"
+                                    appearance="neutral">复制</fluent-button>
+                            </div>
+                        </div>
+                    </div>
+                </fluent-card>
+            </div>
+        </main>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,355 @@
+@font-face {
+    font-family: 'MapleMono';
+    src: url("https://esm.sh/gh/subframe7536/maple-font@v7.8/woff2/var/MapleMono[wght]-VF.woff2") format("woff2-variations");
+}
+
+/* --- Variables & Base --- */
+:root {
+    --neutral-layer-1: #ffffff;
+    --neutral-layer-2: #f8f8f8;
+    --accent-color: #0078d4;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e0e0e0;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --font-main: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--neutral-layer-2);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* --- Layout --- */
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--accent-color);
+    margin: 0;
+}
+
+.header p {
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 20px;
+    align-items: start;
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.result-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.content-section {
+    padding: 20px;
+    background: var(--neutral-layer-1);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* --- Specific Components --- */
+
+/* Picker */
+.picker-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#native-color-picker {
+    width: 60px;
+    height: 60px;
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.picker-label {
+    color: var(--text-secondary);
+}
+
+/* Sliders */
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 0;
+    /* Increased padding, removed fixed height */
+}
+
+.slider-row label {
+    font-weight: 500;
+    display: flex;
+    width: 80px;
+    align-items: center;
+}
+
+fluent-slider {
+    flex-grow: 1;
+    margin-top: 10px;
+}
+
+.val-display {
+    width: 50px;
+    text-align: right;
+    font-family: 'MapleMono', monospace;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Variations */
+.variations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    /* Increased min width */
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.variation-item {
+    height: 60px;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.variation-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+.variation-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 2px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.variation-copy-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: #333;
+    z-index: 2;
+}
+
+.variation-item:hover .variation-copy-btn {
+    display: flex;
+}
+
+.variation-copy-btn:hover {
+    background: white;
+    color: var(--accent-color);
+}
+
+/* Paste Helper */
+.helper-text {
+    margin-top: -5px;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.paste-area fluent-text-area,
+.paste-area fluent-text-area::part(control) {
+    width: 100%;
+}
+
+.paste-area fluent-text-area::part(control) {
+    min-height: 110px;
+    font-family: 'MapleMono', monospace;
+}
+
+.paste-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.status-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.status-label.status-success {
+    color: #107c10;
+}
+
+.status-label.status-error {
+    color: #a4262c;
+}
+
+.status-label.status-idle {
+    color: var(--text-secondary);
+}
+
+/* Gradient Tool */
+.gradient-preview {
+    height: 100px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    background-image:
+        linear-gradient(45deg, #ccc 25%, transparent 25%),
+        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ccc 75%),
+        linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 20px 20px;
+}
+
+.gradient-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.gradient-controls input[type="color"] {
+    width: 40px;
+    height: 40px;
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+}
+
+/* Preview */
+.preview-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.color-preview-box {
+    width: 100%;
+    height: 200px;
+    background-color: #0078d4;
+    /* Default */
+    background-image:
+        linear-gradient(45deg, #ccc 25%, transparent 25%),
+        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ccc 75%),
+        linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    /* The actual color will be applied as a box-shadow or overlay div, 
+       but simpler is to use a solid div on top of a checkered bg div.
+       Let's use box-shadow inset or background-color with rgba.
+    */
+    transition: background-color 0.1s;
+}
+
+.contrast-check {
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    background: rgba(0, 0, 0, 0.1);
+    /* Slight darken for visibility */
+}
+
+.contrast-check span {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Code List */
+.code-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.code-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.input-with-copy {
+    display: flex;
+    gap: 10px;
+}
+
+.input-with-copy fluent-text-field {
+    flex-grow: 1;
+    font-family: "MapleMono", monospace;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
