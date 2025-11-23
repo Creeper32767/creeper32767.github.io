@@ -42,7 +42,8 @@ function updateCard(elements) {
 
     const card = document.querySelector('.card');
     card.style.backgroundColor = elements.style.bgColor.value;
-    document.querySelector('.card::before').style.background = elements.style.accentColor.value;
+    // document.querySelector('.card::before').style.background = elements.style.accentColor.value;
+    card.style.setProperty('--card-accent-color', elements.style.accentColor.value);
 
     // Animation
     card.style.transform = 'scale(0.98)';
@@ -189,4 +190,61 @@ function bindEvents(elements) {
             setTimeout(() => this.style.backgroundColor = '', 500);
         });
     });
+
+    // Random Example
+    const randomBtn = document.getElementById('random-btn');
+    if (randomBtn) {
+        randomBtn.addEventListener('click', () => loadRandomExample(elements));
+    }
+}
+
+/* --- Data & Utils --- */
+const randomExamples = [
+    {
+        quote: "你今天受的苦、吃的亏、担的责任、忍的痛，到最后都会变成光，照亮你的行的路。",
+        insight: "这段话让我明白，人生中的每一次挑战都是成长的契机，苦难终将成为照亮前路的光。",
+        book: "我要上北大：一个普通女孩的逆袭",
+        author: "苏苏"
+    },
+    {
+        quote: "一个人知道自己为什么而活，就能忍受任何一种生活。",
+        insight: "尼采的这句话告诉我们，信念是支撑我们走过艰难岁月的精神支柱。",
+        book: "查拉图斯特拉如是说",
+        author: "尼采"
+    },
+    {
+        quote: "我们终此一生，就是要摆脱他人的期待，找到真正的自己。",
+        insight: "伍绮诗在书中探讨了身份认同与家庭期望的冲突，让我反思自己是否活在别人的期待中。",
+        book: "无声告白",
+        author: "伍绮诗"
+    },
+    {
+        quote: "满地都是六便士，他却抬头看见了月亮。",
+        insight: "理想与现实的冲突永恒存在，斯特里克兰的选择提醒我们，精神的追求同样重要。",
+        book: "月亮与六便士",
+        author: "毛姆"
+    },
+    {
+        quote: "生活不可能像你想象的那么好，但也不会像你想象的那么糟。",
+        insight: "莫泊桑的文字总是那么冷静而客观，教会我们以平和的心态面对生活的起伏。",
+        book: "一生",
+        author: "莫泊桑"
+    }
+];
+
+function loadRandomExample(elements) {
+    const example = randomExamples[Math.floor(Math.random() * randomExamples.length)];
+    elements.input.quote.value = example.quote;
+    elements.input.insight.value = example.insight;
+    elements.input.bookTitle.value = example.book;
+    elements.input.author.value = example.author;
+    
+    // Trigger update
+    updateCard(elements);
+    
+    // Visual feedback
+    const btn = document.getElementById('random-btn');
+    const originalText = btn.textContent;
+    btn.textContent = '✅ 已加载';
+    setTimeout(() => btn.textContent = originalText, 1000);
 }
