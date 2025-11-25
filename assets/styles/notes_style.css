@@ -129,6 +129,16 @@ fluent-card .category {
     margin: 0.5em 0;
 }
 
+.card-content ul {
+    margin: 0.5em 0 0.5em 20px;
+    padding: 0;
+}
+
+.card-content li {
+    margin: 4px 0;
+    color: #7bb9ff;
+}
+
 .card-content strong {
     margin-left: 6px;
     vertical-align: middle;
