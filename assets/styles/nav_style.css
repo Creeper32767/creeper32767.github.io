@@ -1,4 +1,13 @@
 /* --- Navigation Component --- */
+:root {
+    --neutral-layer-1: #ffffff;
+    --neutral-layer-2: #f8f8f8;
+    --accent-color: #0078d4;
+    --sidebar-width: 280px;
+    --sidebar-transition-duration: 0.3s;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .nav-header {
     padding: 0 20px;
     text-align: center;
@@ -11,9 +20,21 @@
     margin-bottom: 10px;
 }
 
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 4px solid var(--neutral-layer-1);
+    box-shadow: 0 4px 15px rgba(0, 120, 212, 0.2);
+}
+
 .nav-header h3 {
     margin: 0;
+    font-family: var(--font-family);
     font-weight: 600;
+    border-bottom: none;
 }
 
 .nav-links {
@@ -22,9 +43,17 @@
     margin: 0;
     overflow-y: auto;
     flex-grow: 1;
-    min-height: 0;
+    min-height: max-content;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.nav-links .return-img {
+    width: 16px;
+    height: 16px;
+    transform: rotate(180deg);
+    filter: invert(40%);
+    transition: filter 0.2s ease;
 }
 
 .nav-links::-webkit-scrollbar {
@@ -45,6 +74,7 @@
 }
 
 .nav-links > li {
+    font-family: var(--font-family);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -132,4 +162,52 @@
 .nav-toggle-btn.expanded img,
 .nav-item-parent[aria-expanded="true"] + .nav-toggle-btn img {
     transform: rotate(90deg);
+}
+
+/* --- Sidebar Shell (layout + overlay) --- */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--neutral-layer-1);
+    border-right: 1px solid #e0e0e0;
+    padding: 20px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform var(--sidebar-transition-duration) ease-in-out;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--sidebar-transition-duration) ease-in-out;
+}
+
+.sidebar-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
 }

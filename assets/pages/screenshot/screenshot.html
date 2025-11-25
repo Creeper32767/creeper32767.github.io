@@ -6,16 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>网页快照生成器</title>
 
-    <!-- Third-party Libraries -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/styles/nav_style.css">
     <link rel="icon" href="/assets/static/icons/camera.svg" type="image/svg+xml">
 </head>
 
 <body>
+    <!-- Sidebar (Loaded via JS) -->
+    <nav class="sidebar" id="nav-placeholder" data-nav-src="/assets/static/nav-projects.html"></nav>
+    <!-- Overlay for when sidebar is open -->
+    <div class="sidebar-overlay"></div>
+
+    <!-- Toggle Button -->
+    <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
+        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+    </fluent-button>
+
     <div class="container">
         <header class="header">
             <h1>网页快照生成器</h1>
@@ -74,6 +81,11 @@
 
     <!-- External JavaScript -->
     <script src="script.js"></script>
+    <script src="/assets/scripts/nav_script.js"></script>
+
+     <!-- Third-party Libraries -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </body>
 
 </html>

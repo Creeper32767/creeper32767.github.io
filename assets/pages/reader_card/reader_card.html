@@ -6,19 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>专业读者卡片生成器</title>
 
-    <!-- Third-party Libraries -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
     <!-- Google Fonts -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Long+Cang&family=ZCOOL+KuaiLe&family=Liu+Jian+Mao+Cao&display=swap">
 
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/styles/nav_style.css">
     <link rel="icon" href="/assets/static/icons/card.svg" type="image/svg+xml">
 </head>
 
 <body>
+        <nav class="sidebar" id="nav-placeholder" data-nav-src="/assets/static/nav-projects.html"></nav>
+    <div class="sidebar-overlay"></div>
+
+    <!-- Toggle Button -->
+    <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
+        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+    </fluent-button>
+
     <div class="header">
         <h1>专业读者卡片生成器</h1>
         <p class="subtitle">创建精美阅读卡片，记录您的阅读精华，生成高清图片分享给朋友</p>
@@ -192,6 +198,10 @@
 
     <!-- External JavaScript -->
     <script src="script.js"></script>
+    <script src="/assets/scripts/nav_script.js"></script>
+
+    <!-- Third-party Libraries -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </body>
 
 </html>

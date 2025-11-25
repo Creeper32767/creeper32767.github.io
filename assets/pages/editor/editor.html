@@ -13,6 +13,7 @@
     <!-- CodeMirror 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
+    <!-- Code highlight-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/python/python.min.js"></script>
@@ -24,10 +25,19 @@
 
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/styles/nav_style.css">
     <link rel="icon" href="/assets/static/icons/code.svg" type="image/svg+xml">
 </head>
 
 <body>
+    <nav class="sidebar" id="nav-placeholder" data-nav-src="/assets/static/nav-projects.html"></nav>
+    <div class="sidebar-overlay"></div>
+
+    <!-- Toggle Button -->
+    <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
+        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+    </fluent-button>
+
     <div class="editor-container">
         <!-- 第1行：标题行 -->
         <div class="header-row">
@@ -157,6 +167,7 @@
 
     <!-- External JavaScript -->
     <script src="script.js"></script>
+    <script src="/assets/scripts/nav_script.js"></script>
 </body>
 
 </html>

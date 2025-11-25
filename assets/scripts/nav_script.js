@@ -1,13 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    initNavigation();
-})
-
-/* --- Navigation System --- */
-function initNavigation() {
     const navPlaceholder = document.getElementById('nav-placeholder');
     if (!navPlaceholder) return;
 
-    fetch('/assets/static/nav.html')
+    const customSrc = navPlaceholder.getAttribute('data-nav-src') || '/assets/static/nav.html';
+    initNavigation(customSrc).finally(() => initSidebar());
+});
+
+/* --- Navigation System --- */
+function initNavigation(navSrc = '/assets/static/nav.html') {
+    const navPlaceholder = document.getElementById('nav-placeholder');
+    if (!navPlaceholder) return Promise.resolve();
+
+    return fetch(navSrc)
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.text();
@@ -17,7 +21,9 @@ function initNavigation() {
             highlightActiveLink();
             initSubmenus();
         })
-        .catch(error => console.error('Error loading navigation:', error));
+        .catch(error => {
+            console.error('Error loading navigation:', error);
+        });
 }
 
 function highlightActiveLink() {
@@ -58,7 +64,7 @@ function initSubmenus() {
             e.stopPropagation();
             const isExpanded = parentLink.getAttribute('aria-expanded') === 'true';
             parentLink.setAttribute('aria-expanded', !isExpanded);
-            
+
             // Rotate icon
             toggleBtn.classList.toggle('expanded', !isExpanded);
         });
@@ -85,4 +91,41 @@ function initSubmenus() {
 function getCurrentPageName() {
     let name = window.location.pathname.split('/').pop().replace('.html', '');
     return name === '' ? 'index' : name;
+}
+
+/* --- Sidebar System --- */
+function initSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    if (!sidebar || !toggleBtn || !overlay) return;
+
+    const setSidebarState = (isOpen) => {
+        sidebar.classList.toggle('open', isOpen);
+        overlay.classList.toggle('visible', isOpen);
+    };
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setSidebarState(!sidebar.classList.contains('open'));
+    });
+
+    overlay.addEventListener('click', () => setSidebarState(false));
+
+    const iconImg = toggleBtn.querySelector('img');
+    if (iconImg) {
+        const openSrc = '/assets/static/icons/pane_open.svg';
+        const closeSrc = '/assets/static/icons/pane_close.svg';
+
+        const updateIcon = () => {
+            const isOpen = sidebar.classList.contains('open');
+            iconImg.src = isOpen ? closeSrc : openSrc;
+        };
+
+        const observer = new MutationObserver(updateIcon);
+        observer.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
+
+        updateIcon();
+    }
 }
