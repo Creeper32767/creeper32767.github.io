@@ -24,6 +24,10 @@
         "label": "熊培云"
       },
       {
+        "class": "argumentation",
+        "label": "议论"
+      },
+      {
         "class": "society",
         "label": "社会"
       },
