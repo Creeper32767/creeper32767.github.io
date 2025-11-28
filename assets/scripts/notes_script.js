@@ -63,7 +63,6 @@ function buildVerseCard(entry) {
     cardContent.className = 'card-content';
 
     const heading = document.createElement('h3');
-    heading.textContent = entry.date || '';
     cardContent.appendChild(heading);
 
     (entry.content || []).forEach((line) => {
