@@ -134,6 +134,26 @@
     color: #444;
 }
 
+.nav-submenu .nav-submenu {
+    padding-left: 12px;
+}
+
+.nav-submenu-headings .nav-item {
+    padding-left: 48px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.nav-item-leaf {
+    line-height: 1.3;
+}
+
+.nav-submenu-empty {
+    padding: 6px 25px 6px 48px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
 .nav-toggle-btn {
     background: transparent;
     border: none;
