@@ -1,75 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
-    initDynamicSections().finally(() => initCollapsibleArticles());
+    initDynamicSections().finally(initCollapsibleArticles);
 });
 
-/* --- Dynamic Content Loader --- */
-function initDynamicSections() {
-    const sections = document.querySelectorAll('[data-json]');
-    if (!sections.length) return Promise.resolve();
+const SECTION_STATUS_TEXT = {
+    loading: '正在加载内容……',
+    error: '内容加载失败，请稍后重试。'
+};
 
-    const loaders = Array.from(sections).map((section) => loadSection(section));
-    return Promise.allSettled(loaders);
+/* --- Dynamic Content Loader --- */
+async function initDynamicSections() {
+    const sections = document.querySelectorAll('[data-json]');
+    if (!sections.length) return;
+
+    await Promise.allSettled(Array.from(sections, loadSection));
 }
 
-function loadSection(section) {
+async function loadSection(section) {
     const src = section.dataset.json;
     const entryType = section.dataset.entryType || 'generic';
 
-    if (!src) return Promise.resolve();
+    if (!src) return;
 
     setSectionStatus(section, 'loading');
 
-    return fetch(src)
-        .then((response) => {
-            if (!response.ok) throw new Error('Failed to fetch section data');
-            return response.json();
-        })
-        .then((entries) => {
-            if (!Array.isArray(entries)) throw new Error('Invalid section payload');
-            renderSection(section, entries, entryType);
-        })
-        .catch((error) => {
-            console.error('Error loading section:', error);
-            setSectionStatus(section, 'error');
-        });
+    try {
+        const response = await fetch(src);
+        if (!response.ok) throw new Error('Failed to fetch section data');
+
+        const entries = await response.json();
+        if (!Array.isArray(entries)) throw new Error('Invalid section payload');
+
+        renderSection(section, entries, entryType);
+    } catch (error) {
+        console.error('Error loading section:', error);
+        setSectionStatus(section, 'error');
+    }
 }
 
 function renderSection(section, entries, entryType) {
     section.innerHTML = '';
     const fragment = document.createDocumentFragment();
+    const baseContext = {
+        pageName: resolveCurrentPageName(),
+        sectionId: section.id || section.dataset.sectionId || entryType
+    };
 
     entries.forEach((entry, index) => {
-        const card = buildCard(entry, entryType);
+        const card = buildCard(entry, entryType, { ...baseContext, entryIndex: index });
         if (!card) return;
+
         fragment.appendChild(card);
-        if (index !== entries.length - 1) {
-            fragment.appendChild(document.createElement('br'));
-        }
+        if (index !== entries.length - 1) fragment.appendChild(document.createElement('br'));
     });
 
     section.appendChild(fragment);
+    notifyNavigationRefresh();
 }
 
-function buildCard(entry, entryType) {
+function buildCard(entry, entryType, context) {
     if (entryType === 'verses') {
-        return buildVerseCard(entry);
+        return buildVerseCard(entry, context);
     }
-    return buildRichCard(entry);
+    return buildRichCard(entry, context);
 }
 
-function buildVerseCard(entry) {
+function buildVerseCard(entry, context) {
     const card = document.createElement('fluent-card');
     const cardContent = document.createElement('div');
     cardContent.className = 'card-content';
 
     const heading = document.createElement('h3');
+    heading.textContent = entry.title || entry.meta || entry.date || '';
+    assignHeadingId(heading, entry, context);
     cardContent.appendChild(heading);
 
-    (entry.content || []).forEach((line) => {
-        const paragraph = document.createElement('p');
-        paragraph.innerHTML = line ? line : '&nbsp;';
-        cardContent.appendChild(paragraph);
-    });
+    appendTextBlocks(cardContent, entry.content || []);
 
     const category = document.createElement('div');
     category.className = 'category';
@@ -80,7 +85,7 @@ function buildVerseCard(entry) {
     return card;
 }
 
-function buildRichCard(entry) {
+function buildRichCard(entry, context) {
     if (!entry.title) return null;
 
     const card = document.createElement('fluent-card');
@@ -95,6 +100,7 @@ function buildRichCard(entry) {
 
     const heading = document.createElement('h3');
     heading.textContent = entry.title;
+    assignHeadingId(heading, entry, context);
     mainTitleBlock.appendChild(heading);
 
     if (entry.meta) {
@@ -113,21 +119,7 @@ function buildRichCard(entry) {
         cardContent.appendChild(subtitle);
     }
 
-    (entry.content || []).forEach((block) => {
-        if (typeof block === 'string') {
-            const paragraph = document.createElement('p');
-            paragraph.innerHTML = block || '&nbsp;';
-            cardContent.appendChild(paragraph);
-        } else if (block && block.type === 'list') {
-            const list = document.createElement('ul');
-            (block.items || []).forEach((item) => {
-                const li = document.createElement('li');
-                li.innerHTML = item;
-                list.appendChild(li);
-            });
-            cardContent.appendChild(list);
-        }
-    });
+    appendMixedBlocks(cardContent, entry.content || []);
 
     const category = document.createElement('div');
     category.className = 'category';
@@ -147,13 +139,35 @@ function createTagBadge(tag) {
     return badge;
 }
 
-function setSectionStatus(container, state) {
-    const statusMap = {
-        loading: '正在加载内容……',
-        error: '内容加载失败，请稍后重试。'
-    };
+function appendTextBlocks(container, lines) {
+    lines.forEach((line) => {
+        const paragraph = document.createElement('p');
+        paragraph.innerHTML = line || '&nbsp;';
+        container.appendChild(paragraph);
+    });
+}
 
-    container.innerHTML = `<p class="poem-${state}">${statusMap[state] || ''}</p>`;
+function appendMixedBlocks(container, blocks) {
+    blocks.forEach((block) => {
+        if (typeof block === 'string') {
+            appendTextBlocks(container, [block]);
+            return;
+        }
+
+        if (block && block.type === 'list') {
+            const list = document.createElement('ul');
+            (block.items || []).forEach((item) => {
+                const li = document.createElement('li');
+                li.innerHTML = item;
+                list.appendChild(li);
+            });
+            container.appendChild(list);
+        }
+    });
+}
+
+function setSectionStatus(container, state) {
+    container.innerHTML = `<p class="content-${state}">${SECTION_STATUS_TEXT[state] || ''}</p>`;
 }
 
 /* --- Collapsible Articles System --- */
@@ -207,4 +221,42 @@ function createToggleButton() {
     btn.setAttribute('aria-label', '展开 / 收起 文章内容');
     btn.innerHTML = '<img src="/assets/static/icons/arrow.svg" alt="toggle">';
     return btn;
+}
+
+function assignHeadingId(element, entry, context = {}) {
+    if (!element) return;
+    const index = context.entryIndex ?? 0;
+    const label = (entry.title || entry.meta || entry.subtitle || entry.date || `section ${index + 1}`).trim();
+    const scope = context.pageName || 'section';
+    element.id = buildAnchorId(label, index, scope);
+    return element.id;
+}
+
+function buildAnchorId(text, index, scope = 'section') {
+    const base = slugifyHeading(text) || 'section';
+    const prefix = scope ? `${scope}-` : '';
+    return `${prefix}${base}-${index + 1}`;
+}
+
+function slugifyHeading(text = '') {
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 48);
+}
+
+function resolveCurrentPageName() {
+    if (typeof window.getCurrentPageName === 'function') {
+        return window.getCurrentPageName();
+    }
+    const segment = window.location.pathname.split('/').pop().replace('.html', '');
+    return segment === '' ? 'index' : segment;
+}
+
+function notifyNavigationRefresh() {
+    if (window.Highlight?.refreshOutline) {
+        window.Highlight.refreshOutline();
+    }
 }
