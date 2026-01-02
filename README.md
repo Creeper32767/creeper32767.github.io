@@ -11,14 +11,27 @@ The source code for my personal portfolio and blog, hosted on GitHub Pages.
 
 ## About The Project
 
-This repository contains the code for my personal website, available at [creeper32767.github.io](https://creeper32767.github.io). It serves as a central place to showcase my projects, share my skills, and write about my journey in technology.
+This repository contains the source code for my personal website, available at [creeper32767.github.io](https://creeper32767.github.io). It serves as a central hub to showcase my projects, share my thoughts on technology and literature, and provide useful web-based tools.
+
+The site is designed with a focus on performance and user experience, utilizing modern web standards and Fluent Design principles.
+
+### Key Features
+
+*   **Dynamic Content Loading:** Utilizes a custom streaming JSON parser to render large content sections (like reading notes) incrementally, ensuring a fast Time-to-Interactive.
+*   **Web Tools Collection:** A suite of browser-based utilities:
+    *   **Color Converter:** A tool for manipulating and converting color formats.
+    *   **Fluent Code Editor:** A lightweight code editor built with CodeMirror.
+    *   **Reader Card Generator:** Create beautiful, shareable cards for book quotes using Fluent Design.
+    *   **Snapshot Generator:** A utility for capturing webpage snapshots.
+*   **Responsive Design:** Fully responsive layout that adapts to various screen sizes.
 
 ### Built With
 
-This site is built using fundamental web technologies:
-*   HTML5
-*   CSS3
-*   JavaScript
+*   [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+*   [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
+*   [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+*   [Fluent UI Web Components](https://github.com/microsoft/fluentui)
+*   [CodeMirror](https://codemirror.net/)
 
 ## Getting Started
 
@@ -38,12 +51,18 @@ You will need a modern web browser to view the files locally. No special softwar
     ```sh
     cd creeper32767.github.io
     ```
-3.  **Open the `index.html` file:**
-    Simply open the `index.html` file in your web browser to view the site locally.
+3.  **Run locally:**
+    Simply open the `index.html` file in your web browser.
+    *Note: Some features requiring `fetch` (like dynamic notes loading) may require a local server due to CORS policies.*
+    
+    You can use Python's built-in server:
+    ```sh
+    python3 -m http.server
+    ```
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
