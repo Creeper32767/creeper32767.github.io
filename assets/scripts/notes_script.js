@@ -22,18 +22,111 @@ async function loadSection(section) {
     if (!src) return;
 
     setSectionStatus(section, 'loading');
+    
+    const baseContext = {
+        pageName: resolveCurrentPageName(),
+        sectionId: section.id || section.dataset.sectionId || entryType,
+        entryIndex: 0
+    };
+
+    let refreshTimer = null;
+    const debouncedRefresh = () => {
+        if (refreshTimer) clearTimeout(refreshTimer);
+        refreshTimer = setTimeout(() => notifyNavigationRefresh(), 100);
+    };
 
     try {
         const response = await fetch(src);
         if (!response.ok) throw new Error('Failed to fetch section data');
 
-        const entries = await response.json();
-        if (!Array.isArray(entries)) throw new Error('Invalid section payload');
-
-        renderSection(section, entries, entryType);
+        if (response.body) {
+            let hasContent = false;
+            await streamJSON(response.body, (entry) => {
+                if (!hasContent) {
+                    section.innerHTML = '';
+                    hasContent = true;
+                }
+                const card = buildCard(entry, entryType, { ...baseContext, entryIndex: baseContext.entryIndex++ });
+                if (card) {
+                    if (section.lastElementChild) {
+                        section.appendChild(document.createElement('br'));
+                    }
+                    section.appendChild(card);
+                    debouncedRefresh();
+                }
+            });
+            if (!hasContent) section.innerHTML = '';
+            // Final refresh to ensure everything is up to date
+            notifyNavigationRefresh();
+        } else {
+            const entries = await response.json();
+            if (!Array.isArray(entries)) throw new Error('Invalid section payload');
+            renderSection(section, entries, entryType);
+        }
     } catch (error) {
         console.error('Error loading section:', error);
         setSectionStatus(section, 'error');
+    }
+}
+
+async function streamJSON(readableStream, onEntry) {
+    const reader = readableStream.getReader();
+    const decoder = new TextDecoder();
+    
+    let buffer = '';
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+    let objStartIndex = -1;
+    let scanIndex = 0;
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        buffer += decoder.decode(value, { stream: true });
+        
+        while (scanIndex < buffer.length) {
+            const char = buffer[scanIndex];
+            
+            if (inString) {
+                if (char === '"' && !escaped) {
+                    inString = false;
+                } else if (char === '\\' && !escaped) {
+                    escaped = true;
+                } else {
+                    escaped = false;
+                }
+            } else {
+                if (char === '"') {
+                    inString = true;
+                } else if (char === '{') {
+                    depth++;
+                    if (depth === 2) objStartIndex = scanIndex;
+                } else if (char === '}') {
+                    const prevDepth = depth;
+                    depth--;
+                    if (prevDepth === 2 && depth === 1) {
+                        const jsonStr = buffer.substring(objStartIndex, scanIndex + 1);
+                        try {
+                            const entry = JSON.parse(jsonStr);
+                            onEntry(entry);
+                        } catch (e) {
+                            console.error("Stream parse error", e);
+                        }
+                        
+                        buffer = buffer.substring(scanIndex + 1);
+                        scanIndex = -1; 
+                        objStartIndex = -1;
+                    }
+                } else if (char === '[') {
+                    depth++;
+                } else if (char === ']') {
+                    depth--;
+                }
+            }
+            scanIndex++;
+        }
     }
 }
 
