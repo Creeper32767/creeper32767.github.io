@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - By Haley</title>
+
+    <meta name="description" content="Kitten Haley 的观测报告：阅读、游戏、生活与频道简介。">
+    <meta name="keywords" content="Kitten Haley, Creeper32767, 个人简介, 阅读, 游戏, 频道">
+    <meta name="author" content="Haley Herzog">
+
+    <!-- Fluent UI Web Components -->
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="/assets/styles/style.css">
+    <link rel="stylesheet" href="/assets/styles/nav_style.css">
+    <link rel="stylesheet" href="/assets/styles/intro_style.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <nav class="sidebar" id="nav-placeholder"></nav>
+    <div class="sidebar-overlay"></div>
+    <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
+        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+    </fluent-button>
+
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <h1>兽设渡昕 · 理想与自我的交融</h1>
+                <p>⚠️ 暂停一下 | 信号接入 ⚠️ — 虎斑猫的外表下，是更真实的内心。</p>
+            </header>
+
+            <section class="intro-banner">
+                <p class="signal-line">🐾 自介条载入中... |･ω･｀) 这是一只猫的观测报告 🐾</p>
+                <p class="typewriter" id="typewriter-text"></p>
+            </section>
+
+            <main>
+                <fluent-card class="section-card fade-in" id="Appearance" data-delay="60">
+                    <div class="card-content">
+                        <h3>🎨 外·貌 | 视觉印象 <span>(Appearance & Visuals)</span></h3>
+                        <div class="fursona-image-container">
+                            <button class="nav-btn prev-btn" onclick="moveGallery(-1)" aria-label="Previous Image">
+                                <img src="/assets/static/icons/arrow.svg" alt="Previous">
+                            </button>
+
+                            <div id="gallery-content">
+                                <div class="gallery-item active">
+                                    <img src="/assets/pictures/profile_photo.jpg" alt="Profile Photo">
+                                    <p>头像 | 画师：FF</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/pictures/1.png" alt="Picture 1">
+                                    <p>呜怎么困困的... | 画师：Temstanis</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/pictures/2.jpg" alt="Picture 2">
+                                    <p>乖巧小猫 ~ | 画师：The Chosen One</p>
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/pictures/3.png" alt="Picture 3">
+                                    <p><i>至日观数里内无树，而雪与人膝齐</i> | AI-generated (Nano Banana Pro)</p>
+                                </div>
+                            </div>
+
+                            <button class="nav-btn next-btn" onclick="moveGallery(1)" aria-label="Next Image">
+                                <img src="/assets/static/icons/arrow.svg" alt="Next">
+                            </button>
+                        </div>
+                        <ul class="info-list">
+                            <li>
+                                <strong>基本档案</strong>
+                                <small>名称：渡昕 (Duxin)</small>
+                                <small>种族：橘色虎斑猫 (Orange Tabby)</small>
+                                <small>性别：男</small>
+                                <small>年龄感：16岁 (介于幼态与成熟之间)</small>
+                            </li>
+                            <li>
+                                <strong>色彩与细节</strong>
+                                <small>色调：暖橘色为主，深橘色虎斑条纹，毛发如冬日暖阳般柔软。</small>
+                                <small>眼睛：湛蓝色，清澈深邃，带有探究世界的灵气。</small>
+                                <small>特征：直立耳，嘴角常带温和笑意，粉色肉垫。</small>
+                            </li>
+                            <li>
+                                <strong>标志性配饰</strong>
+                                <small>红色项圈：脖颈上的鲜明点缀。</small>
+                                <small>金色铃铛：古渡口拾得的旧物，质感复古，是“警醒”与“印记”，随夜风清脆作响。</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+
+                <fluent-card class="section-card fade-in" id="Personality" data-delay="120">
+                    <div class="card-content">
+                        <h3>✨ 性·格 | 灵魂侧写 <span>(Personality & Soul)</span></h3>
+                        <ul class="info-list">
+                            <li>
+                                <strong>核心特质</strong>
+                                <small>温暖、内省、文学系、真诚、坚韧。</small>
+                            </li>
+                            <li>
+                                <strong>外热内秀</strong>
+                                <small>外在像小太阳般温暖治愈，乐于交友；独处时则带有文人的敏感与忧郁，沉浸于阅读与思考。</small>
+                            </li>
+                            <li>
+                                <strong>成长底色</strong>
+                                <small>外表虽具少年感，内心却拥有一份历经迷茫后依然选择热爱生活的成熟。</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+
+                <fluent-card class="section-card fade-in" id="Background" data-delay="180">
+                    <div class="card-content">
+                        <h3>🏘️ 背·景 | 渡口守望者 <span>(Background & Story)</span></h3>
+                        <ul class="info-list">
+                            <li>
+                                <strong>起源：窑湾古镇</strong>
+                                <small>他是窑湾运河畔一抹未散的晨雾。千年的灯影凝成了这身橘暖。湛蓝的眼眸，倒映着静谧与波澜。他在古渡口泥沙中拾得的铜铃，每当夜风掠过时便清脆作响，回应着百年前的舟楫之声。他独行于斑驳墙下，在历史的缝隙里，收集那些被世人遗落在风中的温热故事，坚守着渡口的守望。</small>
+                            </li>
+                            <li>
+                                <strong>角色定位</strong>
+                                <small>他是历史的观察者，独行于斑驳墙下，在历史的缝隙里收集被遗落在风中的温热故事。</small>
+                            </li>
+                            <li>
+                                <strong>氛围意象</strong>
+                                <small>他融合了“晨雾般的朦胧”与“阳光穿透云层”的质感，宁静致远如冬日暖阳。</small>
+                                <small>既属于古老青石板路的沉稳，也属于现代校园的朝气。</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+
+                <fluent-card class="section-card fade-in" id="Hobbies" data-delay="240">
+                    <div class="card-content">
+                        <h3>🎭 爱·好 | 猫的乐园 <span>(Hobbies & Interests)</span></h3>
+                        <ul class="info-list">
+                            <li>
+                                <strong>音乐</strong>
+                                <small>聆听各种风格的音乐，从古典到现代，感受旋律中的情感。</small>
+                            </li>
+                            <li>
+                                <strong>自然漫步</strong>
+                                <small>喜欢在公园和森林中散步，感受大自然的宁静与美好。</small>
+                            </li>
+                            <li>
+                                <strong>摄影</strong>
+                                <small>用镜头捕捉生活中的美好瞬间，记录光影与情感。</small>
+                            </li>
+                            <li>
+                                <strong>热牛奶</strong>
+                                <small>在寒冷的夜晚喝一杯温暖的热牛奶，感受内心的宁静与温馨。</small>
+                            </li>
+                            <li>
+                                <strong>被摸头</strong>
+                                <small>享受被轻轻抚摸头顶的温暖时刻，慵懒地甩甩尾巴，感受关怀与安心。</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+
+                <fluent-card class="section-card fade-in" id="Philosophy" data-delay="300">
+                    <div class="card-content">
+                        <h3>📜 信·条 | 废墟上的观测 <span>(Motto & Philosophy)</span></h3>
+                        <ul class="info-list">
+                            <li>
+                                <strong>直视现实</strong>
+                                <small>“我直视这世界的荒谬与寒冷，并不企图将其粉饰；但我依然选择在每一寸冰冷的现实上，留下炽热的爪印。”</small>
+                            </li>
+                            <li>
+                                <strong>活在当下</strong>
+                                <small>“不为虚幻的明天出卖感官，只为真实的当下梳理毛发。以悲观的清醒筑起围墙，以乐观的意志在墙内种花。”</small>
+                            </li>
+                            <li>
+                                <strong>优雅生存</strong>
+                                <small>“我是废墟上的观测者，也是风雨中的回响——死既是不必急于求成的，便且让我们在这一方寸的‘活着’里，优雅而完整地，做一只好猫。”</small>
+                            </li>
+                        </ul>
+                    </div>
+                </fluent-card>
+            </main>
+
+            <footer>
+                <p>© <span id="current-year"></span> - 本页面由 Fluent UI Web Components 构建</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/assets/scripts/script.js"></script>
+    <script src="/assets/scripts/nav_script.js"></script>
+    <script src="/assets/scripts/intro_script.js"></script>
+    <script>
+        let currentImageIndex = 0;
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        function moveGallery(direction) {
+            if (galleryItems.length === 0) return;
+
+            galleryItems[currentImageIndex].classList.remove('active');
+            currentImageIndex += direction;
+
+            if (currentImageIndex >= galleryItems.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = galleryItems.length - 1;
+            }
+
+            galleryItems[currentImageIndex].classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
