@@ -22,111 +22,18 @@ async function loadSection(section) {
     if (!src) return;
 
     setSectionStatus(section, 'loading');
-    
-    const baseContext = {
-        pageName: resolveCurrentPageName(),
-        sectionId: section.id || section.dataset.sectionId || entryType,
-        entryIndex: 0
-    };
-
-    let refreshTimer = null;
-    const debouncedRefresh = () => {
-        if (refreshTimer) clearTimeout(refreshTimer);
-        refreshTimer = setTimeout(() => notifyNavigationRefresh(), 100);
-    };
 
     try {
         const response = await fetch(src);
         if (!response.ok) throw new Error('Failed to fetch section data');
 
-        if (response.body) {
-            let hasContent = false;
-            await streamJSON(response.body, (entry) => {
-                if (!hasContent) {
-                    section.innerHTML = '';
-                    hasContent = true;
-                }
-                const card = buildCard(entry, entryType, { ...baseContext, entryIndex: baseContext.entryIndex++ });
-                if (card) {
-                    if (section.lastElementChild) {
-                        section.appendChild(document.createElement('br'));
-                    }
-                    section.appendChild(card);
-                    debouncedRefresh();
-                }
-            });
-            if (!hasContent) section.innerHTML = '';
-            // Final refresh to ensure everything is up to date
-            notifyNavigationRefresh();
-        } else {
-            const entries = await response.json();
-            if (!Array.isArray(entries)) throw new Error('Invalid section payload');
-            renderSection(section, entries, entryType);
-        }
+        const entries = await response.json();
+        if (!Array.isArray(entries)) throw new Error('Invalid section payload');
+
+        initFilters(section, entries, entryType);
     } catch (error) {
         console.error('Error loading section:', error);
         setSectionStatus(section, 'error');
-    }
-}
-
-async function streamJSON(readableStream, onEntry) {
-    const reader = readableStream.getReader();
-    const decoder = new TextDecoder();
-    
-    let buffer = '';
-    let depth = 0;
-    let inString = false;
-    let escaped = false;
-    let objStartIndex = -1;
-    let scanIndex = 0;
-
-    while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        
-        buffer += decoder.decode(value, { stream: true });
-        
-        while (scanIndex < buffer.length) {
-            const char = buffer[scanIndex];
-            
-            if (inString) {
-                if (char === '"' && !escaped) {
-                    inString = false;
-                } else if (char === '\\' && !escaped) {
-                    escaped = true;
-                } else {
-                    escaped = false;
-                }
-            } else {
-                if (char === '"') {
-                    inString = true;
-                } else if (char === '{') {
-                    depth++;
-                    if (depth === 2) objStartIndex = scanIndex;
-                } else if (char === '}') {
-                    const prevDepth = depth;
-                    depth--;
-                    if (prevDepth === 2 && depth === 1) {
-                        const jsonStr = buffer.substring(objStartIndex, scanIndex + 1);
-                        try {
-                            const entry = JSON.parse(jsonStr);
-                            onEntry(entry);
-                        } catch (e) {
-                            console.error("Stream parse error", e);
-                        }
-                        
-                        buffer = buffer.substring(scanIndex + 1);
-                        scanIndex = -1; 
-                        objStartIndex = -1;
-                    }
-                } else if (char === '[') {
-                    depth++;
-                } else if (char === ']') {
-                    depth--;
-                }
-            }
-            scanIndex++;
-        }
     }
 }
 
@@ -264,12 +171,15 @@ function setSectionStatus(container, state) {
 }
 
 /* --- Collapsible Articles System --- */
-function initCollapsibleArticles() {
-    const cards = document.querySelectorAll('.card-content');
+function initCollapsibleArticles(scope = document) {
+    const cards = scope.querySelectorAll('.card-content');
 
     cards.forEach(card => {
         const header = card.querySelector('.title-block');
         if (!header) return;
+
+        // Prevent double initialization
+        if (header.querySelector('.article-toggle')) return;
 
         // 1. Wrap Content
         const body = wrapContent(header);
@@ -352,4 +262,111 @@ function notifyNavigationRefresh() {
     if (window.Highlight?.refreshOutline) {
         window.Highlight.refreshOutline();
     }
+}
+/* --- Filter System --- */
+function initFilters(section, entries, entryType) {
+    const filterContainerId = `filter-container-${section.id || Math.random().toString(36).substr(2, 9)}`;
+    let filterBar = document.getElementById(filterContainerId);
+
+    if (!filterBar) {
+        filterBar = document.createElement('div');
+        filterBar.id = filterContainerId;
+        filterBar.className = 'filter-bar';
+        // Insert before the section
+        section.parentNode.insertBefore(filterBar, section);
+    } else {
+        filterBar.innerHTML = '';
+    }
+
+    // Extract Metadata
+    const months = new Set();
+    const types = new Set();
+
+    entries.forEach(entry => {
+        if (entry.meta) {
+            const parts = entry.meta.split('/');
+            if (parts.length >= 2) {
+                months.add(`${parts[0]}-${parts[1]}`);
+            }
+        }
+        if (entry.tags && Array.isArray(entry.tags)) {
+            entry.tags.forEach(tag => {
+                const label = tag.label || tag;
+                if (label) types.add(label);
+            });
+        }
+    });
+
+    // Create UI Elements
+    const controls = document.createElement('div');
+    controls.style.display = 'flex';
+    controls.style.gap = '10px';
+    controls.style.flexWrap = 'wrap';
+
+    const monthSelect = document.createElement('select');
+    monthSelect.className = 'fluent-select-sim';
+    monthSelect.innerHTML = `<option value="">所有月份</option>` +
+        Array.from(months).sort().reverse().map(m => `<option value="${m}">${m}</option>`).join('');
+
+    const typeSelect = document.createElement('select');
+    typeSelect.className = 'fluent-select-sim';
+    typeSelect.innerHTML = `<option value="">所有类型</option>` +
+        Array.from(types).sort().map(t => `<option value="${t}">${t}</option>`).join('');
+
+    const reverseBtn = document.createElement('button');
+    reverseBtn.textContent = '倒序显示';
+    reverseBtn.className = 'fluent-btn-sim';
+
+    controls.appendChild(monthSelect);
+    controls.appendChild(typeSelect);
+    controls.appendChild(reverseBtn);
+
+    filterBar.appendChild(controls);
+
+    let isReversed = false;
+
+    const filterAndRender = () => {
+        const selectedMonth = monthSelect.value;
+        const selectedType = typeSelect.value;
+
+        let filteredEntries = entries.filter(entry => {
+            let monthMatch = true;
+            if (selectedMonth) {
+                if (!entry.meta) monthMatch = false;
+                else {
+                    const parts = entry.meta.split('/');
+                    const entMonth = (parts.length >= 2) ? `${parts[0]}-${parts[1]}` : '';
+                    if (entMonth !== selectedMonth) monthMatch = false;
+                }
+            }
+
+            let typeMatch = true;
+            if (selectedType) {
+                if (!entry.tags || !Array.isArray(entry.tags)) typeMatch = false;
+                else {
+                    const hasTag = entry.tags.some(tag => (tag.label || tag) === selectedType);
+                    if (!hasTag) typeMatch = false;
+                }
+            }
+
+            return monthMatch && typeMatch;
+        });
+
+        if (isReversed) {
+            filteredEntries.reverse();
+        }
+
+        renderSection(section, filteredEntries, entryType);
+        initCollapsibleArticles(section);
+    };
+
+    monthSelect.addEventListener('change', filterAndRender);
+    typeSelect.addEventListener('change', filterAndRender);
+    reverseBtn.addEventListener('click', () => {
+        isReversed = !isReversed;
+        reverseBtn.textContent = isReversed ? '正序显示' : '倒序显示';
+        filterAndRender();
+    });
+
+    filterAndRender();
 }

@@ -209,3 +209,54 @@ fluent-card .category {
     color: #5f5f5f;
     font-size: 0.95rem;
 }
+
+/* --- Filter Bar Styles --- */
+.filter-bar {
+    margin-bottom: 2rem;
+}
+
+.fluent-select-sim {
+    padding: 8px 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    background-color: white;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: #201f1e;
+    outline: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.fluent-select-sim:hover {
+    border-color: #323130;
+}
+
+.fluent-select-sim:focus {
+    border-color: var(--accent-color);
+}
+
+.fluent-btn-sim {
+    padding: 8px 16px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    background-color: white;
+    color: #201f1e;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.fluent-btn-sim:hover {
+    background-color: #f3f2f1;
+    border-color: #c8c6c4;
+}
+
+.fluent-btn-sim:active {
+    background-color: #edebe9;
+    border-color: #a19f9d;
+    transform: scale(0.98);
+}
