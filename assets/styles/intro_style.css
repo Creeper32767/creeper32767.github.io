@@ -94,7 +94,8 @@
 .channel-list li,
 .contact-list li,
 .conclusion-content li {
-    width: 95%;
+    width: 100%;
+    box-sizing: border-box;
     padding: 12px 14px;
     border: 1px solid rgba(0, 0, 0, 0.04);
     border-radius: 12px;
@@ -253,4 +254,31 @@
     color: var(--neutral-foreground-rest);
     margin: 0;
     font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .intro-banner {
+        margin: 12px auto;
+        padding: 14px;
+    }
+
+    .signal-line {
+        font-size: 0.68rem;
+    }
+
+    .typewriter {
+        width: 100%;
+        box-sizing: border-box;
+        justify-content: center;
+    }
+
+    .fursona-image-container {
+        min-height: 200px;
+        padding: 1rem;
+    }
+
+    .fursona-image-container img {
+        max-width: 100%;
+        max-height: 320px;
+    }
 }

@@ -185,7 +185,7 @@
 /* --- Sidebar Shell (layout + overlay) --- */
 .sidebar {
     width: var(--sidebar-width);
-    height: 100vh;
+    height: 100dvh;
     background-color: var(--neutral-layer-1);
     border-right: 1px solid #e0e0e0;
     padding: 20px 0;
@@ -228,4 +228,35 @@
 .sidebar-overlay.visible {
     opacity: 1;
     pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --sidebar-width: min(86vw, 320px);
+    }
+
+    .nav-header {
+        padding: 0 14px;
+        margin-bottom: 14px;
+    }
+
+    .profile-avatar {
+        width: 92px;
+        height: 92px;
+    }
+
+    .nav-item {
+        gap: 10px;
+        padding: 10px 14px;
+    }
+
+    .nav-submenu .nav-item {
+        padding: 8px 14px;
+        padding-left: 28px;
+    }
+
+    .nav-submenu-headings .nav-item,
+    .nav-submenu-empty {
+        padding-left: 38px;
+    }
 }

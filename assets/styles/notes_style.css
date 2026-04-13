@@ -149,6 +149,7 @@ fluent-card .category {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -259,4 +260,37 @@ fluent-card .category {
     background-color: #edebe9;
     border-color: #a19f9d;
     transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+    .main-title-block {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .main-title-block h3 {
+        font-size: 1.25rem;
+    }
+
+    .main-title-block .entry-meta {
+        margin-left: 0;
+        font-size: 0.95rem;
+    }
+
+    .article-toggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .filter-bar {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .fluent-select-sim,
+    .fluent-btn-sim {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
