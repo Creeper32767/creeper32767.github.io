@@ -166,7 +166,7 @@
 
 #Contact .contact-list li fluent-anchor {
     display: inline-flex;
-    width: fit-content;
+    flex-basis: max-content;
     margin-top: 2px;
     font-weight: 600;
 }
