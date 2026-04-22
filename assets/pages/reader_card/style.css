@@ -209,7 +209,8 @@ textarea:focus {
     background: #f8f9ff;
 }
 
-.image-preview img {
+.image-preview img,
+.image-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -380,12 +381,6 @@ textarea:focus {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .image-placeholder {

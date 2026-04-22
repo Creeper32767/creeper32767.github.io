@@ -76,10 +76,7 @@
 
 /* --- List Components (Info, Channel, Contact) --- */
 /* Container */
-.info-list,
-.channel-list ul,
-.contact-list,
-.conclusion-content ul {
+:is(.info-list, .channel-list ul, .contact-list, .conclusion-content ul) {
     width: 100%;
     list-style: none;
     padding: 0;
@@ -90,10 +87,7 @@
 }
 
 /* List Items */
-.info-list li,
-.channel-list li,
-.contact-list li,
-.conclusion-content li {
+:is(.info-list li, .channel-list li, .contact-list li, .conclusion-content li) {
     width: 100%;
     box-sizing: border-box;
     padding: 12px 14px;
@@ -106,18 +100,12 @@
 }
 
 /* Hover Effects */
-.info-list li:hover,
-.channel-list li:hover,
-.contact-list li:hover,
-.conclusion-content li:hover {
+:is(.info-list li, .channel-list li, .contact-list li, .conclusion-content li):hover {
     border-color: rgba(0, 120, 212, 0.25);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-.info-list li::before,
-.channel-list li::before,
-.contact-list li::before,
-.conclusion-content li::before {
+:is(.info-list li, .channel-list li, .contact-list li, .conclusion-content li)::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -126,10 +114,7 @@
 }
 
 /* Typography within Lists */
-.info-list strong,
-.channel-list strong,
-.contact-list strong,
-.conclusion-content strong {
+:is(.info-list strong, .channel-list strong, .contact-list strong, .conclusion-content strong) {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -138,10 +123,7 @@
     font-weight: 600;
 }
 
-.info-list small,
-.channel-list small,
-.contact-list small,
-.conclusion-content small {
+:is(.info-list small, .channel-list small, .contact-list small, .conclusion-content small) {
     display: block;
     margin-top: 4px;
     color: #666;
@@ -157,6 +139,36 @@
     padding: 2px 6px;
     border-radius: 6px;
     font-family: 'MapleMono', monospace;
+}
+
+.card-content h3 {
+    flex-wrap: wrap;
+    row-gap: 6px;
+}
+
+.card-content h3 span {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(0, 120, 212, 0.08);
+    color: #2f6f9f;
+}
+
+.contact-list li {
+    display: grid;
+    gap: 8px;
+    line-height: 1.65;
+}
+
+.contact-list li p {
+    margin: 0;
+}
+
+#Contact .contact-list li fluent-anchor {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 2px;
+    font-weight: 600;
 }
 
 .fursona-image-container {
@@ -280,5 +292,20 @@
     .fursona-image-container img {
         max-width: 100%;
         max-height: 320px;
+    }
+
+    #Contact .card-content h3 {
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    #Contact .contact-list li {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+
+    #Contact .contact-list li fluent-anchor {
+        width: 100%;
+        justify-content: center;
     }
 }

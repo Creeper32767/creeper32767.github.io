@@ -130,8 +130,7 @@
 }
 
 .nav-submenu .nav-item {
-    padding: 8px 25px;
-    padding-left: 36px;
+    padding: 8px 25px 8px 36px;
     font-size: 0.95rem;
     color: #444;
 }
@@ -251,8 +250,7 @@
     }
 
     .nav-submenu .nav-item {
-        padding: 8px 14px;
-        padding-left: 28px;
+        padding: 8px 14px 8px 28px;
     }
 
     .nav-submenu-headings .nav-item,

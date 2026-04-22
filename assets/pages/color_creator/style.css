@@ -80,8 +80,7 @@ body {
 }
 
 h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
+    margin: 0 0 15px;
     font-weight: 600;
     color: var(--text-primary);
     border-bottom: 1px solid #eee;
@@ -214,8 +213,7 @@ fluent-slider {
 
 /* Paste Helper */
 .helper-text {
-    margin-top: -5px;
-    margin-bottom: 15px;
+    margin: -5px 0 15px;
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
@@ -343,7 +341,7 @@ fluent-slider {
 }
 
 .input-with-copy fluent-text-field {
-    flex-grow: 1;
+    flex: 1;
     font-family: "MapleMono", monospace;
 }
 

@@ -85,8 +85,12 @@ body.dark-theme .editor-container {
     border-bottom: 1px solid var(--border-color);
 }
 
-body.dark-theme .button-row {
+body.dark-theme .button-row,
+body.dark-theme .clear-row {
     background: rgba(20, 30, 50, 0.6);
+}
+
+body.dark-theme .button-row {
     border-bottom-color: var(--dark-border-color);
 }
 
@@ -105,7 +109,6 @@ body.dark-theme .button-row {
 }
 
 body.dark-theme .input-row {
-    background: rgba(25, 35, 55, 0.6);
     border-bottom-color: var(--dark-border-color);
 }
 
@@ -144,8 +147,12 @@ body.dark-theme .input-row {
     font-size: 14px;
 }
 
+body.dark-theme .input-row,
 body.dark-theme .status-row {
     background: rgba(25, 35, 55, 0.6);
+}
+
+body.dark-theme .status-row {
     border-top-color: var(--dark-border-color);
     color: var(--dark-text-color);
 }
@@ -188,7 +195,6 @@ body.dark-theme .position-display {
 }
 
 body.dark-theme .clear-row {
-    background: rgba(20, 30, 50, 0.6);
     border-top-color: var(--dark-border-color);
 }
 
