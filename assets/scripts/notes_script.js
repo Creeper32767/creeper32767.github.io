@@ -190,7 +190,11 @@ function initCollapsibleArticles(scope = document) {
         // 2. Create Toggle Button Container
         const toggleBox = document.createElement('div');
         toggleBox.className = 'toggle-box';
+
+        const copyBtn = createCopyButton(card);
         const toggleBtn = createToggleButton();
+
+        toggleBox.appendChild(copyBtn);
         toggleBox.appendChild(toggleBtn);
         header.appendChild(toggleBox);
 
@@ -226,6 +230,35 @@ function createToggleButton() {
     btn.setAttribute('aria-expanded', 'false');
     btn.setAttribute('aria-label', '展开 / 收起 文章内容');
     btn.innerHTML = '<img src="/assets/static/icons/arrow.svg" alt="toggle">';
+    return btn;
+}
+
+function createCopyButton(cardElement) {
+    const btn = document.createElement('button');
+    btn.className = 'article-copy';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', '复制全文');
+    btn.innerHTML = '<img src="/assets/static/icons/copy.svg" alt="copy">';
+
+    btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+            // copy text of the article
+            const textToCopy = Array.from(cardElement.querySelectorAll('h3, .entry-meta, p, li'))
+                .map(el => el.textContent)
+                .filter(text => text.length > 0)
+                .join('\n');
+            await navigator.clipboard.writeText(textToCopy);
+
+            // Temporary feedback
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<img src="/assets/static/icons/check.svg" alt="copied">';
+            setTimeout(() => btn.innerHTML = originalHTML, 1500);
+        } catch (err) {
+            console.error('Failed to copy', err);
+        }
+    });
+
     return btn;
 }
 
