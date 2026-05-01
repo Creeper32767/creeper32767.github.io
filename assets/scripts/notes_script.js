@@ -187,9 +187,12 @@ function initCollapsibleArticles(scope = document) {
 
         card.appendChild(body);
 
-        // 2. Create Toggle Button
+        // 2. Create Toggle Button Container
+        const toggleBox = document.createElement('div');
+        toggleBox.className = 'toggle-box';
         const toggleBtn = createToggleButton();
-        header.appendChild(toggleBtn);
+        toggleBox.appendChild(toggleBtn);
+        header.appendChild(toggleBox);
 
         // 3. Bind Events
         toggleBtn.addEventListener('click', (e) => {
