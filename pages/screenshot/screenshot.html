@@ -8,19 +8,19 @@
 
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="/assets/styles/nav_style.css">
-    <link rel="icon" href="/assets/static/icons/camera.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles/nav_style.css">
+    <link rel="icon" href="/assets/icons/camera.svg" type="image/svg+xml">
 </head>
 
 <body>
     <!-- Sidebar (Loaded via JS) -->
-    <nav class="sidebar" id="nav-placeholder" data-nav-src="/assets/static/nav-projects.html"></nav>
+    <nav class="sidebar" id="nav-placeholder" data-nav-src="/nav/nav-projects.html"></nav>
     <!-- Overlay for when sidebar is open -->
     <div class="sidebar-overlay"></div>
 
     <!-- Toggle Button -->
     <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
-        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+        <img src="/assets/icons/pane_open.svg" alt="Open Pane Icon">
     </fluent-button>
 
     <div class="container">
@@ -35,7 +35,7 @@
                     <div class="input-group">
                         <fluent-text-field id="url-input" placeholder="输入或粘贴一个完整的网址"></fluent-text-field>
                         <fluent-button id="paste-btn" appearance="neutral">
-                            <img src="/assets/static/icons/paste.svg" alt="粘贴" width="24" height="24">
+                            <img src="/assets/icons/paste.svg" alt="粘贴" width="24" height="24">
                             粘贴
                         </fluent-button>
                         <fluent-button id="load-btn" appearance="accent">加载网页</fluent-button>
@@ -81,7 +81,7 @@
 
     <!-- External JavaScript -->
     <script src="script.js"></script>
-    <script src="/assets/scripts/nav_script.js"></script>
+    <script src="/scripts/nav_script.js"></script>
 
      <!-- Third-party Libraries -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>

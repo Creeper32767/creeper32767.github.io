@@ -14,9 +14,9 @@
     <script type="module"
         src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
     <!-- External Stylesheet -->
-    <link rel="stylesheet" href="/assets/styles/style.css">
-    <link rel="stylesheet" href="/assets/styles/nav_style.css">
-    <link rel="stylesheet" href="/assets/styles/intro_style.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/nav_style.css">
+    <link rel="stylesheet" href="/styles/intro_style.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
@@ -24,7 +24,7 @@
     <nav class="sidebar" id="nav-placeholder"></nav>
     <div class="sidebar-overlay"></div>
     <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
-        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+        <img src="/assets/icons/pane_open.svg" alt="Open Pane Icon">
     </fluent-button>
 
     <div class="main-content">
@@ -57,7 +57,7 @@
                         <h3>🎨 外·貌 | 视觉印象 <span>(Appearance & Visuals)</span></h3>
                         <div class="fursona-image-container">
                             <button class="nav-btn prev-btn" onclick="moveGallery(-1)" aria-label="Previous Image">
-                                <img src="/assets/static/icons/arrow.svg" alt="Previous">
+                                <img src="/assets/icons/arrow.svg" alt="Previous">
                             </button>
 
                             <div id="gallery-content">
@@ -100,7 +100,7 @@
                             </div>
 
                             <button class="nav-btn next-btn" onclick="moveGallery(1)" aria-label="Next Image">
-                                <img src="/assets/static/icons/arrow.svg" alt="Next">
+                                <img src="/assets/icons/arrow.svg" alt="Next">
                             </button>
                         </div>
                         <ul class="info-list">
@@ -222,9 +222,9 @@
         </div>
     </div>
 
-    <script src="/assets/scripts/script.js"></script>
-    <script src="/assets/scripts/nav_script.js"></script>
-    <script src="/assets/scripts/intro_script.js"></script>
+    <script src="/scripts/script.js"></script>
+    <script src="/scripts/nav_script.js"></script>
+    <script src="/scripts/intro_script.js"></script>
     <script>
         let currentImageIndex = 0;
         const galleryItems = document.querySelectorAll('.gallery-item');

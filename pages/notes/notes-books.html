@@ -12,19 +12,19 @@
 
     <script type="module"
         src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
-    <link rel="stylesheet" href="/assets/styles/style.css">
-    <link rel="stylesheet" href="/assets/styles/nav_style.css">
-    <link rel="stylesheet" href="/assets/styles/notes_style.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/nav_style.css">
+    <link rel="stylesheet" href="/styles/notes_style.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-    <nav class="sidebar" id="nav-placeholder" data-nav-src="/assets/static/nav-notes.html"></nav>
+    <nav class="sidebar" id="nav-placeholder" data-nav-src="/nav/nav-notes.html"></nav>
     <div class="sidebar-overlay"></div>
 
     <!-- Toggle Button -->
     <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
-        <img src="/assets/static/icons/pane_open.svg" alt="Open Pane Icon">
+        <img src="/assets/icons/pane_open.svg" alt="Open Pane Icon">
     </fluent-button>
 
     <div class="main-content">
@@ -38,7 +38,7 @@
                 <h2 class="section-title" id="PoemEveryday">书海修行</h2>
                 <p class="collapsible-hint" role="note">提示：点击卡片标题右侧的按钮可以展开或收起完整内容。</p>
                 <section id="book-list" class="book-list" aria-live="polite"
-                    data-json="/assets/static/contents/notes-books.json" data-entry-type="classic">
+                    data-json="/assets/literature/notes-books.json" data-entry-type="classic">
                     <p class="content-loading">正在加载内容……</p>
                 </section>
             </main>
@@ -49,9 +49,9 @@
         </div>
     </div>
 
-    <script src="/assets/scripts/script.js"></script>
-    <script src="/assets/scripts/nav_script.js"></script>
-    <script src="/assets/scripts/notes_script.js"></script>
+    <script src="/scripts/script.js"></script>
+    <script src="/scripts/nav_script.js"></script>
+    <script src="/scripts/notes_script.js"></script>
 </body>
 
 </html>

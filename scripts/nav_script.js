@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navPlaceholder = document.getElementById('nav-placeholder');
     if (!navPlaceholder) return;
 
-    const customSrc = navPlaceholder.getAttribute('data-nav-src') || '/assets/static/nav.html';
+    const customSrc = navPlaceholder.getAttribute('data-nav-src') || '/nav/nav.html';
     initNavigation(customSrc).finally(() => initSidebar());
 });
 
@@ -109,7 +109,7 @@ function extractTargetId(link) {
 }
 
 /* --- Navigation System --- */
-async function initNavigation(navSrc = '/assets/static/nav.html') {
+async function initNavigation(navSrc = '/nav/nav.html') {
     const navPlaceholder = document.getElementById('nav-placeholder');
     if (!navPlaceholder) return Promise.resolve();
 
@@ -150,7 +150,7 @@ function initSubmenus() {
         const toggleBtn = document.createElement('button');
         toggleBtn.className = 'nav-toggle-btn';
         toggleBtn.setAttribute('aria-label', '切换子菜单');
-        toggleBtn.innerHTML = `<img src="/assets/static/icons/arrow.svg" alt="Toggle Submenu Icon" />`;
+        toggleBtn.innerHTML = `<img src="/assets/icons/arrow.svg" alt="Toggle Submenu Icon" />`;
 
         // Insert button AFTER the link, but BEFORE the submenu (which is next sibling)
         // Structure: <li> <a></a> <button></button> <ul></ul> </li>
@@ -550,8 +550,8 @@ function initSidebar() {
 
     const iconImg = toggleBtn.querySelector('img');
     if (iconImg) {
-        const openSrc = '/assets/static/icons/pane_open.svg';
-        const closeSrc = '/assets/static/icons/pane_close.svg';
+        const openSrc = '/assets/icons/pane_open.svg';
+        const closeSrc = '/assets/icons/pane_close.svg';
 
         const updateIcon = () => {
             const isOpen = sidebar.classList.contains('open');
