@@ -1,23 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>关于我 - By Haley</title>
 
-    <meta name="description" content="Haley 的个人主页，了解他的项目、软件推荐和学习笔记。">
-    <meta name="keywords" content="Haley, Creeper32767, 个人主页, 项目, 软件推荐, 学习笔记">
-    <meta name="author" content="Haley Herzog">
-    <meta name="msvalidate.01" content="A8FF6B9BCC281394627CBA5E5A6961AE">
+    <meta name="description" content="Haley 的个人主页，了解他的项目、软件推荐和学习笔记。" />
+    <meta name="keywords" content="Haley, Creeper32767, 个人主页, 项目, 软件推荐, 学习笔记" />
+    <meta name="author" content="Haley Herzog" />
+    <meta name="msvalidate.01" content="A8FF6B9BCC281394627CBA5E5A6961AE" />
 
     <!-- Fluent UI Web Components -->
-    <script type="module"
-        src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
+    <script type="module" src="https://unpkg.com/@fluentui/web-components"></script>
     <!-- External Stylesheet -->
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="/styles/nav_style.css">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/nav_style.css" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
@@ -28,17 +27,16 @@
 
     <!-- Toggle Button -->
     <fluent-button appearance="sidebar-toggle" id="sidebar-toggle">
-        <img src="/assets/icons/pane_open.svg" alt="Open Pane Icon">
+        <img src="/assets/icons/pane_open.svg" alt="Open Pane Icon" />
     </fluent-button>
 
     <div class="main-content">
         <div class="container">
-
             <header class="header profile-header">
-                <img src="/assets/pictures/profile_photo.jpg" alt="Haley Avatar" class="profile-avatar">
+                <img src="/assets/pictures/profile_photo.jpg" alt="Haley Avatar" class="profile-avatar" />
                 <h1>Haley (Creeper32767)</h1>
                 <p class="bio">
-                    一个乐观的悲观主义者，励志做一只好猫。<br>
+                    一个乐观的悲观主义者，励志做一只好猫。<br />
                     An optimistic pessimist, who is determined to be a good cat.
                 </p>
             </header>
@@ -54,26 +52,30 @@
                         <!-- Chinese Panel -->
                         <fluent-tab-panel id="panel-zh" class="language-panel">
                             <p class="lang-zh">
-                                你好，旅行者！这里是渡昕（你也可以叫我 Haley，或者线下直接叫我猫猫）。
-                                <br>
+                                你好，旅行者！这里是渡昕（你也可以叫我
+                                Haley，或者线下直接叫我猫猫）。
+                                <br />
                                 我满怀热情地致力于两件事：与像你一样优秀的人交流，以及投身于奇妙的编程世界。将想法一行行代码变为现实，并构建能够真正改变世界的创新解决方案，这其中蕴含着一种魔力。我坚信，通过协作和代码的力量，我们可以为每个人创造一个更美好、更紧密联系的世界。无论你是经验丰富的开发者，还是刚刚开启你的编程之旅，我都非常乐意与你合作，分享知识，共同创造美好的事物。让我们结合彼此的创造力和技能，将梦想变为现实，为世界留下积极的爪印。一起用代码构筑未来吧！
                             </p>
                         </fluent-tab-panel>
                         <!-- English Panel -->
                         <fluent-tab-panel id="panel-en" class="language-panel">
                             <p class="lang-en">
-                                Hello, traveller! This is Haley Herzog (you can also call me Kitten, or just call me
-                                Kitty in person).
-                                <br>
-                                I'm absolutely passionate about two things:
-                                connecting with amazing people like you and the incredible world of coding. There's
-                                something magical about bringing ideas to life, line by line, and building innovative
-                                solutions that can make a real difference. I truly believe that through collaboration
-                                and the power of code, we can create a better, more connected world for everyone.
-                                Whether you're a seasoned developer or just starting your coding journey, I'd be
-                                thrilled to team up, share knowledge, and build something wonderful together. Let's
-                                combine our creativity and skills to turn our dreams into reality and leave a positive
-                                paw print on the world. Let's code together and build the future!
+                                Hello, traveller! This is Haley Herzog (you can also call me
+                                Kitten, or just call me Kitty in person).
+                                <br />
+                                I'm absolutely passionate about two things: connecting with
+                                amazing people like you and the incredible world of coding.
+                                There's something magical about bringing ideas to life, line
+                                by line, and building innovative solutions that can make a
+                                real difference. I truly believe that through collaboration
+                                and the power of code, we can create a better, more connected
+                                world for everyone. Whether you're a seasoned developer or
+                                just starting your coding journey, I'd be thrilled to team up,
+                                share knowledge, and build something wonderful together. Let's
+                                combine our creativity and skills to turn our dreams into
+                                reality and leave a positive paw print on the world. Let's
+                                code together and build the future!
                             </p>
                         </fluent-tab-panel>
                     </fluent-tabs>
@@ -83,34 +85,43 @@
                 <h2 class="section-title" id="TechAnalysis">GitHub 技术分析</h2>
                 <div class="analysis-grid">
                     <fluent-card class="analysis-card">
-                        <h3><img src="/assets/icons/code.svg" alt="Code Icon"> 常用语言</h3>
-                        <p>主要使用 Python 进行后端开发和数据处理，并使用 JavaScript、HTML 和 CSS 构建前端界面。</p>
+                        <h3>
+                            <img src="/assets/icons/code.svg" alt="Code Icon" /> 常用语言
+                        </h3>
+                        <p>
+                            主要使用 Python 进行后端开发和数据处理，并使用 JavaScript、HTML
+                            和 CSS 构建前端界面。
+                        </p>
                         <div class="lang-bar">
-                            <div class="lang-python" style="width: 55%;">Python 55%</div>
-                            <div class="lang-js" style="width: 20%;">JS 20%</div>
-                            <div class="lang-other" style="width: 25%;">Other 25%</div>
+                            <div class="lang-python" style="width: 55%">Python 55%</div>
+                            <div class="lang-js" style="width: 20%">JS 20%</div>
+                            <div class="lang-other" style="width: 25%">Other 25%</div>
                         </div>
                     </fluent-card>
                     <fluent-card class="analysis-card">
-                        <h3><img src="/assets/icons/clock.svg" alt="Clock Icon"> 编码习惯</h3>
-                        <p>活跃于夜间，专注于代码的健壮性和可读性。倾向于编写详细的文档和注释。</p>
+                        <h3>
+                            <img src="/assets/icons/clock.svg" alt="Clock Icon" /> 编码习惯
+                        </h3>
+                        <p>
+                            活跃于夜间，专注于代码的健壮性和可读性。倾向于编写详细的文档和注释。
+                        </p>
                     </fluent-card>
                 </div>
 
                 <!-- "About Me" Section -->
                 <h2 class="section-title" id="AboutMe">关于我</h2>
                 <fluent-card class="developer-card">
-                    <img src="/assets/pictures/profile_photo.jpg" alt="Haley Avatar" class="developer-avatar">
+                    <img src="/assets/pictures/profile_photo.jpg" alt="Haley Avatar" class="developer-avatar" />
                     <div class="developer-info">
                         <h3>Haley (Creeper32767)</h3>
                         <div class="developer-links">
                             <fluent-anchor href="https://github.com/Creeper32767" target="_blank"
                                 rel="noopener noreferrer">
-                                <img src="/assets/icons/github.svg" alt="GitHub Icon" slot="start">GitHub 主页
+                                <img src="/assets/icons/github.svg" alt="GitHub Icon" slot="start" />GitHub 主页
                             </fluent-anchor>
                             <fluent-anchor href="https://x.com/ConsoleCreeper" target="_blank" rel="noopener noreferrer"
                                 apprearance="outline">
-                                <img src="/assets/icons/person.svg" alt="Person Icon" slot="start">在 X 上关注我
+                                <img src="/assets/icons/person.svg" alt="Person Icon" slot="start" />在 X 上关注我
                             </fluent-anchor>
                         </div>
                     </div>
@@ -120,24 +131,26 @@
                 <h2 class="section-title" id="AboutMyOrganization">我的组织</h2>
                 <fluent-card class="developer-card">
                     <img src="https://avatars.githubusercontent.com/u/128388434?s=200&v=4" alt="SMS-COSMO Avatar"
-                        class="developer-avatar">
+                        class="developer-avatar" />
                     <div class="developer-info">
                         <h3>SMS-COSMO</h3>
                         <p class="bio">一个专注于开源协作和技术创新的学生开发者社区。</p>
                         <div class="developer-links">
                             <fluent-anchor href="https://github.com/SMS-COSMO" target="_blank"
                                 rel="noopener noreferrer">
-                                <img src="/assets/icons/github.svg" alt="GitHub Icon" slot="start">
+                                <img src="/assets/icons/github.svg" alt="GitHub Icon" slot="start" />
                                 访问 GitHub 主页
                             </fluent-anchor>
                         </div>
                     </div>
                 </fluent-card>
-
             </main>
 
             <footer>
-                <p>© <span id="current-year"></span> - 本页面由 Fluent UI Web Components 构建</p>
+                <p>
+                    © <span id="current-year"></span> - 本页面由 Fluent UI Web
+                    Components 构建
+                </p>
             </footer>
         </div>
     </div>
