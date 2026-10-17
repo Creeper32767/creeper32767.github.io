@@ -1,75 +1,75 @@
-# Personal Portfolio Website
+# Nuxt Content Starter
 
-<div align="center">
+Look at the [Nuxt Content documentation](https://content.nuxt.com) to learn more.
 
-The source code for my personal portfolio and blog, hosted on GitHub Pages.
+## Setup
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Deployed-green.svg)](https://creeper32767.github.io/)
+Make sure to install dependencies:
 
-</div>
+```bash
+# npm
+npm install
 
-## About The Project
+# pnpm
+pnpm install
 
-This repository contains the source code for my personal website, available at [creeper32767.github.io](https://creeper32767.github.io). It serves as a central hub to showcase my projects, share my thoughts on technology and literature, and provide useful web-based tools.
+# yarn
+yarn install
 
-The site is designed with a focus on performance and user experience, utilizing modern web standards and Fluent Design principles.
+# bun
+bun install
+```
 
-### Key Features
+## Development Server
 
-* **Dynamic Content Loading:** Utilizes a custom streaming JSON parser to render large content sections (like reading notes) incrementally, ensuring a fast Time-to-Interactive.
-* **Web Tools Collection:** A suite of browser-based utilities:
-  * **Color Converter:** A tool for manipulating and converting color formats.
-  * **Fluent Code Editor:** A lightweight code editor built with CodeMirror.
-  * **Reader Card Generator:** Create beautiful, shareable cards for book quotes using Fluent Design.
-  * **Snapshot Generator:** A utility for capturing webpage snapshots.
-* **Responsive Design:** Fully responsive layout that adapts to various screen sizes.
+Start the development server on `http://localhost:3000`:
 
-### Built With
+```bash
+# npm
+npm run dev
 
-* [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
-* [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
-* [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-* [Fluent UI Web Components](https://github.com/microsoft/fluentui)
-* [CodeMirror](https://codemirror.net/)
+# pnpm
+pnpm dev
 
-## Getting Started
+# yarn
+yarn dev
 
-To get a local copy up and running for development or testing, follow these simple steps.
+# bun
+bun run dev
+```
 
-### Prerequisites
+## Production
 
-You will need a modern web browser to view the files locally. No special software is required.
+Build the application for production:
 
-### Installation
+```bash
+# npm
+npm run build
 
-1. **Clone the repository:**
+# pnpm
+pnpm build
 
-    ```sh
-    git clone https://github.com/Creeper32767/creeper32767.github.io.git
-    ```
+# yarn
+yarn build
 
-2. **Navigate to the project directory:**
+# bun
+bun run build
+```
 
-    ```sh
-    cd creeper32767.github.io
-    ```
+Locally preview production build:
 
-3. **Run locally:**
-    Simply open the `index.html` file in your web browser.
-    *Note: Some features requiring `fetch` (like dynamic notes loading) may require a local server due to CORS policies.*
-    You can use Python's built-in server:
+```bash
+# npm
+npm run preview
 
-    ```sh
-    python3 -m http.server
-    ```
+# pnpm
+pnpm preview
 
-## License
+# yarn
+yarn preview
 
-Distributed under the MIT License. See `LICENSE` for more information.
+# bun
+bun run preview
+```
 
-## Contact
-
-Creeper32767 - [@Creeper32767](https://github.com/Creeper32767)
-
-Project Link: [https://github.com/Creeper32767/creeper32767.github.io](https://github.com/Creeper32767/creeper32767.github.io)
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
