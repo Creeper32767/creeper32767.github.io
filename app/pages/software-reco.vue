@@ -284,8 +284,7 @@ useSeoMeta({
                 <h3 class="text-xl font-semibold">{{ software.name }}</h3>
                 <p class="mt-3 flex-1 text-sm leading-7 text-muted">{{ software.description }}</p>
               </div>
-              <PlaneLink :href="software.href"
-                class="mt-6 w-full bg-primary shadow-sm"
+              <PlaneLink :href="software.href" class="mt-6 w-full bg-primary shadow-sm"
                 :aria-label="`${software.action ?? '获取'} ${software.name}`">
                 {{ software.action ?? "获取" }}
               </PlaneLink>

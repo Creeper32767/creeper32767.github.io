@@ -31,7 +31,7 @@ useSeoMeta({
         <img src="/images/profile-photo.webp" alt="Haley Avatar"
           class="mb-5 h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg" />
         <span class="mb-3 text-xs font-bold tracking-[0.04em] text-primary rounded bg-primary/10 p-2">{{ t(greetingKey)
-          }}</span>
+        }}</span>
         <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">{{ t("home.title") }}</h1>
         <p class="mt-4 max-w-2xl text-lg text-muted">{{ t("home.bio") }}</p>
       </header>

@@ -202,8 +202,7 @@ onBeforeUnmount(() => {
             <article v-for="contact in contacts" :key="contact.name" :class="cardItemClass">
               <h3 class="font-semibold">{{ contact.name }}</h3>
               <p class="mt-2 font-mono text-sm text-muted">{{ contact.handle }}</p>
-              <PlaneLink :href="contact.href"
-                class="mt-3 w-full bg-primary shadow-sm">
+              <PlaneLink :href="contact.href" class="mt-3 w-full bg-primary shadow-sm">
                 {{ contact.label }}
               </PlaneLink>
             </article>
