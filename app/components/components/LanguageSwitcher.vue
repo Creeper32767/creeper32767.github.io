@@ -13,10 +13,8 @@ const { locale, t } = useI18n();
 const localeCookie = useCookie<SupportedLocale>("locale");
 
 function changeLocale(nextLocale: SupportedLocale) {
-  locale.value = nextLocale;
   localeCookie.value = nextLocale;
-  localStorage.setItem("locale", nextLocale);
-  document.documentElement.lang = nextLocale;
+  locale.value = nextLocale;
 }
 </script>
 

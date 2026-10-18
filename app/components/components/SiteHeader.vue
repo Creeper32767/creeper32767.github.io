@@ -51,9 +51,9 @@ function isItemActive(item: NavigationItem) {
 </script>
 
 <template>
-  <header class="border-b border-border bg-background/95 backdrop-blur">
+  <header class="h-20 max-sm:h-32">
     <nav
-      class="mx-auto flex min-h-17 w-[calc(100%-2rem)] max-w-6xl items-center justify-between gap-8 max-[40rem]:flex-col max-[40rem]:items-start max-[40rem]:gap-3 max-[40rem]:py-4"
+      class="fixed top-4 z-50 left-1/2 -translate-x-1/2 flex min-h-17 w-[calc(100%-2rem)] max-w-6xl items-center justify-between gap-16 rounded-2xl border border-border/70 bg-background/75 px-5 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/60 max-sm:flex-col max-sm:items-start max-sm:gap-3 max-sm:py-4"
       :aria-label="t('navigation.label')">
       <div class="flex items-center gap-3">
         <img src="/images/profile-photo.webp" alt="Creeper32767 Logo"
@@ -65,7 +65,7 @@ function isItemActive(item: NavigationItem) {
         </slot>
       </div>
 
-      <div class="flex items-center gap-1 max-[40rem]:w-full max-[40rem]:justify-between">
+      <div class="flex items-center gap-1 max-sm:w-full max-sm:justify-between">
         <template v-for="item in navigationItems" :key="item.label">
           <Button v-if="item.external" as="a" variant="ghost" size="sm" class="text-muted" :href="item.to.toString()"
             target="_blank" rel="noopener noreferrer">

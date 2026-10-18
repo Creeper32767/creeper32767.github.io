@@ -19,12 +19,12 @@ useSeoMeta({
     <SiteHeader />
 
     <main id="home" class="mx-auto flex w-[calc(100%-2rem)] max-w-6xl flex-1 items-center">
-      <section class="w-full py-28 text-center max-[40rem]:py-20" aria-labelledby="welcome-title">
+      <section class="w-full py-28 text-center max-sm:py-20" aria-labelledby="welcome-title">
         <p class="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-primary">
           {{ t("home.eyebrow") }}
         </p>
         <h1 id="welcome-title"
-          class="text-6xl font-bold leading-none tracking-[-0.06em] text-foreground max-[40rem]:text-5xl">
+          class="text-6xl font-bold leading-none tracking-[-0.06em] text-foreground max-sm:text-5xl">
           {{ t("home.title") }}
         </h1>
         <p class="mt-6 text-[1.05rem] text-muted">

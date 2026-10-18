@@ -18,14 +18,14 @@ const { t } = useI18n();
 <template>
   <footer class="mx-auto flex w-[calc(100%-2rem)] max-w-6xl flex-col gap-6 py-6 text-sm text-muted">
     <Separator />
-    <div class="flex w-full items-center justify-between gap-4 max-[40rem]:flex-col max-[40rem]:items-start">
+    <div class="flex w-full items-center justify-between gap-4 max-sm:flex-col max-sm:items-start">
       <slot>
         <p>{{ t("footer.copyright", { year }) }}</p>
       </slot>
       <slot name="back-to-top">
         <Button as="a" variant="link" size="sm" href="/#home">{{
           t("footer.backToTop")
-        }}</Button>
+          }}</Button>
       </slot>
     </div>
   </footer>
