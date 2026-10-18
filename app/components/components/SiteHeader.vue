@@ -53,7 +53,7 @@ function isItemActive(item: NavigationItem) {
 <template>
   <header class="h-20 max-sm:h-32">
     <nav
-      class="fixed top-4 z-50 left-1/2 -translate-x-1/2 flex min-h-17 w-[calc(100%-2rem)] max-w-6xl items-center justify-between gap-16 rounded-2xl border border-border/70 bg-background/75 px-5 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/60 max-sm:flex-col max-sm:items-start max-sm:gap-3 max-sm:py-4"
+      class="fixed top-4 z-50 left-1/2 -translate-x-1/2 flex min-h-17 w-[calc(100%-2rem)] max-w-[79.2rem] items-center justify-between gap-16 rounded-2xl border border-border/70 bg-background/75 px-5 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/60 max-sm:flex-col max-sm:items-start max-sm:gap-3 max-sm:py-4"
       :aria-label="t('navigation.label')">
       <div class="flex items-center gap-3">
         <img src="/images/profile-photo.webp" alt="Creeper32767 Logo"
