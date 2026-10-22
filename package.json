@@ -10,21 +10,21 @@
   },
   "dependencies": {
     "@ntkrnl64/fluentui-vue-icons": "^1.0.1",
-    "@nuxt/content": "^3.16.1",
+    "@nuxt/content": "^3.16.2",
     "@tailwindcss/vite": "^4.3.3",
     "@vueuse/core": "^15.0.0",
     "better-sqlite3": "^13.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "nuxt": "^4.6.1",
+    "nuxt": "^4.6.2",
     "pinia": "^4.1.0",
     "reka-ui": "^2.11.0",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
-    "vue": "^3.5.43",
-    "vue-i18n": "^11.4.14",
-    "vue-router": "^5.3.1"
+    "vue": "^3.5.44",
+    "vue-i18n": "^11.4.16",
+    "vue-router": "^5.4.0"
   },
   "devDependencies": {
     "shadcn-nuxt": "^2.8.2"
