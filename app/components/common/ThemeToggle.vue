@@ -15,7 +15,7 @@ function changeTheme() {
 </script>
 
 <template>
-  <Button as="button" variant="ghost" size="icon" :aria-label="isDark ? t('theme.switchToLight') : t('theme.switchToDark')"
+  <Button variant="ghost" size="icon" :aria-label="isDark ? t('theme.switchToLight') : t('theme.switchToDark')"
     :title="isDark ? t('theme.switchToLight') : t('theme.switchToDark')" @click="changeTheme">
     <WeatherSunny24Filled v-if="isDark" aria-hidden="true" />
     <WeatherMoon24Filled v-else aria-hidden="true" />

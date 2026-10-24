@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
+import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
 
 const { t } = useI18n();
 const greetingKey = useState("home-greeting", () => {
@@ -67,11 +68,11 @@ useSeoMeta({
             <h3 class="text-xl font-semibold">{{ t("home.title") }}</h3>
             <div class="mt-4 flex flex-wrap gap-3">
               <Button as="a" href="https://github.com/Creeper32767" target="_blank" rel="noopener noreferrer">
-                {{ t("home.githubHome") }}
+                {{ t("home.githubHome") }} <Open16Regular class="h-4 w-4" aria-hidden="true" />
               </Button>
               <Button as="a" variant="outline" href="https://x.com/ConsoleCreeper" target="_blank"
                 rel="noopener noreferrer">
-                {{ t("home.followX") }}
+                {{ t("home.followX") }} <Open16Regular class="h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>
@@ -88,7 +89,7 @@ useSeoMeta({
             <h3 class="text-xl font-semibold">SMS-COSMO</h3>
             <p class="mt-2 text-muted">{{ t("home.organizationDescription") }}</p>
             <Button as="a" class="mt-4" variant="outline" href="https://github.com/SMS-COSMO" target="_blank"
-              rel="noopener noreferrer">{{ t("home.visitGithub") }}</Button>
+              rel="noopener noreferrer">              {{ t("home.visitGithub") }} <Open16Regular class="h-4 w-4" aria-hidden="true" /></Button>
           </div>
         </div>
       </section>

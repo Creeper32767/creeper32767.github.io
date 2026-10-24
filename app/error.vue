@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { QuestionCircle24Filled } from '@ntkrnl64/fluentui-vue-icons'
 
-defineProps<{
+const props = defineProps<{
   error: {
     statusCode?: number
     statusMessage?: string
@@ -10,7 +12,7 @@ defineProps<{
 
 const { t } = useI18n()
 
-// 使用固定种子的伪随机数，确保 SSR 和客户端生成完全相同的样式。
+// 固定种子的伪随机数，确保 SSR 与客户端生成一致的流星样式。
 const createRandom = (seed: number) => {
   let value = seed >>> 0
   return () => {
@@ -24,29 +26,56 @@ const createRandom = (seed: number) => {
 
 const random = createRandom(0x40404)
 
-// 生成 18 颗固定参数的流星，避免 hydration 时重新产生样式值。
-const meteors = Array.from({ length: 18 }, (_, index) => {
-  return {
-    id: index,
-    left: `${(random() * 100).toFixed(3)}%`,
-    delay: `${(random() * 10).toFixed(3)}s`,
-    duration: `${(3 + random() * 4).toFixed(3)}s`,
-    height: `${(4 + random() * 6).toFixed(3)}rem`,
-    width: `${random() > 0.8 ? 0.15 : 0.1}rem`,
-    opacity: `${(0.4 + random() * 0.6).toFixed(3)}`,
-  }
+const meteors = Array.from({ length: 18 }, (_, index) => ({
+  id: index,
+  left: `${(random() * 100).toFixed(3)}%`,
+  delay: `${(random() * 10).toFixed(3)}s`,
+  duration: `${(3 + random() * 4).toFixed(3)}s`,
+  height: `${(4 + random() * 6).toFixed(3)}rem`,
+  width: `${random() > 0.8 ? 0.15 : 0.1}rem`,
+  opacity: `${(0.4 + random() * 0.6).toFixed(3)}`,
+}))
+
+// 已知错误码 / i18n 映射
+const SUPPORTED_CODES = new Set([400, 401, 403, 404, 408, 429, 500, 502, 503, 504])
+
+const statusCode = computed(() => {
+  const code = props.error.statusCode
+  return typeof code === 'number' && code > 0 ? code : 500
+})
+
+const isKnownCode = computed(() => SUPPORTED_CODES.has(statusCode.value))
+const errorKey = computed(
+  () => `error.statuses.${isKnownCode.value ? statusCode.value : 'default'}`,
+)
+
+// 已知错误码 → 完全使用 i18n；未知错误码 → 优先展示服务端消息，否则 i18n 默认文案。
+const title = computed(() => {
+  if (isKnownCode.value) return t(`${errorKey.value}.title`)
+  const serverMessage = props.error.statusMessage?.trim()
+  return serverMessage || t('error.statuses.default.title')
+})
+
+const message = computed(() => t(`${errorKey.value}.message`))
+const hint = computed(() => t(`${errorKey.value}.hint`))
+const literaryText = computed(() => t('error.literaryText'))
+const canRetry = computed(() => statusCode.value >= 500)
+
+useSeoMeta({
+  title: () => `${statusCode.value} - ${title.value}`,
+  description: () => `${message.value} - ${hint.value}`.trim(),
+  ogTitle: () => `${statusCode.value} - ${title.value}`,
+  ogDescription: () => `${message.value} - ${hint.value}`.trim(),
+  robots: 'noindex',
 })
 
 function returnHome() {
   clearError({ redirect: '/' })
 }
 
-useSeoMeta({
-  title: "404 - 页面未找到",
-  description: "您访问的页面不存在或已被删除。请返回主页继续浏览。",
-  ogTitle: "404 - 页面未找到",
-  ogDescription: "您访问的页面不存在或已被删除。请返回主页继续浏览。",
-});
+function retry() {
+  if (import.meta.client) window.location.reload()
+}
 </script>
 
 <template>
@@ -66,22 +95,39 @@ useSeoMeta({
     <LayoutSiteHeader />
 
     <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-16 text-center">
-      <section class="max-w-2xl">
-        <div class="flex items-center justify-center gap-4 text-primary">
+      <section class="max-w-2xl" role="alert" aria-live="polite">
+        <div class="relative flex items-center justify-center text-primary">
           <span class="text-8xl font-bold leading-none tracking-wider sm:text-[10rem]">
-            {{ error.statusCode }}
+            {{ statusCode }}
+          </span>
+          <span class="group absolute -right-5 top-0 sm:-right-10 sm:top-3">
+            <QuestionCircle24Filled class="h-6 w-6 text-primary transition-transform group-hover:scale-110"
+              aria-label="Error details" />
+            <span
+              class="pointer-events-none absolute bottom-full left-1/2 mb-3 hidden w-64 -translate-x-1/2 rounded-xl border border-border bg-background/95 p-4 text-left text-sm font-normal leading-6 text-foreground shadow-xl group-hover:block group-focus-within:block"
+              role="tooltip">
+              <strong class="block text-primary">{{ message }}</strong>
+              <span class="mt-1 block text-muted">{{ hint }}</span>
+            </span>
           </span>
         </div>
+
         <h1 class="mt-6 text-3xl font-light text-foreground sm:text-4xl">
-          {{ error.statusCode === 404 ? t('notFound.title') : error.statusMessage }}
+          {{ title }}
         </h1>
-        <p class="mt-6 text-lg leading-8 text-muted">
-          {{ t('notFound.message') }}<br />
-          {{ t('notFound.farewell') }}
+
+        <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-muted">
+          {{ literaryText }}
         </p>
-        <Button size="lg" class="mt-10" @click="returnHome">
-          {{ t('notFound.home') }}
-        </Button>
+
+        <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Button v-if="canRetry" size="lg" variant="outline" @click="retry">
+            {{ t('error.actions.retry') }}
+          </Button>
+          <Button size="lg" @click="returnHome">
+            {{ t('error.actions.home') }}
+          </Button>
+        </div>
       </section>
     </main>
 

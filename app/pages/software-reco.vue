@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
 
 interface Software {
   name: string;
@@ -283,7 +284,7 @@ useSeoMeta({
               </div>
               <PlaneLink :href="software.href" class="mt-6 w-full bg-primary shadow-sm"
                 :aria-label="`${software.action ?? '获取'} ${software.name}`">
-                {{ software.action ?? "获取" }}
+                {{ software.action ?? "获取" }} <Open16Regular class="h-4 w-4" aria-hidden="true" />
               </PlaneLink>
             </article>
           </div>

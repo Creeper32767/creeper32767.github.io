@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
 import { onBeforeUnmount, onMounted, ref } from "vue";
 
 useSeoMeta({
@@ -201,6 +202,7 @@ onBeforeUnmount(() => {
               <p class="mt-2 font-mono text-sm text-muted">{{ contact.handle }}</p>
               <PlaneLink :href="contact.href" class="mt-3 w-full bg-primary shadow-sm">
                 {{ contact.label }}
+                <Open16Regular class="h-4 w-4" aria-hidden="true" />
               </PlaneLink>
             </article>
             <article :class="cardItemClass">

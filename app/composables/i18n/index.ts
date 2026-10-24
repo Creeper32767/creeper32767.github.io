@@ -10,7 +10,10 @@ const messages = {
       about: "About",
       projects: "Projects",
       github: "GitHub",
-      label: "Main navigation",
+      followX: "Follow me on X",
+      openPanel: "Open navigation",
+      closePanel: "Close navigation",
+      panelTitle: "Navigation",
     },
     home: {
       eyebrow: {
@@ -41,15 +44,95 @@ const messages = {
       visitGithub: "Visit GitHub profile",
     },
     footer: {
-      copyright: "© {year} Creeper32767. Built with Vue.",
+      copyright: "© {year} Creeper32767. All rights reserved.",
       backToTop: "Back to top",
+      introduction:
+        "A coding cat's little corner for projects, ideas, and experiments.",
+      sitemap: "Sitemap",
+      siteLinks: {
+        home: "Home",
+        about: "About me",
+        projects: "Projects",
+        software: "Software picks",
+        portfolio: "Portfolio",
+      },
+      contentLinks: {
+        deeperIntro: "More about me",
+        fursona: "Fursona",
+        editor: "Code editor",
+        readerCard: "Reader card",
+      },
+      siteInfo: "Site information",
+      toolsAndContent: "Tools & content",
+      source: "Source code",
+      credit: "Designed & built by Creeper32767, made with Vue & Nuxt.",
     },
-    notFound: {
-      title: "Error: Page not found",
-      message: "You seem to have reached the edge of the world…",
-      farewell:
-        "If we do not meet again, good morning, good afternoon, and good night.",
-      home: "Return home",
+    error: {
+      literaryText:
+        "Every detour is part of the journey. Pause for a moment, then continue sailing forward.",
+      statuses: {
+        "400": {
+          title: "Bad request",
+          message: "The server could not understand your request.",
+          hint: "Please check your input and try again.",
+        },
+        "401": {
+          title: "Authentication required",
+          message: "This page requires you to be signed in.",
+          hint: "Please sign in and try again.",
+        },
+        "403": {
+          title: "Access denied",
+          message: "You don't have permission to view this page.",
+          hint: "If you believe this is a mistake, contact the administrator.",
+        },
+        "404": {
+          title: "Page not found",
+          message:
+            "The page you are looking for does not exist or has been removed.",
+          hint: "Return to the homepage to continue browsing.",
+        },
+        "408": {
+          title: "Request timeout",
+          message: "The server timed out waiting for your request.",
+          hint: "Please check your connection and try again.",
+        },
+        "429": {
+          title: "Too many requests",
+          message: "You have sent too many requests in a short period.",
+          hint: "Please try again later.",
+        },
+        "500": {
+          title: "Server error",
+          message:
+            "The server ran into a problem and couldn't complete the request.",
+          hint: "Please try again later or return to the homepage.",
+        },
+        "502": {
+          title: "Bad gateway",
+          message: "The upstream service returned an invalid response.",
+          hint: "Please try again later.",
+        },
+        "503": {
+          title: "Service unavailable",
+          message: "The server is temporarily unable to handle the request.",
+          hint: "Please try again later.",
+        },
+        "504": {
+          title: "Gateway timeout",
+          message: "The upstream service took too long to respond.",
+          hint: "Please try again later.",
+        },
+        default: {
+          title: "Something went wrong",
+          message: "An unexpected error occurred.",
+          hint: "Return to the homepage to continue browsing.",
+        },
+      },
+      actions: {
+        home: "Return home",
+        retry: "Retry",
+      },
     },
     language: {
       label: "Language",
@@ -67,7 +150,10 @@ const messages = {
       about: "关于",
       projects: "项目",
       github: "GitHub",
-      label: "主导航",
+      followX: "在 X 上关注我",
+      openPanel: "打开导航",
+      closePanel: "关闭导航",
+      panelTitle: "导航",
     },
     home: {
       eyebrow: {
@@ -97,14 +183,92 @@ const messages = {
       visitGithub: "访问 GitHub 主页",
     },
     footer: {
-      copyright: "© {year} Creeper32767。使用 Vue 构建。",
+      copyright: "© {year} Creeper32767。保留所有权利。",
       backToTop: "返回顶部",
+      introduction: "这里是一只猫猫记录项目、想法与各种小实验的个人空间。",
+      sitemap: "网站地图",
+      siteLinks: {
+        home: "首页",
+        about: "关于我",
+        projects: "项目",
+        software: "软件推荐",
+        portfolio: "作品集",
+      },
+      contentLinks: {
+        deeperIntro: "深入介绍",
+        fursona: "兽设",
+        editor: "代码编辑器",
+        readerCard: "阅读卡片",
+      },
+      siteInfo: "站点信息",
+      toolsAndContent: "工具与内容",
+      source: "网站源码",
+      credit: "由 Creeper32767 设计与构建，使用 Vue & Nuxt 制作。",
     },
-    notFound: {
-      title: "发生错误：页面未找到",
-      message: "你似乎到达了世界的边缘……",
-      farewell: "若无缘再见，便祝你早安，午安，夜夜好梦。",
-      home: "返回主页",
+    error: {
+      literaryText:
+        "每一次绕路都是旅程的一部分。稍作停留，然后继续向前吧。",
+      statuses: {
+        "400": {
+          title: "请求有误",
+          message: "服务器无法理解您的请求。",
+          hint: "请检查输入内容后重试。",
+        },
+        "401": {
+          title: "需要登录",
+          message: "此页面需要身份验证。",
+          hint: "请先登录后再访问。",
+        },
+        "403": {
+          title: "没有权限",
+          message: "您无权访问此页面。",
+          hint: "如果认为这是误判，请联系管理员。",
+        },
+        "404": {
+          title: "页面未找到",
+          message: "您访问的页面不存在或已被删除。",
+          hint: "请返回主页继续浏览。",
+        },
+        "408": {
+          title: "请求超时",
+          message: "服务器等待请求超时。",
+          hint: "请检查网络后重试。",
+        },
+        "429": {
+          title: "请求过于频繁",
+          message: "您短时间内发送了过多请求。",
+          hint: "请稍后再试。",
+        },
+        "500": {
+          title: "服务器错误",
+          message: "服务器遇到问题，无法完成请求。",
+          hint: "请稍后重试或返回主页。",
+        },
+        "502": {
+          title: "网关错误",
+          message: "上游服务响应无效。",
+          hint: "请稍后重试。",
+        },
+        "503": {
+          title: "服务暂不可用",
+          message: "服务器暂时无法处理请求。",
+          hint: "请稍后重试。",
+        },
+        "504": {
+          title: "网关超时",
+          message: "上游服务响应超时。",
+          hint: "请稍后重试。",
+        },
+        default: {
+          title: "出现了一点问题",
+          message: "发生了未知错误。",
+          hint: "请返回主页继续浏览。",
+        },
+      },
+      actions: {
+        home: "返回主页",
+        retry: "重试",
+      },
     },
     language: {
       label: "语言",
