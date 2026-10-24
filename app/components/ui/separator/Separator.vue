@@ -1,23 +1,24 @@
 <script setup lang="ts">
-import { Separator as RekaSeparator } from 'reka-ui'
-import { cn } from '~/composables/lib/utils'
+import type { SeparatorProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
+import { cn } from "cn"
+import { Separator } from "reka-ui"
 
-withDefaults(
-  defineProps<{
-    class?: string
-    orientation?: 'horizontal' | 'vertical'
-  }>(),
-  {
-    orientation: 'horizontal',
-  },
-)
+const props = withDefaults(defineProps<
+  SeparatorProps & { class?: HTMLAttributes["class"] }
+>(), {
+  orientation: "horizontal",
+  decorative: true,
+})
+
+const delegatedProps = reactiveOmit(props, "class")
 </script>
 
 <template>
-  <RekaSeparator :orientation="orientation" :class="cn(
-    'shrink-0 bg-border',
-    orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px',
-    $props.class,
+  <Separator data-slot="separator" v-bind="delegatedProps" :class="cn(
+    'bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px',
+    props.class,
   )
-    " v-bind="$attrs" />
+    " />
 </template>

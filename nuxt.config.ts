@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
+import fs from 'node:fs';
 
 export default defineNuxtConfig({
   modules: ["@nuxt/content", "shadcn-nuxt"],
@@ -38,9 +39,8 @@ export default defineNuxtConfig({
       "@ntkrnl64/fluentui-vue-icons",
       "@vueuse/core",
       "class-variance-authority",
-      "clsx",
+      "cn",
       "reka-ui",
-      "tailwind-merge",
       "vue-i18n",
       "pinia",
     ],
