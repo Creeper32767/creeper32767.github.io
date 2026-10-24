@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { Button } from "@/components/components/ui/button";
-import Separator from "@/components/components/ui/separator/Separator.vue";
 
 withDefaults(
   defineProps<{

@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import PlaneLink from "@/components/components/PlaneLink.vue";
-import SiteFooter from "@/components/components/SiteFooter.vue";
-import SiteHeader from "@/components/components/SiteHeader.vue";
 
 interface Software {
   name: string;
@@ -256,7 +253,7 @@ useSeoMeta({
 
 <template>
   <div class="flex min-h-screen flex-col bg-background text-foreground">
-    <SiteHeader />
+    <LayoutSiteHeader />
 
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
       <header class="mb-16 text-center">
@@ -294,7 +291,7 @@ useSeoMeta({
       </div>
     </main>
 
-    <SiteFooter />
+    <LayoutSiteFooter />
   </div>
 </template>
 

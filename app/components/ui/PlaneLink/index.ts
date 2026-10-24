@@ -1,0 +1,1 @@
+export { default as PlaneLink } from './PlaneLink.vue'

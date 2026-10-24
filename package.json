@@ -21,12 +21,12 @@
     "reka-ui": "^2.11.0",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3",
-    "typescript": "^7.0.2",
     "vue": "^3.5.44",
     "vue-i18n": "^11.4.16",
     "vue-router": "^5.4.0"
   },
   "devDependencies": {
-    "shadcn-nuxt": "^2.8.2"
+    "shadcn-nuxt": "^2.8.2",
+    "typescript": "^7.0.2"
   }
 }

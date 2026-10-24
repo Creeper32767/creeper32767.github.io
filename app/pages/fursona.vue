@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import SiteFooter from "@/components/components/SiteFooter.vue";
-import SiteHeader from "@/components/components/SiteHeader.vue";
 
 type Detail = {
   title: string;
@@ -116,7 +114,7 @@ useSeoMeta({
 
 <template>
   <div class="flex min-h-screen flex-col bg-background text-foreground">
-    <SiteHeader />
+    <LayoutSiteHeader />
 
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-10 sm:py-16">
       <header class="mb-12 max-w-3xl">
@@ -188,6 +186,6 @@ useSeoMeta({
       </section>
     </main>
 
-    <SiteFooter />
+    <LayoutSiteFooter />
   </div>
 </template>

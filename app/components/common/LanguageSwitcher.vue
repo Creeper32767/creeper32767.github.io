@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { supportedLocales, type SupportedLocale } from "@/components/i18n";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/components/ui/select";
+import { supportedLocales, type SupportedLocale } from "~/composables/i18n";
 
 const { locale, t } = useI18n();
 const localeCookie = useCookie<SupportedLocale>("locale");

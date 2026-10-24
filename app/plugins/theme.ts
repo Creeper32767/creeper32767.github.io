@@ -1,5 +1,5 @@
 import { watch } from "vue";
-import { initializeTheme, theme } from "@/components/theme";
+import { initializeTheme, theme } from "~/composables/theme";
 
 type ThemePreference = "light" | "dark";
 

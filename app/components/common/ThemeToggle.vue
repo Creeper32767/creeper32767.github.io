@@ -2,8 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { WeatherMoon24Filled, WeatherSunny24Filled } from '@ntkrnl64/fluentui-vue-icons'
-import { Button } from '@/components/components/ui/button'
-import { theme, toggleTheme, type Theme } from '@/components/theme'
+import { theme, toggleTheme, type Theme } from '~/composables/theme'
 
 const { t } = useI18n()
 const isDark = computed(() => theme.value === 'dark')

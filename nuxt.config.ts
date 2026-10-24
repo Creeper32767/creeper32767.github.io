@@ -5,11 +5,11 @@ export default defineNuxtConfig({
   modules: ["@nuxt/content", "shadcn-nuxt"],
   shadcn: {
     prefix: "",
-    componentDir: "./app/components/components/ui",
+    componentDir: "./app/components/ui",
   },
   devtools: { enabled: true },
   compatibilityDate: "2024-04-03",
-  css: ["~/components/assets/main.css"],
+  css: ["~/assets/main.css"],
   app: {
     head: {
       htmlAttrs: {
@@ -32,5 +32,17 @@ export default defineNuxtConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+  },
+  optimizeDeps: {
+    include: [
+      "@ntkrnl64/fluentui-vue-icons",
+      "@vueuse/core",
+      "class-variance-authority",
+      "clsx",
+      "reka-ui",
+      "tailwind-merge",
+      "vue-i18n",
+      "pinia",
+    ],
   },
 });

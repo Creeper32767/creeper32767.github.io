@@ -44,9 +44,6 @@ importers:
       tailwindcss:
         specifier: ^4.3.3
         version: 4.3.3
-      typescript:
-        specifier: ^7.0.2
-        version: 7.0.2
       vue:
         specifier: ^3.5.44
         version: 3.5.44(typescript@7.0.2)
@@ -60,6 +57,9 @@ importers:
       shadcn-nuxt:
         specifier: ^2.8.2
         version: 2.8.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(magicast@0.5.5)
+      typescript:
+        specifier: ^7.0.2
+        version: 7.0.2
 
 packages:
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SelectItem as RekaSelectItem, SelectItemIndicator, SelectItemText } from 'reka-ui'
-import { cn } from '@/components/lib/utils'
+import { cn } from '~/composables/lib/utils'
 
 const props = defineProps<{
   class?: string

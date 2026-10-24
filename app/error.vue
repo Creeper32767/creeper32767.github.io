@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import SiteFooter from '@/components/components/SiteFooter.vue'
-import SiteHeader from '@/components/components/SiteHeader.vue'
-import { Button } from '@/components/components/ui/button'
 import { useI18n } from 'vue-i18n'
 
 defineProps<{
@@ -66,7 +63,7 @@ useSeoMeta({
         }" />
     </div>
 
-    <SiteHeader />
+    <LayoutSiteHeader />
 
     <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-16 text-center">
       <section class="max-w-2xl">
@@ -88,7 +85,7 @@ useSeoMeta({
       </section>
     </main>
 
-    <SiteFooter />
+    <LayoutSiteFooter />
   </div>
 </template>
 
@@ -116,13 +113,9 @@ useSeoMeta({
     opacity: var(--opacity, 0.8);
   }
 
-  40% {
-    translate: -40vw 110vh;
-    opacity: 0;
-  }
-
+  40%,
   100% {
-    translate: -40vw 110vh;
+    translate: -77vh 110vh;
     opacity: 0;
   }
 }

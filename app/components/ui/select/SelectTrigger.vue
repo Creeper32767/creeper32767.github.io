@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SelectIcon, SelectTrigger as RekaSelectTrigger } from 'reka-ui'
-import { cn } from '@/components/lib/utils'
+import { cn } from '~/composables/lib/utils'
 
 defineProps<{ class?: string }>()
 </script>

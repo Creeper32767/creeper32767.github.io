@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Separator as RekaSeparator } from 'reka-ui'
-import { cn } from '@/components/lib/utils'
+import { cn } from '~/composables/lib/utils'
 
 withDefaults(
   defineProps<{

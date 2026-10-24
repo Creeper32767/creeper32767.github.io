@@ -2,7 +2,7 @@ import {
   i18n,
   supportedLocales,
   type SupportedLocale,
-} from "@/components/i18n";
+} from "~/composables/i18n";
 import { watch } from "vue";
 
 function detectBrowserLocale(): SupportedLocale {

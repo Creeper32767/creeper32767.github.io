@@ -7,9 +7,6 @@ import {
   useRouter,
   type RouteLocationRaw,
 } from "vue-router";
-import LanguageSwitcher from "./LanguageSwitcher.vue";
-import { Button } from "@/components/components/ui/button";
-import ThemeToggle from "./ThemeToggle.vue";
 
 export interface NavigationItem {
   label: string;
@@ -79,9 +76,9 @@ function isItemActive(item: NavigationItem) {
           </Button>
         </template>
         <slot name="actions">
-          <LanguageSwitcher />
+          <CommonLanguageSwitcher />
         </slot>
-        <ThemeToggle />
+        <CommonThemeToggle />
       </div>
     </nav>
   </header>

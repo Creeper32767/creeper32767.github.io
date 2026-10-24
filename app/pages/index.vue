@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import SiteHeader from "@/components/components/SiteHeader.vue";
-import SiteFooter from "@/components/components/SiteFooter.vue";
 import { useI18n } from "vue-i18n";
-import { Button } from "@/components/components/ui/button";
 
 const { t } = useI18n();
 const greetingKey = useState("home-greeting", () => {
@@ -24,7 +21,7 @@ useSeoMeta({
 
 <template>
   <div class="flex min-h-screen flex-col bg-background text-foreground">
-    <SiteHeader />
+    <LayoutSiteHeader />
 
     <main id="home" class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
       <header class="mb-12 flex flex-col items-center text-center">
@@ -97,6 +94,6 @@ useSeoMeta({
       </section>
     </main>
 
-    <SiteFooter />
+    <LayoutSiteFooter />
   </div>
 </template>
