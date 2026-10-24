@@ -56,9 +56,9 @@ function isItemActive(item: NavigationItem) {
         <img src="/images/profile-photo.webp" alt="Creeper32767 Logo"
           class="h-10 w-10 rounded-full border-2 border-white object-cover" />
         <slot name="brand">
-          <RouterLink class="text-lg font-bold tracking-tight text-foreground" to="/" aria-label="Creeper32767 home">
+          <NuxtLink class="text-lg font-bold tracking-tight text-foreground" to="/" aria-label="Creeper32767 home">
             Creeper32767
-          </RouterLink>
+          </NuxtLink>
         </slot>
       </div>
 
@@ -68,11 +68,11 @@ function isItemActive(item: NavigationItem) {
             target="_blank" rel="noopener noreferrer">
             {{ t(item.label) }}
           </Button>
-          <Button v-else as-child variant="ghost" size="sm" :class="isItemActive(item) ? 'bg-primary/10 text-primary' : 'text-muted'
+          <Button v-else as="button" variant="ghost" size="sm" :class="isItemActive(item) ? 'bg-primary/10 text-primary' : 'text-muted'
             ">
-            <RouterLink :to="item.to">
+            <NuxtLink :to="item.to">
               {{ t(item.label) }}
-            </RouterLink>
+            </NuxtLink>
           </Button>
         </template>
         <slot name="actions">

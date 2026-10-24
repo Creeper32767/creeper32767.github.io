@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
-import fs from 'node:fs';
+import fs from "node:fs";
 
 export default defineNuxtConfig({
   modules: ["@nuxt/content", "shadcn-nuxt"],
@@ -36,13 +36,22 @@ export default defineNuxtConfig({
   },
   optimizeDeps: {
     include: [
+      "@codemirror/lang-cpp",
+      "@codemirror/lang-css",
+      "@codemirror/lang-html",
+      "@codemirror/lang-java",
+      "@codemirror/lang-javascript",
+      "@codemirror/lang-markdown",
+      "@codemirror/lang-python",
+      "@codemirror/view",
       "@ntkrnl64/fluentui-vue-icons",
       "@vueuse/core",
       "class-variance-authority",
       "cn",
+      "codemirror",
       "reka-ui",
+      "vue-codemirror",
       "vue-i18n",
-      "pinia",
     ],
   },
 });

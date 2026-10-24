@@ -21,7 +21,7 @@ const { t } = useI18n();
         <p>{{ t("footer.copyright", { year }) }}</p>
       </slot>
       <slot name="back-to-top">
-        <Button as="a" variant="link" size="sm" href="/#home">{{
+        <Button as="button" variant="link" size="sm" href="/#home">{{
           t("footer.backToTop")
           }}</Button>
       </slot>
