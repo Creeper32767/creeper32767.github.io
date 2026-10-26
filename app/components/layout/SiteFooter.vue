@@ -48,7 +48,7 @@ const socialLinks = [
               class="h-10 w-10 rounded-full border border-border object-cover" />
             Creeper32767
           </NuxtLink>
-          <p class="mt-4 max-w-xs text-sm leading-7 text-muted">
+          <p class="mt-4 max-w-xl text-sm leading-7 text-muted">
             {{ t("footer.introduction") }}
           </p>
           <div class="mt-5 flex flex-wrap gap-2">
@@ -63,7 +63,7 @@ const socialLinks = [
 
         <div>
           <h2 class="text-sm font-semibold tracking-wide text-foreground">{{ t("footer.sitemap") }}</h2>
-          <nav class="mt-4 flex flex-col items-start gap-3" :aria-label="t('footer.sitemap')">
+          <nav class="mt-4 grid grid-cols-2 items-start gap-3 sm:flex sm:flex-col" :aria-label="t('footer.sitemap')">
             <NuxtLink v-for="link in siteLinks" :key="link.label" :to="link.to"
               class="text-sm text-muted transition-colors hover:text-primary">
               {{ t(link.label) }}
@@ -73,7 +73,8 @@ const socialLinks = [
 
         <div>
           <h2 class="text-sm font-semibold tracking-wide text-foreground">{{ t("footer.toolsAndContent") }}</h2>
-          <nav class="mt-4 flex flex-col items-start gap-3" :aria-label="t('footer.toolsAndContent')">
+          <nav class="mt-4 grid grid-cols-2 items-start gap-3 sm:flex sm:flex-col"
+            :aria-label="t('footer.toolsAndContent')">
             <NuxtLink v-for="link in contentLinks" :key="link.label" :to="link.to"
               class="text-sm text-muted transition-colors hover:text-primary">
               {{ t(link.label) }}
@@ -83,13 +84,13 @@ const socialLinks = [
 
         <div>
           <h2 class="text-sm font-semibold tracking-wide text-foreground">{{ t("footer.siteInfo") }}</h2>
-          <div class="mt-4 flex flex-col items-start gap-3 text-sm text-muted">
+          <div class="mt-4 grid grid-cols-2 items-start gap-3 text-sm text-muted sm:flex sm:flex-col">
             <a class="transition-colors hover:text-primary"
               href="https://github.com/Creeper32767/creeper32767.github.io" target="_blank" rel="noopener noreferrer">{{
                 t("footer.source") }}
               <Open16Regular class="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
-            <button class="transition-colors hover:text-primary" type="button" @click="scrollToTop">
+            <button class="self-start text-left transition-colors hover:text-primary" type="button" @click="scrollToTop">
               {{ t("footer.backToTop") }}
             </button>
           </div>
