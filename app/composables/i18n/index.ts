@@ -68,8 +68,13 @@ const messages = {
       credit: "Designed & built by Creeper32767, made with Vue & Nuxt.",
     },
     error: {
-      literaryText:
+      literaryTexts: [
         "Every detour is part of the journey. Pause for a moment, then continue sailing forward.",
+        "Even the stars need a moment of darkness before they can shine again.",
+        "The road may end here, but the story has not yet reached its final page.",
+        "Take a breath, look toward the horizon, and let the next chapter find you.",
+        "You seem to have reached the edge of the world... If we don't meet again, I wish you good morning, good afternoon, and sweet dreams.",
+      ],
       statuses: {
         "400": {
           title: "Bad request",
@@ -206,8 +211,13 @@ const messages = {
       credit: "由 Creeper32767 设计与构建，使用 Vue & Nuxt 制作。",
     },
     error: {
-      literaryText:
-        "每一次绕路都是旅程的一部分。稍作停留，然后继续向前吧。",
+      literaryTexts: [
+        "每一次绕路都是旅途的一部分，停下片刻，再继续扬帆前行吧。",
+        "星星也需要经过一段黑暗，才能再次闪耀。",
+        "道路或许在此处尽头，但故事还没有翻到最后一页。",
+        "不妨深呼吸，望向远方，让下一章如期而至。",
+        "你似乎到达了世界的边缘…… 若无缘再见，便祝你早安，午安，夜夜好梦。",
+      ],
       statuses: {
         "400": {
           title: "请求有误",

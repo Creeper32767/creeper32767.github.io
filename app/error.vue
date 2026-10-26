@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { QuestionCircle24Filled } from '@ntkrnl64/fluentui-vue-icons'
 
@@ -49,6 +49,12 @@ const errorKey = computed(
   () => `error.statuses.${isKnownCode.value ? statusCode.value : 'default'}`,
 )
 
+const literaryTextIndex = ref(statusCode.value % 5)
+
+onMounted(() => {
+  literaryTextIndex.value = Math.floor(Math.random() * 5)
+})
+
 // 已知错误码 → 完全使用 i18n；未知错误码 → 优先展示服务端消息，否则 i18n 默认文案。
 const title = computed(() => {
   if (isKnownCode.value) return t(`${errorKey.value}.title`)
@@ -58,7 +64,9 @@ const title = computed(() => {
 
 const message = computed(() => t(`${errorKey.value}.message`))
 const hint = computed(() => t(`${errorKey.value}.hint`))
-const literaryText = computed(() => t('error.literaryText'))
+const literaryText = computed(() =>
+  t(`error.literaryTexts.${literaryTextIndex.value}`),
+)
 const canRetry = computed(() => statusCode.value >= 500)
 
 useSeoMeta({
@@ -100,16 +108,18 @@ function retry() {
           <span class="text-8xl font-bold leading-none tracking-wider sm:text-[10rem]">
             {{ statusCode }}
           </span>
-          <span class="group absolute -right-5 top-0 sm:-right-10 sm:top-3">
-            <QuestionCircle24Filled class="h-6 w-6 text-primary transition-transform group-hover:scale-110"
-              aria-label="Error details" />
+          <button type="button" tabindex="0"
+            class="group absolute right-10 top-0 border-0 bg-transparent p-0 text-primary sm:-right-5 sm:top-3"
+            aria-label="Error details">
+            <QuestionCircle24Filled class="h-6 w-6 transition-transform group-hover:scale-110 group-focus:scale-110"
+              aria-hidden="true" />
             <span
-              class="pointer-events-none absolute bottom-full left-1/2 mb-3 hidden w-64 -translate-x-1/2 rounded-xl border border-border bg-background/95 p-4 text-left text-sm font-normal leading-6 text-foreground shadow-xl group-hover:block group-focus-within:block"
+              class="pointer-events-none absolute -right-10 top-full mt-3 hidden w-[min(16rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-background/95 p-4 text-left text-sm font-normal leading-6 text-foreground shadow-xl group-hover:block group-focus:block"
               role="tooltip">
               <strong class="block text-primary">{{ message }}</strong>
               <span class="mt-1 block text-muted">{{ hint }}</span>
             </span>
-          </span>
+          </button>
         </div>
 
         <h1 class="mt-6 text-3xl font-light text-foreground sm:text-4xl">
