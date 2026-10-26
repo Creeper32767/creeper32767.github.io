@@ -21,9 +21,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-background text-foreground">
-    <LayoutSiteHeader />
-
+  <div>
     <main id="home" class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
       <header class="mb-12 flex flex-col items-center text-center">
         <img src="/images/profile-photo.webp" alt="Haley Avatar"
@@ -95,6 +93,5 @@ useSeoMeta({
       </section>
     </main>
 
-    <LayoutSiteFooter />
   </div>
 </template>

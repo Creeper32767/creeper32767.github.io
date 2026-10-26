@@ -156,8 +156,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-background text-foreground">
-    <LayoutSiteHeader />
+  <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-5xl flex-1 py-12 sm:py-16">
       <header class="mb-12 text-center">
         <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary">⚠️ 暂停一下 | 信号接入 ⚠️</p>
@@ -239,7 +238,6 @@ onBeforeUnmount(() => {
         </section>
       </div>
     </main>
-    <LayoutSiteFooter />
   </div>
 </template>
 

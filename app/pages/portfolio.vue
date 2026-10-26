@@ -68,9 +68,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-background text-foreground">
-    <LayoutSiteHeader />
-
+  <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
       <header class="mb-16 max-w-3xl">
         <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary uppercase">
@@ -115,6 +113,5 @@ useSeoMeta({
       </div>
     </main>
 
-    <LayoutSiteFooter />
   </div>
 </template>

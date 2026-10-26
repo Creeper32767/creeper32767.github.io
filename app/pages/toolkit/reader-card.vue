@@ -405,8 +405,7 @@ async function exportCard() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-background text-foreground">
-    <LayoutSiteHeader />
+  <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl py-12 sm:py-16">
       <header class="mb-10 max-w-3xl">
         <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary uppercase">Reading toolkit</p>
@@ -593,6 +592,5 @@ async function exportCard() {
         </section>
       </div>
     </main>
-    <LayoutSiteFooter />
   </div>
 </template>

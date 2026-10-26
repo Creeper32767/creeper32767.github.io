@@ -113,9 +113,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-background text-foreground">
-    <LayoutSiteHeader />
-
+  <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-10 sm:py-16">
       <header class="mb-12 max-w-3xl">
         <p class="mb-4 text-sm font-semibold tracking-[0.18em] text-primary uppercase">
@@ -134,15 +132,12 @@ useSeoMeta({
         <p class="mb-3 text-sm font-semibold tracking-wide text-primary">引·言 · Greeting & Self-Intro</p>
         <h2 class="text-2xl font-bold sm:text-3xl">猫的自我介绍</h2>
         <div class="mt-6 space-y-4 leading-8 text-muted">
-          <p>你好，小伙伴 ~ 👋 oω&lt;</p>
-          <p>这里是渡昕，是一只（并不）普通的虎斑猫哦 ww。</p>
+          <p>你好，小伙伴 ~ 这里是渡昕，是一只（并不）普通的虎斑猫哦 oω&lt;。</p>
           <p>喜欢阅读、写作、编程；还有拍好看的照片，剪有意思的视频，去好玩的地方玩，吃好吃的东西也都是我的爱好！but 不会画画 qwq... 😭</p>
-          <p>这只小猫没有什么雷点，脾气也（大概）挺好的。不过在互相尊重的基础上进行交流讨论，是小猫觉得最舒服的事情呢。</p>
-          <p>如果小猫感觉不太舒服，会主动说出来的。放心大胆地和小猫聊天吧，大可不必自己担心噢 ~</p>
-          <p>正如设定所展现的那样，在现实生活中，我也（自认为）是一只善良、热情、（相对）有同情心的小猫呢。初次见面可能比较社恐... 😳</p>
-          <p>摸头或者摸肚子都可以，不过动作要温柔一点，嘿嘿 ~ ☺️</p>
+          <p>这只小猫没有什么雷点，脾气也（大概）挺好的。不过在互相尊重的基础上进行交流讨论，是小猫觉得最舒服的事情呢。如果小猫感觉不太舒服，会主动说出来的。放心大胆地和小猫聊天吧，大可不必自己担心噢 ~
+            正如设定所展现的那样，在现实生活中，我也（自认为）是一只善良、热情、（相对）有同情心的小猫呢。初次见面可能比较社恐xwx... 摸头或者摸肚子都可以，不过动作要温柔一点，嘿嘿 ~ ☺️</p>
           <p>线下欢迎小伙伴邀请我一起去旅游、逛展子、撸猫 ~ 目标是继续做一只属于自己的小猫，也会继续卖萌讨人喜欢。😘</p>
-          <p>and 正在努力向 fursuit 目标迈进！😤</p>
+          <p><i>and 正在努力向 fursuit 目标迈进！</i></p>
         </div>
       </section>
 
@@ -186,6 +181,5 @@ useSeoMeta({
       </section>
     </main>
 
-    <LayoutSiteFooter />
   </div>
 </template>
