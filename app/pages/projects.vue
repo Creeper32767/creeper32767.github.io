@@ -64,7 +64,7 @@ const sections: ProjectSection[] = [
       {
         name: "网页快照生成器",
         description: "加载任意网页，与页面交互，然后捕获整个页面的高清截图。",
-        href: "/screenshot/screenshot.html",
+        href: "/toolkit/capture-screen",
         action: "开始截图",
         icon: "camera",
       },

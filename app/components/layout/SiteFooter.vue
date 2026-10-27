@@ -30,6 +30,8 @@ const contentLinks = [
   { label: "footer.contentLinks.fursona", to: "/fursona" },
   { label: "footer.contentLinks.editor", to: "/toolkit/editor" },
   { label: "footer.contentLinks.readerCard", to: "/toolkit/reader-card" },
+  { label: "footer.contentLinks.captureScreen", to: "/toolkit/capture-screen" },
+  { label: "footer.contentLinks.colorConverter", to: "/toolkit/color-conventor" },
 ];
 
 const socialLinks = [

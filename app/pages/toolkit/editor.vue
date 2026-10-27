@@ -239,7 +239,7 @@ onUnmounted(() => {
   <div>
     <main class="mx-auto flex min-h-[calc(100vh-5rem)] w-[calc(100%-2rem)] max-w-6xl flex-col py-8 sm:py-12">
       <header class="mb-8">
-        <p class="mb-2 text-sm font-semibold tracking-[0.12em] text-primary uppercase">Toolkit</p>
+        <p class="mb-2 text-sm font-semibold tracking-[0.12em] text-primary uppercase">Coding Toolkit</p>
         <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Fluent Code Editor</h1>
         <p class="mt-3 text-muted-foreground">轻量、专注的在线代码编辑器。</p>
       </header>

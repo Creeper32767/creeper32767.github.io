@@ -30,6 +30,8 @@ const props = withDefaults(
       { label: "footer.contentLinks.fursona", to: "/fursona", icon: "paw", section: "footer.toolsAndContent" },
       { label: "footer.contentLinks.editor", to: "/toolkit/editor", icon: "code", section: "footer.toolsAndContent" },
       { label: "footer.contentLinks.readerCard", to: "/toolkit/reader-card", icon: "book", section: "footer.toolsAndContent" },
+      { label: "footer.contentLinks.captureScreen", to: "/toolkit/capture-screen", icon: "apps", section: "footer.toolsAndContent" },
+      { label: "footer.contentLinks.colorConverter", to: "/toolkit/color-conventor", icon: "apps", section: "footer.toolsAndContent" },
       {
         label: "navigation.github",
         to: "https://github.com/Creeper32767",

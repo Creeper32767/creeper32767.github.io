@@ -215,7 +215,7 @@ function resolveIcon(name?: string): Component {
 }
 
 function itemDelay(index: number): string {
-  return `${Math.min(450 + index * 100, 1150)}ms`;
+  return `${Math.min(450 + index * 100, 2000)}ms`;
 }
 </script>
 

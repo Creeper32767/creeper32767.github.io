@@ -74,6 +74,7 @@ const contacts: Contact[] = [
   { name: "💻 GitHub", handle: "@Creeper32767", label: "访问 GitHub 个人主页", href: "https://github.com/Creeper32767" },
   { name: "✖️ X", handle: "@ConsoleCreeper", label: "访问 X 个人主页", href: "https://x.com/ConsoleCreeper" },
   { name: "🐾 兽频道 Fursuit.tv", handle: "@Creeper32767", label: "访问 Fursuit.tv 个人主页", href: "https://fursuit.tv/@Creeper32767" },
+  { name: "💬 QQ", handle: "No. 1557706911", label: "欢迎扩列！", href: "https://wpa.qq.com/msgrd?v=3&uin=1557706911&site=qq&menu=yes" },
 ];
 
 interface Channel {
@@ -157,7 +158,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <main class="mx-auto w-[calc(100%-2rem)] max-w-5xl flex-1 py-12 sm:py-16">
+    <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
       <header class="mb-12 text-center">
         <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary">⚠️ 暂停一下 | 信号接入 ⚠️</p>
         <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">Kitten Haley · 更深的自我解构</h1>
@@ -203,10 +204,6 @@ onBeforeUnmount(() => {
                 {{ contact.label }}
                 <Open16Regular class="h-4 w-4" aria-hidden="true" />
               </PlaneLink>
-            </article>
-            <article :class="cardItemClass">
-              <h3 class="font-semibold">💬 微信 / QQ</h3>
-              <p class="mt-2 leading-7 text-muted">暂时不公开喵~ 再等等，也许熟了之后猫猫就会悄悄告诉你了喵😸</p>
             </article>
             <article :class="cardItemClass">
               <h3 class="font-semibold">🤝 线下 / 好友</h3>

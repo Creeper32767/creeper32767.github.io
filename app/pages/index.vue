@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
+import { onMounted, ref } from "vue";
 
 const { t } = useI18n();
-const greetingKey = useState("home-greeting", () => {
+const getGreetingKey = () => {
   const hour = new Date().getHours();
 
   if (hour >= 5 && hour < 12) return "home.eyebrow.morning";
   if (hour >= 12 && hour < 18) return "home.eyebrow.afternoon";
   if (hour >= 18 && hour < 22) return "home.eyebrow.evening";
   return "home.eyebrow.night";
+};
+const greetingKey = ref("home.eyebrow.night");
+
+onMounted(() => {
+  greetingKey.value = getGreetingKey();
 });
 
 useSeoMeta({
@@ -27,7 +33,7 @@ useSeoMeta({
         <img src="/images/profile-photo.webp" alt="Haley Avatar"
           class="mb-5 h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg" />
         <span class="mb-3 text-xs font-bold tracking-[0.04em] text-primary rounded bg-primary/10 p-2">{{ t(greetingKey)
-        }}</span>
+          }}</span>
         <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">{{ t("home.title") }}</h1>
         <p class="mt-4 max-w-2xl text-lg text-muted">{{ t("home.bio") }}</p>
       </header>
@@ -66,11 +72,13 @@ useSeoMeta({
             <h3 class="text-xl font-semibold">{{ t("home.title") }}</h3>
             <div class="mt-4 flex flex-wrap gap-3">
               <Button as="a" href="https://github.com/Creeper32767" target="_blank" rel="noopener noreferrer">
-                {{ t("home.githubHome") }} <Open16Regular class="h-4 w-4" aria-hidden="true" />
+                {{ t("home.githubHome") }}
+                <Open16Regular class="h-4 w-4" aria-hidden="true" />
               </Button>
               <Button as="a" variant="outline" href="https://x.com/ConsoleCreeper" target="_blank"
                 rel="noopener noreferrer">
-                {{ t("home.followX") }} <Open16Regular class="h-4 w-4" aria-hidden="true" />
+                {{ t("home.followX") }}
+                <Open16Regular class="h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>
@@ -87,7 +95,9 @@ useSeoMeta({
             <h3 class="text-xl font-semibold">SMS-COSMO</h3>
             <p class="mt-2 text-muted">{{ t("home.organizationDescription") }}</p>
             <Button as="a" class="mt-4" variant="outline" href="https://github.com/SMS-COSMO" target="_blank"
-              rel="noopener noreferrer">              {{ t("home.visitGithub") }} <Open16Regular class="h-4 w-4" aria-hidden="true" /></Button>
+              rel="noopener noreferrer"> {{ t("home.visitGithub") }}
+              <Open16Regular class="h-4 w-4" aria-hidden="true" />
+            </Button>
           </div>
         </div>
       </section>
