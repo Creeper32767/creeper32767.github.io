@@ -18,24 +18,18 @@ onMounted(() => {
   greetingKey.value = getGreetingKey();
 });
 
-useSeoMeta({
-  title: "关于我 - Haley",
-  description: "Haley 的个人主页，了解他的项目、软件推荐和学习笔记。",
-  ogTitle: "关于我 - Haley",
-  ogDescription: "Haley 的个人主页，了解他的项目、软件推荐和学习笔记。",
-});
 </script>
 
 <template>
   <div>
     <main id="home" class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
-      <header class="mb-12 flex flex-col items-center text-center">
+      <header class="page-header page-header--centered page-header--compact flex flex-col items-center">
         <img src="/images/profile-photo.webp" alt="Haley Avatar"
           class="mb-5 h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg" />
         <span class="mb-3 text-xs font-bold tracking-[0.04em] text-primary rounded bg-primary/10 p-2">{{ t(greetingKey)
           }}</span>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">{{ t("home.title") }}</h1>
-        <p class="mt-4 max-w-2xl text-lg text-muted">{{ t("home.bio") }}</p>
+        <h1 class="page-title">{{ t("home.title") }}</h1>
+        <p class="page-description max-w-2xl">{{ t("home.bio") }}</p>
       </header>
 
       <section id="bio" class="rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur sm:p-8">

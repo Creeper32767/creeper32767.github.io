@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 interface Software {
   name: string;
@@ -244,21 +247,15 @@ const sections: SoftwareSection[] = [
   },
 ];
 
-useSeoMeta({
-  title: "软件推荐 - Kitten Haley",
-  description: "Kitten Haley 推荐的开发、娱乐和实用工具软件列表。",
-  ogTitle: "软件推荐 - Kitten Haley",
-  ogDescription: "Kitten Haley 推荐的开发、娱乐和实用工具软件列表。",
-});
 </script>
 
 <template>
   <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
-      <header class="mb-16 text-center">
-        <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary">Software Recommendations</p>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">软件推荐</h1>
-        <p class="mx-auto mt-5 max-w-2xl text-lg text-muted">这里是我推荐的一些实用软件，希望对你有所帮助。</p>
+      <header class="page-header">
+        <p class="page-eyebrow">{{ t("pageHeaders.software.eyebrow") }}</p>
+        <h1 class="page-title">{{ t("pageHeaders.software.title") }}</h1>
+        <p class="page-description">{{ t("pageHeaders.software.description") }}</p>
       </header>
 
       <div class="flex flex-col gap-10">

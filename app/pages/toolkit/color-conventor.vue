@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 interface ColorState {
   r: number;
@@ -60,13 +63,6 @@ const outputValues = computed(() => [
   { label: "HSL", key: "hsl", value: `hsl(${state.h}, ${state.s}%, ${state.l}%)`, placeholder: "hsl(h, s%, l%)" },
   { label: "HSLA", key: "hsla", value: `hsla(${state.h}, ${state.s}%, ${state.l}%, ${state.a})`, placeholder: "hsla(h, s%, l%, a)" },
 ]);
-
-useSeoMeta({
-  title: "色彩转换器 - Haley",
-  description: "全能颜色格式转换与调色工具。",
-  ogTitle: "色彩转换器 - Haley",
-  ogDescription: "全能颜色格式转换与调色工具。"
-});
 
 function updateFromRgb() {
   const r = state.r / 255;
@@ -222,10 +218,10 @@ function selectVariation(variation: Variation) {
 
 <template>
   <div class="mx-auto grid w-[calc(100%-2rem)] max-w-6xl grid-rows-[auto_1fr] gap-8">
-    <header class="grid gap-3">
-      <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary uppercase">Color toolkit</p>
-      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">色彩转换器</h1>
-      <p class="mt-3 text-lg text-muted">全能颜色格式转换与调色工具</p>
+    <header class="page-header">
+      <p class="page-eyebrow">{{ t("pageHeaders.colorConverter.eyebrow") }}</p>
+      <h1 class="page-title">{{ t("pageHeaders.colorConverter.title") }}</h1>
+      <p class="page-description">{{ t("pageHeaders.colorConverter.description") }}</p>
     </header>
 
     <main class="grid items-start gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">

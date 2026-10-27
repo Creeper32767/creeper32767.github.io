@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
 import { onBeforeUnmount, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
-useSeoMeta({
-  title: "更深的自我解构 - Kitten Haley",
-  description: "Kitten Haley 的观测报告：阅读、游戏、生活与频道简介。",
-  author: "Haley Herzog",
-  ogTitle: "Kitten Haley · 更深的自我解构",
-  ogDescription: "一份来自虎斑猫的观测报告：阅读、游戏、生活与频道简介。",
-  ogType: "profile",
-});
+const { t } = useI18n();
 
 interface SectionItem {
   title: string;
@@ -159,10 +153,10 @@ onBeforeUnmount(() => {
 <template>
   <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
-      <header class="mb-12 text-center">
-        <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary">⚠️ 暂停一下 | 信号接入 ⚠️</p>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">Kitten Haley · 更深的自我解构</h1>
-        <p class="mt-5 text-muted">一份来自虎斑猫的观测报告。</p>
+      <header class="page-header page-header--centered">
+        <p class="page-eyebrow">{{ t("pageHeaders.deeperIntro.eyebrow") }}</p>
+        <h1 class="page-title">{{ t("pageHeaders.deeperIntro.title") }}</h1>
+        <p class="page-description">{{ t("pageHeaders.deeperIntro.description") }}</p>
       </header>
 
       <section

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 interface ReaderCardState {
   title: string;
@@ -77,13 +80,6 @@ const examples = [
     author: "伍绮诗",
   },
 ];
-
-useSeoMeta({
-  title: "读者卡片生成器 - Haley",
-  description: "创建精美阅读卡片，记录阅读精华并导出高清图片。",
-  ogTitle: "读者卡片生成器 - Haley",
-  ogDescription: "创建精美阅读卡片，记录阅读精华并导出高清图片。",
-});
 
 function chooseQuote(quote: string) {
   state.value.quote = quote;
@@ -407,10 +403,10 @@ async function exportCard() {
 <template>
   <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl py-12 sm:py-16">
-      <header class="mb-10 max-w-3xl">
-        <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary uppercase">Reading toolkit</p>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">读者卡片生成器</h1>
-        <p class="mt-5 text-lg leading-8 text-muted">记录一段文字，也记录它在你心里留下的回声。</p>
+      <header class="page-header">
+        <p class="page-eyebrow">{{ t("pageHeaders.readerCard.eyebrow") }}</p>
+        <h1 class="page-title">{{ t("pageHeaders.readerCard.title") }}</h1>
+        <p class="page-description">{{ t("pageHeaders.readerCard.description") }}</p>
       </header>
 
       <div class="grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">

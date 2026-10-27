@@ -5,6 +5,9 @@ import {
   Edit16Filled,
   TextQuote16Regular,
 } from "@ntkrnl64/fluentui-vue-icons";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 interface NoteSection {
   id: string;
@@ -65,23 +68,15 @@ const sections: NoteSection[] = [
   },
 ];
 
-useSeoMeta({
-  title: "学习笔记 - Haley",
-  description: "Kitten Haley 的学习笔记：每日一诗、读书笔记与写作练习。",
-  ogTitle: "学习笔记 - Haley",
-  ogDescription: "Kitten Haley 的学习笔记：每日一诗、读书笔记与写作练习。",
-});
 </script>
 
 <template>
   <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
-      <header class="mb-16 max-w-3xl">
-        <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary uppercase">
-          Personal notebook
-        </p>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">学习笔记</h1>
-        <p class="mt-5 text-lg leading-8 text-muted">记录我的学习过程和心得。</p>
+      <header class="page-header">
+        <p class="page-eyebrow">{{ t("pageHeaders.portfolio.eyebrow") }}</p>
+        <h1 class="page-title">{{ t("pageHeaders.portfolio.title") }}</h1>
+        <p class="page-description">{{ t("pageHeaders.portfolio.description") }}</p>
       </header>
 
       <div class="grid gap-6 lg:grid-cols-3">

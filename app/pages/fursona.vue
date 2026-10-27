@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n();
 type Detail = {
   title: string;
   text: string;
@@ -104,27 +106,15 @@ const appearanceDetails: Detail[] = [
   },
 ];
 
-useSeoMeta({
-  title: "兽设渡昕 - Haley",
-  description: "渡昕的兽设档案：外貌、性格、背景、爱好与信条。",
-  ogTitle: "兽设渡昕 - Haley",
-  ogDescription: "渡昕的兽设档案：外貌、性格、背景、爱好与信条。",
-});
 </script>
 
 <template>
   <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-10 sm:py-16">
-      <header class="mb-12 max-w-3xl">
-        <p class="mb-4 text-sm font-semibold tracking-[0.18em] text-primary uppercase">
-          Fursona archive · Duxin
-        </p>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">
-          兽设渡昕 · 理想与自我的交融
-        </h1>
-        <p class="mt-5 text-lg leading-8 text-muted">
-          暂停一下，信号接入。虎斑猫的外表下，是更真实的内心。
-        </p>
+      <header class="page-header page-header--centered">
+        <p class="page-eyebrow">{{ t("pageHeaders.fursona.eyebrow") }}</p>
+        <h1 class="page-title">{{ t("pageHeaders.fursona.title") }}</h1>
+        <p class="page-description">{{ t("pageHeaders.fursona.description") }}</p>
       </header>
 
       <section id="introduction"
@@ -135,8 +125,8 @@ useSeoMeta({
           <p>你好，小伙伴 ~ 这里是渡昕，是一只（并不）普通的虎斑猫哦 oω&lt;。</p>
           <p>喜欢阅读、写作、编程；还有拍好看的照片，剪有意思的视频，去好玩的地方玩，吃好吃的东西也都是我的爱好！but 不会画画 qwq... 😭</p>
           <p>这只小猫没有什么雷点，脾气也（大概）挺好的。不过在互相尊重的基础上进行交流讨论，是小猫觉得最舒服的事情呢。如果小猫感觉不太舒服，会主动说出来的。放心大胆地和小猫聊天吧，大可不必自己担心噢 ~
-            正如设定所展现的那样，在现实生活中，我也（自认为）是一只善良、热情、（相对）有同情心的小猫呢。初次见面可能比较社恐xwx... 摸头或者摸肚子都可以，不过动作要温柔一点，嘿嘿 ~ ☺️</p>
-          <p>线下欢迎小伙伴邀请我一起去旅游、逛展子、撸猫 ~ 目标是继续做一只属于自己的小猫，也会继续卖萌讨人喜欢。😘</p>
+            正如我在设定中所期待的那样，在现实生活中，我也（自认为）是一只善良、热情、有同情心的小猫呢。初次见面可能比较社恐xwx... 摸头或者摸肚子都可以，不过动作要温柔一点，嘿嘿 ~ ☺️</p>
+          <p>在线上，我是一只充满活力和创造力的猫。而在线下，我更喜欢和朋友们一起探索世界，分享快乐。欢迎小伙伴邀请我一起去旅游、逛展子、或者是撸猫 ~ 目标是继续做一只属于自己的小猫，也会继续卖萌讨人喜欢喵！😘</p>
           <p><i>and 正在努力向 fursuit 目标迈进！</i></p>
         </div>
       </section>

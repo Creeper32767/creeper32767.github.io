@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
-import fs from "node:fs";
 
 export default defineNuxtConfig({
   modules: ["@nuxt/content", "shadcn-nuxt"],
@@ -16,11 +15,11 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "zh-CN",
       },
-      title: "Creeper32767 的个人网站",
+      title: "Haley 的个人网站",
       meta: [
         {
           name: "description",
-          content: "Creeper32767 的个人网站，分享项目、文章和其他内容。",
+          content: "分享 Haley 的项目、笔记、工具与思考。",
         },
       ],
       link: [

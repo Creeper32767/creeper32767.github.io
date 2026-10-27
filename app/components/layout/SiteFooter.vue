@@ -20,14 +20,14 @@ const scrollToTop = () => {
 const siteLinks = [
   { label: "footer.siteLinks.home", to: "/" },
   { label: "footer.siteLinks.about", to: { path: "/", hash: "#about" } },
+  { label: "footer.siteLinks.deeperIntro", to: "/deeper-intro" },
+  { label: "footer.siteLinks.fursona", to: "/fursona" },
   { label: "footer.siteLinks.projects", to: "/projects" },
-  { label: "footer.siteLinks.software", to: "/software-reco" },
+  { label: "footer.siteLinks.software", to: "/software-picks" },
   { label: "footer.siteLinks.portfolio", to: "/portfolio" },
 ];
 
 const contentLinks = [
-  { label: "footer.contentLinks.deeperIntro", to: "/deeper-intro" },
-  { label: "footer.contentLinks.fursona", to: "/fursona" },
   { label: "footer.contentLinks.editor", to: "/toolkit/editor" },
   { label: "footer.contentLinks.readerCard", to: "/toolkit/reader-card" },
   { label: "footer.contentLinks.captureScreen", to: "/toolkit/capture-screen" },

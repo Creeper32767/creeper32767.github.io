@@ -8,6 +8,9 @@ import {
   Open16Regular,
   Wrench16Filled,
 } from "@ntkrnl64/fluentui-vue-icons";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 const projectIcons = {
   apps: Apps16Filled,
@@ -103,25 +106,15 @@ const sections: ProjectSection[] = [
   },
 ];
 
-useSeoMeta({
-  title: "我的项目 - Haley",
-  description: "Kitten Haley 的项目展示：前端工具集与后端应用。",
-  ogTitle: "我的项目 - Haley",
-  ogDescription: "Kitten Haley 的项目展示：前端工具集与后端应用。",
-});
 </script>
 
 <template>
   <div>
     <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
-      <header class="mb-16 max-w-3xl">
-        <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary uppercase">
-          Project archive
-        </p>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">我的项目</h1>
-        <p class="mt-5 text-lg leading-8 text-muted">
-          探索我构建的前端工具和后端应用。
-        </p>
+      <header class="page-header">
+        <p class="page-eyebrow">{{ t("pageHeaders.projects.eyebrow") }}</p>
+        <h1 class="page-title">{{ t("pageHeaders.projects.title") }}</h1>
+        <p class="page-description">{{ t("pageHeaders.projects.description") }}</p>
       </header>
 
       <div class="flex flex-col gap-14">

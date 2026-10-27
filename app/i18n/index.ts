@@ -5,6 +5,100 @@ export type SupportedLocale = (typeof supportedLocales)[number];
 
 const messages = {
   en: {
+    seo: {
+      siteName: "Haley's personal website",
+      default: {
+        title: "Haley's personal website",
+        description: "Projects, notes, tools, and quiet thoughts from Haley.",
+      },
+      home: {
+        title: "About me - Haley",
+        description: "Haley's personal homepage, projects, tools, and notes.",
+      },
+      deeperIntro: {
+        title: "A deeper self-portrait - Kitten Haley",
+        description: "A field report on reading, games, life, and identity.",
+      },
+      fursona: {
+        title: "Duxin's fursona profile - Haley",
+        description: "Duxin's appearance, personality, background, and beliefs.",
+      },
+      portfolio: {
+        title: "Study notes - Haley",
+        description: "Daily poems, reading notes, and writing exercises.",
+      },
+      projects: {
+        title: "Projects - Haley",
+        description: "A collection of frontend tools and backend applications.",
+      },
+      software: {
+        title: "Software recommendations - Kitten Haley",
+        description: "A curated list of useful software for development and daily life.",
+      },
+      captureScreen: {
+        title: "Web snapshot generator - Haley",
+        description: "Load a webpage and export a PNG snapshot.",
+      },
+      colorConverter: {
+        title: "Color converter - Haley",
+        description: "Convert color formats and build accessible color palettes.",
+      },
+      editor: {
+        title: "Fluent Code Editor - Haley",
+        description: "An online code editor with language support, file I/O, and themes.",
+      },
+      readerCard: {
+        title: "Reader card generator - Haley",
+        description: "Create beautiful reading cards and export them as high-resolution images.",
+      },
+    },
+    pageHeaders: {
+      deeperIntro: {
+        eyebrow: "⚠️ Pause here · Signal connected ⚠️",
+        title: "Haley · A deeper self-portrait",
+        description: "A field report from a tabby cat.",
+      },
+      fursona: {
+        eyebrow: "Fursona archive · Duxin",
+        title: "Duxin · Where ideals meet identity",
+        description: "A truer inner self beneath a tabby cat's fluffy exterior.",
+      },
+      portfolio: {
+        eyebrow: "Personal notebook",
+        title: "Study notes",
+        description: "A record of my learning process and reflections.",
+      },
+      projects: {
+        eyebrow: "Project archive",
+        title: "My projects",
+        description: "Explore the frontend tools and backend applications I build.",
+      },
+      software: {
+        eyebrow: "Software recommendations",
+        title: "Software picks",
+        description: "A selection of useful software I recommend.",
+      },
+      captureScreen: {
+        eyebrow: "Capture toolkit",
+        title: "Web snapshot generator",
+        description: "Interact with a webpage preview and save it as a PNG image.",
+      },
+      colorConverter: {
+        eyebrow: "Color toolkit",
+        title: "Color converter",
+        description: "An all-in-one color format converter and palette tool.",
+      },
+      editor: {
+        eyebrow: "Coding toolkit",
+        title: "Fluent Code Editor",
+        description: "A lightweight, focused online code editor.",
+      },
+      readerCard: {
+        eyebrow: "Reading toolkit",
+        title: "Reader card generator",
+        description: "Record a passage and the echo it leaves in your heart.",
+      },
+    },
     navigation: {
       home: "Home",
       about: "About",
@@ -58,10 +152,10 @@ const messages = {
         projects: "Projects",
         software: "Software picks",
         portfolio: "Portfolio",
-      },
-      contentLinks: {
         deeperIntro: "More about me",
         fursona: "Fursona",
+      },
+      contentLinks: {
         editor: "Code editor",
         readerCard: "Reader card",
         captureScreen: "Screen capture",
@@ -155,6 +249,100 @@ const messages = {
     },
   },
   "zh-CN": {
+    seo: {
+      siteName: "Haley 的个人网站",
+      default: {
+        title: "Haley 的个人网站",
+        description: "分享 Haley 的项目、笔记、工具与思考。",
+      },
+      home: {
+        title: "关于我 - Haley",
+        description: "Haley 的个人主页，了解他的项目、工具与学习笔记。",
+      },
+      deeperIntro: {
+        title: "更深的自我解构 - Kitten Haley",
+        description: "一份关于阅读、游戏、生活与自我的观测报告。",
+      },
+      fursona: {
+        title: "渡昕的兽设档案 - Haley",
+        description: "渡昕的外貌、性格、背景、爱好与信条。",
+      },
+      portfolio: {
+        title: "学习笔记 - Haley",
+        description: "每日一诗、读书笔记与写作练习。",
+      },
+      projects: {
+        title: "我的项目 - Haley",
+        description: "前端工具集与后端应用项目展示。",
+      },
+      software: {
+        title: "软件推荐 - Kitten Haley",
+        description: "开发、娱乐与日常生活中的实用软件推荐。",
+      },
+      captureScreen: {
+        title: "网页快照生成器 - Haley",
+        description: "加载网页并生成 PNG 快照。",
+      },
+      colorConverter: {
+        title: "色彩转换器 - Haley",
+        description: "转换颜色格式并创建易读的调色板。",
+      },
+      editor: {
+        title: "Fluent Code Editor - Haley",
+        description: "支持多种语言、文件读写与主题切换的在线代码编辑器。",
+      },
+      readerCard: {
+        title: "读者卡片生成器 - Haley",
+        description: "创建精美阅读卡片，记录阅读精华并导出高清图片。",
+      },
+    },
+    pageHeaders: {
+      deeperIntro: {
+        eyebrow: "⚠️ 暂停一下 · 信号接入 ⚠️",
+        title: "Haley · 更深的自我解构",
+        description: "一份来自虎斑猫的观测报告。",
+      },
+      fursona: {
+        eyebrow: "兽设档案 · 渡昕",
+        title: "渡昕 · 理想与自我的交融",
+        description: "虎斑猫毛茸茸的外表下，隐藏着更真实的内心。",
+      },
+      portfolio: {
+        eyebrow: "个人笔记",
+        title: "学习笔记",
+        description: "记录我的学习过程和心得。",
+      },
+      projects: {
+        eyebrow: "项目档案",
+        title: "我的项目",
+        description: "探索我构建的前端工具和后端应用。",
+      },
+      software: {
+        eyebrow: "软件推荐合辑",
+        title: "软件推荐",
+        description: "这里是我推荐的一些实用软件。",
+      },
+      captureScreen: {
+        eyebrow: "网页快照工具",
+        title: "网页快照生成器",
+        description: "加载网页、交互预览，并将页面保存为 PNG 图片。",
+      },
+      colorConverter: {
+        eyebrow: "色彩工具",
+        title: "色彩转换器",
+        description: "全能颜色格式转换与调色工具。",
+      },
+      editor: {
+        eyebrow: "代码工具",
+        title: "Fluent Code Editor",
+        description: "轻量、专注的在线代码编辑器。",
+      },
+      readerCard: {
+        eyebrow: "阅读工具",
+        title: "读者卡片生成器",
+        description: "记录一段文字，也记录它在你心里留下的回声。",
+      },
+    },
     navigation: {
       home: "首页",
       about: "关于",
@@ -206,10 +394,10 @@ const messages = {
         projects: "项目",
         software: "软件推荐",
         portfolio: "作品集",
-      },
-      contentLinks: {
         deeperIntro: "深入介绍",
         fursona: "兽设",
+      },
+      contentLinks: {
         editor: "代码编辑器",
         readerCard: "阅读卡片",
         captureScreen: "网页快照",

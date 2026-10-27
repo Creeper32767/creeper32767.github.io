@@ -6,6 +6,9 @@ import { EditorView } from "@codemirror/view";
 import type { ViewUpdate } from "@codemirror/view";
 import type { EditorState, Extension } from "@codemirror/state";
 import { oneDark } from "@codemirror/theme-one-dark";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 // 语言包导入
 import { javascript } from "@codemirror/lang-javascript";
@@ -106,13 +109,6 @@ const extensions = computed<Extension[]>(() => {
   }
 
   return baseExt;
-});
-
-useSeoMeta({
-  title: "Fluent Code Editor - Haley",
-  description: "支持多种语言、文件读写与主题切换的在线代码编辑器。",
-  ogTitle: "Fluent Code Editor - Haley",
-  ogDescription: "支持多种语言、文件读写与主题切换的在线代码编辑器。",
 });
 
 function updateCursorFromState(state: EditorState) {
@@ -240,10 +236,10 @@ onUnmounted(() => {
 <template>
   <div>
     <main class="mx-auto flex min-h-[calc(100vh-5rem)] w-[calc(100%-2rem)] max-w-6xl flex-col py-8 sm:py-12">
-      <header class="mb-8">
-        <p class="mb-2 text-sm font-semibold tracking-[0.12em] text-primary uppercase">Coding Toolkit</p>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Fluent Code Editor</h1>
-        <p class="mt-3 text-muted-foreground">轻量、专注的在线代码编辑器。</p>
+      <header class="page-header">
+        <p class="page-eyebrow">{{ t("pageHeaders.editor.eyebrow") }}</p>
+        <h1 class="page-title">{{ t("pageHeaders.editor.title") }}</h1>
+        <p class="page-description">{{ t("pageHeaders.editor.description") }}</p>
       </header>
 
       <section class="flex flex-1 flex-col overflow-hidden rounded-2xl border bg-card shadow-xl">

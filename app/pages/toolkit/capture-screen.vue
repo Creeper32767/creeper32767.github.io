@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 type Html2Canvas = (
   element: HTMLElement,
@@ -27,13 +30,6 @@ const downloadName = ref("snapshot.png");
 let loadTimeout: ReturnType<typeof setTimeout> | undefined;
 let captureTimeout: ReturnType<typeof setTimeout> | undefined;
 let html2CanvasPromise: Promise<Html2Canvas> | undefined;
-
-useSeoMeta({
-  title: "网页快照生成器 - Haley",
-  description: "加载网页并生成 PNG 快照。",
-  ogTitle: "网页快照生成器 - Haley",
-  ogDescription: "加载网页并生成 PNG 快照。",
-});
 
 if (import.meta.client) {
   headers.value = [
@@ -187,9 +183,10 @@ declare global {
 
 <template>
   <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl py-12 sm:py-16">
-    <header class="mb-8">
-      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">网页快照生成器</h1>
-      <p class="mt-3 text-muted">加载网页，在预览中交互，并将页面保存为 PNG 图片。</p>
+    <header class="page-header">
+      <p class="page-eyebrow">{{ t("pageHeaders.captureScreen.eyebrow") }}</p>
+      <h1 class="page-title">{{ t("pageHeaders.captureScreen.title") }}</h1>
+      <p class="page-description">{{ t("pageHeaders.captureScreen.description") }}</p>
     </header>
 
     <div class="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)] lg:gap-12">

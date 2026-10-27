@@ -243,7 +243,7 @@ function itemDelay(index: number): string {
           tabindex="0" @wheel.stop @touchmove.stop>
           <nav class="mt-5 flex flex-col gap-6 pb-[20vh]" :aria-label="t('navigation.panelTitle')">
             <section v-for="group in navigation.groups" :key="group.title">
-              <h2 class="mb-2 px-4 text-base font-semibold tracking-wide text-foreground">
+              <h2 class="mb-2 px-2 text-base font-semibold tracking-wide text-foreground">
                 {{ t(group.title) }}
               </h2>
               <div class="flex flex-col gap-1">
@@ -265,7 +265,7 @@ function itemDelay(index: number): string {
         <div v-if="navigation.externals.length" class="shrink-0 border-t border-border pt-4">
           <div class="flex w-full flex-col gap-1">
             <a v-for="item in navigation.externals" :key="`${item.label}-${item.animationIndex}`"
-              class="navigation-item flex w-full items-center gap-3 whitespace-nowrap rounded-xl px-4 py-3 text-sm font-medium text-muted transition-colors hover:bg-primary/10 hover:text-primary"
+              class="navigation-item flex w-full items-center gap-3 whitespace-nowrap rounded-xl px-2 py-3 text-sm font-medium text-muted transition-colors hover:bg-primary/10 hover:text-primary"
               :style="{ '--item-delay': itemDelay(item.animationIndex) }" :href="String(item.to)" target="_blank"
               rel="noopener noreferrer" @click="emit('close')">
               <component :is="resolveIcon(item.icon)" class="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />

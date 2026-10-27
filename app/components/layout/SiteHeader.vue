@@ -22,11 +22,11 @@ const props = withDefaults(
   {
     items: () => [
       { label: "navigation.home", to: "/", icon: "home", section: "footer.sitemap" },
+      { label: "footer.siteLinks.deeperIntro", to: "/deeper-intro", icon: "book", section: "footer.sitemap" },
+      { label: "footer.siteLinks.fursona", to: "/fursona", icon: "paw", section: "footer.sitemap" },
       { label: "footer.siteLinks.projects", to: "/projects", icon: "apps", section: "footer.sitemap" },
-      { label: "footer.siteLinks.software", to: "/software-reco", icon: "apps", section: "footer.sitemap" },
+      { label: "footer.siteLinks.software", to: "/software-picks", icon: "apps", section: "footer.sitemap" },
       { label: "footer.siteLinks.portfolio", to: "/portfolio", icon: "book", section: "footer.sitemap" },
-      { label: "footer.contentLinks.deeperIntro", to: "/deeper-intro", icon: "book", section: "footer.toolsAndContent" },
-      { label: "footer.contentLinks.fursona", to: "/fursona", icon: "paw", section: "footer.toolsAndContent" },
       { label: "footer.contentLinks.editor", to: "/toolkit/editor", icon: "code", section: "footer.toolsAndContent" },
       { label: "footer.contentLinks.readerCard", to: "/toolkit/reader-card", icon: "book", section: "footer.toolsAndContent" },
       { label: "footer.contentLinks.captureScreen", to: "/toolkit/capture-screen", icon: "apps", section: "footer.toolsAndContent" },
