@@ -14,6 +14,9 @@ const messages = {
       openPanel: "Open navigation",
       closePanel: "Close navigation",
       panelTitle: "Navigation",
+      openSettings: "Open language and theme settings",
+      closeSettings: "Close language and theme settings",
+      settingsPanelTitle: "Language and theme settings",
     },
     home: {
       eyebrow: {
@@ -159,6 +162,9 @@ const messages = {
       openPanel: "打开导航",
       closePanel: "关闭导航",
       panelTitle: "导航",
+      openSettings: "打开语言和主题设置",
+      closeSettings: "关闭语言和主题设置",
+      settingsPanelTitle: "语言和主题设置",
     },
     home: {
       eyebrow: {

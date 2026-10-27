@@ -2,7 +2,11 @@
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { RouteLocationRaw } from "vue-router";
-import { Navigation16Filled } from "@ntkrnl64/fluentui-vue-icons";
+import {
+  ChevronDown20Regular,
+  ChevronUp20Regular,
+  Navigation16Filled,
+} from "@ntkrnl64/fluentui-vue-icons";
 
 export interface NavigationItem {
   label: string;
@@ -48,6 +52,7 @@ const props = withDefaults(
 const { t } = useI18n();
 const navigationItems = computed(() => props.items);
 const isPanelOpen = ref(false);
+const isSettingsPanelOpen = ref(false);
 </script>
 
 <template>
@@ -65,16 +70,34 @@ const isPanelOpen = ref(false);
       </div>
 
       <div class="absolute top-3 right-5 flex items-center gap-1 sm:static sm:order-3">
-        <slot name="actions">
-          <CommonLanguageSwitcher />
-        </slot>
-        <CommonThemeToggle />
+        <div class="hidden items-center gap-1 sm:flex">
+          <slot name="actions">
+            <CommonLanguageSwitcher />
+          </slot>
+          <CommonThemeToggle />
+        </div>
+        <button class="rounded-lg p-2 text-muted transition-colors hover:bg-primary/10 hover:text-primary sm:hidden"
+          type="button" :aria-label="t(isSettingsPanelOpen ? 'navigation.closeSettings' : 'navigation.openSettings')"
+          :title="t(isSettingsPanelOpen ? 'navigation.closeSettings' : 'navigation.openSettings')"
+          :aria-expanded="isSettingsPanelOpen" aria-controls="site-settings-panel"
+          @click="isSettingsPanelOpen = !isSettingsPanelOpen">
+          <ChevronUp20Regular v-if="isSettingsPanelOpen" class="h-5 w-5" aria-hidden="true" />
+          <ChevronDown20Regular v-else class="h-5 w-5" aria-hidden="true" />
+        </button>
         <button class="rounded-lg p-2 text-muted transition-colors hover:bg-primary/10 hover:text-primary" type="button"
           :aria-label="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')"
           :title="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')" :aria-expanded="isPanelOpen"
           aria-controls="site-navigation-panel" @click="isPanelOpen = !isPanelOpen">
           <Navigation16Filled class="h-5 w-5" aria-hidden="true" />
         </button>
+      </div>
+      <div v-if="isSettingsPanelOpen" id="site-settings-panel"
+        class="absolute top-full right-5 mt-2 flex flex-col gap-3 rounded-xl border border-border bg-background/95 p-3 shadow-lg backdrop-blur-xl sm:hidden"
+        :aria-label="t('navigation.settingsPanelTitle')">
+        <slot name="actions">
+          <CommonLanguageSwitcher />
+        </slot>
+        <CommonThemeToggle />
       </div>
     </nav>
     <LayoutSiteNavigationPanel :items="navigationItems" :open="isPanelOpen" @close="isPanelOpen = false" />
