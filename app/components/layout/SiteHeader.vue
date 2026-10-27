@@ -57,7 +57,7 @@ const isSettingsPanelOpen = ref(false);
 <template>
   <header class="h-24 max-sm:h-36">
     <nav
-      class="fixed top-4 left-1/2 z-50 flex min-h-16 w-[calc(100%-2rem)] max-w-6xl -translate-x-1/2 flex-col items-stretch gap-3 rounded-2xl border border-border/70 bg-background/80 px-5 py-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/65 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-0">
+      class="fixed top-4 left-1/2 z-50 flex min-h-16 w-[calc(100%-2rem)] max-w-7xl -translate-x-1/2 flex-col items-stretch gap-3 rounded-2xl border border-border/70 bg-background/80 px-5 py-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/65 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-0">
       <div class="order-1 flex w-full items-center justify-between sm:contents">
         <slot name="brand">
           <NuxtLink class="flex items-center gap-3 text-foreground" to="/" aria-label="Creeper32767 home">
