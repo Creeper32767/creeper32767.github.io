@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { supportedLocales, type SupportedLocale } from "~/composables/i18n";
+import { supportedLocales, type SupportedLocale } from "~/i18n";
+import { usePreferencesStore } from "~/stores/preferences";
 
 const { locale, t } = useI18n();
-const localeCookie = useCookie<SupportedLocale>("locale");
+const preferences = usePreferencesStore();
 
 function changeLocale(nextLocale: SupportedLocale) {
-  localeCookie.value = nextLocale;
-  locale.value = nextLocale;
+  preferences.setLocale(nextLocale);
 }
 </script>
 

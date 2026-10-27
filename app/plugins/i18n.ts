@@ -1,48 +1,16 @@
-import {
-  i18n,
-  supportedLocales,
-  type SupportedLocale,
-} from "~/composables/i18n";
 import { watch } from "vue";
-
-function detectBrowserLocale(): SupportedLocale {
-  if (!import.meta.client) return "zh-CN";
-
-  const browserLocales = navigator.languages.length
-    ? navigator.languages
-    : [navigator.language];
-
-  for (const browserLocale of browserLocales) {
-    if (browserLocale.toLowerCase().startsWith("zh")) return "zh-CN";
-    if (browserLocale.toLowerCase().startsWith("en")) return "en";
-  }
-
-  return "zh-CN";
-}
+import { i18n } from "~/i18n";
+import { usePreferencesStore } from "~/stores/preferences";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const localeCookie = useCookie<SupportedLocale>("locale");
-  const storedLocale = localeCookie.value;
-  const initialLocale =
-    storedLocale && supportedLocales.includes(storedLocale)
-      ? storedLocale
-      : "zh-CN";
+  const preferences = usePreferencesStore();
 
-  i18n.global.locale.value = initialLocale;
+  i18n.global.locale.value = preferences.locale;
   watch(
-    i18n.global.locale,
-    (nextLocale) => {
-      if (import.meta.client) {
-        document.documentElement.lang = nextLocale as SupportedLocale;
-      }
-    },
+    () => preferences.locale,
+    (nextLocale) => (i18n.global.locale.value = nextLocale),
     { immediate: true },
   );
 
   nuxtApp.vueApp.use(i18n);
-
-  nuxtApp.hook("app:mounted", () => {
-    if (localeCookie.value) return;
-    i18n.global.locale.value = detectBrowserLocale();
-  });
 });

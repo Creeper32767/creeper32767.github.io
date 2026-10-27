@@ -2,15 +2,14 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { WeatherMoon24Filled, WeatherSunny24Filled } from '@ntkrnl64/fluentui-vue-icons'
-import { theme, toggleTheme, type Theme } from '~/composables/theme'
+import { usePreferencesStore } from '~/stores/preferences'
 
 const { t } = useI18n()
-const isDark = computed(() => theme.value === 'dark')
-const themeCookie = useCookie<Theme>('theme')
+const preferences = usePreferencesStore()
+const isDark = computed(() => preferences.theme === 'dark')
 
 function changeTheme() {
-  toggleTheme()
-  themeCookie.value = theme.value
+  preferences.toggleTheme()
 }
 </script>
 
