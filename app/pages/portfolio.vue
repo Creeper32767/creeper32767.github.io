@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { type Component } from "vue";
+import {
+  BookOpen16Filled,
+  Edit16Filled,
+  TextQuote16Regular,
+} from "@ntkrnl64/fluentui-vue-icons";
 
 interface NoteSection {
   id: string;
-  icon: string;
+  icon: Component;
   title: string;
   subtitle: string;
   description: string;
@@ -17,7 +23,7 @@ interface NoteSection {
 const sections: NoteSection[] = [
   {
     id: "poem-everyday",
-    icon: "✦",
+    icon: TextQuote16Regular,
     title: "每日一诗",
     subtitle: "Poem of the day",
     description: "记录每天读到的诗句，感受文字的美。",
@@ -31,7 +37,7 @@ const sections: NoteSection[] = [
   },
   {
     id: "reading-notes",
-    icon: "▤",
+    icon: BookOpen16Filled,
     title: "读书笔记",
     subtitle: "Reading notes",
     description: "总结阅读过的书籍，提炼其中的精华。",
@@ -45,7 +51,7 @@ const sections: NoteSection[] = [
   },
   {
     id: "writing-practice",
-    icon: "✎",
+    icon: Edit16Filled,
     title: "写作练习",
     subtitle: "Writing practice",
     description: "通过写作提升表达能力，记录生活点滴。",
@@ -83,9 +89,9 @@ useSeoMeta({
           class="flex flex-col rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-primary/35 hover:shadow-lg sm:p-8">
           <div class="mb-6 flex items-start justify-between gap-4">
             <div
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-2xl text-primary"
+              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary"
               aria-hidden="true">
-              {{ section.icon }}
+              <component :is="section.icon" class="h-7 w-7" aria-hidden="true" />
             </div>
             <span class="pt-2 text-right text-xs tracking-wide text-muted uppercase">
               {{ section.subtitle }}

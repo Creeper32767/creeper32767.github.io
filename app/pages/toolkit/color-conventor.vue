@@ -64,8 +64,8 @@ const outputValues = computed(() => [
 useSeoMeta({
   title: "色彩转换器 - Haley",
   description: "全能颜色格式转换与调色工具。",
-  "ogTitle": "色彩转换器 - Haley",
-  "ogDescription": "全能颜色格式转换与调色工具。"
+  ogTitle: "色彩转换器 - Haley",
+  ogDescription: "全能颜色格式转换与调色工具。"
 });
 
 function updateFromRgb() {
@@ -221,7 +221,7 @@ function selectVariation(variation: Variation) {
 </script>
 
 <template>
-  <div class="mx-auto grid max-w-6xl grid-rows-[auto_1fr] gap-8">
+  <div class="mx-auto grid w-[calc(100%-2rem)] max-w-6xl grid-rows-[auto_1fr] gap-8">
     <header class="grid gap-3">
       <p class="mb-3 text-sm font-semibold tracking-[0.12em] text-primary uppercase">Color toolkit</p>
       <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">色彩转换器</h1>
@@ -278,7 +278,7 @@ function selectVariation(variation: Variation) {
       <div class="grid min-w-0 content-start gap-6">
         <section class="overflow-hidden rounded-2xl border border-border bg-background/70 shadow-sm">
           <div class="h-48" :style="{ backgroundColor: rgba }" />
-          <div class="grid grid-cols-2 mt-1 justify-items-center p-5 text-sm" :style="{ backgroundColor: rgba }">
+          <div class="grid grid-cols-2 border-t border-border justify-items-center p-5 text-sm" :style="{ backgroundColor: rgba }">
             <span class="text-white drop-shadow">White Text</span>
             <span class="text-black">Black Text</span>
           </div>

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { RouteLocationRaw } from "vue-router";
 import {
   ChevronDown20Regular,
-  ChevronUp20Regular,
   Navigation16Filled,
 } from "@ntkrnl64/fluentui-vue-icons";
 
@@ -54,6 +53,95 @@ const { t } = useI18n();
 const navigationItems = computed(() => props.items);
 const isPanelOpen = ref(false);
 const isSettingsPanelOpen = ref(false);
+const settingsButtonRef = ref<HTMLButtonElement | null>(null);
+const settingsPanelRef = ref<HTMLElement | null>(null);
+
+let previouslyFocused: HTMLElement | null = null;
+
+function onSettingsKeydown(event: KeyboardEvent) {
+  if (event.key === "Escape") {
+    event.preventDefault();
+    isSettingsPanelOpen.value = false;
+    return;
+  }
+
+  if (event.key !== "Tab" || !settingsPanelRef.value) {
+    return;
+  }
+
+  const focusable = settingsPanelRef.value.querySelectorAll<HTMLElement>(
+    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+  );
+  if (!focusable.length) {
+    return;
+  }
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (!first || !last) {
+    return;
+  }
+
+  const active = document.activeElement;
+  if (event.shiftKey) {
+    if (active === first || !settingsPanelRef.value.contains(active)) {
+      event.preventDefault();
+      last.focus();
+    }
+  } else if (active === last || !settingsPanelRef.value.contains(active)) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function onDocumentPointerdown(event: PointerEvent) {
+  const target = event.target;
+  if (
+    !isSettingsPanelOpen.value ||
+    !(target instanceof Node) ||
+    settingsPanelRef.value?.contains(target) ||
+    settingsButtonRef.value?.contains(target) ||
+    (target instanceof Element && target.closest('[data-slot="select-content"]'))
+  ) {
+    return;
+  }
+
+  isSettingsPanelOpen.value = false;
+}
+
+watch(isSettingsPanelOpen, async (open) => {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  if (open) {
+    previouslyFocused =
+      (document.activeElement as HTMLElement | null) ?? settingsButtonRef.value;
+    document.addEventListener("keydown", onSettingsKeydown);
+    document.addEventListener("pointerdown", onDocumentPointerdown);
+    await nextTick();
+    settingsPanelRef.value
+      ?.querySelector<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      )
+      ?.focus();
+  } else {
+    document.removeEventListener("keydown", onSettingsKeydown);
+    document.removeEventListener("pointerdown", onDocumentPointerdown);
+    (previouslyFocused ?? settingsButtonRef.value)?.focus();
+    previouslyFocused = null;
+  }
+});
+
+onBeforeUnmount(() => {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  document.removeEventListener("keydown", onSettingsKeydown);
+  document.removeEventListener("pointerdown", onDocumentPointerdown);
+  (previouslyFocused ?? settingsButtonRef.value)?.focus();
+});
 </script>
 
 <template>
@@ -77,13 +165,15 @@ const isSettingsPanelOpen = ref(false);
           </slot>
           <CommonThemeToggle />
         </div>
-        <button class="rounded-lg p-2 text-muted transition-colors hover:bg-primary/10 hover:text-primary sm:hidden"
+        <button ref="settingsButtonRef"
+          class="rounded-lg p-2 text-muted transition-colors hover:bg-primary/10 hover:text-primary sm:hidden"
           type="button" :aria-label="t(isSettingsPanelOpen ? 'navigation.closeSettings' : 'navigation.openSettings')"
           :title="t(isSettingsPanelOpen ? 'navigation.closeSettings' : 'navigation.openSettings')"
           :aria-expanded="isSettingsPanelOpen" aria-controls="site-settings-panel"
           @click="isSettingsPanelOpen = !isSettingsPanelOpen">
-          <ChevronUp20Regular v-if="isSettingsPanelOpen" class="h-5 w-5" aria-hidden="true" />
-          <ChevronDown20Regular v-else class="h-5 w-5" aria-hidden="true" />
+          <span class="block transition-transform duration-250" :class="{ 'rotate-180': isSettingsPanelOpen }">
+            <ChevronDown20Regular class="h-5 w-5" aria-hidden="true" />
+          </span>
         </button>
         <button class="rounded-lg p-2 text-muted transition-colors hover:bg-primary/10 hover:text-primary" type="button"
           :aria-label="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')"
@@ -92,15 +182,32 @@ const isSettingsPanelOpen = ref(false);
           <Navigation16Filled class="h-5 w-5" aria-hidden="true" />
         </button>
       </div>
-      <div v-if="isSettingsPanelOpen" id="site-settings-panel"
-        class="absolute top-full right-5 mt-2 flex flex-col gap-3 rounded-xl border border-border bg-background/95 p-3 shadow-lg backdrop-blur-xl sm:hidden"
-        :aria-label="t('navigation.settingsPanelTitle')">
-        <slot name="actions">
-          <CommonLanguageSwitcher />
-        </slot>
-        <CommonThemeToggle />
-      </div>
+      <Transition name="settings-panel">
+        <div v-if="isSettingsPanelOpen" id="site-settings-panel" ref="settingsPanelRef"
+          class="absolute top-full right-5 mt-2 flex flex-col gap-3 rounded-xl border border-border bg-background/95 p-3 shadow-lg backdrop-blur-xl sm:hidden"
+          role="dialog" aria-modal="true" :aria-label="t('navigation.settingsPanelTitle')">
+          <slot name="actions">
+            <CommonLanguageSwitcher />
+          </slot>
+          <CommonThemeToggle />
+        </div>
+      </Transition>
     </nav>
     <LayoutSiteNavigationPanel :items="navigationItems" :open="isPanelOpen" @close="isPanelOpen = false" />
   </header>
 </template>
+
+<style scoped>
+.settings-panel-enter-active,
+.settings-panel-leave-active {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.settings-panel-enter-from,
+.settings-panel-leave-to {
+  opacity: 0;
+  transform: translateY(-0.5rem);
+}
+</style>

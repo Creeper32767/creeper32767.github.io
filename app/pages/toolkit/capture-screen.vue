@@ -31,6 +31,8 @@ let html2CanvasPromise: Promise<Html2Canvas> | undefined;
 useSeoMeta({
   title: "网页快照生成器 - Haley",
   description: "加载网页并生成 PNG 快照。",
+  ogTitle: "网页快照生成器 - Haley",
+  ogDescription: "加载网页并生成 PNG 快照。",
 });
 
 if (import.meta.client) {
@@ -190,47 +192,58 @@ declare global {
       <p class="mt-3 text-muted">加载网页，在预览中交互，并将页面保存为 PNG 图片。</p>
     </header>
 
-    <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
-      <section class="grid content-start gap-6">
-        <div class="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <div class="flex flex-col gap-3 sm:flex-row">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)] lg:gap-12">
+      <section class="flex flex-col gap-8">
+        <div>
+          <div class="flex items-center gap-3">
             <Input v-model="url" class="min-w-0 flex-1" placeholder="输入或粘贴一个完整的网址" @keyup.enter="loadPage" />
-            <Button variant="outline" type="button" @click="handlePaste">粘贴</Button>
-            <Button type="button" @click="loadPage">加载网页</Button>
+            <div class="flex shrink-0 gap-2">
+              <Button variant="outline" type="button" @click="handlePaste">粘贴</Button>
+              <Button type="button" @click="loadPage">加载网页</Button>
+            </div>
           </div>
         </div>
 
-        <div class="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <h2 class="font-semibold">重要说明</h2>
-          <p class="mt-2 text-sm leading-6 text-muted">
-            由于浏览器安全策略，本工具无法捕获所有网站。若目标网站禁止被嵌入，则快照将失败或显示为空白。
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <h2 class="font-semibold">浏览器信息</h2>
-          <pre class="mt-3 overflow-x-auto whitespace-pre-wrap text-xs leading-6 text-muted">{{ headers }}</pre>
-        </div>
-      </section>
-
-      <section class="grid content-start gap-6">
-        <div class="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <p class="text-sm leading-6 text-muted">{{ statusMessage }}</p>
-          <div v-if="isCapturing" class="mt-4 flex items-center gap-3">
+        <div class="space-y-4">
+          <div class="flex items-start justify-between gap-4">
+            <p class="max-w-prose text-sm leading-6 text-muted-foreground">{{ statusMessage }}</p>
+            <span v-if="isReady" class="shrink-0 text-xs font-medium text-primary">已就绪</span>
+          </div>
+          <div v-if="isCapturing" class="flex items-center gap-3">
             <progress class="h-2 w-full accent-primary" :value="progress" max="100"></progress>
-            <span class="w-10 text-right text-sm tabular-nums text-muted">{{ progress }}%</span>
+            <span class="w-10 text-right text-sm tabular-nums text-muted-foreground">{{ progress }}%</span>
           </div>
-          <div class="mt-5 flex flex-wrap gap-3">
+          <div class="flex flex-wrap gap-3">
             <Button v-if="isReady && !isCapturing" type="button" @click="capturePage">手动捕获页面</Button>
             <a v-if="downloadUrl" :href="downloadUrl" :download="downloadName"
-              class="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary-hover">
+              class="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover">
               下载 PNG 图片
             </a>
           </div>
         </div>
 
+        <div class="space-y-6 border-t border-border pt-8 text-sm">
+          <div>
+            <h2 class="font-semibold">重要说明</h2>
+            <p class="mt-2 leading-6 text-muted-foreground">
+              由于浏览器安全策略，本工具无法捕获所有网站。若目标网站禁止被嵌入，则快照将失败或显示为空白。
+            </p>
+          </div>
+          <div>
+            <h2 class="font-semibold">浏览器信息</h2>
+            <pre
+              class="mt-3 overflow-x-auto whitespace-pre-wrap text-xs leading-6 text-muted-foreground">{{ headers }}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="min-w-0">
         <div class="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-          <iframe ref="iframeRef" :src="iframeSource" title="网页预览" class="h-[min(70vh,800px)] w-full bg-white"
+          <div class="flex items-center justify-between border-b border-border px-4 py-3">
+            <h2 class="text-sm font-semibold">网页预览</h2>
+            <span class="text-xs text-muted-foreground">{{ isReady ? "可交互" : "等待加载" }}</span>
+          </div>
+          <iframe ref="iframeRef" :src="iframeSource" title="网页预览" class="h-[min(70vh,800px)] w-full bg-background"
             sandbox="allow-same-origin allow-scripts allow-forms" @load="handleFrameLoad"
             @error="handleFrameError"></iframe>
         </div>

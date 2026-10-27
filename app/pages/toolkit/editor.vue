@@ -111,6 +111,8 @@ const extensions = computed<Extension[]>(() => {
 useSeoMeta({
   title: "Fluent Code Editor - Haley",
   description: "支持多种语言、文件读写与主题切换的在线代码编辑器。",
+  ogTitle: "Fluent Code Editor - Haley",
+  ogDescription: "支持多种语言、文件读写与主题切换的在线代码编辑器。",
 });
 
 function updateCursorFromState(state: EditorState) {
