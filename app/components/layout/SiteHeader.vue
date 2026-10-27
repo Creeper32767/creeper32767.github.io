@@ -23,7 +23,6 @@ const props = withDefaults(
   {
     items: () => [
       { label: "navigation.home", to: "/", icon: "home", section: "footer.sitemap" },
-      { label: "footer.siteLinks.about", to: { path: "/", hash: "#about" }, icon: "person", section: "footer.sitemap" },
       { label: "footer.siteLinks.projects", to: "/projects", icon: "apps", section: "footer.sitemap" },
       { label: "footer.siteLinks.software", to: "/software-reco", icon: "apps", section: "footer.sitemap" },
       { label: "footer.siteLinks.portfolio", to: "/portfolio", icon: "book", section: "footer.sitemap" },
