@@ -43,21 +43,14 @@ const sections: ProjectSection[] = [
       {
         name: "Fluent Code Editor",
         description: "一个轻量级、支持语法高亮和主题切换的在线代码编辑器。",
-        href: "/editor/editor.html",
+        href: "/toolkit/editor",
         action: "打开编辑器",
         icon: "code",
       },
       {
         name: "读者卡片生成器",
         description: "创建精美的阅读卡片，记录阅读精华，并导出为高清图片。",
-        href: "/reader_card/reader_card.html",
-        action: "进入生成器",
-        icon: "book",
-      },
-      {
-        name: "Fluent 读者卡片生成器",
-        description: "创建精美的 Fluent 风格阅读卡片，记录阅读精华，并导出为高清图片。",
-        href: "/fluent_reader_card/fluent_reader_card.html",
+        href: "/toolkit/reader-card",
         action: "进入生成器",
         icon: "book",
       },
@@ -71,7 +64,7 @@ const sections: ProjectSection[] = [
       {
         name: "色彩转换器",
         description: "一个多功能的颜色格式转换与调色工具，支持多种颜色模型。",
-        href: "/color_creator/color_creator.html",
+        href: "/toolkit/color-conventor",
         action: "试用工具",
         icon: "color",
       },
