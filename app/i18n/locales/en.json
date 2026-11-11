@@ -1,0 +1,238 @@
+{
+  "seo": {
+    "siteName": "Haley's personal website",
+    "default": {
+      "title": "Haley's personal website",
+      "description": "Projects, notes, tools, and quiet thoughts from Haley."
+    },
+    "home": {
+      "title": "About me - Haley",
+      "description": "Haley's personal homepage, projects, tools, and notes."
+    },
+    "deeperIntro": {
+      "title": "A deeper self-portrait - Kitten Haley",
+      "description": "A field report on reading, games, life, and identity."
+    },
+    "fursona": {
+      "title": "Duxin's fursona profile - Haley",
+      "description": "Duxin's appearance, personality, background, and beliefs."
+    },
+    "portfolio": {
+      "title": "Study notes - Haley",
+      "description": "Daily poems, reading notes, and writing exercises."
+    },
+    "projects": {
+      "title": "Projects - Haley",
+      "description": "A collection of frontend tools and backend applications."
+    },
+    "software": {
+      "title": "Software recommendations - Kitten Haley",
+      "description": "A curated list of useful software for development and daily life."
+    },
+    "captureScreen": {
+      "title": "Web snapshot generator - Haley",
+      "description": "Load a webpage and export a PNG snapshot."
+    },
+    "colorConverter": {
+      "title": "Color converter - Haley",
+      "description": "Convert color formats and build accessible color palettes."
+    },
+    "editor": {
+      "title": "Fluent Code Editor - Haley",
+      "description": "An online code editor with language support, file I/O, and themes."
+    },
+    "readerCard": {
+      "title": "Reader card generator - Haley",
+      "description": "Create beautiful reading cards and export them as high-resolution images."
+    }
+  },
+  "pageHeaders": {
+    "deeperIntro": {
+      "eyebrow": "⚠️ Pause here · Signal connected ⚠️",
+      "title": "Haley · A deeper self-portrait",
+      "description": "A field report from a tabby cat."
+    },
+    "fursona": {
+      "eyebrow": "Fursona archive · Duxin",
+      "title": "Duxin · Where ideals meet identity",
+      "description": "A truer inner self beneath a tabby cat's fluffy exterior."
+    },
+    "portfolio": {
+      "eyebrow": "Personal notebook",
+      "title": "Study notes",
+      "description": "A record of my learning process and reflections."
+    },
+    "projects": {
+      "eyebrow": "Project archive",
+      "title": "My projects",
+      "description": "Explore the frontend tools and backend applications I build."
+    },
+    "software": {
+      "eyebrow": "Software recommendations",
+      "title": "Software picks",
+      "description": "A selection of useful software I recommend."
+    },
+    "captureScreen": {
+      "eyebrow": "Capture toolkit",
+      "title": "Web snapshot generator",
+      "description": "Interact with a webpage preview and save it as a PNG image."
+    },
+    "colorConverter": {
+      "eyebrow": "Color toolkit",
+      "title": "Color converter",
+      "description": "An all-in-one color format converter and palette tool."
+    },
+    "editor": {
+      "eyebrow": "Coding toolkit",
+      "title": "Fluent Code Editor",
+      "description": "A lightweight, focused online code editor."
+    },
+    "readerCard": {
+      "eyebrow": "Reading toolkit",
+      "title": "Reader card generator",
+      "description": "Record a passage and the echo it leaves in your heart."
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "github": "GitHub",
+    "followX": "Follow me on X",
+    "openPanel": "Open navigation",
+    "closePanel": "Close navigation",
+    "panelTitle": "Navigation",
+    "openSettings": "Open language and theme settings",
+    "closeSettings": "Close language and theme settings",
+    "settingsPanelTitle": "Language and theme settings"
+  },
+  "home": {
+    "eyebrow": {
+      "morning": "Good morning, human. A purr-fect day awaits!",
+      "afternoon": "Good afternoon, human. Time for a little catnap?",
+      "evening": "Good evening, human. The moon is calling this cat.",
+      "night": "Good night, human. May your dreams be full of warm naps."
+    },
+    "title": "Haley (Creeper32767)",
+    "bio": "An optimistic pessimist, who is determined to be a good cat.",
+    "introduction": "Hello, traveller! This is Haley Herzog (you can also call me Kitten, or just call me Kitty in person).",
+    "introductionMore": "I'm absolutely passionate about two things: connecting with amazing people like you and the incredible world of coding. There's something magical about bringing ideas to life, line by line, and building innovative solutions that can make a real difference. I truly believe that through collaboration and the power of code, we can create a better, more connected world for everyone. Whether you're a seasoned developer or just starting your coding journey, I'd be thrilled to team up, share knowledge, and build something wonderful together. Let's combine our creativity and skills to turn our dreams into reality and leave our very own warm pawprints on the world. Let's code together and build the future!",
+    "technicalAnalysis": "GitHub technical analysis",
+    "languagesTitle": "Common languages",
+    "languagesDescription": "I mainly use Python for backend development and data processing, along with JavaScript, HTML, and CSS for frontend interfaces.",
+    "habitsTitle": "Coding habits",
+    "habitsDescription": "Active at night, with a focus on robust, readable code. I prefer writing detailed documentation and comments.",
+    "aboutTitle": "About me",
+    "githubHome": "GitHub profile",
+    "followX": "Follow me on X",
+    "organizationTitle": "My organization",
+    "organizationDescription": "A student developer community focused on open-source collaboration and technical innovation.",
+    "visitGithub": "Visit GitHub profile"
+  },
+  "footer": {
+    "copyright": "© {year} Creeper32767. All rights reserved.",
+    "backToTop": "Back to top",
+    "introduction": "A coding cat's little corner for projects, ideas, and experiments.",
+    "sitemap": "Sitemap",
+    "siteLinks": {
+      "home": "Home",
+      "about": "About me",
+      "projects": "Projects",
+      "software": "Software picks",
+      "portfolio": "Portfolio",
+      "deeperIntro": "More about me",
+      "fursona": "Fursona"
+    },
+    "contentLinks": {
+      "editor": "Code editor",
+      "readerCard": "Reader card",
+      "captureScreen": "Screen capture",
+      "colorConverter": "Color converter"
+    },
+    "siteInfo": "Site information",
+    "toolsAndContent": "Tools & content",
+    "source": "Source code",
+    "credit": "Designed & built by Creeper32767, made with Vue & Nuxt."
+  },
+  "error": {
+    "literaryTexts": [
+      "Every detour is part of the journey. Pause for a moment, then continue sailing forward.",
+      "Even the stars need a moment of darkness before they can shine again.",
+      "The road may end here, but the story has not yet reached its final page.",
+      "Take a breath, look toward the horizon, and let the next chapter find you.",
+      "You seem to have reached the edge of the world... If we don't meet again, I wish you good morning, good afternoon, and sweet dreams."
+    ],
+    "statuses": {
+      "400": {
+        "title": "Bad request",
+        "message": "The server could not understand your request.",
+        "hint": "Please check your input and try again."
+      },
+      "401": {
+        "title": "Authentication required",
+        "message": "This page requires you to be signed in.",
+        "hint": "Please sign in and try again."
+      },
+      "403": {
+        "title": "Access denied",
+        "message": "You don't have permission to view this page.",
+        "hint": "If you believe this is a mistake, contact the administrator."
+      },
+      "404": {
+        "title": "Page not found",
+        "message": "The page you are looking for does not exist or has been removed.",
+        "hint": "Return to the homepage to continue browsing."
+      },
+      "408": {
+        "title": "Request timeout",
+        "message": "The server timed out waiting for your request.",
+        "hint": "Please check your connection and try again."
+      },
+      "429": {
+        "title": "Too many requests",
+        "message": "You have sent too many requests in a short period.",
+        "hint": "Please try again later."
+      },
+      "500": {
+        "title": "Server error",
+        "message": "The server ran into a problem and couldn't complete the request.",
+        "hint": "Please try again later or return to the homepage."
+      },
+      "502": {
+        "title": "Bad gateway",
+        "message": "The upstream service returned an invalid response.",
+        "hint": "Please try again later."
+      },
+      "503": {
+        "title": "Service unavailable",
+        "message": "The server is temporarily unable to handle the request.",
+        "hint": "Please try again later."
+      },
+      "504": {
+        "title": "Gateway timeout",
+        "message": "The upstream service took too long to respond.",
+        "hint": "Please try again later."
+      },
+      "default": {
+        "title": "Something went wrong",
+        "message": "An unexpected error occurred.",
+        "hint": "Return to the homepage to continue browsing."
+      }
+    },
+    "actions": {
+      "home": "Return home",
+      "retry": "Retry"
+    }
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "zh-CN": "Simplified Chinese",
+    "zh-TW": "Traditional Chinese",
+    "jp": "日本語"
+  },
+  "theme": {
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme"
+  }
+}

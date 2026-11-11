@@ -1,0 +1,238 @@
+{
+  "seo": {
+    "siteName": "Haley 的個人網站",
+    "default": {
+      "title": "Haley 的個人網站",
+      "description": "分享 Haley 的項目、筆記、工具與思考。"
+    },
+    "home": {
+      "title": "關於我 - Haley",
+      "description": "Haley 的個人主頁，了解他的項目、工具與學習筆記。"
+    },
+    "deeperIntro": {
+      "title": "更深的自我解構 - Kitten Haley",
+      "description": "一份關於閱讀、游戏、生活與自我的观测报告。"
+    },
+    "fursona": {
+      "title": "渡昕的獸設檔案 - Haley",
+      "description": "渡昕的外貌、性格、背景、愛好與信條。"
+    },
+    "portfolio": {
+      "title": "學習筆記 - Haley",
+      "description": "每日一诗、讀書筆記與寫作練習。"
+    },
+    "projects": {
+      "title": "我的項目 - Haley",
+      "description": "前端工具集與後端應用項目展示。"
+    },
+    "software": {
+      "title": "軟件推薦 - Kitten Haley",
+      "description": "開發、娱乐與日常生活中的實用軟件推薦。"
+    },
+    "captureScreen": {
+      "title": "網頁快照生成器 - Haley",
+      "description": "加載網頁并生成 PNG 快照。"
+    },
+    "colorConverter": {
+      "title": "色彩轉換器 - Haley",
+      "description": "轉換顏色格式并創建易讀的調色板。"
+    },
+    "editor": {
+      "title": "Fluent Code Editor - Haley",
+      "description": "支持多種語言、文件讀寫與主題切換的在线代碼编輯器。"
+    },
+    "readerCard": {
+      "title": "讀者卡片生成器 - Haley",
+      "description": "創建精美閱讀卡片，記錄閱讀精华并導出高清圖片。"
+    }
+  },
+  "pageHeaders": {
+    "deeperIntro": {
+      "eyebrow": "⚠️ 暂停一下 · 信号接入 ⚠️",
+      "title": "Haley · 更深的自我解構",
+      "description": "一份来自虎斑貓的观测报告。"
+    },
+    "fursona": {
+      "eyebrow": "獸設檔案 · 渡昕",
+      "title": "渡昕 · 理想與自我的交融",
+      "description": "虎斑貓毛茸茸的外表下，隐藏着更真實的內心。"
+    },
+    "portfolio": {
+      "eyebrow": "個人筆記",
+      "title": "學習筆記",
+      "description": "記錄我的學習过程和心得。"
+    },
+    "projects": {
+      "eyebrow": "項目檔案",
+      "title": "我的項目",
+      "description": "探索我構建的前端工具和後端應用。"
+    },
+    "software": {
+      "eyebrow": "軟件推薦合輯",
+      "title": "軟件推薦",
+      "description": "这里是我推薦的一些實用軟件。"
+    },
+    "captureScreen": {
+      "eyebrow": "網頁快照工具",
+      "title": "網頁快照生成器",
+      "description": "加載網頁、交互预览，并将頁面保存为 PNG 圖片。"
+    },
+    "colorConverter": {
+      "eyebrow": "色彩工具",
+      "title": "色彩轉換器",
+      "description": "全能顏色格式轉換與調色工具。"
+    },
+    "editor": {
+      "eyebrow": "代碼工具",
+      "title": "Fluent Code Editor",
+      "description": "輕量、專注的在线代碼编輯器。"
+    },
+    "readerCard": {
+      "eyebrow": "閱讀工具",
+      "title": "讀者卡片生成器",
+      "description": "記錄一段文字，也記錄它在你心里留下的回声。"
+    }
+  },
+  "navigation": {
+    "home": "首頁",
+    "about": "關於",
+    "projects": "項目",
+    "github": "GitHub",
+    "followX": "在 X 上關注我",
+    "openPanel": "打開導航",
+    "closePanel": "關閉導航",
+    "panelTitle": "導航",
+    "openSettings": "打開語言和主題設置",
+    "closeSettings": "關閉語言和主題設置",
+    "settingsPanelTitle": "語言和主題設置"
+  },
+  "home": {
+    "eyebrow": {
+      "morning": "早安，人类。今天也要喵力全開！",
+      "afternoon": "午安，人类。現在正适合打個小盹喵。",
+      "evening": "晚上好，人类。月亮正在召唤本喵。",
+      "night": "晚安，人类。愿你夢见溫暖的貓窝喵。"
+    },
+    "title": "Haley（Creeper32767）",
+    "bio": "一個乐观的悲观主义者，励志做一只好貓。",
+    "introduction": "你好，旅行者！这里是渡昕（你也可以叫我 Haley，或者线下直接叫我貓貓）。",
+    "introductionMore": "我满怀热情地致力於两件事：與像你一样优秀的人交流，以及投身於奇妙的编程世界。将想法一行行代碼变为現實，并構建能够真正改变世界的創新解决方案，这其中蕴含着一種魔力。我坚信，通过协作和代碼的力量，我们可以为每個人創造一個更美好、更紧密聯係的世界。無论你是经验丰富的開發者，还是刚刚開启你的编程之旅，我都非常乐意與你合作，分享知识，共同創造美好的事物。让我们结合彼此的創造力和技能，将夢想变为現實，为世界留下属於我们的溫暖爪印。一起用代碼構筑未来吧！",
+    "technicalAnalysis": "GitHub 技術分析",
+    "languagesTitle": "常用語言",
+    "languagesDescription": "主要使用 Python 进行後端開發和数据处理，并使用 JavaScript、HTML 和 CSS 構建前端界面。",
+    "habitsTitle": "编碼習慣",
+    "habitsDescription": "活跃於夜间，專注於代碼的健壮性和可讀性。倾向於编寫详细的文檔和注释。",
+    "aboutTitle": "關於我",
+    "githubHome": "GitHub 主頁",
+    "followX": "在 X 上關注我",
+    "organizationTitle": "我的組織",
+    "organizationDescription": "一個專注於開源协作和技術創新的學生開發者社區。",
+    "visitGithub": "訪問 GitHub 主頁"
+  },
+  "footer": {
+    "copyright": "© {year} Creeper32767。保留所有權利。",
+    "backToTop": "返回頂部",
+    "introduction": "这里是一只貓貓記錄項目、想法與各種小實验的個人空间。",
+    "sitemap": "網站地圖",
+    "siteLinks": {
+      "home": "首頁",
+      "about": "關於我",
+      "projects": "項目",
+      "software": "軟件推薦",
+      "portfolio": "作品集",
+      "deeperIntro": "深入介绍",
+      "fursona": "獸設"
+    },
+    "contentLinks": {
+      "editor": "代碼编輯器",
+      "readerCard": "閱讀卡片",
+      "captureScreen": "網頁快照",
+      "colorConverter": "色彩轉換器"
+    },
+    "siteInfo": "站點信息",
+    "toolsAndContent": "工具與內容",
+    "source": "網站源碼",
+    "credit": "由 Creeper32767 設計與構建，使用 Vue & Nuxt 製作。"
+  },
+  "error": {
+    "literaryTexts": [
+      "每一次绕路都是旅途的一部分，停下片刻，再继续扬帆前行吧。",
+      "星星也需要经过一段黑暗，才能再次闪耀。",
+      "道路或许在此处尽头，但故事还没有翻到最後一頁。",
+      "不妨深呼吸，望向远方，让下一章如期而至。",
+      "你似乎到达了世界的边缘…… 若無缘再见，便祝你早安，午安，夜夜好夢。"
+    ],
+    "statuses": {
+      "400": {
+        "title": "請求有誤",
+        "message": "服務器無法理解您的請求。",
+        "hint": "請检查輸入內容後重試。"
+      },
+      "401": {
+        "title": "需要登錄",
+        "message": "此頁面需要身份验证。",
+        "hint": "請先登錄後再訪問。"
+      },
+      "403": {
+        "title": "没有權限",
+        "message": "您無權訪問此頁面。",
+        "hint": "如果认为这是誤判，請聯係管理员。"
+      },
+      "404": {
+        "title": "頁面未找到",
+        "message": "您訪問的頁面不存在或已被删除。",
+        "hint": "請返回主頁继续浏览。"
+      },
+      "408": {
+        "title": "請求超時",
+        "message": "服務器等待請求超時。",
+        "hint": "請检查網络後重試。"
+      },
+      "429": {
+        "title": "請求过於頻繁",
+        "message": "您短時间內發送了过多請求。",
+        "hint": "請稍後再試。"
+      },
+      "500": {
+        "title": "服務器錯誤",
+        "message": "服務器遇到問題，無法完成請求。",
+        "hint": "請稍後重試或返回主頁。"
+      },
+      "502": {
+        "title": "網關錯誤",
+        "message": "上游服務響應無效。",
+        "hint": "請稍後重試。"
+      },
+      "503": {
+        "title": "服務暂不可用",
+        "message": "服務器暂時無法处理請求。",
+        "hint": "請稍後重試。"
+      },
+      "504": {
+        "title": "網關超時",
+        "message": "上游服務響應超時。",
+        "hint": "請稍後重試。"
+      },
+      "default": {
+        "title": "出現了一點問題",
+        "message": "發生了未知錯誤。",
+        "hint": "請返回主頁继续浏览。"
+      }
+    },
+    "actions": {
+      "home": "返回主頁",
+      "retry": "重試"
+    }
+  },
+  "language": {
+    "label": "語言",
+    "en": "English",
+    "zh-CN": "簡體中文",
+    "zh-TW": "繁體中文",
+    "jp": "日本語"
+  },
+  "theme": {
+    "switchToLight": "切換到淺色主題",
+    "switchToDark": "切換到深色主題"
+  }
+}

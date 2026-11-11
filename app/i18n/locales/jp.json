@@ -1,0 +1,238 @@
+{
+  "seo": {
+    "siteName": "Haleyの個人ウェブサイト",
+    "default": {
+      "title": "Haleyの個人ウェブサイト",
+      "description": "Haleyのプロジェクト、ノート、ツール、そして静かな思索。"
+    },
+    "home": {
+      "title": "About me - Haley",
+      "description": "Haleyのホームページ、プロジェクト、ツール、ノート。"
+    },
+    "deeperIntro": {
+      "title": "より深い自己肖像 - Kitten Haley",
+      "description": "読書、ゲーム、人生、アイデンティティについてのフィールドレポート。"
+    },
+    "fursona": {
+      "title": "渡昕のファーソナプロフィール - Haley",
+      "description": "渡昕の外見、性格、背景、信条。"
+    },
+    "portfolio": {
+      "title": "学習ノート - Haley",
+      "description": "毎日の詩、読書ノート、作文練習。"
+    },
+    "projects": {
+      "title": "プロジェクト - Haley",
+      "description": "フロントエンドツールとバックエンドアプリケーションの一覧。"
+    },
+    "software": {
+      "title": "おすすめソフトウェア - Kitten Haley",
+      "description": "開発と日常生活に役立つソフトウェアの厳選リスト。"
+    },
+    "captureScreen": {
+      "title": "ウェブスナップショット生成器 - Haley",
+      "description": "ウェブページを読み込み、PNG画像として保存します。"
+    },
+    "colorConverter": {
+      "title": "カラーコンバーター - Haley",
+      "description": "色の形式を変換し、見やすいカラーパレットを作成します。"
+    },
+    "editor": {
+      "title": "Fluent Code Editor - Haley",
+      "description": "言語、ファイル入出力、テーマに対応したオンラインコードエディター。"
+    },
+    "readerCard": {
+      "title": "読書カード生成器 - Haley",
+      "description": "美しい読書カードを作成し、高解像度画像として保存します。"
+    }
+  },
+  "pageHeaders": {
+    "deeperIntro": {
+      "eyebrow": "⚠️ ここで一時停止 · 信号接続済み ⚠️",
+      "title": "Haley · より深い自己肖像",
+      "description": "トラ猫からのフィールドレポート。"
+    },
+    "fursona": {
+      "eyebrow": "ファーソナアーカイブ · 渡昕",
+      "title": "渡昕 · 理想とアイデンティティの交差点",
+      "description": "トラ猫のふわふわした外見の下にある、より真実の内面。"
+    },
+    "portfolio": {
+      "eyebrow": "個人ノート",
+      "title": "学習ノート",
+      "description": "学びの過程と考察の記録。"
+    },
+    "projects": {
+      "eyebrow": "プロジェクトアーカイブ",
+      "title": "私のプロジェクト",
+      "description": "私が作ったフロントエンドツールとバックエンドアプリを紹介します。"
+    },
+    "software": {
+      "eyebrow": "おすすめソフトウェア",
+      "title": "おすすめソフト",
+      "description": "おすすめの便利なソフトウェア。"
+    },
+    "captureScreen": {
+      "eyebrow": "キャプチャツール",
+      "title": "ウェブスナップショット生成器",
+      "description": "ウェブページをプレビューし、PNG画像として保存します。"
+    },
+    "colorConverter": {
+      "eyebrow": "カラー ツール",
+      "title": "カラーコンバーター",
+      "description": "色形式の変換とパレット作成を一つにまとめたツール。"
+    },
+    "editor": {
+      "eyebrow": "コーディングツール",
+      "title": "Fluent Code Editor",
+      "description": "軽量で集中できるオンラインコードエディター。"
+    },
+    "readerCard": {
+      "eyebrow": "読書ツール",
+      "title": "読書カード生成器",
+      "description": "文章と、心に残る響きを記録します。"
+    }
+  },
+  "navigation": {
+    "home": "ホーム",
+    "about": "概要",
+    "projects": "プロジェクト",
+    "github": "GitHub",
+    "followX": "Xでフォロー",
+    "openPanel": "ナビゲーションを開く",
+    "closePanel": "ナビゲーションを閉じる",
+    "panelTitle": "ナビゲーション",
+    "openSettings": "言語とテーマの設定を開く",
+    "closeSettings": "言語とテーマの設定を閉じる",
+    "settingsPanelTitle": "言語とテーマの設定"
+  },
+  "home": {
+    "eyebrow": {
+      "morning": "おはよう、人間。今日は完璧な一日になりそう！",
+      "afternoon": "こんにちは、人間。ちょっと昼寝の時間？",
+      "evening": "こんばんは、人間。月がこの猫を呼んでいる。",
+      "night": "おやすみ、人間。暖かい昼寝の夢を。"
+    },
+    "title": "Haley (Creeper32767)",
+    "bio": "楽観的な悲観主義者、良い猫になると決めています。",
+    "introduction": "こんにちは、旅人さん！ここはHaley Herzogです（Kitten、または直接Kittyと呼んでも構いません）。",
+    "introductionMore": "私が情熱を注いでいるのは、あなたのような素晴らしい人々との交流と、素晴らしいコーディングの世界です。アイデアを一行ずつ形にし、本当に役立つ革新的な解決策を作ることには魔法があります。協力とコードの力で、誰にとってもより良く、つながりのある世界を作れると信じています。経験豊富な開発者でも、始めたばかりでも、ぜひ一緒に知識を共有し、素敵なものを作りましょう。創造力とスキルを合わせ、夢を現実にして、世界に私たちの温かな足跡を残しましょう。コードで未来を築きましょう！",
+    "technicalAnalysis": "GitHub技術分析",
+    "languagesTitle": "主な言語",
+    "languagesDescription": "バックエンド開発とデータ処理には主にPythonを使い、フロントエンドにはJavaScript、HTML、CSSを使っています。",
+    "habitsTitle": "コーディング習慣",
+    "habitsDescription": "夜に活動し、堅牢で読みやすいコードを重視しています。詳しいドキュメントとコメントを書くのが好きです。",
+    "aboutTitle": "私について",
+    "githubHome": "GitHubプロフィール",
+    "followX": "Xでフォロー",
+    "organizationTitle": "私の組織",
+    "organizationDescription": "オープンソース協力と技術革新に取り組む学生開発者コミュニティ。",
+    "visitGithub": "GitHubプロフィールを見る"
+  },
+  "footer": {
+    "copyright": "© {year} Creeper32767。All rights reserved.",
+    "backToTop": "トップへ戻る",
+    "introduction": "プロジェクト、アイデア、実験を記録する一匹の猫の小さな場所。",
+    "sitemap": "サイトマップ",
+    "siteLinks": {
+      "home": "ホーム",
+      "about": "私について",
+      "projects": "プロジェクト",
+      "software": "おすすめソフト",
+      "portfolio": "ポートフォリオ",
+      "deeperIntro": "さらに詳しく",
+      "fursona": "ファーソナ"
+    },
+    "contentLinks": {
+      "editor": "コードエディター",
+      "readerCard": "読書カード",
+      "captureScreen": "画面キャプチャ",
+      "colorConverter": "カラーコンバーター"
+    },
+    "siteInfo": "サイト情報",
+    "toolsAndContent": "ツールとコンテンツ",
+    "source": "ソースコード",
+    "credit": "Creeper32767がVueとNuxtで設計・構築しました。"
+  },
+  "error": {
+    "literaryTexts": [
+      "遠回りも旅の一部です。少し立ち止まり、それから前へ進みましょう。",
+      "星でさえ、再び輝く前に暗闇の時間を必要とします。",
+      "道はここで終わるかもしれませんが、物語はまだ最後のページに届いていません。",
+      "深呼吸して地平線を見つめ、次の章が訪れるのを待ちましょう。",
+      "世界の果てにたどり着いたようです……また会えないとしても、おはよう、こんにちは、そして良い夢を。"
+    ],
+    "statuses": {
+      "400": {
+        "title": "不正なリクエスト",
+        "message": "サーバーはリクエストを理解できませんでした。",
+        "hint": "入力内容を確認して、もう一度お試しください。"
+      },
+      "401": {
+        "title": "認証が必要です",
+        "message": "このページを表示するにはサインインが必要です。",
+        "hint": "サインインしてから、もう一度お試しください。"
+      },
+      "403": {
+        "title": "アクセス拒否",
+        "message": "このページを表示する権限がありません。",
+        "hint": "誤りだと思われる場合は、管理者にお問い合わせください。"
+      },
+      "404": {
+        "title": "ページが見つかりません",
+        "message": "お探しのページは存在しないか、削除されています。",
+        "hint": "ホームページに戻って閲覧を続けてください。"
+      },
+      "408": {
+        "title": "リクエストがタイムアウトしました",
+        "message": "サーバーはリクエストの待機中にタイムアウトしました。",
+        "hint": "接続を確認して、もう一度お試しください。"
+      },
+      "429": {
+        "title": "リクエストが多すぎます",
+        "message": "短時間に送信されたリクエストが多すぎます。",
+        "hint": "しばらくしてからもう一度お試しください。"
+      },
+      "500": {
+        "title": "サーバーエラー",
+        "message": "サーバーで問題が発生し、リクエストを完了できませんでした。",
+        "hint": "しばらくしてから再試行するか、ホームページに戻ってください。"
+      },
+      "502": {
+        "title": "不正なゲートウェイ",
+        "message": "上流サービスから無効な応答が返されました。",
+        "hint": "しばらくしてからもう一度お試しください。"
+      },
+      "503": {
+        "title": "サービスを利用できません",
+        "message": "サーバーは一時的にリクエストを処理できません。",
+        "hint": "しばらくしてからもう一度お試しください。"
+      },
+      "504": {
+        "title": "ゲートウェイがタイムアウトしました",
+        "message": "上流サービスの応答に時間がかかりすぎました。",
+        "hint": "しばらくしてからもう一度お試しください。"
+      },
+      "default": {
+        "title": "問題が発生しました",
+        "message": "予期しないエラーが発生しました。",
+        "hint": "ホームページに戻って閲覧を続けてください。"
+      }
+    },
+    "actions": {
+      "home": "ホームへ戻る",
+      "retry": "再試行"
+    }
+  },
+  "language": {
+    "label": "言語",
+    "en": "English",
+    "zh-CN": "簡体字中国語",
+    "zh-TW": "繁体字中国語",
+    "jp": "日本語"
+  },
+  "theme": {
+    "switchToLight": "ライトテーマに切り替え",
+    "switchToDark": "ダークテーマに切り替え"
+  }
+}

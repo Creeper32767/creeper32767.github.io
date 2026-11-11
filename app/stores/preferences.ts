@@ -29,8 +29,18 @@ function detectBrowserLocale(): SupportedLocale {
     : [navigator.language];
 
   for (const browserLocale of browserLocales) {
-    if (browserLocale.toLowerCase().startsWith("zh")) return "zh-CN";
-    if (browserLocale.toLowerCase().startsWith("en")) return "en";
+    const normalizedLocale = browserLocale.toLowerCase();
+    if (
+      normalizedLocale.startsWith("zh-tw") ||
+      normalizedLocale.startsWith("zh-hk")
+    ) {
+      return "zh-TW";
+    }
+    if (normalizedLocale.startsWith("zh")) return "zh-CN";
+    if (normalizedLocale.startsWith("en")) return "en";
+    if (normalizedLocale.startsWith("ja") || normalizedLocale.startsWith("jp")) {
+      return "jp";
+    }
   }
 
   return "zh-CN";
