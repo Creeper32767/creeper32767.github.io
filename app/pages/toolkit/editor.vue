@@ -244,8 +244,8 @@ onUnmounted(() => {
 
       <section class="flex flex-1 flex-col overflow-hidden rounded-2xl border bg-card shadow-xl">
         <!-- 工具栏 -->
-        <div class="flex flex-wrap items-center justify-between gap-3 border-b px-4 py-3">
-          <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b px-4 py-3">
+          <div class="flex flex-wrap gap-3">
             <Button variant="outline" @click="openFilePicker">
               <DocumentArrowUp20Regular /> 上传文件
             </Button>
@@ -260,14 +260,14 @@ onUnmounted(() => {
         </div>
 
         <!-- 文件名 / 语言 -->
-        <div class="grid gap-3 border-b p-4 sm:grid-cols-2">
-          <label class="flex items-center gap-3 text-sm font-semibold">
+        <div class="flex flex-col gap-y-4 border-b p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex items-center gap-2 text-sm font-semibold sm:w-1/2 sm:justify-start">
             <span class="w-14 shrink-0">文件名</span>
-            <Input v-model="fileName" placeholder="输入文件名" />
-          </label>
-          <div class="flex items-center gap-3 text-sm font-semibold">
+            <Input class="flex-1" v-model="fileName" placeholder="输入文件名" />
+          </div>
+          <div class="flex items-center gap-2 text-sm font-semibold sm:w-1/4 sm:justify-end">
             <span class="w-14 shrink-0">语言</span>
-            <Select :model-value="language" @update:model-value="handleLanguageChange">
+            <Select class="flex-1" :model-value="language" @update:model-value="handleLanguageChange">
               <SelectTrigger class="flex-1">
                 <SelectValue />
               </SelectTrigger>
@@ -304,9 +304,9 @@ onUnmounted(() => {
     <Dialog v-model:open="showHelp">
       <DialogContent class="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>使用说明</DialogTitle>
-          <DialogDescription>
-            欢迎使用 Fluent 代码编辑器！在这里编写代码，完成后可以下载到本地。
+          <DialogTitle class="text-lg font-semibold">使用说明</DialogTitle>
+          <DialogDescription class="mt-1">
+            欢迎使用 Fluent 代码编辑器！你可以在线编写代码，并随时下载到本地继续编辑。
           </DialogDescription>
         </DialogHeader>
 
@@ -337,14 +337,14 @@ onUnmounted(() => {
     <Dialog v-model:open="showClearConfirm">
       <DialogContent class="max-w-md">
         <DialogHeader>
-          <DialogTitle>确认操作</DialogTitle>
-          <DialogDescription>
+          <DialogTitle class="text-lg font-semibold">确认操作</DialogTitle>
+          <DialogDescription class="mt-1">
             您确定要清空编辑器中的所有内容吗？此操作无法撤销。
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" @click="showClearConfirm = false">取消</Button>
-          <Button @click="performClear">确认清空</Button>
+          <Button variant="outline" class="mt-1" @click="showClearConfirm = false">取消</Button>
+          <Button @click="performClear" class="mt-1">确认清空</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -38,7 +38,10 @@ function detectBrowserLocale(): SupportedLocale {
     }
     if (normalizedLocale.startsWith("zh")) return "zh-CN";
     if (normalizedLocale.startsWith("en")) return "en";
-    if (normalizedLocale.startsWith("ja") || normalizedLocale.startsWith("jp")) {
+    if (
+      normalizedLocale.startsWith("ja") ||
+      normalizedLocale.startsWith("jp")
+    ) {
       return "jp";
     }
   }

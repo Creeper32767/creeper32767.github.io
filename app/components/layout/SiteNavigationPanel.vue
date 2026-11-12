@@ -224,11 +224,11 @@ function itemDelay(index: number): string {
     <div v-if="open" id="site-navigation-panel" class="fixed inset-0 z-50">
       <div class="absolute inset-0 bg-slate-950/20 backdrop-blur-sm" aria-hidden="true" @click="emit('close')" />
       <aside ref="panelRef"
-        class="absolute top-0 right-0 flex h-dvh w-3/4 max-w-md flex-col overflow-hidden border-l border-border bg-background/95 p-5 shadow-2xl backdrop-blur-xl sm:w-1/4"
+        class="absolute top-0 right-0 flex h-dvh w-3/4 max-w-md flex-col overflow-hidden border-l border-border bg-background/95 p-5 shadow-2xl backdrop-blur-xl sm:w-2/5"
         role="dialog" aria-modal="true" :aria-labelledby="panelTitleId">
         <div class="flex items-center justify-between border-b border-border pb-3">
-          <div :id="panelTitleId" class="flex items-center gap-2 text-sm font-semibold">
-            <Navigation16Filled class="h-4 w-4 text-primary" aria-hidden="true" />
+          <div :id="panelTitleId" class="flex items-center gap-2 text-lg font-semibold">
+            <Navigation16Filled class="h-6 w-6 text-primary" aria-hidden="true" />
             {{ t("navigation.panelTitle") }}
           </div>
           <button ref="closeButtonRef"
@@ -241,7 +241,7 @@ function itemDelay(index: number): string {
         <div
           class="navigation-scroll-area min-h-0 flex-1 overflow-x-hidden overflow-y-scroll overscroll-contain pr-1 touch-pan-y"
           tabindex="0" @wheel.stop @touchmove.stop>
-          <nav class="mt-5 flex flex-col gap-6 pb-[20vh]" :aria-label="t('navigation.panelTitle')">
+          <nav class="mt-5 flex flex-col gap-6 pb-[5vh]" :aria-label="t('navigation.panelTitle')">
             <section v-for="group in navigation.groups" :key="group.title">
               <h2 class="mb-2 px-2 text-base font-semibold tracking-wide text-foreground">
                 {{ t(group.title) }}

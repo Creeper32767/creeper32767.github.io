@@ -227,12 +227,15 @@
   "language": {
     "label": "Language",
     "en": "English",
-    "zh-CN": "Simplified Chinese",
-    "zh-TW": "Traditional Chinese",
+    "zh-CN": "简体中文",
+    "zh-TW": "繁體中文",
     "jp": "日本語"
   },
   "theme": {
     "switchToLight": "Switch to light theme",
-    "switchToDark": "Switch to dark theme"
+    "switchToDark": "Switch to dark theme",
+    "label": "Theme",
+    "light": "Light theme",
+    "dark": "Dark theme"
   }
 }

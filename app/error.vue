@@ -105,16 +105,17 @@ function retry() {
     <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-16 text-center">
       <section class="max-w-2xl" role="alert" aria-live="polite">
         <div class="relative flex items-center justify-center text-primary">
-          <span class="text-8xl font-bold leading-none tracking-wider sm:text-[10rem]">
+          <span
+            class="block w-full ml-6 text-9xl font-bold tabular-nums leading-none tracking-widest sm:text-[10rem]">
             {{ statusCode }}
           </span>
           <button type="button" tabindex="0"
-            class="group absolute right-10 top-0 border-0 bg-transparent p-0 text-primary sm:-right-5 sm:top-3"
+            class="group absolute right-[calc(50%-11em)] top-0 border-0 bg-transparent p-0 text-primary sm:right-[calc(50%-13em)]"
             aria-label="Error details">
             <QuestionCircle24Filled class="h-6 w-6 transition-transform group-hover:scale-110 group-focus:scale-110"
               aria-hidden="true" />
             <span
-              class="pointer-events-none absolute -right-10 top-full mt-3 hidden w-[min(16rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-background/95 p-4 text-left text-sm font-normal leading-6 text-foreground shadow-xl group-hover:block group-focus:block"
+              class="error-tooltip pointer-events-none absolute -right-10 top-full mt-2 w-[min(18rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-background/95 p-4 text-left text-sm font-normal leading-6 tracking-normal text-foreground opacity-0 shadow-xl group-hover:opacity-100 group-focus:opacity-100"
               role="tooltip">
               <strong class="block text-primary">{{ message }}</strong>
               <span class="mt-1 block text-muted">{{ hint }}</span>
@@ -122,15 +123,17 @@ function retry() {
           </button>
         </div>
 
-        <h1 class="mt-6 text-3xl font-light text-foreground sm:text-4xl">
+        <h1 class="mt-16 text-3xl font-light text-foreground sm:text-4xl">
           {{ title }}
         </h1>
 
-        <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-muted">
-          {{ literaryText }}
-        </p>
+        <ClientOnly>
+          <p class="mx-auto mt-4 max-w-2xl text-lg leading-8 text-muted">
+            {{ literaryText }}
+          </p>
+        </ClientOnly>
 
-        <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button v-if="canRetry" size="lg" variant="outline" @click="retry">
             {{ t('error.actions.retry') }}
           </Button>
@@ -146,6 +149,10 @@ function retry() {
 </template>
 
 <style scoped>
+.error-tooltip {
+  transition: opacity 350ms ease-out;
+}
+
 .meteor {
   left: var(--left, 50%);
   width: var(--width, 0.1rem);

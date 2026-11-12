@@ -233,6 +233,9 @@
   },
   "theme": {
     "switchToLight": "切换到浅色主题",
-    "switchToDark": "切换到深色主题"
+    "switchToDark": "切换到深色主题",
+    "label": "主题",
+    "light": "浅色主题",
+    "dark": "深色主题"
   }
 }

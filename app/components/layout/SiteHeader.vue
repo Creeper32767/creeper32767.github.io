@@ -6,6 +6,7 @@ import {
   ChevronDown20Regular,
   Navigation16Filled,
 } from "@ntkrnl64/fluentui-vue-icons";
+import { usePreferencesStore } from "~/stores/preferences";
 
 export interface NavigationItem {
   label: string;
@@ -50,9 +51,13 @@ const props = withDefaults(
 );
 
 const { t } = useI18n();
+const preferences = usePreferencesStore();
 const navigationItems = computed(() => props.items);
 const isPanelOpen = ref(false);
 const isSettingsPanelOpen = ref(false);
+const currentThemeLabel = computed(() =>
+  t(`theme.${preferences.theme}`),
+);
 const settingsButtonRef = ref<HTMLButtonElement | null>(null);
 const settingsPanelRef = ref<HTMLElement | null>(null);
 
@@ -147,7 +152,7 @@ onBeforeUnmount(() => {
 <template>
   <header class="h-24 max-sm:h-36">
     <nav
-      class="fixed top-4 left-1/2 z-50 flex min-h-16 w-[calc(100%-2rem)] max-w-7xl -translate-x-1/2 flex-col items-stretch gap-3 rounded-2xl border border-border/70 bg-background/80 px-5 py-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/65 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-0">
+      class="fixed top-4 left-1/2 z-50 flex min-h-16 w-[calc(100%-2rem)] sm:max-w-4/5 -translate-x-1/2 flex-col items-stretch gap-3 rounded-2xl border border-border/70 bg-background/80 px-5 py-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/65 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-0">
       <div class="order-1 flex w-full items-center justify-between sm:contents">
         <slot name="brand">
           <NuxtLink class="flex items-center gap-3 text-foreground" to="/" aria-label="Creeper32767 home">
@@ -186,10 +191,19 @@ onBeforeUnmount(() => {
         <div v-if="isSettingsPanelOpen" id="site-settings-panel" ref="settingsPanelRef"
           class="absolute top-full right-5 mt-2 flex flex-col gap-3 rounded-xl border border-border bg-background/95 p-3 shadow-lg backdrop-blur-xl sm:hidden"
           role="dialog" aria-modal="true" :aria-label="t('navigation.settingsPanelTitle')">
-          <slot name="actions">
-            <CommonLanguageSwitcher />
-          </slot>
-          <CommonThemeToggle />
+          <div class="flex items-center justify-between gap-6">
+            <span class="text-sm text-muted">{{ t("language.label") }}</span>
+            <slot name="actions">
+              <CommonLanguageSwitcher />
+            </slot>
+          </div>
+          <div class="flex items-center justify-between gap-6">
+            <span class="text-sm text-muted">{{ t("theme.label") }}</span>
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-muted">{{ currentThemeLabel }}</span>
+              <CommonThemeToggle />
+            </div>
+          </div>
         </div>
       </Transition>
     </nav>
