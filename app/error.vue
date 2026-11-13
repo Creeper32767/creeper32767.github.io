@@ -105,12 +105,11 @@ function retry() {
     <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-16 text-center">
       <section class="max-w-2xl" role="alert" aria-live="polite">
         <div class="relative flex items-center justify-center text-primary">
-          <span
-            class="block w-full ml-6 text-9xl font-bold tabular-nums leading-none tracking-widest sm:text-[10rem]">
+          <span class="block w-full text-9xl font-bold tabular-nums leading-none tracking-widest sm:text-[10rem]">
             {{ statusCode }}
           </span>
-          <button type="button" tabindex="0"
-            class="group absolute right-[calc(50%-11em)] top-0 border-0 bg-transparent p-0 text-primary sm:right-[calc(50%-13em)]"
+          <Button variant="ghost" size="icon" type="button" tabindex="0"
+            class="group absolute right-[calc(50%-12em)] top-0 border-0 bg-transparent p-0 text-primary sm:right-[calc(50%-14em)]"
             aria-label="Error details">
             <QuestionCircle24Filled class="h-6 w-6 transition-transform group-hover:scale-110 group-focus:scale-110"
               aria-hidden="true" />
@@ -120,7 +119,7 @@ function retry() {
               <strong class="block text-primary">{{ message }}</strong>
               <span class="mt-1 block text-muted">{{ hint }}</span>
             </span>
-          </button>
+          </Button>
         </div>
 
         <h1 class="mt-16 text-3xl font-light text-foreground sm:text-4xl">
@@ -133,14 +132,14 @@ function retry() {
           </p>
         </ClientOnly>
 
-        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <ItemGroup class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button v-if="canRetry" size="lg" variant="outline" @click="retry">
             {{ t('error.actions.retry') }}
           </Button>
           <Button size="lg" @click="returnHome">
             {{ t('error.actions.home') }}
           </Button>
-        </div>
+        </ItemGroup>
       </section>
     </main>
 

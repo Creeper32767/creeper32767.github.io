@@ -2,7 +2,21 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-  modules: ["@nuxt/content", "shadcn-nuxt"],
+  modules: ["@nuxt/content", "@nuxt/image", "shadcn-nuxt"],
+  image: {
+    quality: 90,
+    format: ["webp", "avif", "jpeg", "png", "gif", "svg"],
+    presets: {
+      avatar: {
+        modifiers: {
+          format: "webp",
+          width: 96,
+          height: 96,
+          fit: "cover",
+        },
+      },
+    },
+  },
   shadcn: {
     prefix: "",
     componentDir: "./app/components/ui",

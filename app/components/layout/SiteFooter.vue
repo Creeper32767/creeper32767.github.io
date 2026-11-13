@@ -28,10 +28,10 @@ const siteLinks = [
 ];
 
 const contentLinks = [
-  { label: "footer.contentLinks.editor", to: "/toolkit/editor" },
-  { label: "footer.contentLinks.readerCard", to: "/toolkit/reader-card" },
-  { label: "footer.contentLinks.captureScreen", to: "/toolkit/capture-screen" },
-  { label: "footer.contentLinks.colorConverter", to: "/toolkit/color-conventor" },
+  { label: "footer.contentLinks.editor", to: "/projects/editor" },
+  { label: "footer.contentLinks.readerCard", to: "/projects/reader-card" },
+  { label: "footer.contentLinks.captureScreen", to: "/projects/capture-screen" },
+  { label: "footer.contentLinks.colorConverter", to: "/projects/color-conventor" },
 ];
 
 const socialLinks = [
@@ -43,10 +43,10 @@ const socialLinks = [
 <template>
   <footer class="mt-16 border-t border-border bg-background/60">
     <div class="mx-auto w-[calc(100%-2rem)] max-w-6xl py-12 sm:py-14">
-      <div class="grid gap-10 sm:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div class="grid gap-20 sm:grid-cols-[2fr_1fr_1fr_1fr]">
         <div>
           <NuxtLink class="inline-flex items-center gap-3 text-lg font-bold tracking-tight text-foreground" to="/">
-            <img src="/images/profile-photo.webp" alt=""
+            <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
               class="h-10 w-10 rounded-full border border-border object-cover" />
             Creeper32767
           </NuxtLink>
@@ -65,23 +65,26 @@ const socialLinks = [
 
         <div>
           <h2 class="text-sm font-semibold tracking-wide text-foreground">{{ t("footer.sitemap") }}</h2>
-          <nav class="mt-4 grid grid-cols-2 items-start gap-3 sm:flex sm:flex-col" :aria-label="t('footer.sitemap')">
-            <NuxtLink v-for="link in siteLinks" :key="link.label" :to="link.to"
-              class="text-sm text-muted transition-colors hover:text-primary">
-              {{ t(link.label) }}
-            </NuxtLink>
-          </nav>
+          <ItemGroup class="mt-4 grid grid-cols-2 items-start gap-3 sm:flex sm:flex-col"
+            :aria-label="t('footer.sitemap')">
+            <Item v-for="link in siteLinks" :key="link.label" size="sm" class="p-0">
+              <NuxtLink :to="link.to" class="text-sm text-muted transition-colors hover:text-primary">
+                {{ t(link.label) }}
+              </NuxtLink>
+            </Item>
+          </ItemGroup>
         </div>
 
         <div>
           <h2 class="text-sm font-semibold tracking-wide text-foreground">{{ t("footer.toolsAndContent") }}</h2>
-          <nav class="mt-4 grid grid-cols-2 items-start gap-3 sm:flex sm:flex-col"
+          <ItemGroup class="mt-4 grid grid-cols-2 items-start gap-3 sm:flex sm:flex-col"
             :aria-label="t('footer.toolsAndContent')">
-            <NuxtLink v-for="link in contentLinks" :key="link.label" :to="link.to"
-              class="text-sm text-muted transition-colors hover:text-primary">
-              {{ t(link.label) }}
-            </NuxtLink>
-          </nav>
+            <Item v-for="link in contentLinks" :key="link.label" size="sm" class="p-0">
+              <NuxtLink :to="link.to" class="text-sm text-muted transition-colors hover:text-primary">
+                {{ t(link.label) }}
+              </NuxtLink>
+            </Item>
+          </ItemGroup>
         </div>
 
         <div>
@@ -92,9 +95,9 @@ const socialLinks = [
                 t("footer.source") }}
               <Open16Regular class="inline h-3.5 w-3.5" aria-hidden="true" />
             </a>
-            <button class="self-start text-left transition-colors hover:text-primary" type="button" @click="scrollToTop">
+            <Button variant="link" class="h-auto self-start p-0 text-left" type="button" @click="scrollToTop">
               {{ t("footer.backToTop") }}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

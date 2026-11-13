@@ -28,10 +28,10 @@ const props = withDefaults(
       { label: "footer.siteLinks.projects", to: "/projects", icon: "apps", section: "footer.sitemap" },
       { label: "footer.siteLinks.software", to: "/software-picks", icon: "apps", section: "footer.sitemap" },
       { label: "footer.siteLinks.portfolio", to: "/portfolio", icon: "book", section: "footer.sitemap" },
-      { label: "footer.contentLinks.editor", to: "/toolkit/editor", icon: "code", section: "footer.toolsAndContent" },
-      { label: "footer.contentLinks.readerCard", to: "/toolkit/reader-card", icon: "book", section: "footer.toolsAndContent" },
-      { label: "footer.contentLinks.captureScreen", to: "/toolkit/capture-screen", icon: "apps", section: "footer.toolsAndContent" },
-      { label: "footer.contentLinks.colorConverter", to: "/toolkit/color-conventor", icon: "apps", section: "footer.toolsAndContent" },
+      { label: "footer.contentLinks.editor", to: "/projects/editor", icon: "code", section: "footer.toolsAndContent" },
+      { label: "footer.contentLinks.readerCard", to: "/projects/reader-card", icon: "book", section: "footer.toolsAndContent" },
+      { label: "footer.contentLinks.captureScreen", to: "/projects/capture-screen", icon: "apps", section: "footer.toolsAndContent" },
+      { label: "footer.contentLinks.colorConverter", to: "/projects/color-conventor", icon: "apps", section: "footer.toolsAndContent" },
       {
         label: "navigation.github",
         to: "https://github.com/Creeper32767",
@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
       <div class="order-1 flex w-full items-center justify-between sm:contents">
         <slot name="brand">
           <NuxtLink class="flex items-center gap-3 text-foreground" to="/" aria-label="Creeper32767 home">
-            <img src="/images/profile-photo.webp" alt="Creeper32767 Logo"
+            <NuxtImg preload src="/images/haley-avatar.webp" alt="Creeper32767 Logo" width="96" height="96" preset="avatar"
               class="h-10 w-10 rounded-full border-2 border-white object-cover shadow-sm" />
             <span class="text-lg font-bold tracking-tight">Creeper32767</span>
           </NuxtLink>
@@ -180,12 +180,12 @@ onBeforeUnmount(() => {
             <ChevronDown20Regular class="h-5 w-5" aria-hidden="true" />
           </span>
         </button>
-        <button class="rounded-lg p-2 text-muted transition-colors hover:bg-primary/10 hover:text-primary" type="button"
+        <Button variant="ghost" size="icon" type="button"
           :aria-label="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')"
           :title="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')" :aria-expanded="isPanelOpen"
           aria-controls="site-navigation-panel" @click="isPanelOpen = !isPanelOpen">
           <Navigation16Filled class="h-5 w-5" aria-hidden="true" />
-        </button>
+        </Button>
       </div>
       <Transition name="settings-panel">
         <div v-if="isSettingsPanelOpen" id="site-settings-panel" ref="settingsPanelRef"

@@ -500,22 +500,22 @@ async function exportCard() {
               </div>
               <div class="flex items-center justify-between gap-3 rounded-lg border border-input px-3 py-2">
                 <p for="title-color" class="cursor-pointer">标题颜色</p>
-                <input id="title-color" v-model="state.titleColor" type="color"
+                <Input id="title-color" v-model="state.titleColor" type="color"
                   class="h-8 w-12 cursor-pointer rounded-md border border-input bg-transparent p-1" />
               </div>
               <div class="flex items-center justify-between gap-3 rounded-lg border border-input px-3 py-2">
                 <p for="text-color" class="cursor-pointer">正文颜色</p>
-                <input id="text-color" v-model="state.textColor" type="color"
+                <Input id="text-color" v-model="state.textColor" type="color"
                   class="h-8 w-12 cursor-pointer rounded-md border border-input bg-transparent p-1" />
               </div>
               <div class="flex items-center justify-between gap-3 rounded-lg border border-input px-3 py-2">
                 <p for="bg-color" class="cursor-pointer">背景颜色</p>
-                <input id="bg-color" v-model="state.background" type="color"
+                <Input id="bg-color" v-model="state.background" type="color"
                   class="h-8 w-12 cursor-pointer rounded-md border border-input bg-transparent p-1" />
               </div>
               <div class="flex items-center justify-between gap-3 rounded-lg border border-input px-3 py-2">
                 <p for="accent-color" class="cursor-pointer">强调色</p>
-                <input id="accent-color" v-model="state.accent" type="color"
+                <Input id="accent-color" v-model="state.accent" type="color"
                   class="h-8 w-12 cursor-pointer rounded-md border border-input bg-transparent p-1" />
               </div>
             </div>
@@ -524,12 +524,12 @@ async function exportCard() {
           <div class="space-y-3 border-t border-border pt-6">
             <label class="grid gap-2">
               <span class="text-sm font-medium">导出清晰度</span>
-              <select v-model.number="exportScale" :disabled="exporting"
-                class="h-9 w-full rounded-md border border-input bg-background px-3 text-sm disabled:opacity-50">
-                <option :value="1">1x（1200 × 900）</option>
-                <option :value="2">2x（2400 × 1800，推荐）</option>
-                <option :value="3">3x（3600 × 2700）</option>
-              </select>
+              <NativeSelect :model-value="String(exportScale)" :disabled="exporting" class="w-full"
+                @update:model-value="exportScale = Number($event)">
+                <NativeSelectOption :value="1">1x（1200 × 900）</NativeSelectOption>
+                <NativeSelectOption :value="2">2x（2400 × 1800，推荐）</NativeSelectOption>
+                <NativeSelectOption :value="3">3x（3600 × 2700）</NativeSelectOption>
+              </NativeSelect>
             </label>
             <Button class="w-full" type="button" :disabled="exporting" @click="exportCard">
               {{ exporting ? "正在生成图片…" : "导出为高清图片" }}

@@ -8,10 +8,10 @@ const routeSeoKeys: Record<string, string> = {
   "/portfolio": "portfolio",
   "/projects": "projects",
   "/software-picks": "software",
-  "/toolkit/capture-screen": "captureScreen",
-  "/toolkit/color-conventor": "colorConverter",
-  "/toolkit/editor": "editor",
-  "/toolkit/reader-card": "readerCard",
+  "/projects/capture-screen": "captureScreen",
+  "/projects/color-conventor": "colorConverter",
+  "/projects/editor": "editor",
+  "/projects/reader-card": "readerCard",
 };
 
 export function useSiteSeo() {
@@ -45,9 +45,7 @@ export function useSiteSeo() {
         { name: "twitter:title", content: title.value },
         { name: "twitter:description", content: description.value },
       ],
-      ...(canonical
-        ? { link: [{ rel: "canonical", href: canonical }] }
-        : {}),
+      ...(canonical ? { link: [{ rel: "canonical", href: canonical }] } : {}),
     };
   });
 }

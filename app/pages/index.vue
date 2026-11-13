@@ -24,10 +24,10 @@ onMounted(() => {
   <div>
     <main id="home" class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
       <header class="page-header page-header--centered page-header--compact flex flex-col items-center">
-        <img src="/images/profile-photo.webp" alt="Haley Avatar"
+        <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
           class="mb-5 h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg" />
-        <span class="mb-3 text-xs font-bold tracking-[0.04em] text-primary rounded bg-primary/10 p-2">{{ t(greetingKey)
-          }}</span>
+        <span class="mb-3 text-xs font-bold tracking-[0.04em] text-primary rounded bg-primary/5 p-2">{{ t(greetingKey)
+        }}</span>
         <h1 class="page-title">{{ t("home.title") }}</h1>
         <p class="page-description max-w-2xl">{{ t("home.bio") }}</p>
       </header>
@@ -45,9 +45,9 @@ onMounted(() => {
             <h3 class="text-xl font-semibold">{{ t("home.languagesTitle") }}</h3>
             <p class="mt-3 leading-7 text-muted">{{ t("home.languagesDescription") }}</p>
             <div class="mt-6 flex h-8 overflow-hidden rounded-full text-xs font-semibold text-white">
-              <div class="flex w-[55%] items-center justify-center bg-blue-600">Python 55%</div>
-              <div class="flex w-[20%] items-center justify-center bg-yellow-500">JS 20%</div>
-              <div class="flex w-[25%] items-center justify-center bg-slate-500">Other 25%</div>
+              <div class="flex w-[45%] items-center justify-center bg-indigo-600">Python 45%</div>
+              <div class="flex w-[35%] items-center justify-center bg-blue-600">JS/TS 35%</div>
+              <div class="flex w-[20%] items-center justify-center bg-cyan-500">Other 20%</div>
             </div>
           </article>
           <article class="rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur">
@@ -59,11 +59,13 @@ onMounted(() => {
 
       <section id="about" class="mt-14">
         <h2 class="mb-6 text-3xl font-bold">{{ t("home.aboutTitle") }}</h2>
-        <div
+        <ItemGroup
           class="flex flex-col gap-6 rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur sm:flex-row sm:items-center">
-          <img src="/images/profile-photo.webp" alt="Haley Avatar" class="h-24 w-24 rounded-full object-cover" />
+          <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
+            class="h-24 w-24 rounded-full object-cover" />
           <div>
             <h3 class="text-xl font-semibold">{{ t("home.title") }}</h3>
+            <p class="mt-2 text-muted">{{ t("home.bio") }}</p>
             <div class="mt-4 flex flex-wrap gap-3">
               <Button as="a" href="https://github.com/Creeper32767" target="_blank" rel="noopener noreferrer">
                 {{ t("home.githubHome") }}
@@ -76,19 +78,19 @@ onMounted(() => {
               </Button>
             </div>
           </div>
-        </div>
+        </ItemGroup>
       </section>
 
       <section id="projects" class="mt-14">
         <h2 class="mb-6 text-3xl font-bold">{{ t("home.organizationTitle") }}</h2>
         <div
           class="flex flex-col gap-6 rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur sm:flex-row sm:items-center">
-          <img src="https://avatars.githubusercontent.com/u/128388434?s=200&v=4" alt="SMS-COSMO Avatar"
-            class="h-24 w-24 rounded-full object-cover" />
+          <NuxtImg src="/images/cosmo-avatar.webp" alt="SMS-COSMO Avatar" width="96" preset="avatar"
+            height="96" class="h-24 w-24 rounded-full object-cover" />
           <div>
             <h3 class="text-xl font-semibold">SMS-COSMO</h3>
             <p class="mt-2 text-muted">{{ t("home.organizationDescription") }}</p>
-            <Button as="a" class="mt-4" variant="outline" href="https://github.com/SMS-COSMO" target="_blank"
+            <Button type="button" class="mt-4" variant="outline" href="https://github.com/SMS-COSMO" target="_blank"
               rel="noopener noreferrer"> {{ t("home.visitGithub") }}
               <Open16Regular class="h-4 w-4" aria-hidden="true" />
             </Button>

@@ -1,7 +1,9 @@
 allowBuilds:
   esbuild: true
+  sharp: true
   vue-demi: true
 
 overrides:
   "@vueuse/core": "14.4.0"
   "@vueuse/shared": "14.4.0"
+  "sharp": "0.34.5"

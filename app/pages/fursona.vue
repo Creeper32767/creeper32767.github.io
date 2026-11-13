@@ -136,7 +136,8 @@ const appearanceDetails: Detail[] = [
         <div class="grid gap-8 lg:grid-cols-[minmax(15rem,0.8fr)_1.2fr] lg:items-center">
           <figure>
             <div class="overflow-hidden rounded-xl border border-border bg-primary/5 p-3">
-              <img src="/images/profile-photo.webp" alt="渡昕的头像" class="aspect-square w-full rounded-lg object-cover" />
+              <NuxtImg src="/images/haley-avatar.webp" alt="渡昕的头像" width="420" height="420"
+                class="aspect-square w-full rounded-lg object-cover" />
             </div>
             <figcaption class="mt-3 text-center text-sm text-muted">头像 · 暖橘色虎斑猫</figcaption>
           </figure>

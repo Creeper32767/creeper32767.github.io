@@ -229,7 +229,7 @@ function selectVariation(variation: Variation) {
         <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
           <h2 class="text-lg font-semibold">视觉调色</h2>
           <label class="grid cursor-pointer grid-cols-[auto_1fr] items-center gap-4 rounded-xl border border-input p-4">
-            <input :value="hex" type="color" class="h-14 w-20 cursor-pointer rounded-lg border-0 bg-transparent"
+            <Input :value="hex" type="color" class="h-14 w-20 cursor-pointer rounded-lg border-0 bg-transparent"
               @input="applyColor(($event.target as HTMLInputElement).value)" />
             <span class="text-sm text-muted">点击选择颜色</span>
           </label>
@@ -244,7 +244,7 @@ function selectVariation(variation: Variation) {
           <label v-for="item in group.items" :key="item.key"
             class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 text-sm">
             <span>{{ item.label }}</span>
-            <input :value="item.key === 'a' ? state.a * 100 : state[item.key as keyof ColorState]" type="range" min="0"
+            <Input :value="item.key === 'a' ? state.a * 100 : state[item.key as keyof ColorState]" type="range" min="0"
               :max="item.max" class="accent-primary"
               @input="item.key === 'a' ? state.a = Number(($event.target as HTMLInputElement).value) / 100 : (state[item.key as 'r' | 'g' | 'b' | 'h' | 's' | 'l'] = Number(($event.target as HTMLInputElement).value), item.key === 'h' || item.key === 's' || item.key === 'l' ? updateFromHsl() : updateFromRgb())" />
             <span class="text-right font-mono text-muted">{{ item.key === "a" ? state.a.toFixed(2) :
@@ -256,17 +256,16 @@ function selectVariation(variation: Variation) {
           <h2 class="text-lg font-semibold">线性渐变生成器</h2>
           <div class="h-24 rounded-xl border border-border" :style="{ background: gradientCss }" />
           <div class="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3">
-            <input v-model="gradientStart" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
-            <input v-model.number="gradientAngle" type="range" min="0" max="360" class="accent-primary" />
+            <Input v-model="gradientStart" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
+            <Input v-model.number="gradientAngle" type="range" min="0" max="360" class="accent-primary" />
             <span class="w-12 text-right text-sm text-muted">{{ gradientAngle }}°</span>
-            <input v-model="gradientEnd" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
+            <Input v-model="gradientEnd" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
           </div>
           <div class="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-            <input :value="gradientCss" readonly
-              class="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm" />
-            <button class="rounded-md border border-input px-3 py-2 text-sm transition hover:bg-foreground/5"
-              @click="copyValue('gradient', gradientCss)">{{ copied === "gradient" ? "已复制" : "复制"
-              }}</button>
+            <Input :value="gradientCss" readonly class="min-w-0 flex-1" />
+            <Button variant="outline" type="button" @click="copyValue('gradient', gradientCss)">
+              {{ copied === "gradient" ? "已复制" : "复制" }}
+            </Button>
           </div>
         </section>
       </div>
@@ -284,16 +283,13 @@ function selectVariation(variation: Variation) {
           <h2 class="text-lg font-semibold">粘贴颜色代码并更新</h2>
           <p class="text-sm leading-6 text-muted">将任意 HEX、RGB、HSL、HSLA 或 CSS 颜色字符串粘贴到下方，点击“应用颜色”即可同步所有数值与预览。
           </p>
-          <textarea v-model="pasteValue"
-            class="min-h-24 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+          <Textarea v-model="pasteValue" class="min-h-24"
             placeholder="#0078d4 或 rgb(0,120,212) 或 hsl(206,100%,42%)" @input="setPasteFeedback('输入待应用…', 'idle')"
             @keydown.meta.enter.prevent="applyPaste" @keydown.ctrl.enter.prevent="applyPaste" />
           <div class="grid grid-cols-[auto_auto_1fr] items-center gap-3">
-            <button
-              class="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-hover"
-              @click="applyPaste">应用颜色</button>
-            <button class="rounded-md border border-input px-4 py-2 text-sm transition hover:bg-foreground/5"
-              @click="pasteValue = ''; setPasteFeedback('输入已清空', 'idle')">清空</button>
+            <Button type="button" @click="applyPaste">应用颜色</Button>
+            <Button variant="outline" type="button"
+              @click="pasteValue = ''; setPasteFeedback('输入已清空', 'idle')">清空</Button>
             <span class="text-sm"
               :class="{ 'text-green-600': pasteStatus === 'success', 'text-red-600': pasteStatus === 'error', 'text-muted': pasteStatus === 'idle' }">{{
                 pasteFeedback }}</span>
@@ -308,11 +304,11 @@ function selectVariation(variation: Variation) {
               :style="{ backgroundColor: `rgb(${variation.r}, ${variation.g}, ${variation.b})` }"
               :title="`点击应用：rgb(${variation.r}, ${variation.g}, ${variation.b})`" @click="selectVariation(variation)">
               <span class="drop-shadow">{{ variation.label }}</span>
-              <button
-                class="absolute right-1 bottom-1 rounded bg-black/20 px-1.5 py-0.5 opacity-0 transition group-hover:opacity-100"
-                title="复制 HEX"
+              <Button variant="ghost" size="icon-xs"
+                class="absolute right-1 bottom-1 rounded bg-black/20 text-white opacity-0 transition group-hover:opacity-100"
+                title="复制 HEX" type="button"
                 @click.stop="copyValue(`variation-${variation.label}`, rgbToHex(variation.r, variation.g, variation.b).toUpperCase())">{{
-                  copied === `variation-${variation.label}` ? "✓" : "❐" }}</button>
+                  copied === `variation-${variation.label}` ? "✓" : "❐" }}</Button>
             </div>
           </div>
         </section>
@@ -323,14 +319,14 @@ function selectVariation(variation: Variation) {
             <div v-for="output in outputValues" :key="output.key" class="grid gap-2">
               <label class="text-sm font-medium">{{ output.label }}</label>
               <div class="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-                <input :value="output.value" :placeholder="output.placeholder"
-                  class="min-w-0 rounded-md border border-input bg-background px-3 py-2 font-mono text-sm"
+                <Input :value="output.value" :placeholder="output.placeholder"
+                  class="min-w-0 font-mono"
                   @change="applyColor(($event.target as HTMLInputElement).value)"
                   @keydown.ctrl.enter.prevent="applyColor(($event.target as HTMLInputElement).value)"
                   @keydown.meta.enter.prevent="applyColor(($event.target as HTMLInputElement).value)" />
-                <button class="rounded-md border border-input px-3 py-2 text-sm transition hover:bg-foreground/5"
-                  @click="copyValue(output.key, output.value)">{{ copied === output.key ? "已复制" : "复制"
-                  }}</button>
+                <Button variant="outline" type="button" @click="copyValue(output.key, output.value)">
+                  {{ copied === output.key ? "已复制" : "复制" }}
+                </Button>
               </div>
             </div>
           </div>

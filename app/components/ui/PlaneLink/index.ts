@@ -1,1 +1,1 @@
-export { default as PlaneLink } from './PlaneLink.vue'
+export { default as PlaneLink } from "./PlaneLink.vue";
