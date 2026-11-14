@@ -131,7 +131,7 @@ const sections: ProjectSection[] = [
                 <div
                   class="mb-6 flex h-16 w-16 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary"
                   aria-hidden="true">
-                  <component :is="projectIcons[project.icon as keyof typeof projectIcons]" class="h-8 w-8" />
+                  <component :is="projectIcons[project.icon as keyof typeof projectIcons]" class="size-8" />
                 </div>
                 <h3 class="text-xl font-semibold">{{ project.name }}</h3>
                 <p class="mt-3 flex-1 text-sm leading-7 text-muted">
@@ -142,7 +142,7 @@ const sections: ProjectSection[] = [
               <PlaneLink :href="project.href" :target="project.external ? '_blank' : '_self'"
                 class="mt-6 w-full bg-primary shadow-sm" :aria-label="`${project.action}：${project.name}`">
                 {{ project.action }}
-                <Open16Regular v-if="project.external" class="h-4 w-4" aria-hidden="true" />
+                <Open16Regular v-if="project.external" class="size-4" aria-hidden="true" />
               </PlaneLink>
             </article>
           </div>

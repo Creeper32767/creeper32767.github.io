@@ -177,14 +177,14 @@ onBeforeUnmount(() => {
           :aria-expanded="isSettingsPanelOpen" aria-controls="site-settings-panel"
           @click="isSettingsPanelOpen = !isSettingsPanelOpen">
           <span class="block transition-transform duration-250" :class="{ 'rotate-180': isSettingsPanelOpen }">
-            <ChevronDown20Regular class="h-5 w-5" aria-hidden="true" />
+            <ChevronDown20Regular class="size-5" aria-hidden="true" />
           </span>
         </button>
         <Button variant="ghost" size="icon" type="button"
           :aria-label="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')"
           :title="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')" :aria-expanded="isPanelOpen"
           aria-controls="site-navigation-panel" @click="isPanelOpen = !isPanelOpen">
-          <Navigation16Filled class="h-5 w-5" aria-hidden="true" />
+          <Navigation16Filled class="size-5" aria-hidden="true" />
         </Button>
       </div>
       <Transition name="settings-panel">

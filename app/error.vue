@@ -111,7 +111,7 @@ function retry() {
           <Button variant="ghost" size="icon" type="button" tabindex="0"
             class="group absolute right-[calc(50%-12em)] top-0 border-0 bg-transparent p-0 text-primary sm:right-[calc(50%-14em)]"
             aria-label="Error details">
-            <QuestionCircle24Filled class="h-6 w-6 transition-transform group-hover:scale-110 group-focus:scale-110"
+            <QuestionCircle24Filled class="size-6 transition-transform group-hover:scale-110 group-focus:scale-110"
               aria-hidden="true" />
             <span
               class="error-tooltip pointer-events-none absolute -right-10 top-full mt-2 w-[min(18rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-background/95 p-4 text-left text-sm font-normal leading-6 tracking-normal text-foreground opacity-0 shadow-xl group-hover:opacity-100 group-focus:opacity-100"
@@ -130,6 +130,9 @@ function retry() {
           <p class="mx-auto mt-4 max-w-2xl text-lg leading-8 text-muted">
             {{ literaryText }}
           </p>
+          <template #fallback>
+            <Skeleton class="mx-auto mt-4 h-8 w-full max-w-2xl" />
+          </template>
         </ClientOnly>
 
         <ItemGroup class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

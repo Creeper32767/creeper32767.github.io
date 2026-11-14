@@ -106,14 +106,14 @@ function itemDelay(index: number): string {
       :aria-labelledby="panelTitleId">
       <SheetHeader class="border-b border-border p-0 pb-3">
         <SheetTitle :id="panelTitleId" class="flex items-center gap-2 text-lg">
-          <Navigation16Filled class="h-6 w-6 text-primary" aria-hidden="true" />
+          <Navigation16Filled class="size-6 text-primary" aria-hidden="true" />
           {{ t("navigation.panelTitle") }}
         </SheetTitle>
         <SheetDescription class="sr-only">{{ t("navigation.panelTitle") }}</SheetDescription>
       </SheetHeader>
 
       <ScrollArea class="navigation-scroll-area min-h-0 flex-1 pr-1">
-        <nav class="mt-5 flex flex-col gap-6 pb-[5vh]" :aria-label="t('navigation.panelTitle')">
+        <nav class="mt-5 flex flex-col gap-4 pb-[5vh]" :aria-label="t('navigation.panelTitle')">
           <section v-for="group in navigation.groups" :key="group.title">
             <h2 class="mb-2 px-2 text-base font-semibold tracking-wide text-foreground">
               {{ t(group.title) }}
@@ -123,7 +123,7 @@ function itemDelay(index: number): string {
                 class="navigation-item rounded-xl p-0" :class="{ 'navigation-item-current': item.isCurrent }"
                 :style="{ '--item-delay': itemDelay(item.animationIndex) }">
                 <NuxtLink class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-muted
-                  hover:bg-muted/60 hover:text-primary" :to="item.to" :aria-current="item.isCurrent ? 'page' : undefined"
+                  hover:bg-muted/20 hover:text-primary" :to="item.to" :aria-current="item.isCurrent ? 'page' : undefined"
                   @click="emit('close')">
                   <ItemMedia variant="icon" class="navigation-item-icon text-primary">
                     <component :is="resolveIcon(item.icon)" aria-hidden="true" />
@@ -142,7 +142,7 @@ function itemDelay(index: number): string {
         <Item v-for="item in navigation.externals" :key="`${item.label}-${item.animationIndex}`" size="sm"
           class="navigation-item rounded-xl p-0" :style="{ '--item-delay': itemDelay(item.animationIndex) }">
           <a class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-muted
-            hover:bg-muted/60 hover:text-primary"
+            hover:bg-muted/20 hover:text-primary"
             :href="String(item.to)" target="_blank" rel="noopener noreferrer" @click="emit('close')">
             <ItemMedia variant="icon" class="navigation-item-icon text-primary">
               <component :is="resolveIcon(item.icon)" aria-hidden="true" />

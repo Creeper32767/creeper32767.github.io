@@ -279,7 +279,7 @@ const sections: SoftwareSection[] = [
               </div>
               <PlaneLink :href="software.href" class="mt-6 w-full bg-primary shadow-sm"
                 :aria-label="`${software.action ?? '获取'} ${software.name}`">
-                {{ software.action ?? "获取" }} <Open16Regular class="h-4 w-4" aria-hidden="true" />
+                {{ software.action ?? "获取" }} <Open16Regular class="size-4" aria-hidden="true" />
               </PlaneLink>
             </article>
           </div>

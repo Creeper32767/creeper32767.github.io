@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
               <p class="mt-2 font-mono text-sm text-muted">{{ contact.handle }}</p>
               <PlaneLink :href="contact.href" class="mt-3 w-full bg-primary shadow-sm">
                 {{ contact.label }}
-                <Open16Regular class="h-4 w-4" aria-hidden="true" />
+                <Open16Regular class="size-4" aria-hidden="true" />
               </PlaneLink>
             </article>
             <article :class="cardItemClass">

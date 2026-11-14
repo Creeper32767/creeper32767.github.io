@@ -86,7 +86,7 @@ const sections: NoteSection[] = [
             <div
               class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary"
               aria-hidden="true">
-              <component :is="section.icon" class="h-7 w-7" aria-hidden="true" />
+              <component :is="section.icon" class="size-7" aria-hidden="true" />
             </div>
             <span class="pt-2 text-right text-xs tracking-wide text-muted uppercase">
               {{ section.subtitle }}
