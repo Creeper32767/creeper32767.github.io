@@ -3,6 +3,9 @@ import { supportedLocales, type SupportedLocale } from "~/i18n";
 
 export type Theme = "light" | "dark";
 
+const themeTransitionDuration = 250;
+let themeTransitionTimeout: ReturnType<typeof setTimeout> | undefined;
+
 function isTheme(value: unknown): value is Theme {
   return value === "light" || value === "dark";
 }
@@ -61,7 +64,7 @@ export const usePreferencesStore = defineStore("preferences", {
       const localeCookie = useCookie<SupportedLocale>("locale");
 
       if (isTheme(themeCookie.value)) {
-        this.setTheme(themeCookie.value, false);
+        this.setTheme(themeCookie.value, false, false);
       }
 
       if (isSupportedLocale(localeCookie.value)) {
@@ -73,17 +76,35 @@ export const usePreferencesStore = defineStore("preferences", {
       const themeCookie = useCookie<Theme>("theme");
       const localeCookie = useCookie<SupportedLocale>("locale");
 
-      if (!isTheme(themeCookie.value)) this.setTheme(detectBrowserTheme());
+      if (!isTheme(themeCookie.value)) {
+        this.setTheme(detectBrowserTheme(), true, false);
+      }
       if (!isSupportedLocale(localeCookie.value)) {
         this.setLocale(detectBrowserLocale());
       }
     },
 
-    setTheme(nextTheme: Theme, persist = true) {
+    setTheme(nextTheme: Theme, persist = true, animate = true) {
       this.theme = nextTheme;
 
       if (import.meta.client) {
-        document.documentElement.classList.toggle("dark", nextTheme === "dark");
+        const root = document.documentElement;
+
+        if (animate) {
+          root.classList.add("theme-transition");
+          if (themeTransitionTimeout) {
+            clearTimeout(themeTransitionTimeout);
+          }
+        }
+
+        root.classList.toggle("dark", nextTheme === "dark");
+
+        if (animate) {
+          themeTransitionTimeout = window.setTimeout(() => {
+            root.classList.remove("theme-transition");
+            themeTransitionTimeout = undefined;
+          }, themeTransitionDuration);
+        }
       }
 
       if (persist) useCookie<Theme>("theme").value = nextTheme;

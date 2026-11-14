@@ -133,13 +133,12 @@
 
   body {
     margin: 0;
-    background:
-      radial-gradient(
-        circle at 8% 0%,
-        color-mix(in srgb, var(--app-primary) 8%, transparent),
-        transparent 28rem
-      ),
-      var(--app-background);
+    background-color: var(--app-background);
+    background-image: radial-gradient(
+      circle at 8% 0%,
+      color-mix(in srgb, var(--app-primary) 8%, transparent),
+      transparent 28rem
+    );
     color: var(--app-foreground);
     font-family:
       "Noto Sans SC",
@@ -160,6 +159,26 @@
 
   ::selection {
     background: color-mix(in srgb, var(--app-primary) 24%, transparent);
+  }
+}
+
+@layer base {
+  html.theme-transition,
+  html.theme-transition * {
+    transition:
+      color 250ms ease,
+      background-color 250ms ease,
+      border-color 250ms ease,
+      box-shadow 250ms ease,
+      fill 250ms ease,
+      stroke 250ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.theme-transition,
+    html.theme-transition * {
+      transition-duration: 0.01ms;
+    }
   }
 }
 
