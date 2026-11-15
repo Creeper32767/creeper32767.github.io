@@ -18,8 +18,8 @@
       "description": "Duxin's appearance, personality, background, and beliefs."
     },
     "portfolio": {
-      "title": "Study notes - Haley",
-      "description": "Daily poems, reading notes, and writing exercises."
+      "title": "Portfolio - Haley",
+      "description": "A collection of poetry, reading notes, and original writing."
     },
     "projects": {
       "title": "Projects - Haley",
@@ -128,6 +128,55 @@
     "organizationTitle": "My organization",
     "organizationDescription": "A student developer community focused on open-source collaboration and technical innovation.",
     "visitGithub": "Visit GitHub profile"
+  },
+  "portfolio": {
+    "eyebrow": "Portfolio",
+    "title": "Personal Portfolio",
+    "description": "A collection of reading, writing, and thoughts gathered through time.",
+    "count": "{count} items",
+    "browse": "Browse works",
+    "allWorks": "All works",
+    "backToList": "Back to collection",
+    "collectionEyebrow": "Collection / {key}",
+    "collectionDescription": "{count} works. Select a card to read the full piece.",
+    "imagePlaceholder": "Image placeholder",
+    "emptyExcerpt": "No excerpt available",
+    "detailSeoTitle": "{title} - {collection} - Haley",
+    "detailSeoDescription": "Read Haley's work, “{title}”.",
+    "collectionSeoTitle": "{title} - Portfolio - Haley",
+    "collectionSeoDescription": "Browse Haley's {title} collection, with {count} works.",
+    "collections": {
+      "books": {
+        "title": "Books",
+        "subtitle": "Reading notes",
+        "description": "Summaries of books I have read and the ideas they inspired.",
+        "entries": [
+          { "text": "The meaning of life lies in perseverance and hope, no matter how many hardships we face.", "source": "Yu Hua, To Live" },
+          { "text": "Understanding the development of human history helps us better understand the present and the future.", "source": "Yuval Noah Harari, Sapiens" },
+          { "text": "Creating and following principles in personal life and work can help us make better decisions.", "source": "Ray Dalio, Principles" }
+        ]
+      },
+      "poems": {
+        "title": "Poems",
+        "subtitle": "Poem of the day",
+        "description": "Poems discovered each day, and the beauty found in their words.",
+        "entries": [
+          { "text": "Poetry is a beautiful lie.", "source": "Dante" },
+          { "text": "Poetry is humanity's message to the future, giving us the courage to move toward our ideals.", "source": "Rabindranath Tagore" },
+          { "text": "Poetry is the sigh of a heart in turmoil." }
+        ]
+      },
+      "writings": {
+        "title": "Writing",
+        "subtitle": "Writing practice",
+        "description": "Improving expression through writing and recording moments from life.",
+        "entries": [
+          { "text": "Writing is an extension of thought, a way to organize the mind through words." },
+          { "text": "Writing every day builds strong habits and improves communication." },
+          { "text": "Sharing our stories can inspire and help others." }
+        ]
+      }
+    }
   },
   "footer": {
     "copyright": "© {year} Creeper32767. All rights reserved.",

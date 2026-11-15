@@ -1,0 +1,147 @@
+{
+  "collection": "poems",
+  "count": 12,
+  "generatedAt": "2026-11-14T15:42:51Z",
+  "items": [
+    {
+      "id": "一代人",
+      "title": "一代人",
+      "collection": "poems",
+      "author": "顾城",
+      "tags": ["modern-poetry", "contemporary"],
+      "path": "content/poems/一代人.md",
+      "url": "/portfolio/poems/一代人",
+      "excerpt": "黑夜给了我黑色的眼睛， 我却用它寻找光明。",
+      "wordCount": 21
+    },
+    {
+      "id": "人是-节选",
+      "title": "人是_（节选）",
+      "collection": "poems",
+      "author": "唐恬",
+      "tags": ["modern-poetry", "contemporary"],
+      "path": "content/poems/人是-节选.md",
+      "url": "/portfolio/poems/人是-节选",
+      "excerpt": "让死亡觊觎我 让恐惧亲吻我 来摧毁我深爱的一…",
+      "wordCount": 71
+    },
+    {
+      "id": "声声慢-寻寻觅觅",
+      "title": "声声慢·寻寻觅觅",
+      "collection": "poems",
+      "author": "李清照",
+      "dynasty": "宋",
+      "tags": ["song-poetry", "classics"],
+      "path": "content/poems/声声慢-寻寻觅觅.md",
+      "url": "/portfolio/poems/声声慢-寻寻觅觅",
+      "excerpt": "寻寻觅觅，冷冷清清，凄凄惨惨戚戚。乍暖还寒时候…",
+      "wordCount": 104
+    },
+    {
+      "id": "将进酒",
+      "title": "将进酒",
+      "collection": "poems",
+      "author": "李白",
+      "dynasty": "唐",
+      "tags": ["tang-poetry", "classics"],
+      "path": "content/poems/将进酒.md",
+      "url": "/portfolio/poems/将进酒",
+      "excerpt": "君不见，黄河之水天上来，奔流到海不复回。 君不见…",
+      "wordCount": 179
+    },
+    {
+      "id": "山坡羊-潼关怀古",
+      "title": "山坡羊·潼关怀古",
+      "collection": "poems",
+      "author": "张养浩",
+      "dynasty": "元",
+      "tags": ["yuan-poetry", "classics"],
+      "path": "content/poems/山坡羊-潼关怀古.md",
+      "url": "/portfolio/poems/山坡羊-潼关怀古",
+      "excerpt": "峰峦如聚，波涛如怒，山河表里潼关路。望西都，意踌…",
+      "wordCount": 51
+    },
+    {
+      "id": "念奴娇-赤壁怀古",
+      "title": "念奴娇·赤壁怀古",
+      "collection": "poems",
+      "author": "苏轼",
+      "dynasty": "宋",
+      "tags": ["song-poetry", "classics"],
+      "path": "content/poems/念奴娇-赤壁怀古.md",
+      "url": "/portfolio/poems/念奴娇-赤壁怀古",
+      "excerpt": "大江东去，浪淘尽，千古风流人物。故垒西边，人道是…",
+      "wordCount": 107
+    },
+    {
+      "id": "春望",
+      "title": "春望",
+      "collection": "poems",
+      "author": "杜甫",
+      "dynasty": "唐",
+      "tags": ["tang-poetry", "classics"],
+      "path": "content/poems/春望.md",
+      "url": "/portfolio/poems/春望",
+      "excerpt": "国破山河在，城春草木深。 感时花溅泪，恨别鸟惊心…",
+      "wordCount": 42
+    },
+    {
+      "id": "未选择的路",
+      "title": "未选择的路",
+      "collection": "poems",
+      "author": "罗伯特·弗罗斯特",
+      "tags": ["modern-poetry", "contemporary"],
+      "path": "content/poems/未选择的路.md",
+      "url": "/portfolio/poems/未选择的路",
+      "excerpt": "黄色的树林里分出两条路 可惜我不能同时去涉…",
+      "wordCount": 203
+    },
+    {
+      "id": "水调歌头",
+      "title": "水调歌头",
+      "collection": "poems",
+      "author": "苏轼",
+      "dynasty": "宋",
+      "tags": ["song-poetry", "classics"],
+      "path": "content/poems/水调歌头.md",
+      "url": "/portfolio/poems/水调歌头",
+      "excerpt": "丙辰中秋，欢饮达旦，大醉，作此篇，兼怀子由。 明月几…",
+      "wordCount": 116
+    },
+    {
+      "id": "江城子-乙卯正月二十日夜记梦",
+      "title": "江城子·乙卯正月二十日夜记梦",
+      "collection": "poems",
+      "author": "苏轼",
+      "dynasty": "宋",
+      "tags": ["song-poetry", "classics"],
+      "path": "content/poems/江城子-乙卯正月二十日夜记梦.md",
+      "url": "/portfolio/poems/江城子-乙卯正月二十日夜记梦",
+      "excerpt": "十年生死两茫茫，不思量，自难忘。千里孤坟，无处话…",
+      "wordCount": 83
+    },
+    {
+      "id": "生如夏花",
+      "title": "生如夏花",
+      "collection": "poems",
+      "author": "泰戈尔",
+      "tags": ["modern-poetry", "contemporary"],
+      "path": "content/poems/生如夏花.md",
+      "url": "/portfolio/poems/生如夏花",
+      "excerpt": "使生如夏花之绚烂， 死如秋叶之静美。",
+      "wordCount": 19
+    },
+    {
+      "id": "登高",
+      "title": "登高",
+      "collection": "poems",
+      "author": "杜甫",
+      "dynasty": "唐",
+      "tags": ["tang-poetry", "classics"],
+      "path": "content/poems/登高.md",
+      "url": "/portfolio/poems/登高",
+      "excerpt": "风急天高猿啸哀，渚清沙白鸟飞回。 无边落木萧萧…",
+      "wordCount": 58
+    }
+  ]
+}

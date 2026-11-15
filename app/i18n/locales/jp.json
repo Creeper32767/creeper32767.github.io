@@ -18,8 +18,8 @@
       "description": "渡昕の外見、性格、背景、信条。"
     },
     "portfolio": {
-      "title": "学習ノート - Haley",
-      "description": "毎日の詩、読書ノート、作文練習。"
+      "title": "作品展示 - Haley",
+      "description": "詩、読書ノート、オリジナル文章のコレクション。"
     },
     "projects": {
       "title": "プロジェクト - Haley",
@@ -128,6 +128,55 @@
     "organizationTitle": "私の組織",
     "organizationDescription": "オープンソース協力と技術革新に取り組む学生開発者コミュニティ。",
     "visitGithub": "GitHubプロフィールを見る"
+  },
+  "portfolio": {
+    "eyebrow": "ポートフォリオ",
+    "title": "作品展示",
+    "description": "読書、執筆、思索の軌跡を文章としてまとめています。",
+    "count": "{count} 件",
+    "browse": "作品を見る",
+    "allWorks": "すべての作品",
+    "backToList": "一覧に戻る",
+    "collectionEyebrow": "コレクション / {key}",
+    "collectionDescription": "{count} 件の作品。カードを選ぶと全文を読めます。",
+    "imagePlaceholder": "画像プレースホルダー",
+    "emptyExcerpt": "概要はありません",
+    "detailSeoTitle": "{title} - {collection} - Haley",
+    "detailSeoDescription": "Haleyの作品「{title}」を読む。",
+    "collectionSeoTitle": "{title} - ポートフォリオ - Haley",
+    "collectionSeoDescription": "Haleyの{title}コレクション（全{count}件）をご覧ください。",
+    "collections": {
+      "books": {
+        "title": "本",
+        "subtitle": "Reading notes",
+        "description": "読んだ本をまとめ、そこから得た考察を整理します。",
+        "entries": [
+          { "text": "人生の意味は、どれほど苦難に遭っても、前進し希望を持ち続けることにある。", "source": "余華『活きる』" },
+          { "text": "人類史の発展を知ることは、現在と未来をより深く理解する助けになる。", "source": "ユヴァル・ノア・ハラリ『サピエンス全史』" },
+          { "text": "個人と仕事における原則を定めて守ることは、より良い判断につながる。", "source": "レイ・ダリオ『PRINCIPLES』" }
+        ]
+      },
+      "poems": {
+        "title": "詩",
+        "subtitle": "Poem of the day",
+        "description": "毎日出会う詩を記録し、言葉の美しさを味わいます。",
+        "entries": [
+          { "text": "詩は美しい嘘である。", "source": "ダンテ" },
+          { "text": "詩は人類が未来へ送るメッセージであり、理想へ向かう勇気を与える。", "source": "ラビンドラナート・タゴール" },
+          { "text": "詩は揺れ動く心のため息である。" }
+        ]
+      },
+      "writings": {
+        "title": "文章",
+        "subtitle": "Writing practice",
+        "description": "文章を通して表現力を磨き、日々の出来事を記録します。",
+        "entries": [
+          { "text": "書くことは思考の延長であり、言葉を通して考えを整理する方法です。" },
+          { "text": "毎日書き続けることで、良い習慣と表現力を育てられます。" },
+          { "text": "自分の物語を共有することは、誰かを励まし、助けることにつながります。" }
+        ]
+      }
+    }
   },
   "footer": {
     "copyright": "© {year} Creeper32767。All rights reserved.",

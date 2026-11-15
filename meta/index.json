@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-11-14T15:42:51Z",
+  "total": 70,
+  "collections": [
+    {
+      "key": "books",
+      "count": 1,
+      "metaPath": "meta/books.json",
+      "contentDir": "content/books"
+    },
+    {
+      "key": "poems",
+      "count": 12,
+      "metaPath": "meta/poems.json",
+      "contentDir": "content/poems"
+    },
+    {
+      "key": "writings",
+      "count": 57,
+      "metaPath": "meta/writings.json",
+      "contentDir": "content/writings"
+    }
+  ]
+}

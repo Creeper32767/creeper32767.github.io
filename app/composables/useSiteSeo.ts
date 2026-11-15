@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, toValue, type MaybeRef } from "vue";
 import { useI18n } from "vue-i18n";
 
 const routeSeoKeys: Record<string, string> = {
@@ -14,21 +14,33 @@ const routeSeoKeys: Record<string, string> = {
   "/projects/reader-card": "readerCard",
 };
 
-export function useSiteSeo() {
+interface SiteSeoOptions {
+  title?: MaybeRef<string>;
+  description?: MaybeRef<string>;
+  type?: MaybeRef<string>;
+  image?: MaybeRef<string | undefined>;
+}
+
+export function useSiteSeo(options: SiteSeoOptions = {}) {
   const route = useRoute();
   const { locale, t } = useI18n();
+  const requestUrl = useRequestURL();
 
   const seoKey = computed(() => routeSeoKeys[route.path] ?? "default");
-  const title = computed(() => t(`seo.${seoKey.value}.title`));
-  const description = computed(() => t(`seo.${seoKey.value}.description`));
+  const title = computed(
+    () => toValue(options.title) ?? t(`seo.${seoKey.value}.title`),
+  );
+  const description = computed(
+    () => toValue(options.description) ?? t(`seo.${seoKey.value}.description`),
+  );
+  const type = computed(() => toValue(options.type) ?? "website");
+  const image = computed(() => toValue(options.image));
   const siteName = computed(() => t("seo.siteName"));
+  const canonical = computed(() =>
+    new URL(route.fullPath, requestUrl.origin).toString(),
+  );
 
   useHead(() => {
-    const canonical =
-      typeof window === "undefined"
-        ? undefined
-        : new URL(route.fullPath, window.location.origin).toString();
-
     return {
       htmlAttrs: {
         lang: locale.value,
@@ -40,12 +52,20 @@ export function useSiteSeo() {
         { property: "og:site_name", content: siteName.value },
         { property: "og:title", content: title.value },
         { property: "og:description", content: description.value },
-        { property: "og:type", content: "website" },
+        { property: "og:type", content: type.value },
+        { property: "og:url", content: canonical.value },
+        { property: "og:locale", content: locale.value },
         { name: "twitter:card", content: "summary" },
         { name: "twitter:title", content: title.value },
         { name: "twitter:description", content: description.value },
+        ...(image.value
+          ? [
+              { property: "og:image", content: image.value },
+              { name: "twitter:image", content: image.value },
+            ]
+          : []),
       ],
-      ...(canonical ? { link: [{ rel: "canonical", href: canonical }] } : {}),
+      link: [{ rel: "canonical", href: canonical.value }],
     };
   });
 }

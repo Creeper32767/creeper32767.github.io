@@ -1,118 +1,98 @@
 <script setup lang="ts">
-import { type Component } from "vue";
+import type { Component } from "vue";
+import { useI18n } from "vue-i18n";
 import {
   BookOpen16Filled,
+  BookStar20Regular,
   Edit16Filled,
   TextQuote16Regular,
 } from "@ntkrnl64/fluentui-vue-icons";
-import { useI18n } from "vue-i18n";
+
+interface PortfolioCollection {
+  key: string;
+  count: number;
+  metaPath: string;
+}
+
+interface PortfolioEntry {
+  text: string;
+  source?: string;
+}
+
+interface PortfolioIndex {
+  collections: PortfolioCollection[];
+}
+
+import portfolioIndex from "../../../meta/index.json";
 
 const { t } = useI18n();
 
-interface NoteSection {
-  id: string;
-  icon: Component;
-  title: string;
-  subtitle: string;
-  description: string;
-  entries: Array<{
-    text: string;
-    source?: string;
-  }>;
-  href: string;
-  action: string;
-}
+const collectionIcons: Record<string, Component> = {
+  books: BookStar20Regular,
+  poems: TextQuote16Regular,
+  writings: Edit16Filled,
+};
 
-const sections: NoteSection[] = [
-  {
-    id: "poem-everyday",
-    icon: TextQuote16Regular,
-    title: "每日一诗",
-    subtitle: "Poem of the day",
-    description: "记录每天读到的诗句，感受文字的美。",
-    entries: [
-      { text: "诗歌是一种美丽的谎言。", source: "但丁" },
-      { text: "诗是人类向未来寄发的信息，诗给人类以朝向理想的勇气。", source: "泰戈尔" },
-      { text: "诗是翻腾的内心之叹息。" },
-    ],
-    href: "/notes/notes-poems.html",
-    action: "查看更多诗句",
-  },
-  {
-    id: "reading-notes",
-    icon: BookOpen16Filled,
-    title: "读书笔记",
-    subtitle: "Reading notes",
-    description: "总结阅读过的书籍，提炼其中的精华。",
-    entries: [
-      { text: "生命的意义在于坚持与希望，无论遭遇多少苦难。", source: "余华《活着》" },
-      { text: "了解人类历史的发展，有助于我们更好地理解当下与未来。", source: "尤瓦尔·赫拉利《人类简史》" },
-      { text: "制定并遵循个人和工作中的原则，可以帮助我们做出更好的决策。", source: "瑞·达利欧《原则》" },
-    ],
-    href: "/notes/notes-books.html",
-    action: "查看更多读书笔记",
-  },
-  {
-    id: "writing-practice",
-    icon: Edit16Filled,
-    title: "写作练习",
-    subtitle: "Writing practice",
-    description: "通过写作提升表达能力，记录生活点滴。",
-    entries: [
-      { text: "写作是思考的延伸，通过文字整理思绪。" },
-      { text: "坚持每天写作，可以培养良好的习惯和表达能力。" },
-      { text: "分享自己的故事，可以激励和帮助他人。" },
-    ],
-    href: "/notes/notes-writings.html",
-    action: "查看更多写作练习",
-  },
-];
+const collections = computed(() =>
+  (portfolioIndex as PortfolioIndex).collections.map((collection) => ({
+    ...collection,
+    title: t(`portfolio.collections.${collection.key}.title`),
+    subtitle: t(`portfolio.collections.${collection.key}.subtitle`),
+    description: t(`portfolio.collections.${collection.key}.description`),
+    entries: Array.from({ length: 3 }, (_, index) => ({
+      text: t(`portfolio.collections.${collection.key}.entries.${index}.text`),
+      source: t(`portfolio.collections.${collection.key}.entries.${index}.source`),
+    })).filter((entry): entry is PortfolioEntry => !entry.text.startsWith("portfolio.")),
+  })),
+);
 
+useSiteSeo();
 </script>
 
 <template>
-  <div>
-    <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
-      <header class="page-header">
-        <p class="page-eyebrow">{{ t("pageHeaders.portfolio.eyebrow") }}</p>
-        <h1 class="page-title">{{ t("pageHeaders.portfolio.title") }}</h1>
-        <p class="page-description">{{ t("pageHeaders.portfolio.description") }}</p>
-      </header>
+  <main class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
+    <header class="page-header">
+      <p class="page-eyebrow">{{ t("portfolio.eyebrow") }}</p>
+      <h1 class="page-title">{{ t("portfolio.title") }}</h1>
+      <p class="page-description">{{ t("portfolio.description") }}</p>
+    </header>
 
-      <div class="grid gap-6 lg:grid-cols-3">
-        <section v-for="section in sections" :id="section.id" :key="section.id"
-          class="flex flex-col rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-primary/35 hover:shadow-lg sm:p-8">
-          <div class="mb-6 flex items-start justify-between gap-4">
-            <div
-              class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary"
-              aria-hidden="true">
-              <component :is="section.icon" class="size-7" aria-hidden="true" />
-            </div>
-            <span class="pt-2 text-right text-xs tracking-wide text-muted uppercase">
-              {{ section.subtitle }}
-            </span>
+    <div class="grid gap-12">
+      <article v-for="collection in collections" :key="collection.key"
+        class="group flex flex-col rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-primary/35 hover:shadow-lg sm:p-8">
+        <div class="mb-8 flex items-center justify-between">
+          <div class="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-lg font-bold text-primary">
+            <component :is="collectionIcons[collection.key]" class="size-6" aria-hidden="true" />
           </div>
-
-          <h2 class="text-2xl font-bold">{{ section.title }}</h2>
-          <p class="mt-3 text-sm leading-7 text-muted">{{ section.description }}</p>
-
-          <ul class="mt-6 flex-1 space-y-4 border-t border-border pt-6">
-            <li v-for="entry in section.entries" :key="entry.text"
-              class="border-l-2 border-primary/30 pl-4 text-sm leading-7 text-muted">
-              {{ entry.text }}
-              <strong v-if="entry.source" class="font-semibold text-foreground">
-                —— {{ entry.source }}
-              </strong>
-            </li>
-          </ul>
-
-          <PlaneLink :href="section.href" target="_self" class="mt-8 w-full bg-primary shadow-sm"
-            :aria-label="`${section.action}：${section.title}`">
-            {{ section.action }}
-          </PlaneLink>
-        </section>
-      </div>
-    </main>
-
-  </div>
+          <ClientOnly>
+            <Badge variant="secondary">
+              <BookOpen16Filled class="size-4" aria-hidden="true" />
+              {{ t("portfolio.count", { count: collection.count }) }}
+            </Badge>
+            <template #fallback>
+              <Skeleton class="h-5.5 w-10 rounded-full" />
+            </template>
+          </ClientOnly>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold">{{ collection.title }}</h2>
+          <p class="mt-1 text-sm tracking-wide text-muted">{{ collection.subtitle }}</p>
+        </div>
+        <p class="mt-8 flex-1 text-sm leading-7 text-muted">{{ collection.description }}</p>
+        <ul class="mt-4 space-y-3 border-t border-border pt-6">
+          <li v-for="entry in collection.entries" :key="entry.text"
+            class="border-l-2 border-primary/30 pl-4 text-sm leading-7 text-muted">
+            {{ entry.text }}
+            <strong v-if="entry.source && !entry.source.startsWith('portfolio.')" class="font-semibold text-foreground">
+              —— {{ entry.source }}
+            </strong>
+          </li>
+        </ul>
+        <PlaneLink :href="`/portfolio/${collection.key}`" target="_self" class="mt-8 w-full bg-primary shadow-sm"
+          :aria-label="`浏览${collection.title}`">
+          {{ t("portfolio.browse") }}
+        </PlaneLink>
+      </article>
+    </div>
+  </main>
 </template>

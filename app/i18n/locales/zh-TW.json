@@ -18,8 +18,8 @@
       "description": "渡昕的外貌、性格、背景、愛好與信條。"
     },
     "portfolio": {
-      "title": "學習筆記 - Haley",
-      "description": "每日一诗、讀書筆記與寫作練習。"
+      "title": "作品展示 - Haley",
+      "description": "閱讀、詩歌與原創寫作作品集。"
     },
     "projects": {
       "title": "我的項目 - Haley",
@@ -128,6 +128,55 @@
     "organizationTitle": "我的組織",
     "organizationDescription": "一個專注於開源协作和技術創新的學生開發者社區。",
     "visitGithub": "訪問 GitHub 主頁"
+  },
+  "portfolio": {
+    "eyebrow": "作品集",
+    "title": "作品展示",
+    "description": "以文字為線索，整理閱讀、寫作與思考留下的痕跡。",
+    "count": "{count} 篇",
+    "browse": "瀏覽作品",
+    "allWorks": "全部作品",
+    "backToList": "返回列表",
+    "collectionEyebrow": "作品集 / {key}",
+    "collectionDescription": "共 {count} 篇作品，點擊卡片查看完整內容。",
+    "imagePlaceholder": "圖片展示位",
+    "emptyExcerpt": "暫無摘要",
+    "detailSeoTitle": "{title} - {collection} - Haley",
+    "detailSeoDescription": "閱讀 Haley 的作品《{title}》。",
+    "collectionSeoTitle": "{title} - 作品集 - Haley",
+    "collectionSeoDescription": "瀏覽 Haley 的{title}作品集，共 {count} 篇作品。",
+    "collections": {
+      "books": {
+        "title": "書籍",
+        "subtitle": "Reading notes",
+        "description": "整理讀過的書籍，提煉其中的精華。",
+        "entries": [
+          { "text": "生命的意義在於堅持與希望，無論遭遇多少苦難。", "source": "余華《活著》" },
+          { "text": "了解人類歷史的發展，有助於我們更好地理解當下與未來。", "source": "尤瓦爾·赫拉利《人類大歷史》" },
+          { "text": "制定並遵循個人和工作中的原則，可以幫助我們做出更好的決策。", "source": "瑞·達利歐《原則》" }
+        ]
+      },
+      "poems": {
+        "title": "詩歌",
+        "subtitle": "Poem of the day",
+        "description": "記錄每天讀到的詩句，感受文字的美。",
+        "entries": [
+          { "text": "詩歌是一種美麗的謊言。", "source": "但丁" },
+          { "text": "詩是人類向未來寄發的資訊，詩給人類以朝向理想的勇氣。", "source": "泰戈爾" },
+          { "text": "詩是翻騰的內心之嘆息。" }
+        ]
+      },
+      "writings": {
+        "title": "寫作",
+        "subtitle": "Writing practice",
+        "description": "透過寫作提升表達能力，記錄生活點滴。",
+        "entries": [
+          { "text": "寫作是思考的延伸，透過文字整理思緒。" },
+          { "text": "堅持每天寫作，可以培養良好的習慣和表達能力。" },
+          { "text": "分享自己的故事，可以激勵和幫助他人。" }
+        ]
+      }
+    }
   },
   "footer": {
     "copyright": "© {year} Creeper32767。保留所有權利。",
