@@ -31,7 +31,6 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 const route = useRoute();
-const panelTitleId = "site-navigation-panel-title";
 
 function isCurrentItem(item: NavigationItem) {
   if (typeof item.to === "string") {
@@ -102,10 +101,9 @@ function itemDelay(index: number): string {
 <template>
   <Sheet :open="open" @update:open="(value) => !value && emit('close')">
     <SheetContent id="site-navigation-panel" side="right"
-      class="flex h-dvh w-3/4 max-w-md flex-col overflow-hidden border-l border-border bg-background/95 p-5 backdrop-blur-xl sm:w-2/5"
-      :aria-labelledby="panelTitleId">
+      class="flex h-dvh w-4/5 max-w-md flex-col overflow-hidden border-l border-border bg-background/95 p-5 backdrop-blur-xl sm:w-2/5">
       <SheetHeader class="border-b border-border p-0 pb-3">
-        <SheetTitle :id="panelTitleId" class="flex items-center gap-2 text-lg">
+        <SheetTitle class="flex items-center gap-2 text-lg">
           <Navigation16Filled class="size-6 text-primary" aria-hidden="true" />
           {{ t("navigation.panelTitle") }}
         </SheetTitle>
@@ -123,8 +121,8 @@ function itemDelay(index: number): string {
                 class="navigation-item rounded-xl p-0" :class="{ 'navigation-item-current': item.isCurrent }"
                 :style="{ '--item-delay': itemDelay(item.animationIndex) }">
                 <NuxtLink class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-muted
-                  hover:bg-muted/20 hover:text-primary" :to="item.to" :aria-current="item.isCurrent ? 'page' : undefined"
-                  @click="emit('close')">
+                  hover:bg-muted/20 hover:text-primary" :to="item.to"
+                  :aria-current="item.isCurrent ? 'page' : undefined" @click="emit('close')">
                   <ItemMedia variant="icon" class="navigation-item-icon text-primary">
                     <component :is="resolveIcon(item.icon)" aria-hidden="true" />
                   </ItemMedia>
@@ -142,8 +140,8 @@ function itemDelay(index: number): string {
         <Item v-for="item in navigation.externals" :key="`${item.label}-${item.animationIndex}`" size="sm"
           class="navigation-item rounded-xl p-0" :style="{ '--item-delay': itemDelay(item.animationIndex) }">
           <a class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-muted
-            hover:bg-muted/20 hover:text-primary"
-            :href="String(item.to)" target="_blank" rel="noopener noreferrer" @click="emit('close')">
+            hover:bg-muted/20 hover:text-primary" :href="String(item.to)" target="_blank" rel="noopener noreferrer"
+            @click="emit('close')">
             <ItemMedia variant="icon" class="navigation-item-icon text-primary">
               <component :is="resolveIcon(item.icon)" aria-hidden="true" />
             </ItemMedia>

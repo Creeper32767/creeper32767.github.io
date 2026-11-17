@@ -109,7 +109,8 @@
   "home": {
     "eyebrow": {
       "morning": "Good morning, human. A purr-fect day awaits!",
-      "afternoon": "Good afternoon, human. Time for a little catnap?",
+      "noon": "Good noon, human. Time for a little catnap?",
+      "afternoon": "Good afternoon, human. Let's chase some sunbeams together.",
       "evening": "Good evening, human. The moon is calling this cat.",
       "night": "Good night, human. May your dreams be full of warm naps."
     },
@@ -135,8 +136,15 @@
     "description": "A collection of reading, writing, and thoughts gathered through time.",
     "count": "{count} items",
     "browse": "Browse works",
+    "readMore": "Read more",
     "allWorks": "All works",
     "backToList": "Back to collection",
+    "returnPrevious": "Return to previous",
+    "allPassages": "All passages",
+    "onThisPage": "On this page",
+    "collectionWorks": "All works",
+    "searchPlaceholder": "Search works",
+    "noSearchResults": "No matching works found.",
     "collectionEyebrow": "Collection / {key}",
     "collectionDescription": "{count} works. Select a card to read the full piece.",
     "imagePlaceholder": "Image placeholder",
@@ -185,7 +193,6 @@
     "sitemap": "Sitemap",
     "siteLinks": {
       "home": "Home",
-      "about": "About me",
       "projects": "Projects",
       "software": "Software picks",
       "portfolio": "Portfolio",

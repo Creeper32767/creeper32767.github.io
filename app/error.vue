@@ -49,7 +49,7 @@ const errorKey = computed(
   () => `error.statuses.${isKnownCode.value ? statusCode.value : 'default'}`,
 )
 
-const literaryTextIndex = ref(statusCode.value % 5)
+const literaryTextIndex = ref()
 
 onMounted(() => {
   literaryTextIndex.value = Math.floor(Math.random() * 5)
@@ -102,7 +102,7 @@ function retry() {
 
     <LayoutSiteHeader />
 
-    <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-16 text-center">
+    <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-10 text-center">
       <section class="max-w-2xl" role="alert" aria-live="polite">
         <div class="relative flex items-center justify-center text-primary">
           <span class="block w-full text-9xl font-bold tabular-nums leading-none tracking-widest sm:text-[10rem]">
@@ -114,7 +114,7 @@ function retry() {
             <QuestionCircle24Filled class="size-6 transition-transform group-hover:scale-110 group-focus:scale-110"
               aria-hidden="true" />
             <span
-              class="error-tooltip pointer-events-none absolute -right-10 top-full mt-2 w-[min(18rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-background/95 p-4 text-left text-sm font-normal leading-6 tracking-normal text-foreground opacity-0 shadow-xl group-hover:opacity-100 group-focus:opacity-100"
+              class="error-tooltip pointer-events-none absolute right-0 top-full mt-2 w-[min(18rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-background/95 p-4 text-left text-sm font-normal leading-6 tracking-normal text-foreground opacity-0 shadow-xl group-hover:opacity-100 group-focus:opacity-100 sm:-right-10"
               role="tooltip">
               <strong class="block text-primary">{{ message }}</strong>
               <span class="mt-1 block text-muted">{{ hint }}</span>

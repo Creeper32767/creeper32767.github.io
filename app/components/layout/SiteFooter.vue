@@ -19,7 +19,6 @@ const scrollToTop = () => {
 
 const siteLinks = [
   { label: "footer.siteLinks.home", to: "/" },
-  { label: "footer.siteLinks.about", to: { path: "/", hash: "#about" } },
   { label: "footer.siteLinks.deeperIntro", to: "/deeper-intro" },
   { label: "footer.siteLinks.fursona", to: "/fursona" },
   { label: "footer.siteLinks.projects", to: "/projects" },
@@ -54,12 +53,12 @@ const socialLinks = [
             {{ t("footer.introduction") }}
           </p>
           <div class="mt-5 flex flex-wrap gap-2">
-            <a v-for="link in socialLinks" :key="link.href"
+            <NuxtLink v-for="link in socialLinks" :key="link.href"
               class="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:border-primary/40 hover:text-primary"
               :href="link.href" target="_blank" rel="noopener noreferrer">
               <span>{{ link.label }}</span>
-              <Open16Regular class="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-            </a>
+              <Open16Regular class="size-4 shrink-0" aria-hidden="true" />
+            </NuxtLink>
           </div>
         </div>
 
@@ -89,16 +88,16 @@ const socialLinks = [
 
         <div>
           <h2 class="text-sm font-semibold tracking-wide text-foreground">{{ t("footer.siteInfo") }}</h2>
-          <div class="mt-4 grid grid-cols-2 items-start gap-3 text-sm text-muted sm:flex sm:flex-col">
-            <a class="transition-colors hover:text-primary"
-              href="https://github.com/Creeper32767/creeper32767.github.io" target="_blank" rel="noopener noreferrer">{{
+          <ItemGroup class="mt-4 grid grid-cols-2 items-baseline gap-3 text-sm text-muted sm:flex sm:flex-col">
+            <NuxtLink class="inline-flex items-center gap-1 whitespace-nowrap rounded-lg transition-colors hover:text-primary"
+              to="https://github.com/Creeper32767/creeper32767.github.io" target="_blank" rel="noopener noreferrer">{{
                 t("footer.source") }}
-              <Open16Regular class="inline h-3.5 w-3.5" aria-hidden="true" />
-            </a>
-            <Button variant="link" class="h-auto self-start p-0 text-left" type="button" @click="scrollToTop">
+              <Open16Regular class="inline size-4" aria-hidden="true" />
+            </NuxtLink>
+            <Button variant="link" class="h-auto justify-start p-0 text-left leading-normal font-normal" type="button" @click="scrollToTop">
               {{ t("footer.backToTop") }}
             </Button>
-          </div>
+          </ItemGroup>
         </div>
       </div>
 

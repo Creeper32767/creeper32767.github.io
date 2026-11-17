@@ -8,7 +8,8 @@ const getGreetingKey = () => {
   const hour = new Date().getHours();
 
   if (hour >= 5 && hour < 12) return "home.eyebrow.morning";
-  if (hour >= 12 && hour < 18) return "home.eyebrow.afternoon";
+  if (hour >= 12 && hour < 14) return "home.eyebrow.noon";
+  if (hour >= 14 && hour < 18) return "home.eyebrow.afternoon";
   if (hour >= 18 && hour < 22) return "home.eyebrow.evening";
   return "home.eyebrow.night";
 };

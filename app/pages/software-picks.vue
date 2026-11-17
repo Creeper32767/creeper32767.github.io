@@ -169,7 +169,7 @@ const sections: SoftwareSection[] = [
         name: "HEU KMS Activator",
         description: "Windows 和 Office 激活工具，请仅在拥有合法授权的设备上使用。",
         href: "https://github.com/zbezj/HEU_KMS_Activator/releases",
-        icon: "https://img.icons8.com/p1em/1200/github.jpg",
+        icon: "https://www.svgrepo.com/show/387672/github.svg",
         action: "获取 (GitHub)",
       },
       {
@@ -182,7 +182,7 @@ const sections: SoftwareSection[] = [
         name: "IDM Activation Script",
         description: "用于管理 Internet Download Manager 授权的脚本，请仅在拥有合法授权的设备上使用。",
         href: "https://github.com/lstprjct/IDM-Activation-Script",
-        icon: "https://img.icons8.com/p1em/1200/github.jpg",
+        icon: "https://www.svgrepo.com/show/387672/github.svg",
         action: "获取 (GitHub)",
       },
       {
@@ -215,14 +215,14 @@ const sections: SoftwareSection[] = [
         name: "V2RayN",
         description: "基于 V2Ray 核心的 Windows 平台客户端，提供网络代理功能。",
         href: "https://github.com/2dust/v2rayN",
-        icon: "https://img.icons8.com/p1em/1200/github.jpg",
+        icon: "https://www.svgrepo.com/show/387672/github.svg",
         action: "获取 (GitHub)",
       },
       {
         name: "V2RayNG",
         description: "基于 V2Ray 核心的 Android 平台客户端，提供网络代理功能。",
         href: "https://github.com/2dust/v2rayNG",
-        icon: "https://img.icons8.com/p1em/1200/github.jpg",
+        icon: "https://www.svgrepo.com/show/387672/github.svg",
         action: "获取 (GitHub)",
       },
       {
@@ -271,15 +271,16 @@ const sections: SoftwareSection[] = [
               <div class="flex flex-1 flex-col">
                 <div
                   class="mb-5 flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl border border-border bg-background p-3">
-                  <img :src="software.icon" :alt="`${software.name} 图标`" class="h-full w-full object-contain"
-                    loading="lazy" />
+                  <NuxtImg :src="software.icon" alt="" width="36" height="36" sizes="36px"
+                    class="h-full w-full object-contain" loading="lazy" />
                 </div>
                 <h3 class="text-xl font-semibold">{{ software.name }}</h3>
                 <p class="mt-3 flex-1 text-sm leading-7 text-muted">{{ software.description }}</p>
               </div>
               <PlaneLink :href="software.href" class="mt-6 w-full bg-primary shadow-sm"
                 :aria-label="`${software.action ?? '获取'} ${software.name}`">
-                {{ software.action ?? "获取" }} <Open16Regular class="size-4" aria-hidden="true" />
+                {{ software.action ?? "获取" }}
+                <Open16Regular class="size-4" aria-hidden="true" />
               </PlaneLink>
             </article>
           </div>

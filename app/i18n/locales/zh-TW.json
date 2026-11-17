@@ -109,7 +109,8 @@
   "home": {
     "eyebrow": {
       "morning": "早安，人类。今天也要喵力全開！",
-      "afternoon": "午安，人类。現在正适合打個小盹喵。",
+      "noon": "午安，人类。現在正适合打個小盹喵。",
+      "afternoon": "午安，人类。讓我們一起追逐陽光玩耍吧。",
       "evening": "晚上好，人类。月亮正在召唤本喵。",
       "night": "晚安，人类。愿你夢见溫暖的貓窝喵。"
     },
@@ -135,8 +136,15 @@
     "description": "以文字為線索，整理閱讀、寫作與思考留下的痕跡。",
     "count": "{count} 篇",
     "browse": "瀏覽作品",
+    "readMore": "閱讀全文",
     "allWorks": "全部作品",
     "backToList": "返回列表",
+    "returnPrevious": "返回上一頁",
+    "allPassages": "全部篇章",
+    "onThisPage": "本頁導覽",
+    "collectionWorks": "全部作品",
+    "searchPlaceholder": "搜尋作品",
+    "noSearchResults": "沒有找到符合的作品。",
     "collectionEyebrow": "作品集 / {key}",
     "collectionDescription": "共 {count} 篇作品，點擊卡片查看完整內容。",
     "imagePlaceholder": "圖片展示位",
@@ -185,7 +193,6 @@
     "sitemap": "網站地圖",
     "siteLinks": {
       "home": "首頁",
-      "about": "關於我",
       "projects": "項目",
       "software": "軟件推薦",
       "portfolio": "作品集",

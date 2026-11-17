@@ -109,7 +109,8 @@
   "home": {
     "eyebrow": {
       "morning": "おはよう、人間。今日は完璧な一日になりそう！",
-      "afternoon": "こんにちは、人間。ちょっと昼寝の時間？",
+      "noon": "こんにちは、人間。ちょっと昼寝の時間？",
+      "afternoon": "こんにちは、人間。太陽の光を追いかけて遊ぼう。",
       "evening": "こんばんは、人間。月がこの猫を呼んでいる。",
       "night": "おやすみ、人間。暖かい昼寝の夢を。"
     },
@@ -135,8 +136,15 @@
     "description": "読書、執筆、思索の軌跡を文章としてまとめています。",
     "count": "{count} 件",
     "browse": "作品を見る",
+    "readMore": "続きを読む",
     "allWorks": "すべての作品",
     "backToList": "一覧に戻る",
+    "returnPrevious": "前のページに戻る",
+    "allPassages": "すべての文章",
+    "onThisPage": "このページ",
+    "collectionWorks": "すべての作品",
+    "searchPlaceholder": "作品を検索",
+    "noSearchResults": "一致する作品が見つかりません。",
     "collectionEyebrow": "コレクション / {key}",
     "collectionDescription": "{count} 件の作品。カードを選ぶと全文を読めます。",
     "imagePlaceholder": "画像プレースホルダー",
@@ -185,7 +193,6 @@
     "sitemap": "サイトマップ",
     "siteLinks": {
       "home": "ホーム",
-      "about": "私について",
       "projects": "プロジェクト",
       "software": "おすすめソフト",
       "portfolio": "ポートフォリオ",

@@ -37,7 +37,7 @@ const sections: Section[] = [
       { title: "Minecraft 守望者", description: "更多时候拆解安装包、研读 Dream 速通、在 C418 的 BGM 里冥想。" },
       { title: "Changed 玩家", description: "游戏已入库，等待在雨夜投入与未知共生的紧张感。" },
       { title: "番剧萌新", description: "真·小白猫，知识储备趋近于零。" },
-      { title: "Project: 渡昕 (Duxin)", description: "另一个维度的虎斑猫，努力朝 Fursuit 梦想迈进，想彻底成为大猫猫。 (=^·ω·^=)ψ🐟" },
+      { title: "Project: 渡昕 (Duxin)", description: "另一个维度的虎斑猫，努力朝 Fursuit 梦想迈进，想成为大猫猫。 (=^·ω·^=)ψ🐟" },
     ],
   },
   {
