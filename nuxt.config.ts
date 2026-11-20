@@ -1,34 +1,48 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// Node built-in modules are available when Nuxt evaluates this configuration.
-// @ts-ignore — this project does not include Node type declarations.
-import { readdirSync, readFileSync } from "node:fs";
-// @ts-ignore — this project does not include Node type declarations.
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 
-// @ts-ignore — this project does not include Node type declarations.
-const metaDirectory = resolve(process.cwd(), "meta");
-const portfolioRoutes = readdirSync(metaDirectory)
-  .filter((file: string) => file.endsWith(".json") && file !== "index.json")
-  .flatMap((file: string) => {
-    const meta = JSON.parse(
-      readFileSync(resolve(metaDirectory, file), "utf8"),
-    ) as {
-      collection: string;
-      items: Array<{ id: string }>;
-    };
+interface PortfolioMeta {
+  collection: string;
+  items?: Array<{ id?: string }>;
+}
 
-    return [
-      `/portfolio/${meta.collection}`,
-      ...meta.items.map(
-        (item) =>
-          `/portfolio/${meta.collection}/${encodeURIComponent(item.id)}`,
-      ),
-    ];
-  });
+function getPortfolioRoutes(cwd: string): string[] {
+  const metaDirectory = resolve(cwd, "meta");
+  if (!existsSync(metaDirectory)) {
+    return [];
+  }
+
+  return readdirSync(metaDirectory)
+    .filter((file) => file.endsWith(".json") && file !== "index.json")
+    .flatMap((file) => {
+      try {
+        const raw = readFileSync(resolve(metaDirectory, file), "utf8");
+        const meta = JSON.parse(raw) as PortfolioMeta;
+
+        if (!meta.collection) {
+          return [];
+        }
+
+        const basePath = `/portfolio/${encodeURIComponent(meta.collection)}`;
+        const itemPaths = (meta.items ?? [])
+          .filter((item): item is { id: string } => Boolean(item?.id))
+          .map((item) => `${basePath}/${encodeURIComponent(item.id)}`);
+
+        return [basePath, ...itemPaths];
+      } catch (error) {
+        console.warn(`[nuxt.config] 跳过无效的 meta 文件 ${file}:`, error);
+        return [];
+      }
+    });
+}
+
+const portfolioRoutes = getPortfolioRoutes(process.cwd());
 
 export default defineNuxtConfig({
   ssr: true,
+
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -40,10 +54,12 @@ export default defineNuxtConfig({
       { baseName: "meta", dir: "./meta" },
     ],
   },
+
   modules: ["@nuxt/content", "@nuxt/image", "shadcn-nuxt"],
+
   image: {
-    quality: 90,
-    format: ["webp", "avif", "jpeg", "png", "gif", "svg"],
+    quality: 80,
+    format: ["avif", "webp", "png", "jpeg"],
     presets: {
       avatar: {
         modifiers: {
@@ -51,20 +67,27 @@ export default defineNuxtConfig({
           width: 96,
           height: 96,
           fit: "cover",
+          quality: 85,
         },
       },
     },
   },
+
   shadcn: {
     prefix: "",
     componentDir: "./app/components/ui",
   },
+
   devtools: { enabled: true },
+
   compatibilityDate: "2024-04-03",
+
   experimental: {
     inlineStyles: true,
   },
+
   css: ["~/assets/main.css"],
+
   app: {
     head: {
       htmlAttrs: {
@@ -85,24 +108,18 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
       include: [
-        "@codemirror/lang-cpp",
-        "@codemirror/lang-css",
-        "@codemirror/lang-html",
-        "@codemirror/lang-java",
-        "@codemirror/lang-javascript",
-        "@codemirror/lang-markdown",
-        "@codemirror/lang-python",
         "@codemirror/view",
         "@ntkrnl64/fluentui-vue-icons",
         "@vueuse/core",
         "class-variance-authority",
         "cn",
-        "pinia",
         "codemirror",
+        "pinia",
         "reka-ui",
         "vue-codemirror",
         "vue-i18n",

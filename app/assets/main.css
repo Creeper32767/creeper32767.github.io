@@ -206,6 +206,26 @@
   .page-description {
     @apply mt-5 text-lg leading-8 text-muted;
   }
+
+  .portfolio-placeholder {
+    background:
+      radial-gradient(
+        circle at 30% 20%,
+        color-mix(in srgb, var(--app-primary) 22%, transparent),
+        transparent 42%
+      ),
+      color-mix(in srgb, var(--app-primary) 7%, var(--app-background));
+  }
+
+  .detail-hero {
+    background:
+      radial-gradient(
+        circle at 70% 30%,
+        color-mix(in srgb, var(--app-primary) 28%, transparent),
+        transparent 45%
+      ),
+      color-mix(in srgb, var(--app-primary) 8%, var(--app-background));
+  }
 }
 
 @layer base {
@@ -215,4 +235,10 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 650ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }

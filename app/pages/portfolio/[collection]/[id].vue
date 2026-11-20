@@ -1,34 +1,110 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { ArrowLeft16Regular } from "@ntkrnl64/fluentui-vue-icons";
-import { AspectRatio } from "~/components/ui/aspect-ratio";
-import { Skeleton } from "~/components/ui/skeleton";
+import { ErrorCircle16Regular } from "@ntkrnl64/fluentui-vue-icons";
 
 const route = useRoute();
 const { t } = useI18n();
 const collection = computed(() => String(route.params.collection));
 const id = computed(() => String(route.params.id));
-const contentPath = computed(() => `/${collection.value}/${id.value}`);
-
-const { data: page, status, error } = await useAsyncData(
-  `portfolio-${collection.value}-${id.value}`,
-  () => queryCollection("content").path(contentPath.value).first(),
-  { lazy: true },
+const heroViewTransitionName = computed(() =>
+  `portfolio-hero-${Array.from(`${collection.value}/${id.value}`)
+    .map((character) => character.charCodeAt(0).toString(16))
+    .join("-")}`,
 );
 
-if (error.value) {
+const { data: collectionMeta } = await useAsyncData(
+  `portfolio-detail-meta-${collection.value}`,
+  async () => {
+    const loader = usePortfolioMeta(`${collection.value}.json`);
+    if (!loader) throw new Error("Collection not found");
+    return await (loader as () => Promise<{ items: Array<{ id: string; title: string }> }>)();
+  },
+  { watch: [collection] },
+);
+
+const passages = computed(() =>
+  collectionMeta.value?.items.map((item) => ({
+    ...item,
+    url: `/portfolio/${collection.value}/${encodeURIComponent(item.id)}`,
+  })) ?? [],
+);
+
+const { data: page, status, error, refresh } = await useAsyncData(
+  () => `portfolio-${collection.value}-${id.value}`,
+  async () => {
+    let decodedId = id.value;
+    try {
+      decodedId = decodeURIComponent(id.value);
+    } catch {
+      throw new Error("Invalid passage ID");
+    }
+
+    // content 集合的 path 只会落到一级目录，并不会包含文件名，因此必须改用 stem / title / id 才能按文章精确查询
+    const byStem = await queryCollection("content")
+      .where("stem", "=", `${collection.value}/${decodedId}`)
+      .first();
+    if (byStem) return byStem;
+
+    // 文件名与标题可能不一致，因此按标题兜底匹配一次
+    const byTitle = await queryCollection("content")
+      .where("title", "=", decodedId)
+      .first();
+    if (byTitle) return byTitle;
+
+    // 最后按完整 id 匹配
+    const byId = await queryCollection("content")
+      .where("id", "=", `content/${collection.value}/${decodedId}.md`)
+      .first();
+    return byId ?? null;
+  },
+  { watch: [collection, id] },
+);
+
+if (!error.value && !page.value && status.value === "success") {
   throw createError({ statusCode: 404, statusMessage: "Work not found", fatal: true });
 }
 
-const isLoading = computed(() => status.value === "pending");
+const hasLoadError = computed(() => Boolean(error.value));
 const title = computed(() => page.value?.title ?? id.value);
 const collectionTitle = computed(() =>
   t(`portfolio.collections.${collection.value}.title`),
 );
+
 const tags = computed(() => {
   const value = (page.value as { tags?: unknown } | null)?.tags;
   return Array.isArray(value) ? value.filter((tag): tag is string => typeof tag === "string") : [];
 });
+
+interface ContentNode {
+  tag?: string;
+  props?: { id?: string };
+  children?: ContentNode[];
+  value?: string;
+}
+
+const headingText = (node: ContentNode): string =>
+  node.value ?? (node.children ?? []).map(headingText).join("");
+
+const slugify = (value: string): string =>
+  value.toLowerCase().trim().replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s+/g, "-");
+
+const headings = computed(() => {
+  const result: Array<{ id: string; title: string; level: number }> = [];
+  const visit = (node: ContentNode) => {
+    if (node.tag && /^h[1-6]$/.test(node.tag)) {
+      const title = headingText(node);
+      result.push({
+        id: node.props?.id ?? slugify(title),
+        title,
+        level: Number(node.tag.slice(1)),
+      });
+    }
+    node.children?.forEach(visit);
+  };
+  visit((page.value?.body ?? {}) as ContentNode);
+  return result;
+});
+
 useSiteSeo({
   title: computed(() =>
     t("portfolio.detailSeoTitle", {
@@ -44,28 +120,32 @@ useSiteSeo({
 </script>
 
 <template>
-  <main class="mx-auto w-[calc(100%-2rem)] max-w-4xl flex-1 py-12 sm:py-16">
-    <Button as="a" :href="`/portfolio/${collection}`" target="_self" variant="ghost" size="sm"
-      class="mb-8 w-fit bg-transparent px-0 text-foreground hover:bg-transparent">
-      <ArrowLeft16Regular class="size-4" aria-hidden="true" />
-      {{ t("portfolio.backToList") }}
-    </Button>
-
-    <article>
-      <AspectRatio :ratio="4 / 3" class="detail-hero">
-        <div class="detail-hero__mark" aria-hidden="true">{{ title.slice(0, 1) }}</div>
-        <span class="detail-hero__label">{{ t("portfolio.imagePlaceholder") }}</span>
+  <LayoutPortfolioPresentation :back-href="`/portfolio/${collection}`" :passages="passages" :current-id="id"
+    :headings="headings">
+    <article class="mx-auto w-full max-w-4xl max-lg:order-4">
+      <AspectRatio :ratio="2 / 1"
+        class="detail-hero flex w-full items-center justify-center overflow-hidden rounded-2xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-700 motion-safe:ease-out"
+        :style="{ viewTransitionName: heroViewTransitionName }">
+        <div
+          class="text-[clamp(5rem,16vw,10rem)] font-bold text-[color-mix(in_srgb,var(--app-primary)_24%,transparent)]"
+          aria-hidden="true">{{ title.slice(0, 1) }}</div>
+        <span class="absolute right-5 bottom-4 text-[0.7rem] uppercase tracking-[0.12em] text-muted">
+          {{ t("portfolio.imagePlaceholder") }}
+        </span>
       </AspectRatio>
 
       <div class="mt-10">
-        <template v-if="isLoading">
-          <Skeleton class="h-12 w-3/4" />
-          <Skeleton class="mt-5 h-5 w-1/3" />
-          <div class="mt-10 space-y-4">
-            <Skeleton class="h-5 w-full" />
-            <Skeleton class="h-5 w-11/12" />
-            <Skeleton class="h-5 w-4/5" />
-            <Skeleton class="h-5 w-full" />
+        <template v-if="hasLoadError">
+          <div class="rounded-xl border border-destructive/40 bg-destructive/5 p-6 text-center items-center"
+            role="alert">
+            <h1 class="text-xl font-semibold">
+              <ErrorCircle16Regular class="size-7 inline-flex" />
+              {{ t("portfolio.passageLoadError") }}
+            </h1>
+            <p class="mt-2 text-sm leading-6 text-muted">{{ t("portfolio.passageLoadErrorDescription") }}</p>
+            <Button class="mt-5" type="button" @click="refresh">
+              {{ t("error.actions.retry") }}
+            </Button>
           </div>
         </template>
         <template v-else-if="page">
@@ -78,75 +158,20 @@ useSiteSeo({
               <Badge v-for="tag in tags" :key="tag" variant="secondary">{{ tag }}</Badge>
             </div>
           </div>
-          <ContentRenderer :value="page" class="portfolio-content" />
+          <ContentRenderer :value="page"
+            class="text-base leading-8 text-foreground [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_p]:my-5" />
+        </template>
+        <template v-else>
+          <Skeleton class="h-12 w-3/4" />
+          <Skeleton class="mt-5 h-5 w-1/3" />
+          <div class="mt-10 space-y-4">
+            <Skeleton class="h-5 w-full" />
+            <Skeleton class="h-5 w-11/12" />
+            <Skeleton class="h-5 w-4/5" />
+            <Skeleton class="h-5 w-full" />
+          </div>
         </template>
       </div>
     </article>
-  </main>
+  </LayoutPortfolioPresentation>
 </template>
-
-<style scoped>
-.detail-hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 1rem;
-  background:
-    radial-gradient(circle at 70% 30%, color-mix(in srgb, var(--app-primary) 28%, transparent), transparent 45%),
-    color-mix(in srgb, var(--app-primary) 8%, var(--app-background));
-  animation: hero-expand 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.detail-hero__mark {
-  font-size: clamp(5rem, 16vw, 10rem);
-  font-weight: 700;
-  color: color-mix(in srgb, var(--app-primary) 24%, transparent);
-}
-
-.detail-hero__label {
-  position: absolute;
-  right: 1.25rem;
-  bottom: 1rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  color: var(--app-muted);
-  text-transform: uppercase;
-}
-
-.portfolio-content {
-  color: var(--app-foreground);
-  font-size: 1rem;
-  line-height: 2rem;
-}
-
-.portfolio-content :deep(h2) {
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.portfolio-content :deep(p) {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
-}
-
-@keyframes hero-expand {
-  from {
-    transform: scale(0.86);
-    opacity: 0.3;
-  }
-
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .detail-hero {
-    animation: none;
-  }
-}
-</style>

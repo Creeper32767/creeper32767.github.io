@@ -10,6 +10,7 @@ interface Props {
   initialSpeed?: number;
   acceleration?: number;
   disabled?: boolean;
+  viewTransitionName?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -57,6 +58,22 @@ function buildAcceleratingEasing(distance: number, steps = 48): string {
 }
 
 function openLink() {
+  if (props.target === "_self") {
+    const navigate = () => navigateTo(props.href);
+    const viewTransitionDocument = document as Document & {
+      startViewTransition?: (callback: () => void | Promise<unknown>) => unknown;
+    };
+    if (
+      props.viewTransitionName &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+      viewTransitionDocument.startViewTransition
+    ) {
+      viewTransitionDocument.startViewTransition(navigate);
+      return;
+    }
+    void navigate();
+    return;
+  }
   window.open(props.href, props.target, props.target === "_blank" ? "noopener,noreferrer" : undefined);
 }
 

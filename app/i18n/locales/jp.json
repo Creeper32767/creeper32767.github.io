@@ -149,6 +149,8 @@
     "collectionDescription": "{count} 件の作品。カードを選ぶと全文を読めます。",
     "imagePlaceholder": "画像プレースホルダー",
     "emptyExcerpt": "概要はありません",
+    "passageLoadError": "作品を読み込めません",
+    "passageLoadErrorDescription": "読み込みに失敗しました。もう一度お試しください。",
     "detailSeoTitle": "{title} - {collection} - Haley",
     "detailSeoDescription": "Haleyの作品「{title}」を読む。",
     "collectionSeoTitle": "{title} - ポートフォリオ - Haley",

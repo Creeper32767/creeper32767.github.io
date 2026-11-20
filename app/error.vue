@@ -102,7 +102,7 @@ function retry() {
 
     <LayoutSiteHeader />
 
-    <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-10 text-center">
+    <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-12 text-center">
       <section class="max-w-2xl" role="alert" aria-live="polite">
         <div class="relative flex items-center justify-center text-primary">
           <span class="block w-full text-9xl font-bold tabular-nums leading-none tracking-widest sm:text-[10rem]">
