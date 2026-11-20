@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from "vue";
+import { computed, onUnmounted, reactive, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -28,6 +28,36 @@ interface Variation {
   label: string;
 }
 
+type SliderKey = "r" | "g" | "b" | "h" | "s" | "l" | "a";
+
+interface SliderGroup {
+  title: string;
+  items: Array<{ key: SliderKey; label: string; max: number; suffix: string }>;
+}
+
+const sliderGroups: SliderGroup[] = [
+  {
+    title: "RGB 调节",
+    items: [
+      { key: "r", label: "R (红)", max: 255, suffix: "" },
+      { key: "g", label: "G (绿)", max: 255, suffix: "" },
+      { key: "b", label: "B (蓝)", max: 255, suffix: "" },
+    ],
+  },
+  {
+    title: "HSL 调节",
+    items: [
+      { key: "h", label: "H (色相)", max: 360, suffix: "°" },
+      { key: "s", label: "S (饱和度)", max: 100, suffix: "%" },
+      { key: "l", label: "L (亮度)", max: 100, suffix: "%" },
+    ],
+  },
+  {
+    title: "透明度 (Alpha)",
+    items: [{ key: "a", label: "A", max: 100, suffix: "" }],
+  },
+];
+
 const state = reactive<ColorState>({ r: 0, g: 120, b: 212, a: 1, h: 206, s: 100, l: 42 });
 const pasteValue = ref("");
 const pasteFeedback = ref("等待输入…");
@@ -36,6 +66,95 @@ const copied = ref("");
 const gradientStart = ref("#0078d4");
 const gradientEnd = ref("#00bcf2");
 const gradientAngle = ref(90);
+
+type ConversionType = "rgb" | "hsl";
+
+interface PendingSlider {
+  key: SliderKey;
+  value: number;
+}
+
+let rafId: number | null = null;
+let pendingConversion: ConversionType | null = null;
+let pendingSlider: PendingSlider | null = null;
+
+/**
+ * High-frequency slider drags fire many `input` events per frame.
+ * We only persist the latest value and run one conversion per rAF tick,
+ * so re-renders are capped at display refresh rate instead of event rate.
+ */
+function flushConversion() {
+  rafId = null;
+  if (pendingSlider !== null) {
+    const { key, value } = pendingSlider;
+    pendingSlider = null;
+    if (key === "a") state.a = value / 100;
+    else state[key] = value;
+  }
+  const type = pendingConversion;
+  pendingConversion = null;
+  if (type === "rgb") updateFromRgb();
+  else if (type === "hsl") updateFromHsl();
+}
+
+function scheduleConversion(type: ConversionType, slider?: PendingSlider) {
+  if (slider) pendingSlider = slider;
+  pendingConversion = type;
+  if (rafId === null) {
+    if (typeof requestAnimationFrame !== "undefined") {
+      rafId = requestAnimationFrame(flushConversion);
+    } else {
+      flushConversion();
+    }
+  }
+}
+
+function cancelPendingConversion() {
+  if (rafId !== null) {
+    if (typeof cancelAnimationFrame !== "undefined") cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+  pendingConversion = null;
+  pendingSlider = null;
+}
+
+let applyRafId: number | null = null;
+let pendingApply: string | null = null;
+
+/** Batch native color-picker drags (which fire input events per frame) the same way. */
+function flushPendingApply() {
+  applyRafId = null;
+  const value = pendingApply;
+  pendingApply = null;
+  if (value !== null) applyColor(value);
+}
+
+function scheduleApplyColor(value: string) {
+  pendingApply = value;
+  if (applyRafId === null) {
+    if (typeof requestAnimationFrame !== "undefined") {
+      applyRafId = requestAnimationFrame(flushPendingApply);
+    } else {
+      flushPendingApply();
+    }
+  }
+}
+
+function cancelPendingApply() {
+  if (applyRafId !== null) {
+    if (typeof cancelAnimationFrame !== "undefined") cancelAnimationFrame(applyRafId);
+    applyRafId = null;
+  }
+  pendingApply = null;
+}
+
+let copyTimer: number | null = null;
+
+onUnmounted(() => {
+  cancelPendingConversion();
+  cancelPendingApply();
+  if (copyTimer !== null) window.clearTimeout(copyTimer);
+});
 
 const hex = computed(() => rgbToHex(state.r, state.g, state.b));
 const rgba = computed(() => `rgba(${state.r}, ${state.g}, ${state.b}, ${state.a})`);
@@ -63,6 +182,15 @@ const outputValues = computed(() => [
   { label: "HSL", key: "hsl", value: `hsl(${state.h}, ${state.s}%, ${state.l}%)`, placeholder: "hsl(h, s%, l%)" },
   { label: "HSLA", key: "hsla", value: `hsla(${state.h}, ${state.s}%, ${state.l}%, ${state.a})`, placeholder: "hsla(h, s%, l%, a)" },
 ]);
+
+let canvasCtx: CanvasRenderingContext2D | null | undefined;
+
+function getCanvasContext(): CanvasRenderingContext2D | null {
+  if (canvasCtx === undefined) {
+    canvasCtx = typeof document !== "undefined" ? document.createElement("canvas").getContext("2d") : null;
+  }
+  return canvasCtx;
+}
 
 function updateFromRgb() {
   const r = state.r / 255;
@@ -117,7 +245,8 @@ function hslToRgb(h: number, s: number, l: number): ParsedColor {
 }
 
 function rgbToHex(r: number, g: number, b: number) {
-  return `#${[r, g, b].map((channel) => channel.toString(16).padStart(2, "0")).join("")}`;
+  const toHex = (channel: number) => channel.toString(16).padStart(2, "0");
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
 function hexToRgb(value: string): ParsedColor | null {
@@ -150,26 +279,25 @@ function parseColor(value: string): ParsedColor | null {
     if (hslMatch[4]) result.a = hslMatch[4].endsWith("%") ? parseFloat(hslMatch[4]) / 100 : parseFloat(hslMatch[4]);
     return result;
   }
-  if (import.meta.client) {
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-    if (context) {
-      context.fillStyle = "#000";
-      context.fillStyle = input;
-      const computedColor = context.fillStyle;
-      if (computedColor !== "#000000" || /^(black|#?0{3,6})$/i.test(input)) return hexToRgb(computedColor);
-    }
+  const context = getCanvasContext();
+  if (context) {
+    context.fillStyle = "#000";
+    context.fillStyle = input;
+    const computedColor = context.fillStyle;
+    if (computedColor !== "#000000" || /^(black|#?0{3,6})$/i.test(input)) return hexToRgb(computedColor);
   }
   return null;
 }
 
 function applyColor(value: string) {
+  cancelPendingApply();
   const parsed = parseColor(value);
   if (!parsed) return false;
   state.r = clampChannel(parsed.r);
   state.g = clampChannel(parsed.g);
   state.b = clampChannel(parsed.b);
   if (parsed.a !== undefined) state.a = clamp(parsed.a, 0, 1);
+  cancelPendingConversion();
   updateFromRgb();
   return true;
 }
@@ -200,7 +328,9 @@ async function copyValue(key: string, value: string) {
   try {
     await navigator.clipboard.writeText(value);
     copied.value = key;
-    window.setTimeout(() => {
+    if (copyTimer !== null) window.clearTimeout(copyTimer);
+    copyTimer = window.setTimeout(() => {
+      copyTimer = null;
       if (copied.value === key) copied.value = "";
     }, 1500);
   } catch {
@@ -209,10 +339,42 @@ async function copyValue(key: string, value: string) {
 }
 
 function selectVariation(variation: Variation) {
+  cancelPendingApply();
   state.r = variation.r;
   state.g = variation.g;
   state.b = variation.b;
+  cancelPendingConversion();
   updateFromRgb();
+}
+
+function handleSliderInput(key: SliderKey, event: Event) {
+  const value = Number((event.target as HTMLInputElement).value);
+  scheduleConversion(key === "h" || key === "s" || key === "l" ? "hsl" : "rgb", { key, value });
+}
+
+function getSliderValue(item: { key: SliderKey }) {
+  return item.key === "a" ? state.a * 100 : state[item.key];
+}
+
+function getSliderDisplay(item: { key: SliderKey }) {
+  return item.key === "a" ? state.a.toFixed(2) : state[item.key];
+}
+
+function handleColorInput(event: Event) {
+  scheduleApplyColor((event.target as HTMLInputElement).value);
+}
+
+function handleOutputChange(event: Event) {
+  applyColor((event.target as HTMLInputElement).value);
+}
+
+function handlePasteInput() {
+  if (pasteStatus.value !== "idle") setPasteFeedback("输入待应用…", "idle");
+}
+
+function clearPaste() {
+  pasteValue.value = "";
+  setPasteFeedback("输入已清空", "idle");
 }
 </script>
 
@@ -230,25 +392,21 @@ function selectVariation(variation: Variation) {
           <h2 class="text-lg font-semibold">视觉调色</h2>
           <label class="grid cursor-pointer grid-cols-[auto_1fr] items-center gap-4 rounded-xl border border-input p-4">
             <Input :value="hex" type="color" class="h-14 w-20 cursor-pointer rounded-lg border-0 bg-transparent"
-              @input="applyColor(($event.target as HTMLInputElement).value)" />
+              @input="handleColorInput" />
             <span class="text-sm text-muted">点击选择颜色</span>
           </label>
         </section>
 
-        <section v-for="group in [
-          { title: 'RGB 调节', items: [{ key: 'r', label: 'R (红)', max: 255, suffix: '' }, { key: 'g', label: 'G (绿)', max: 255, suffix: '' }, { key: 'b', label: 'B (蓝)', max: 255, suffix: '' }] },
-          { title: 'HSL 调节', items: [{ key: 'h', label: 'H (色相)', max: 360, suffix: '°' }, { key: 's', label: 'S (饱和度)', max: 100, suffix: '%' }, { key: 'l', label: 'L (亮度)', max: 100, suffix: '%' }] },
-          { title: '透明度 (Alpha)', items: [{ key: 'a', label: 'A', max: 100, suffix: '' }] },
-        ]" :key="group.title" class="grid gap-5 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
+        <section v-for="group in sliderGroups" :key="group.title"
+          class="grid gap-5 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
           <h2 class="text-lg font-semibold">{{ group.title }}</h2>
           <label v-for="item in group.items" :key="item.key"
+            v-memo="[getSliderValue(item), getSliderDisplay(item)]"
             class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 text-sm">
             <span>{{ item.label }}</span>
-            <Input :value="item.key === 'a' ? state.a * 100 : state[item.key as keyof ColorState]" type="range" min="0"
-              :max="item.max" class="accent-primary"
-              @input="item.key === 'a' ? state.a = Number(($event.target as HTMLInputElement).value) / 100 : (state[item.key as 'r' | 'g' | 'b' | 'h' | 's' | 'l'] = Number(($event.target as HTMLInputElement).value), item.key === 'h' || item.key === 's' || item.key === 'l' ? updateFromHsl() : updateFromRgb())" />
-            <span class="text-right font-mono text-muted">{{ item.key === "a" ? state.a.toFixed(2) :
-              state[item.key as keyof ColorState] }}{{ item.suffix }}</span>
+            <Input :value="getSliderValue(item)" type="range" min="0" :max="item.max" class="accent-primary"
+              @input="handleSliderInput(item.key, $event)" />
+            <span class="text-right font-mono text-muted">{{ getSliderDisplay(item) }}{{ item.suffix }}</span>
           </label>
         </section>
 
@@ -284,12 +442,11 @@ function selectVariation(variation: Variation) {
           <p class="text-sm leading-6 text-muted">将任意 HEX、RGB、HSL、HSLA 或 CSS 颜色字符串粘贴到下方，点击“应用颜色”即可同步所有数值与预览。
           </p>
           <Textarea v-model="pasteValue" class="min-h-24"
-            placeholder="#0078d4 或 rgb(0,120,212) 或 hsl(206,100%,42%)" @input="setPasteFeedback('输入待应用…', 'idle')"
+            placeholder="#0078d4 或 rgb(0,120,212) 或 hsl(206,100%,42%)" @input="handlePasteInput"
             @keydown.meta.enter.prevent="applyPaste" @keydown.ctrl.enter.prevent="applyPaste" />
           <div class="grid grid-cols-[auto_auto_1fr] items-center gap-3">
             <Button type="button" @click="applyPaste">应用颜色</Button>
-            <Button variant="outline" type="button"
-              @click="pasteValue = ''; setPasteFeedback('输入已清空', 'idle')">清空</Button>
+            <Button variant="outline" type="button" @click="clearPaste">清空</Button>
             <span class="text-sm"
               :class="{ 'text-green-600': pasteStatus === 'success', 'text-red-600': pasteStatus === 'error', 'text-muted': pasteStatus === 'idle' }">{{
                 pasteFeedback }}</span>
@@ -300,6 +457,7 @@ function selectVariation(variation: Variation) {
           <h2 class="text-lg font-semibold">色调变化 (点击应用)</h2>
           <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div v-for="variation in variations" :key="variation.label"
+              v-memo="[variation.r, variation.g, variation.b, copied]"
               class="group relative h-20 cursor-pointer rounded-lg p-2 text-xs text-white shadow-sm transition hover:-translate-y-0.5"
               :style="{ backgroundColor: `rgb(${variation.r}, ${variation.g}, ${variation.b})` }"
               :title="`点击应用：rgb(${variation.r}, ${variation.g}, ${variation.b})`" @click="selectVariation(variation)">
@@ -316,14 +474,15 @@ function selectVariation(variation: Variation) {
         <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
           <h2 class="text-lg font-semibold">颜色代码</h2>
           <div class="grid gap-4 sm:grid-cols-2">
-            <div v-for="output in outputValues" :key="output.key" class="grid gap-2">
+            <div v-for="output in outputValues" :key="output.key" v-memo="[output.value, copied]"
+              class="grid gap-2">
               <label class="text-sm font-medium">{{ output.label }}</label>
               <div class="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
                 <Input :value="output.value" :placeholder="output.placeholder"
                   class="min-w-0 font-mono"
-                  @change="applyColor(($event.target as HTMLInputElement).value)"
-                  @keydown.ctrl.enter.prevent="applyColor(($event.target as HTMLInputElement).value)"
-                  @keydown.meta.enter.prevent="applyColor(($event.target as HTMLInputElement).value)" />
+                  @change="handleOutputChange"
+                  @keydown.ctrl.enter.prevent="handleOutputChange"
+                  @keydown.meta.enter.prevent="handleOutputChange" />
                 <Button variant="outline" type="button" @click="copyValue(output.key, output.value)">
                   {{ copied === output.key ? "已复制" : "复制" }}
                 </Button>
