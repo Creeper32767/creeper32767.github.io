@@ -122,9 +122,9 @@ useSiteSeo({
 <template>
   <LayoutPortfolioPresentation :back-href="`/portfolio/${collection}`" :passages="passages" :current-id="id"
     :headings="headings">
-    <article class="mx-auto w-full max-w-4xl max-lg:order-4">
+    <template #header>
       <AspectRatio :ratio="2 / 1"
-        class="detail-hero flex w-full items-center justify-center overflow-hidden rounded-2xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-700 motion-safe:ease-out"
+        class="detail-hero mx-auto flex w-full max-w-4xl items-center justify-center overflow-hidden rounded-2xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-700 motion-safe:ease-out max-lg:order-1"
         :style="{ viewTransitionName: heroViewTransitionName }">
         <div
           class="text-[clamp(5rem,16vw,10rem)] font-bold text-[color-mix(in_srgb,var(--app-primary)_24%,transparent)]"
@@ -133,7 +133,9 @@ useSiteSeo({
           {{ t("portfolio.imagePlaceholder") }}
         </span>
       </AspectRatio>
+    </template>
 
+    <article class="mx-auto w-full max-w-4xl max-lg:order-4">
       <div class="mt-10">
         <template v-if="hasLoadError">
           <div class="rounded-xl border border-destructive/40 bg-destructive/5 p-6 text-center items-center"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ArrowLeft16Regular } from "@ntkrnl64/fluentui-vue-icons";
+import { pinyin } from "pinyin-pro";
 import { useI18n } from "vue-i18n";
 
 interface Passage {
@@ -25,6 +26,55 @@ const props = withDefaults(defineProps<{
 });
 
 const { t } = useI18n();
+
+const collator = new Intl.Collator("zh-CN", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const getPassageInitial = (title: string) => {
+  const trimmedTitle = title.trim();
+  const latinInitial = trimmedTitle.match(/[A-Za-z]/)?.[0];
+  if (latinInitial) return latinInitial.toUpperCase();
+
+  const firstPinyin = pinyin(trimmedTitle, {
+    pattern: "first",
+    toneType: "none",
+  }).trim().match(/[A-Za-z]/)?.[0];
+  return firstPinyin?.toUpperCase() ?? "#";
+};
+
+const getPassagePinyin = (title: string) =>
+  pinyin(title, {
+    toneType: "none",
+    separator: "",
+  });
+
+const passageGroups = computed(() => {
+  const sorted = [...props.passages].sort((a, b) => {
+    const initialCompare = getPassageInitial(a.title).localeCompare(
+      getPassageInitial(b.title),
+      "en",
+    );
+    if (initialCompare !== 0) return initialCompare;
+
+    const pinyinCompare = getPassagePinyin(a.title).localeCompare(
+      getPassagePinyin(b.title),
+      "zh-CN",
+    );
+    return pinyinCompare || collator.compare(a.title, b.title);
+  });
+
+  const groups = new Map<string, Passage[]>();
+  for (const passage of sorted) {
+    const initial = getPassageInitial(passage.title);
+    const group = groups.get(initial) ?? [];
+    group.push(passage);
+    groups.set(initial, group);
+  }
+
+  return Array.from(groups, ([initial, items]) => ({ initial, items }));
+});
 </script>
 
 <template>
@@ -46,14 +96,23 @@ const { t } = useI18n();
             {{ t("portfolio.allPassages") }}
           </h2>
           <nav :aria-label="t('portfolio.allPassages')">
-            <ul class="space-y-1 max-lg:flex max-lg:flex-wrap max-lg:gap-x-2 max-lg:gap-y-1">
-              <li v-for="passage in props.passages" :key="passage.id" class="max-lg:max-w-full">
-                <a :href="passage.url" target="_self"
-                  :aria-current="passage.id === props.currentId ? 'page' : undefined"
-                  class="block wrap-anywhere border-l-2 border-transparent px-2 py-1.5 text-[0.8rem] leading-normal text-muted transition-[color,border-color] duration-150 hover:border-primary hover:text-primary max-lg:rounded-full max-lg:border max-lg:px-[0.65rem] max-lg:py-1.5"
-                  :class="{ 'border-primary text-primary': passage.id === props.currentId }">
-                  {{ passage.title }}
-                </a>
+            <ul
+              class="space-y-2 max-lg:flex max-lg:max-h-30 max-lg:flex-wrap max-lg:gap-x-2 max-lg:gap-y-1 max-lg:overflow-y-auto max-lg:pr-1 [scrollbar-width:thin]">
+              <li v-for="group in passageGroups" :key="group.initial" class="max-lg:w-full">
+                <div class="mb-1 flex items-center gap-2 max-lg:mb-0 max-lg:inline-flex max-lg:align-middle">
+                  <span class="text-[0.65rem] font-bold text-primary">{{ group.initial }}</span>
+                  <span class="h-px flex-1 bg-border max-lg:hidden"></span>
+                </div>
+                <ul class="space-y-1 max-lg:flex max-lg:flex-wrap max-lg:gap-x-1 max-lg:gap-y-1">
+                  <li v-for="passage in group.items" :key="passage.id" class="max-lg:max-w-full">
+                    <a :href="passage.url" target="_self"
+                      :aria-current="passage.id === props.currentId ? 'page' : undefined"
+                      class="block wrap-anywhere border-l-2 border-transparent px-2 py-1.5 text-[0.8rem] leading-normal text-muted transition-[color,border-color] duration-150 hover:border-primary hover:text-primary max-lg:rounded-full max-lg:border max-lg:px-[0.65rem] max-lg:py-1.5"
+                      :class="{ 'border-primary text-primary': passage.id === props.currentId }">
+                      {{ passage.title }}
+                    </a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </nav>
