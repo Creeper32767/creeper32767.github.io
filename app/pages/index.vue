@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
 import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
 import { onMounted, ref } from "vue";
 

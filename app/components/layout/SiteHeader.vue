@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
-import { useI18n } from "vue-i18n";
 import type { RouteLocationRaw } from "vue-router";
 import {
   ChevronDown20Regular,
@@ -51,8 +50,14 @@ const props = withDefaults(
 );
 
 const { t } = useI18n();
+const localePath = useLocalePath();
 const preferences = usePreferencesStore();
-const navigationItems = computed(() => props.items);
+// <NuxtLink> 不会自动处理 i18n 语言前缀，非外部链接统一通过 localePath 本地化。
+const navigationItems = computed(() =>
+  props.items.map((item) =>
+    item.external ? item : { ...item, to: localePath(item.to) },
+  ),
+);
 const isPanelOpen = ref(false);
 const isSettingsPanelOpen = ref(false);
 const currentThemeLabel = computed(() =>
@@ -155,7 +160,7 @@ onBeforeUnmount(() => {
       class="fixed top-4 left-1/2 z-50 flex min-h-16 w-[calc(100%-2rem)] sm:max-w-4/5 -translate-x-1/2 flex-col items-stretch gap-3 rounded-2xl border border-border/70 bg-background/80 px-5 py-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/65 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-0">
       <div class="order-1 flex w-full items-center justify-between sm:contents">
         <slot name="brand">
-          <NuxtLink class="flex items-center gap-3 text-foreground" to="/" aria-label="Creeper32767 home">
+          <NuxtLink class="flex items-center gap-3 text-foreground" :to="localePath('/')" aria-label="Creeper32767 home">
             <NuxtImg preload src="/images/haley-avatar.webp" alt="Creeper32767 Logo" width="96" height="96" preset="avatar"
               class="h-10 w-10 rounded-full border-2 border-white object-cover shadow-sm" />
             <span class="text-lg font-bold tracking-tight">Creeper32767</span>

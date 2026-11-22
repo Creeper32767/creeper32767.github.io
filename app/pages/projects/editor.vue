@@ -6,7 +6,6 @@ import { EditorView } from "@codemirror/view";
 import type { ViewUpdate } from "@codemirror/view";
 import type { EditorState, Extension } from "@codemirror/state";
 import { oneDark } from "@codemirror/theme-one-dark";
-import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 

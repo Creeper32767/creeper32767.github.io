@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { supportedLocales, type SupportedLocale } from "~/i18n";
-import { usePreferencesStore } from "~/stores/preferences";
 
-const { locale, t } = useI18n();
-const preferences = usePreferencesStore();
+const { locale, locales, t } = useI18n();
+const switchLocalePath = useSwitchLocalePath();
+
+type SupportedLocale = "zh-CN" | "en" | "ja" | "zh-TW";
 
 function changeLocale(nextLocale: SupportedLocale) {
-  preferences.setLocale(nextLocale);
+  const path = switchLocalePath(nextLocale);
+  if (path) void navigateTo(path, { redirectCode: 302 });
 }
 </script>
 
@@ -19,8 +19,8 @@ function changeLocale(nextLocale: SupportedLocale) {
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem v-for="supportedLocale in supportedLocales" :key="supportedLocale" :value="supportedLocale">
-          {{ t(`language.${supportedLocale}`) }}
+        <SelectItem v-for="localeOption in locales" :key="localeOption.code" :value="localeOption.code">
+          {{ localeOption.name ?? localeOption.code }}
         </SelectItem>
       </SelectContent>
     </Select>

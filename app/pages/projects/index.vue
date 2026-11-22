@@ -8,9 +8,9 @@ import {
   Open16Regular,
   Wrench16Filled,
 } from "@ntkrnl64/fluentui-vue-icons";
-import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
+const localePath = useLocalePath();
 
 const projectIcons = {
   apps: Apps16Filled,
@@ -124,7 +124,7 @@ const sections: ProjectSection[] = [
             <span class="text-sm text-muted">{{ section.subtitle }}</span>
           </div>
 
-          <div class="project-grid">
+          <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
             <article v-for="project in section.items" :key="project.name"
               class="flex h-full flex-col rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-primary/35 hover:shadow-lg">
               <div class="flex flex-1 flex-col">
@@ -139,7 +139,7 @@ const sections: ProjectSection[] = [
                 </p>
               </div>
 
-              <PlaneLink :href="project.href" :target="project.external ? '_blank' : '_self'"
+              <PlaneLink :href="project.external ? project.href : localePath(project.href)" :target="project.external ? '_blank' : '_self'"
                 class="mt-6 w-full bg-primary shadow-sm" :aria-label="`${project.action}：${project.name}`">
                 {{ project.action }}
                 <Open16Regular v-if="project.external" class="size-4" aria-hidden="true" />
@@ -152,11 +152,3 @@ const sections: ProjectSection[] = [
 
   </div>
 </template>
-
-<style scoped>
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-</style>

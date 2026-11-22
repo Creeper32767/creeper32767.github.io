@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { WeatherMoon24Filled, WeatherSunny24Filled } from '@ntkrnl64/fluentui-vue-icons'
 import { usePreferencesStore } from '~/stores/preferences'
 

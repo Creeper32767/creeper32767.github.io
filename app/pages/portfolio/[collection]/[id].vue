@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
 import { ErrorCircle16Regular } from "@ntkrnl64/fluentui-vue-icons";
 
 const route = useRoute();
 const { t } = useI18n();
+const localePath = useLocalePath();
+
 const collection = computed(() => String(route.params.collection));
 const id = computed(() => String(route.params.id));
 const heroViewTransitionName = computed(() =>
@@ -25,7 +26,7 @@ const { data: collectionMeta } = await useAsyncData(
 const passages = computed(() =>
   collectionMeta.value?.items.map((item) => ({
     ...item,
-    url: `/portfolio/${collection.value}/${encodeURIComponent(item.id)}`,
+    url: localePath(`/portfolio/${collection.value}/${encodeURIComponent(item.id)}`),
   })) ?? [],
 );
 
@@ -39,13 +40,13 @@ const { data: page, status, error, refresh } = await useAsyncData(
       throw new Error("Invalid passage ID");
     }
 
-    // content 集合的 path 只会落到一级目录，并不会包含文件名，因此必须改用 stem / title / id 才能按文章精确查询
+    // content 集合的 path 只会包含一级目录，并不会包含文件名，因此必须改用 stem / title / id 才能按文章精确查询
     const byStem = await queryCollection("content")
       .where("stem", "=", `${collection.value}/${decodedId}`)
       .first();
     if (byStem) return byStem;
 
-    // 文件名与标题可能不一致，因此按标题兜底匹配一次
+    // 文件名与标题可能不一致，按标题匹配一次
     const byTitle = await queryCollection("content")
       .where("title", "=", decodedId)
       .first();
@@ -120,7 +121,7 @@ useSiteSeo({
 </script>
 
 <template>
-  <LayoutPortfolioPresentation :back-href="`/portfolio/${collection}`" :passages="passages" :current-id="id"
+  <LayoutPortfolioPresentation :back-href="localePath(`/portfolio/${collection}`)" :passages="passages" :current-id="id"
     :headings="headings">
     <template #header>
       <AspectRatio :ratio="2 / 1"

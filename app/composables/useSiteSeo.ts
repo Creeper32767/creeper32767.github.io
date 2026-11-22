@@ -1,5 +1,4 @@
 import { computed, toValue, type MaybeRef } from "vue";
-import { useI18n } from "vue-i18n";
 
 const routeSeoKeys: Record<string, string> = {
   "/": "home",
@@ -21,18 +20,34 @@ interface SiteSeoOptions {
   image?: MaybeRef<string | undefined>;
 }
 
+/**
+ * `@nuxtjs/i18n` 采用 `prefix_except_default` 策略时，非默认语言的路径会带前缀（如 /en/projects）
+ * 这里把当前语言前缀去掉后再按路径查找 SEO key
+ */
+function stripLocalePrefix(path: string, locale: string): string {
+  const prefix = `/${locale}`;
+  if (path === prefix) return "/";
+  if (path.startsWith(`${prefix}/`)) return path.slice(prefix.length);
+  return path;
+}
+
 export function useSiteSeo(options: SiteSeoOptions = {}) {
   const route = useRoute();
   const { locale, t } = useI18n();
   const requestUrl = useRequestURL();
 
-  const seoKey = computed(() => routeSeoKeys[route.path] ?? "default");
+  const seoKey = computed(
+    () =>
+      routeSeoKeys[stripLocalePrefix(route.path, locale.value)] ?? "default",
+  );
   const title = computed(
     () => toValue(options.title) ?? t(`seo.${seoKey.value}.title`),
   );
+
   const description = computed(
     () => toValue(options.description) ?? t(`seo.${seoKey.value}.description`),
   );
+
   const type = computed(() => toValue(options.type) ?? "website");
   const image = computed(() => toValue(options.image));
   const siteName = computed(() => t("seo.siteName"));
@@ -40,11 +55,9 @@ export function useSiteSeo(options: SiteSeoOptions = {}) {
     new URL(route.fullPath, requestUrl.origin).toString(),
   );
 
+  // html lang / canonical / hreflang / og:locale 由 useLocaleHead 统一输出，这里不再重复设置
   useHead(() => {
     return {
-      htmlAttrs: {
-        lang: locale.value,
-      },
       title: title.value,
       meta: [
         { name: "description", content: description.value },
@@ -54,7 +67,6 @@ export function useSiteSeo(options: SiteSeoOptions = {}) {
         { property: "og:description", content: description.value },
         { property: "og:type", content: type.value },
         { property: "og:url", content: canonical.value },
-        { property: "og:locale", content: locale.value },
         { name: "twitter:card", content: "summary" },
         { name: "twitter:title", content: title.value },
         { name: "twitter:description", content: description.value },
@@ -65,7 +77,6 @@ export function useSiteSeo(options: SiteSeoOptions = {}) {
             ]
           : []),
       ],
-      link: [{ rel: "canonical", href: canonical.value }],
     };
   });
 }

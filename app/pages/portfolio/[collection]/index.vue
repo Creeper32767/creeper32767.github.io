@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
 import { Search16Regular, ErrorCircle16Regular } from "@ntkrnl64/fluentui-vue-icons";
 
 interface PortfolioItem {
@@ -23,6 +22,8 @@ interface CollectionMeta {
 
 const route = useRoute();
 const { t } = useI18n();
+const localePath = useLocalePath();
+
 const collection = computed(() => String(route.params.collection));
 
 const { data: meta, error: metaError } = await useAsyncData(
@@ -76,7 +77,7 @@ useSiteSeo({
 </script>
 
 <template>
-  <LayoutPortfolioPresentation back-href="/portfolio" :headings="headings">
+  <LayoutPortfolioPresentation :back-href="localePath('/portfolio')" :headings="headings">
     <template #header>
       <header class="page-header page-header--compact w-full max-lg:order-1">
         <p class="page-eyebrow">{{ t("portfolio.collectionEyebrow", { key: collection }) }}</p>
@@ -120,7 +121,7 @@ useSiteSeo({
             <div class="mt-8 flex flex-wrap justify-end gap-2">
               <Badge v-for="tag in (item.tags ?? []).slice(0, 3)" :key="tag" variant="outline">{{ tag }}</Badge>
             </div>
-            <PlaneLink :href="`/portfolio/${collection}/${encodeURIComponent(item.id)}`" target="_self"
+            <PlaneLink :href="localePath(`/portfolio/${collection}/${encodeURIComponent(item.id)}`)" target="_self"
               class="mt-4 w-full bg-primary shadow-sm" :view-transition-name="heroViewTransitionName(item.id)">
               {{ t("portfolio.readMore") }}
             </PlaneLink>

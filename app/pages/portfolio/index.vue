@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Component } from "vue";
-import { useI18n } from "vue-i18n";
 import {
   BookOpen16Filled,
   BookStar20Regular,
@@ -41,6 +40,7 @@ if (portfolioIndexError.value || !portfolioIndex.value) {
 }
 
 const { t, te } = useI18n();
+const localePath = useLocalePath();
 
 const collections = computed(() =>
   (portfolioIndex.value?.collections ?? []).map((collection) => ({
@@ -61,7 +61,7 @@ useSiteSeo();
 </script>
 
 <template>
-  <LayoutPortfolioPresentation back-href="/" :headings="[
+  <LayoutPortfolioPresentation :back-href="localePath('/')" :headings="[
     { id: 'portfolio-title', title: t('portfolio.title'), level: 1 },
     ...collections.map((collection) => ({ id: `collection-${collection.key}`, title: collection.title, level: 2 })),
   ]">
@@ -103,8 +103,8 @@ useSiteSeo();
               </strong>
             </li>
           </ul>
-          <PlaneLink :href="`/portfolio/${collection.key}`" target="_self" class="mt-8 w-full bg-primary shadow-sm"
-            :aria-label="`浏览${collection.title}`">
+          <PlaneLink :href="localePath(`/portfolio/${collection.key}`)" target="_self"
+            class="mt-8 w-full bg-primary shadow-sm" :aria-label="`浏览${collection.title}`">
             {{ t("portfolio.browse") }}
           </PlaneLink>
         </article>

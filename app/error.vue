@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { QuestionCircle24Filled } from '@ntkrnl64/fluentui-vue-icons'
 
 const props = defineProps<{
@@ -11,6 +10,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 // 固定种子的伪随机数，确保 SSR 与客户端生成一致的流星样式。
 const createRandom = (seed: number) => {
@@ -78,7 +78,7 @@ useSeoMeta({
 })
 
 function returnHome() {
-  clearError({ redirect: '/' })
+  clearError({ redirect: localePath('/') })
 }
 
 function retry() {

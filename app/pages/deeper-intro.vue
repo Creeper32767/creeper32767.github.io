@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
 import { onBeforeUnmount, onMounted, ref } from "vue";
-import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 

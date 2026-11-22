@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ArrowLeft16Regular } from "@ntkrnl64/fluentui-vue-icons";
 import { pinyin } from "pinyin-pro";
-import { useI18n } from "vue-i18n";
 
 interface Passage {
   id: string;
@@ -97,7 +96,7 @@ const passageGroups = computed(() => {
           </h2>
           <nav :aria-label="t('portfolio.allPassages')">
             <ul
-              class="space-y-2 max-lg:flex max-lg:max-h-30 max-lg:flex-wrap max-lg:gap-x-2 max-lg:gap-y-1 max-lg:overflow-y-auto max-lg:pr-1 [scrollbar-width:thin]">
+              class="space-y-2 max-lg:flex max-lg:max-h-30 max-lg:flex-wrap max-lg:gap-x-2 max-lg:gap-y-1 max-lg:overflow-y-auto max-lg:pr-1 scrollbar-thin">
               <li v-for="group in passageGroups" :key="group.initial" class="max-lg:w-full">
                 <div class="mb-1 flex items-center gap-2 max-lg:mb-0 max-lg:inline-flex max-lg:align-middle">
                   <span class="text-[0.65rem] font-bold text-primary">{{ group.initial }}</span>

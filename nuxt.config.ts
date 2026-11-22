@@ -40,6 +40,13 @@ function getPortfolioRoutes(cwd: string): string[] {
 
 const portfolioRoutes = getPortfolioRoutes(process.cwd());
 
+// 为 @nuxtjs/i18n 的 pruned 生成附带语言前缀变体
+const i18nLocalePrefixes = ["en", "ja", "zh-TW"];
+
+const localizedPortfolioRoutes = portfolioRoutes.flatMap((route) =>
+  i18nLocalePrefixes.map((locale) => `/${locale}${route}`),
+);
+
 export default defineNuxtConfig({
   ssr: true,
 
@@ -47,7 +54,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: false,
-      routes: portfolioRoutes,
+      routes: [...portfolioRoutes, ...localizedPortfolioRoutes],
     },
     serverAssets: [
       { baseName: "content", dir: "./content" },
@@ -55,7 +62,35 @@ export default defineNuxtConfig({
     ],
   },
 
-  modules: ["@nuxt/content", "@nuxt/image", "shadcn-nuxt"],
+  modules: ["@nuxt/content", "@nuxt/image", "shadcn-nuxt", "@nuxtjs/i18n"],
+
+  i18n: {
+    baseUrl: "https://creeper32767.github.io",
+    strategy: "prefix_except_default",
+    defaultLocale: "zh-CN",
+    locales: [
+      {
+        code: "zh-CN",
+        language: "zh-CN",
+        name: "简体中文",
+        file: "zh-CN.json",
+      },
+      { code: "en", language: "en", name: "English", file: "en.json" },
+      { code: "ja", language: "ja", name: "日本語", file: "ja.json" },
+      {
+        code: "zh-TW",
+        language: "zh-TW",
+        name: "繁體中文",
+        file: "zh-TW.json",
+      },
+    ],
+    langDir: "locales",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+    },
+  },
 
   image: {
     quality: 80,
@@ -86,16 +121,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      htmlAttrs: {
-        lang: "zh-CN",
-      },
-      title: "Haley 的个人网站",
-      meta: [
-        {
-          name: "description",
-          content: "分享 Haley 的项目、笔记、工具与思考。",
-        },
-      ],
+      // html lang / title / description 由 useLocaleHead 与 useSiteSeo 按语言动态处理
       link: [
         {
           rel: "icon",
@@ -118,7 +144,6 @@ export default defineNuxtConfig({
         "pinia",
         "reka-ui",
         "vue-codemirror",
-        "vue-i18n",
       ],
     },
   },

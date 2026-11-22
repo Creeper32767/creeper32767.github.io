@@ -130,6 +130,12 @@
     "organizationDescription": "A student developer community focused on open-source collaboration and technical innovation.",
     "visitGithub": "Visit GitHub profile"
   },
+  "softwarePicks": {
+    "actions": {
+      "get": "Get",
+      "getGithub": "Get on GitHub"
+    }
+  },
   "portfolio": {
     "eyebrow": "Portfolio",
     "title": "Personal Portfolio",
@@ -283,11 +289,7 @@
     }
   },
   "language": {
-    "label": "Language",
-    "en": "English",
-    "zh-CN": "简体中文",
-    "zh-TW": "繁體中文",
-    "jp": "日本語"
+    "label": "Language"
   },
   "theme": {
     "switchToLight": "Switch to light theme",

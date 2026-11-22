@@ -20,6 +20,7 @@ The application uses Nuxt's file-based routing and Nuxt Content to render pages 
 - [Nuxt 4](https://nuxt.com/)
 - [Vue 3](https://vuejs.org/)
 - [Nuxt Content](https://content.nuxt.com/)
+- [@nuxtjs/i18n](https://i18n.nuxtjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [shadcn-nuxt](https://www.shadcn-vue.com/)

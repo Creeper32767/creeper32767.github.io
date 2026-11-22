@@ -110,7 +110,7 @@
     "eyebrow": {
       "morning": "早安，人类。今天也要喵力全開！",
       "noon": "午安，人类。現在正适合打個小盹喵。",
-      "afternoon": "午安，人类。讓我們一起追逐陽光玩耍吧。",
+      "afternoon": "下午好，人类。讓我們一起追逐陽光玩耍吧。",
       "evening": "晚上好，人类。月亮正在召唤本喵。",
       "night": "晚安，人类。愿你夢见溫暖的貓窝喵。"
     },
@@ -129,6 +129,12 @@
     "organizationTitle": "我的組織",
     "organizationDescription": "一個專注於開源协作和技術創新的學生開發者社區。",
     "visitGithub": "訪問 GitHub 主頁"
+  },
+  "softwarePicks": {
+    "actions": {
+      "get": "獲取",
+      "getGithub": "從 GitHub 取得"
+    }
   },
   "portfolio": {
     "eyebrow": "作品集",
@@ -283,11 +289,7 @@
     }
   },
   "language": {
-    "label": "語言",
-    "en": "English",
-    "zh-CN": "簡體中文",
-    "zh-TW": "繁體中文",
-    "jp": "日本語"
+    "label": "語言"
   },
   "theme": {
     "switchToLight": "切換到淺色主題",

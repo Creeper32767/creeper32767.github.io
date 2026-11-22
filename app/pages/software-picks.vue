@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Open16Regular } from "@ntkrnl64/fluentui-vue-icons";
-import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
@@ -9,7 +8,7 @@ interface Software {
   description: string;
   href: string;
   icon: string;
-  action?: string;
+  actionKey?: "get" | "getGithub";
 }
 
 interface SoftwareSection {
@@ -170,7 +169,7 @@ const sections: SoftwareSection[] = [
         description: "Windows 和 Office 激活工具，请仅在拥有合法授权的设备上使用。",
         href: "https://github.com/zbezj/HEU_KMS_Activator/releases",
         icon: "https://www.svgrepo.com/show/387672/github.svg",
-        action: "获取 (GitHub)",
+        actionKey: "getGithub",
       },
       {
         name: "Internet Download Manager",
@@ -183,21 +182,21 @@ const sections: SoftwareSection[] = [
         description: "用于管理 Internet Download Manager 授权的脚本，请仅在拥有合法授权的设备上使用。",
         href: "https://github.com/lstprjct/IDM-Activation-Script",
         icon: "https://www.svgrepo.com/show/387672/github.svg",
-        action: "获取 (GitHub)",
+        actionKey: "getGithub",
       },
       {
         name: "Windows Optimizer",
         description: "一组免费的系统工具，帮助用户管理和优化计算机性能。",
         href: "https://github.com/hellzerg/optimizer",
         icon: "https://img.utdstc.com/icon/fc0/194/fc0194b57dcbfa96178fa337ef482e51975a575ec91c6b3bc0134c0f6269e375",
-        action: "获取 (GitHub)",
+        actionKey: "getGithub",
       },
       {
         name: "Rufus",
         description: "开源的启动盘制作工具，帮助用户创建可启动的 USB 驱动器，用于安装操作系统。",
         href: "https://github.com/pbatard/rufus",
         icon: "https://rufus.ie/pics/rufus-256.png",
-        action: "获取 (GitHub)",
+        actionKey: "getGithub",
       },
       {
         name: "Advance Download Manager",
@@ -216,14 +215,14 @@ const sections: SoftwareSection[] = [
         description: "基于 V2Ray 核心的 Windows 平台客户端，提供网络代理功能。",
         href: "https://github.com/2dust/v2rayN",
         icon: "https://www.svgrepo.com/show/387672/github.svg",
-        action: "获取 (GitHub)",
+        actionKey: "getGithub",
       },
       {
         name: "V2RayNG",
         description: "基于 V2Ray 核心的 Android 平台客户端，提供网络代理功能。",
         href: "https://github.com/2dust/v2rayNG",
         icon: "https://www.svgrepo.com/show/387672/github.svg",
-        action: "获取 (GitHub)",
+        actionKey: "getGithub",
       },
       {
         name: "Everything",
@@ -247,6 +246,10 @@ const sections: SoftwareSection[] = [
   },
 ];
 
+function actionLabel(software: Software): string {
+  return t(`softwarePicks.actions.${software.actionKey ?? "get"}`);
+}
+
 </script>
 
 <template>
@@ -265,7 +268,7 @@ const sections: SoftwareSection[] = [
             <span class="text-sm font-normal text-muted">{{ section.subtitle }}</span>
           </div>
 
-          <div class="software-grid">
+          <div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
             <article v-for="software in section.items" :key="software.name"
               class="flex h-full flex-col rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-primary/35 hover:shadow-lg">
               <div class="flex flex-1 flex-col">
@@ -278,8 +281,8 @@ const sections: SoftwareSection[] = [
                 <p class="mt-3 flex-1 text-sm leading-7 text-muted">{{ software.description }}</p>
               </div>
               <PlaneLink :href="software.href" class="mt-6 w-full bg-primary shadow-sm"
-                :aria-label="`${software.action ?? '获取'} ${software.name}`">
-                {{ software.action ?? "获取" }}
+                :aria-label="`${actionLabel(software)} ${software.name}`">
+                {{ actionLabel(software) }}
                 <Open16Regular class="size-4" aria-hidden="true" />
               </PlaneLink>
             </article>
@@ -290,11 +293,3 @@ const sections: SoftwareSection[] = [
 
   </div>
 </template>
-
-<style scoped>
-.software-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-</style>
