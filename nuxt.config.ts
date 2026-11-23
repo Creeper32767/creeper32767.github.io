@@ -15,8 +15,8 @@ function getPortfolioRoutes(cwd: string): string[] {
   }
 
   return readdirSync(metaDirectory)
-    .filter((file) => file.endsWith(".json") && file !== "index.json")
-    .flatMap((file) => {
+    .filter((file: string) => file.endsWith(".json") && file !== "index.json")
+    .flatMap((file: string) => {
       try {
         const raw = readFileSync(resolve(metaDirectory, file), "utf8");
         const meta = JSON.parse(raw) as PortfolioMeta;
@@ -62,7 +62,13 @@ export default defineNuxtConfig({
     ],
   },
 
-  modules: ["@nuxt/content", "@nuxt/image", "shadcn-nuxt", "@nuxtjs/i18n"],
+  modules: [
+    "@nuxt/content",
+    "@nuxt/image",
+    "shadcn-nuxt",
+    "@nuxtjs/i18n",
+    "@nuxtjs/color-mode",
+  ],
 
   i18n: {
     baseUrl: "https://creeper32767.github.io",
@@ -75,8 +81,18 @@ export default defineNuxtConfig({
         name: "简体中文",
         file: "zh-CN.json",
       },
-      { code: "en", language: "en", name: "English", file: "en.json" },
-      { code: "ja", language: "ja", name: "日本語", file: "ja.json" },
+      {
+        code: "en",
+        language: "en",
+        name: "English",
+        file: "en.json",
+      },
+      {
+        code: "ja",
+        language: "ja",
+        name: "日本語",
+        file: "ja.json",
+      },
       {
         code: "zh-TW",
         language: "zh-TW",
@@ -111,6 +127,13 @@ export default defineNuxtConfig({
   shadcn: {
     prefix: "",
     componentDir: "./app/components/ui",
+  },
+
+  colorMode: {
+    // 跟随系统偏好，允许用户手动选择 light / dark / system
+    preference: "system",
+    fallback: "system",
+    classSuffix: "",
   },
 
   devtools: { enabled: true },

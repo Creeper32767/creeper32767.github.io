@@ -48,8 +48,9 @@ const currentLanguage = computed(
   () => languages.find((item) => item.value === language.value)?.label ?? "Plain Text",
 );
 
-// 监听站点是否处于暗色模式
-const isDark = ref(false);
+// 监听站点是否处于暗色模式（由 @nuxtjs/color-mode 统一管理，自动跟随 light/dark/system）
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === "dark");
 
 // 自定义基础主题：保持背景透明以融入外部卡片容器，并统一些字体样式
 const editorTheme = EditorView.theme({
@@ -206,25 +207,9 @@ function handleLanguageChange(value: unknown) {
   updateStatus(`已切换到: ${currentLanguage.value}`);
 }
 
-// 初始化时检查当前系统/站点是否为暗色模式，并监听变化
+// 初始化时挂载全局快捷键
 onMounted(() => {
   window.addEventListener("keydown", handleKeydown);
-
-  // 检查暗色模式 (兼容 Tailwind 的 dark class 或系统的 prefers-color-scheme)
-  const checkDarkMode = () => {
-    isDark.value = document.documentElement.classList.contains("dark") ||
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-  };
-
-  checkDarkMode();
-
-  // 使用 MutationObserver 监听 HTML 标签上的 class 变化（应对用户手动切换主题）
-  const observer = new MutationObserver(checkDarkMode);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-
-  onUnmounted(() => {
-    observer.disconnect();
-  });
 });
 
 onUnmounted(() => {

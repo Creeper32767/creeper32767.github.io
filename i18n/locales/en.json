@@ -292,10 +292,10 @@
     "label": "Language"
   },
   "theme": {
-    "switchToLight": "Switch to light theme",
-    "switchToDark": "Switch to dark theme",
     "label": "Theme",
     "light": "Light theme",
-    "dark": "Dark theme"
+    "dark": "Dark theme",
+    "system": "System theme",
+    "switchTo": "Switch to {mode}"
   }
 }

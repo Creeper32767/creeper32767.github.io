@@ -292,10 +292,10 @@
     "label": "語言"
   },
   "theme": {
-    "switchToLight": "切換到淺色主題",
-    "switchToDark": "切換到深色主題",
     "label": "主題",
     "light": "淺色主題",
-    "dark": "深色主題"
+    "dark": "深色主題",
+    "system": "跟隨系統",
+    "switchTo": "切換到{mode}"
   }
 }
