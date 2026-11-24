@@ -27,9 +27,14 @@ function changeTheme() {
 </script>
 
 <template>
-  <Button variant="ghost" size="icon" :aria-label="switchLabel" :title="switchLabel" @click="changeTheme">
-    <WeatherSunny24Filled v-if="currentMode === 'light'" aria-hidden="true" />
-    <WeatherMoon24Filled v-else-if="currentMode === 'dark'" aria-hidden="true" />
-    <Desktop24Regular v-else aria-hidden="true" />
-  </Button>
+  <Tooltip>
+    <TooltipTrigger as-child>
+      <Button variant="ghost" size="icon" :aria-label="switchLabel" @click="changeTheme">
+        <WeatherSunny24Filled v-if="currentMode === 'light'" aria-hidden="true" />
+        <WeatherMoon24Filled v-else-if="currentMode === 'dark'" aria-hidden="true" />
+        <Desktop24Regular v-else aria-hidden="true" />
+      </Button>
+    </TooltipTrigger>
+    <TooltipContent>{{ switchLabel }}</TooltipContent>
+  </Tooltip>
 </template>

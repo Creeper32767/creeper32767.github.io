@@ -7,8 +7,6 @@ import type { ViewUpdate } from "@codemirror/view";
 import type { EditorState, Extension } from "@codemirror/state";
 import { oneDark } from "@codemirror/theme-one-dark";
 
-const { t } = useI18n();
-
 // 语言包导入
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
@@ -17,6 +15,8 @@ import { css } from "@codemirror/lang-css";
 import { cpp } from "@codemirror/lang-cpp";
 import { java } from "@codemirror/lang-java";
 import { markdown } from "@codemirror/lang-markdown";
+
+const { t } = useI18n();
 
 interface LanguageOption {
   value: string;
@@ -231,28 +231,28 @@ onUnmounted(() => {
         <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b px-4 py-3">
           <div class="flex flex-wrap gap-3">
             <Button variant="outline" @click="openFilePicker">
-              <DocumentArrowUp20Regular /> 上传文件
+              <DocumentArrowUp20Regular /> 上传
             </Button>
             <Button @click="saveFile">
-              <DocumentSave20Regular /> 下载文件
+              <DocumentSave20Regular /> 下载
             </Button>
-            <input ref="fileInput" class="hidden" type="file" @change="handleFileUpload" />
+            <input ref="fileInput" class="hidden" type="file" @change="handleFileUpload" >
           </div>
-          <Button @click="requestClear" class="flex ml-auto">
-            <Delete20Regular /> 清空内容
+          <Button class="flex ml-auto" @click="requestClear">
+            <Delete20Regular /> 清空
           </Button>
         </div>
 
         <!-- 文件名 / 语言 -->
-        <div class="flex flex-col gap-y-4 border-b p-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-center gap-2 text-sm font-semibold sm:w-1/2 sm:justify-start">
-            <span class="w-14 shrink-0">文件名</span>
-            <Input class="flex-1" v-model="fileName" placeholder="输入文件名" />
-          </div>
-          <div class="flex items-center gap-2 text-sm font-semibold sm:w-1/4 sm:justify-end">
-            <span class="w-14 shrink-0">语言</span>
-            <Select class="flex-1" :model-value="language" @update:model-value="handleLanguageChange">
-              <SelectTrigger class="flex-1">
+        <div class="flex flex-col gap-y-4 border-b p-4 sm:flex-row sm:items-start sm:justify-between">
+          <Field class="sm:w-1/2">
+            <FieldLabel for="editor-file-name">文件名</FieldLabel>
+            <Input id="editor-file-name" v-model="fileName" placeholder="输入文件名" />
+          </Field>
+          <Field class="sm:w-1/4">
+            <FieldLabel for="editor-language">语言</FieldLabel>
+            <Select :model-value="language" @update:model-value="handleLanguageChange">
+              <SelectTrigger id="editor-language" class="w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -261,12 +261,11 @@ onUnmounted(() => {
                 </SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </Field>
         </div>
 
         <!-- 代码编辑区（CodeMirror 6） -->
         <div class="flex min-h-112 flex-1 flex-col overflow-hidden bg-muted/40">
-          <!-- 建议使用 ClientOnly 防止 Nuxt SSR 报错 -->
           <ClientOnly>
             <Codemirror v-model="code" :extensions="extensions" placeholder="开始编写代码..." :indent-with-tab="true"
               :tab-size="4" :autofocus="true" class="flex-1" @ready="handleReady" @update="handleUpdate" />
@@ -317,21 +316,21 @@ onUnmounted(() => {
       </DialogContent>
     </Dialog>
 
-    <!-- 清空确认 -->
-    <Dialog v-model:open="showClearConfirm">
-      <DialogContent class="max-w-md">
-        <DialogHeader>
-          <DialogTitle class="text-lg font-semibold">确认操作</DialogTitle>
-          <DialogDescription class="mt-1">
+    <!-- 清空确认（AlertDialog：破坏性操作必须显式选择） -->
+    <AlertDialog v-model:open="showClearConfirm">
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle class="text-lg font-semibold">确认操作</AlertDialogTitle>
+          <AlertDialogDescription>
             您确定要清空编辑器中的所有内容吗？此操作无法撤销。
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline" class="mt-1" @click="showClearConfirm = false">取消</Button>
-          <Button @click="performClear" class="mt-1">确认清空</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>取消</AlertDialogCancel>
+          <AlertDialogAction @click="performClear">确认清空</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   </div>
 
 </template>

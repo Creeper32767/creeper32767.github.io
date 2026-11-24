@@ -3,7 +3,7 @@ useSiteSeo();
 // @nuxtjs/i18n 的 useLocaleHead 负责按当前语言写入 <html lang>、hreflang 备用链接、canonical 与 og:locale
 useHead(useLocaleHead());
 
-// 切换主题时给 <html> 短暂添加 theme-transition 类，让颜色变化有平滑过渡动画
+// 切换主题时给 <html> 添加临时 theme-transition 类，让颜色变化有平滑过渡动画
 const colorMode = useColorMode();
 const themeTransitionDuration = 250;
 let themeTransitionTimeout: number | undefined;
@@ -31,8 +31,12 @@ watch(
 </script>
 
 <template>
-  <NuxtRouteAnnouncer />
-  <LayoutDefault>
-    <NuxtPage />
-  </LayoutDefault>
+  <TooltipProvider>
+    <NuxtRouteAnnouncer />
+    <LayoutDefault>
+      <NuxtPage />
+    </LayoutDefault>
+    <!-- 全局 toast：跟随 @nuxtjs/color-mode 的实际生效主题 -->
+    <Toaster :theme="colorMode === 'dark' ? 'dark' : 'light'" position="top-center" rich-colors close-button />
+  </TooltipProvider>
 </template>

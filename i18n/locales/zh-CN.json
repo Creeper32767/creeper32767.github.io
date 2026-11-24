@@ -104,7 +104,14 @@
     "panelTitle": "导航",
     "openSettings": "打开语言和主题设置",
     "closeSettings": "关闭语言和主题设置",
-    "settingsPanelTitle": "语言和主题设置"
+    "settingsPanelTitle": "语言和主题设置",
+    "searchLabel": "搜索站点",
+    "searchPlaceholder": "搜索页面…",
+    "searchEmpty": "未找到匹配的页面",
+    "openInNewTab": "在新标签页打开",
+    "copyLink": "复制链接",
+    "linkCopied": "链接已复制",
+    "linkCopyFailed": "复制链接失败"
   },
   "home": {
     "eyebrow": {
@@ -151,6 +158,7 @@
     "collectionWorks": "全部作品",
     "searchPlaceholder": "搜索作品",
     "noSearchResults": "没有找到匹配的作品。",
+    "noSearchResultsDescription": "尝试调整搜索关键词或筛选条件，以找到您想要的内容。",
     "collectionEyebrow": "作品集 / {key}",
     "collectionDescription": "共 {count} 篇作品，点击卡片查看完整内容。",
     "imagePlaceholder": "图片展示位",
@@ -167,9 +175,18 @@
         "subtitle": "Reading notes",
         "description": "总结阅读过的书籍，提炼其中的精华。",
         "entries": [
-          { "text": "生命的意义在于坚持与希望，无论遭遇多少苦难。", "source": "余华《活着》" },
-          { "text": "了解人类历史的发展，有助于我们更好地理解当下与未来。", "source": "尤瓦尔·赫拉利《人类简史》" },
-          { "text": "制定并遵循个人和工作中的原则，可以帮助我们做出更好的决策。", "source": "瑞·达利欧《原则》" }
+          {
+            "text": "生命的意义在于坚持与希望，无论遭遇多少苦难。",
+            "source": "余华《活着》"
+          },
+          {
+            "text": "了解人类历史的发展，有助于我们更好地理解当下与未来。",
+            "source": "尤瓦尔·赫拉利《人类简史》"
+          },
+          {
+            "text": "制定并遵循个人和工作中的原则，可以帮助我们做出更好的决策。",
+            "source": "瑞·达利欧《原则》"
+          }
         ]
       },
       "poems": {
@@ -177,9 +194,17 @@
         "subtitle": "Poem of the day",
         "description": "记录每天读到的诗句，感受文字的美。",
         "entries": [
-          { "text": "诗歌是一种美丽的谎言。", "source": "但丁" },
-          { "text": "诗是人类向未来寄发的信息，诗给人类以朝向理想的勇气。", "source": "泰戈尔" },
-          { "text": "诗是翻腾的内心之叹息。" }
+          {
+            "text": "诗歌是一种美丽的谎言。",
+            "source": "但丁"
+          },
+          {
+            "text": "诗是人类向未来寄发的信息，诗给人类以朝向理想的勇气。",
+            "source": "泰戈尔"
+          },
+          {
+            "text": "诗是翻腾的内心之叹息。"
+          }
         ]
       },
       "writings": {
@@ -187,9 +212,15 @@
         "subtitle": "Writing practice",
         "description": "通过写作提升表达能力，记录生活点滴。",
         "entries": [
-          { "text": "写作是思考的延伸，通过文字整理思绪。" },
-          { "text": "坚持每天写作，可以培养良好的习惯和表达能力。" },
-          { "text": "分享自己的故事，可以激励和帮助他人。" }
+          {
+            "text": "写作是思考的延伸，通过文字整理思绪。"
+          },
+          {
+            "text": "坚持每天写作，可以培养良好的习惯和表达能力。"
+          },
+          {
+            "text": "分享自己的故事，可以激励和帮助他人。"
+          }
         ]
       }
     }

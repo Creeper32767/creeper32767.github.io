@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, ref } from "vue";
+import { toast } from "vue-sonner";
 
 const { t } = useI18n();
 
@@ -43,10 +44,12 @@ async function handlePaste() {
   try {
     url.value = await navigator.clipboard.readText();
     statusMessage.value = "链接已成功粘贴！";
+    toast.success("链接已成功粘贴！");
     await loadPage();
   } catch (error) {
     console.error("Clipboard read failed:", error);
     statusMessage.value = "无法读取剪贴板。请确保您已授予权限。";
+    toast.error("无法读取剪贴板。请确保您已授予权限。");
   }
 }
 
@@ -78,6 +81,7 @@ function handleFrameLoad() {
   isLoading.value = false;
   isReady.value = true;
   statusMessage.value = "网页加载成功！您现在可以与下方页面交互，并在合适的时机点击按钮生成快照。";
+  toast.success("网页加载成功！");
 }
 
 async function loadHtml2Canvas() {
@@ -144,9 +148,11 @@ async function capturePage() {
     }
     downloadName.value = `snapshot-${hostname}-${Date.now()}.png`;
     statusMessage.value = "快照生成成功！您可以下载图片了。";
+    toast.success("快照生成成功！您可以下载图片了。");
   } catch (error) {
     console.error("Screenshot capture failed:", error);
     statusMessage.value = "错误：生成图片失败。可能是由于网站内容的安全限制。";
+    toast.error("生成图片失败。可能是由于网站内容的安全限制。");
   } finally {
     clearTimeout(captureTimeout);
     isCapturing.value = false;
@@ -195,40 +201,46 @@ declare global {
             <Input v-model="url" class="min-w-0 flex-1" placeholder="输入或粘贴一个完整的网址" @keyup.enter="loadPage" />
             <div class="flex shrink-0 gap-2">
               <Button variant="outline" type="button" @click="handlePaste">粘贴</Button>
-              <Button type="button" @click="loadPage">加载网页</Button>
+              <Button type="button" :disabled="isLoading" @click="loadPage">
+                <Spinner v-if="isLoading" class="size-4" />
+                加载网页
+              </Button>
             </div>
           </div>
         </div>
 
         <div class="space-y-4">
           <div class="flex items-start justify-between gap-4">
-            <p class="max-w-prose text-sm leading-6 text-muted-foreground">{{ statusMessage }}</p>
-            <span v-if="isReady" class="shrink-0 text-xs font-medium text-primary">已就绪</span>
+            <p class="flex max-w-prose items-center gap-2 text-sm leading-6 text-muted-foreground">
+              <Spinner v-if="isLoading || isCapturing" class="size-4 shrink-0" />
+              {{ statusMessage }}
+            </p>
           </div>
           <div v-if="isCapturing" class="flex items-center gap-3">
-            <progress class="h-2 w-full accent-primary" :value="progress" max="100"></progress>
+            <Progress :model-value="progress" />
             <span class="w-10 text-right text-sm tabular-nums text-muted-foreground">{{ progress }}%</span>
           </div>
           <div class="flex flex-wrap gap-3">
             <Button v-if="isReady && !isCapturing" type="button" @click="capturePage">手动捕获页面</Button>
-            <a v-if="downloadUrl" :href="downloadUrl" :download="downloadName"
-              class="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover">
+            <Button v-if="downloadUrl" as="a" :href="downloadUrl" :download="downloadName">
               下载 PNG 图片
-            </a>
+            </Button>
           </div>
         </div>
 
         <div class="space-y-6 border-t border-border pt-8 text-sm">
-          <div>
-            <h2 class="font-semibold">重要说明</h2>
-            <p class="mt-2 leading-6 text-muted-foreground">
+          <Alert>
+            <AlertTitle>重要说明</AlertTitle>
+            <AlertDescription class="leading-6">
               由于浏览器安全策略，本工具无法捕获所有网站。若目标网站禁止被嵌入，则快照将失败或显示为空白。
-            </p>
-          </div>
+            </AlertDescription>
+          </Alert>
           <div>
             <h2 class="font-semibold">浏览器信息</h2>
-            <pre
-              class="mt-3 overflow-x-auto whitespace-pre-wrap text-xs leading-6 text-muted-foreground">{{ headers }}</pre>
+            <ClientOnly>
+              <pre
+                class="mt-3 overflow-x-auto whitespace-pre-wrap text-xs leading-6 text-muted-foreground">{{ headers }}</pre>
+            </ClientOnly>
           </div>
         </div>
       </section>
@@ -241,7 +253,7 @@ declare global {
           </div>
           <iframe ref="iframeRef" :src="iframeSource" title="网页预览" class="h-[min(70vh,800px)] w-full bg-background"
             sandbox="allow-same-origin allow-scripts allow-forms" @load="handleFrameLoad"
-            @error="handleFrameError"></iframe>
+            @error="handleFrameError" />
         </div>
       </section>
     </div>

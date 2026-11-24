@@ -138,8 +138,8 @@ function itemDelay(index: number): string {
       <ItemGroup v-if="navigation.externals.length" class="shrink-0 border-t border-border pt-4">
         <Item v-for="item in navigation.externals" :key="`${item.label}-${item.animationIndex}`" size="sm"
           class="navigation-item rounded-xl p-0" :style="{ '--item-delay': itemDelay(item.animationIndex) }">
-          <a class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-muted
-            hover:bg-muted/20 hover:text-primary" :href="String(item.to)" target="_blank" rel="noopener noreferrer"
+          <NuxtLink class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-muted
+            hover:bg-muted/20 hover:text-primary" :to="String(item.to)" target="_blank" rel="noopener noreferrer"
             @click="emit('close')">
             <ItemMedia variant="icon" class="navigation-item-icon text-primary">
               <component :is="resolveIcon(item.icon)" aria-hidden="true" />
@@ -150,7 +150,7 @@ function itemDelay(index: number): string {
             <ItemActions>
               <Open16Regular class="h-4 w-4 opacity-60" aria-hidden="true" />
             </ItemActions>
-          </a>
+          </NuxtLink>
         </Item>
       </ItemGroup>
     </SheetContent>

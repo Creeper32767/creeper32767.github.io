@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { CalendarLtr16Regular } from "@ntkrnl64/fluentui-vue-icons";
+import { parseDate } from "@internationalized/date";
 import { computed, ref } from "vue";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 interface ReaderCardState {
   title: string;
@@ -51,6 +53,19 @@ const formattedDate = computed(() => {
   if (!state.value.date) return "未设置日期";
   const [year, month, day] = state.value.date.split("-");
   return `${year}/${Number(month)}/${Number(day)}`;
+});
+
+const cardDate = computed({
+  get: () => {
+    try {
+      return parseDate(state.value.date);
+    } catch {
+      return undefined;
+    }
+  },
+  set: (value) => {
+    if (value) state.value.date = value.toString();
+  },
 });
 
 const quotes = [
@@ -415,33 +430,43 @@ async function exportCard() {
             <p class="mt-1 text-sm text-muted">编辑内容后，右侧预览会即时更新。</p>
           </div>
           <div class="grid gap-4 sm:grid-cols-2">
-            <div class="grid gap-2">
-              <p for="card-title">卡片标题</p>
+            <Field>
+              <FieldLabel for="card-title">卡片标题</FieldLabel>
               <Input id="card-title" v-model="state.title" placeholder="例如：致所有不甘平凡的你" />
-            </div>
-            <div class="grid gap-2">
-              <p for="card-name">摘录者</p>
+            </Field>
+            <Field>
+              <FieldLabel for="card-name">摘录者</FieldLabel>
               <Input id="card-name" v-model="state.name" placeholder="输入您的名字" />
-            </div>
-            <div class="grid gap-2">
-              <p for="card-book">书籍标题</p>
+            </Field>
+            <Field>
+              <FieldLabel for="card-book">书籍标题</FieldLabel>
               <Input id="card-book" v-model="state.book" placeholder="输入书籍名称" />
-            </div>
-            <div class="grid gap-2">
-              <p for="card-author">书籍作者</p>
+            </Field>
+            <Field>
+              <FieldLabel for="card-author">书籍作者</FieldLabel>
               <Input id="card-author" v-model="state.author" placeholder="输入作者姓名" />
-            </div>
-            <div class="grid gap-2">
-              <p for="card-date">摘录日期</p>
-              <Input id="card-date" v-model="state.date" type="date" />
-            </div>
-            <div class="grid gap-2">
-              <span class="text-sm font-medium leading-none">个人照片</span>
+            </Field>
+            <Field>
+              <FieldLabel for="card-date">摘录日期</FieldLabel>
+              <Popover>
+                <PopoverTrigger as-child>
+                  <Button id="card-date" variant="outline" class="w-full justify-start font-normal">
+                    <CalendarLtr16Regular class="size-4 text-muted" aria-hidden="true" />
+                    {{ formattedDate }}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent class="w-auto p-0">
+                  <Calendar v-model="cardDate" :locale="locale" />
+                </PopoverContent>
+              </Popover>
+            </Field>
+            <Field>
+              <FieldLabel>个人照片</FieldLabel>
               <Button variant="outline" class="justify-start font-normal" type="button" @click="openFilePicker">
                 {{ imageData ? "更换图片" : "选择图片" }}
               </Button>
-              <input ref="fileInput" class="hidden" type="file" accept="image/*" @change="handleImage" />
-            </div>
+              <input ref="fileInput" class="hidden" type="file" accept="image/*" @change="handleImage" >
+            </Field>
           </div>
 
           <div class="border-t border-border pt-6">
@@ -450,27 +475,27 @@ async function exportCard() {
               <Button variant="ghost" size="sm" class="text-primary hover:text-primary" type="button"
                 @click="loadRandomExample">加载随机示例</Button>
             </div>
-            <div class="grid gap-2">
-              <p for="card-quote">摘抄内容</p>
+            <Field>
+              <FieldLabel for="card-quote">摘抄内容</FieldLabel>
               <Textarea id="card-quote" v-model="state.quote" rows="5" class="resize-y leading-relaxed" />
-            </div>
+            </Field>
             <div class="mt-3 flex flex-wrap gap-2">
               <Button v-for="quote in quotes" :key="quote" variant="outline" size="sm"
                 class="h-auto whitespace-normal px-2.5 py-1.5 text-left text-xs font-normal text-muted hover:text-primary"
                 type="button" @click="chooseQuote(quote)">{{ quote }}</Button>
             </div>
-            <div class="mt-4 grid gap-2">
-              <p for="card-insight">读书感悟（可选）</p>
+            <Field class="mt-4">
+              <FieldLabel for="card-insight">读书感悟（可选）</FieldLabel>
               <Textarea id="card-insight" v-model="state.insight" rows="3" placeholder="输入您的读书感悟..."
                 class="resize-y leading-relaxed" />
-            </div>
+            </Field>
           </div>
 
           <div class="border-t border-border pt-6">
             <h2 class="mb-4 text-xl font-semibold">自定义样式</h2>
             <div class="grid gap-4 sm:grid-cols-2">
-              <div class="grid gap-2">
-                <p for="title-font">标题字体</p>
+              <Field>
+                <FieldLabel for="title-font">标题字体</FieldLabel>
                 <Select v-model="state.titleFont">
                   <SelectTrigger id="title-font" class="w-full">
                     <SelectValue placeholder="选择标题字体" />
@@ -482,9 +507,9 @@ async function exportCard() {
                     <SelectItem value="system-ui, sans-serif">系统无衬线</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-              <div class="grid gap-2">
-                <p for="text-font">正文字体</p>
+              </Field>
+              <Field>
+                <FieldLabel for="text-font">正文字体</FieldLabel>
                 <Select v-model="state.textFont">
                   <SelectTrigger id="text-font" class="w-full">
                     <SelectValue placeholder="选择正文字体" />
@@ -496,24 +521,24 @@ async function exportCard() {
                     <SelectItem value="system-ui, sans-serif">系统无衬线</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
+              </Field>
               <div class="flex items-center justify-between gap-3 rounded-lg border border-input px-3 py-2">
-                <p for="title-color" class="cursor-pointer">标题颜色</p>
+                <Label for="title-color" class="cursor-pointer">标题颜色</Label>
                 <Input id="title-color" v-model="state.titleColor" type="color"
                   class="h-8 w-12 cursor-pointer rounded-md border border-input bg-transparent p-1" />
               </div>
               <div class="flex items-center justify-between gap-3 rounded-lg border border-input px-3 py-2">
-                <p for="text-color" class="cursor-pointer">正文颜色</p>
+                <Label for="text-color" class="cursor-pointer">正文颜色</Label>
                 <Input id="text-color" v-model="state.textColor" type="color"
                   class="h-8 w-12 cursor-pointer rounded-md border border-input bg-transparent p-1" />
               </div>
               <div class="flex items-center justify-between gap-3 rounded-lg border border-input px-3 py-2">
-                <p for="bg-color" class="cursor-pointer">背景颜色</p>
+                <Label for="bg-color" class="cursor-pointer">背景颜色</Label>
                 <Input id="bg-color" v-model="state.background" type="color"
                   class="h-8 w-12 cursor-pointer rounded-md border border-input bg-transparent p-1" />
               </div>
               <div class="flex items-center justify-between gap-3 rounded-lg border border-input px-3 py-2">
-                <p for="accent-color" class="cursor-pointer">强调色</p>
+                <Label for="accent-color" class="cursor-pointer">强调色</Label>
                 <Input id="accent-color" v-model="state.accent" type="color"
                   class="h-8 w-12 cursor-pointer rounded-md border border-input bg-transparent p-1" />
               </div>
@@ -521,19 +546,28 @@ async function exportCard() {
           </div>
 
           <div class="space-y-3 border-t border-border pt-6">
-            <label class="grid gap-2">
-              <span class="text-sm font-medium">导出清晰度</span>
-              <NativeSelect :model-value="String(exportScale)" :disabled="exporting" class="w-full"
+            <Field>
+              <FieldLabel>导出清晰度</FieldLabel>
+              <Select :model-value="String(exportScale)" :disabled="exporting"
                 @update:model-value="exportScale = Number($event)">
-                <NativeSelectOption :value="1">1x（1200 × 900）</NativeSelectOption>
-                <NativeSelectOption :value="2">2x（2400 × 1800，推荐）</NativeSelectOption>
-                <NativeSelectOption :value="3">3x（3600 × 2700）</NativeSelectOption>
-              </NativeSelect>
-            </label>
+                <SelectTrigger class="w-full">
+                  <SelectValue placeholder="选择导出清晰度" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1x（1200 × 900）</SelectItem>
+                  <SelectItem value="2">2x（2400 × 1800，推荐）</SelectItem>
+                  <SelectItem value="3">3x（3600 × 2700）</SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
             <Button class="w-full" type="button" :disabled="exporting" @click="exportCard">
+              <Spinner v-if="exporting" class="size-4" />
               {{ exporting ? "正在生成图片…" : "导出为高清图片" }}
             </Button>
-            <p v-if="exportError" class="text-sm text-red-500">{{ exportError }}</p>
+            <Alert v-if="exportError" variant="destructive">
+              <AlertTitle>导出失败</AlertTitle>
+              <AlertDescription>{{ exportError }}</AlertDescription>
+            </Alert>
             <p class="text-xs text-muted">导出完成后会自动下载 PNG 文件，也可以在下方预览区再次下载。</p>
           </div>
         </section>
@@ -550,7 +584,7 @@ async function exportCard() {
                   <h2 class="text-3xl font-bold leading-tight sm:text-4xl"
                     :style="{ color: state.titleColor, fontFamily: state.titleFont }">{{ state.title
                       || "卡片标题" }}</h2>
-                  <p class="mt-3 text-sm opacity-60">{{ state.name || "摘录者" }}　摘录于 {{ formattedDate }}
+                  <p class="mt-3 text-sm opacity-60">{{ state.name || "摘录者" }}&#x3000;摘录于 {{ formattedDate }}
                   </p>
                 </div>
                 <span class="text-5xl leading-none opacity-15" :style="{ color: state.accent }">❝</span>
@@ -565,7 +599,7 @@ async function exportCard() {
                 :style="{ borderColor: `${state.accent}25`, color: state.textColor }">
                 <div class="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full"
                   :style="{ backgroundColor: `${state.accent}14`, color: state.accent }">
-                  <img v-if="imageData" :src="imageData" alt="个人照片" class="h-full w-full object-cover" />
+                  <img v-if="imageData" :src="imageData" alt="个人照片" class="h-full w-full object-cover" >
                   <span v-else>阅读</span>
                 </div>
                 <div class="min-w-0 text-sm">
@@ -580,9 +614,8 @@ async function exportCard() {
           </div>
           <div v-if="outputData" class="mt-6 rounded-2xl border border-border bg-background p-5 shadow-sm">
             <h3 class="mb-3 font-semibold">导出的卡片图片</h3>
-            <img :src="outputData" alt="导出的卡片" class="w-full rounded-xl" />
-            <a class="mt-4 block rounded-xl bg-primary px-4 py-3 text-center font-semibold text-white transition hover:-translate-y-px hover:bg-primary-hover"
-              :href="outputData" :download="exportFileName">下载高清图片</a>
+            <img :src="outputData" alt="导出的卡片" class="w-full rounded-xl" >
+            <Button as="a" class="mt-4 w-full" :href="outputData" :download="exportFileName">下载高清图片</Button>
           </div>
         </section>
       </div>

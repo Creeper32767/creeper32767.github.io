@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ArrowLeft16Regular } from "@ntkrnl64/fluentui-vue-icons";
 import { pinyin } from "pinyin-pro";
+import { toast } from "vue-sonner";
 
 interface Passage {
   id: string;
@@ -14,12 +14,18 @@ interface Heading {
   level: number;
 }
 
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
 const props = withDefaults(defineProps<{
-  backHref: string;
+  breadcrumbs?: BreadcrumbItem[];
   passages?: Passage[];
   currentId?: string;
   headings?: Heading[];
 }>(), {
+  breadcrumbs: () => [],
   passages: () => [],
   headings: () => [],
 });
@@ -74,21 +80,45 @@ const passageGroups = computed(() => {
 
   return Array.from(groups, ([initial, items]) => ({ initial, items }));
 });
+
+// 右键菜单：在新标签页打开 / 复制链接
+function getPassageUrl(passage: Passage): string {
+  return new URL(passage.url ?? window.location.href, window.location.origin).href;
+}
+
+function openPassageInNewTab(passage: Passage) {
+  window.open(getPassageUrl(passage), "_blank", "noopener");
+}
+
+async function copyPassageLink(passage: Passage) {
+  try {
+    await navigator.clipboard.writeText(getPassageUrl(passage));
+    toast.success(t("navigation.linkCopied"));
+  } catch {
+    toast.error(t("navigation.linkCopyFailed"));
+  }
+}
 </script>
 
 <template>
-  <main class="portfolio-presentation mx-auto w-[calc(100%-2rem)] flex-1 py-12 sm:py-16 lg:mx-0 lg:w-full">
+  <main class="portfolio-presentation mx-auto w-[calc(100%-2rem)] flex-1 py-12 lg:mx-0 lg:w-full">
     <div v-if="props.passages.length || props.headings.length"
       class="grid grid-cols-1 items-start lg:grid-cols-[minmax(0,12rem)_minmax(0,1fr)_minmax(0,12rem)]">
       <aside
-        class="max-lg:order-3 max-lg:static max-lg:mb-4 max-lg:max-h-none max-lg:border-b max-lg:border-border max-lg:pt-4 lg:sticky lg:top-30 lg:max-h-[calc(100vh-7.5rem)] lg:overflow-y-auto lg:border-r lg:border-border lg:px-4">
-        <Button as-child variant="ghost" size="sm"
-          class="mb-6 w-fit bg-transparent p-0 text-foreground hover:bg-transparent max-lg:mb-4">
-          <NuxtLink :to="props.backHref">
-            <ArrowLeft16Regular class="size-4" aria-hidden="true" />
-            {{ t("portfolio.returnPrevious") }}
-          </NuxtLink>
-        </Button>
+        class="max-lg:order-3 max-lg:static max-lg:mb-8 max-lg:max-h-none max-lg:border-b max-lg:border-border max-lg:pt-4 lg:sticky lg:top-30 lg:max-h-[calc(100vh-7.5rem)] lg:overflow-y-auto lg:border-r lg:border-border lg:px-4">
+        <Breadcrumb v-if="props.breadcrumbs.length" class="mb-12 max-lg:mb-4">
+          <BreadcrumbList class="flex-wrap">
+            <template v-for="(breadcrumb, index) in props.breadcrumbs" :key="breadcrumb.label">
+              <BreadcrumbSeparator v-if="index" />
+              <BreadcrumbItem>
+                <BreadcrumbLink v-if="breadcrumb.href" as-child>
+                  <NuxtLink :to="breadcrumb.href">{{ breadcrumb.label }}</NuxtLink>
+                </BreadcrumbLink>
+                <BreadcrumbPage v-else>{{ breadcrumb.label }}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </template>
+          </BreadcrumbList>
+        </Breadcrumb>
 
         <template v-if="props.passages.length">
           <h2 class="mb-3 text-[0.7rem] font-bold uppercase tracking-widest text-muted">
@@ -100,16 +130,28 @@ const passageGroups = computed(() => {
               <li v-for="group in passageGroups" :key="group.initial" class="max-lg:w-full">
                 <div class="mb-1 flex items-center gap-2 max-lg:mb-0 max-lg:inline-flex max-lg:align-middle">
                   <span class="text-[0.65rem] font-bold text-primary">{{ group.initial }}</span>
-                  <span class="h-px flex-1 bg-border max-lg:hidden"></span>
+                  <span class="h-px flex-1 bg-border max-lg:hidden" />
                 </div>
                 <ul class="space-y-1 max-lg:flex max-lg:flex-wrap max-lg:gap-x-1 max-lg:gap-y-1">
                   <li v-for="passage in group.items" :key="passage.id" class="max-lg:max-w-full">
-                    <a :href="passage.url" target="_self"
-                      :aria-current="passage.id === props.currentId ? 'page' : undefined"
-                      class="block wrap-anywhere border-l-2 border-transparent px-2 py-1.5 text-[0.8rem] leading-normal text-muted transition-[color,border-color] duration-150 hover:border-primary hover:text-primary max-lg:rounded-full max-lg:border max-lg:px-[0.65rem] max-lg:py-1.5"
-                      :class="{ 'border-primary text-primary': passage.id === props.currentId }">
-                      {{ passage.title }}
-                    </a>
+                    <ContextMenu>
+                      <ContextMenuTrigger as-child>
+                        <NuxtLink :to="passage.url" target="_self"
+                          :aria-current="passage.id === props.currentId ? 'page' : undefined"
+                          class="block wrap-anywhere border-l-2 border-transparent px-2 py-1.5 text-[0.8rem] leading-normal text-muted transition-[color,border-color] duration-150 hover:border-primary hover:text-primary max-lg:rounded-full max-lg:border max-lg:px-[0.65rem] max-lg:py-1.5"
+                          :class="{ 'border-primary text-primary': passage.id === props.currentId }">
+                          {{ passage.title }}
+                        </NuxtLink>
+                      </ContextMenuTrigger>
+                      <ContextMenuContent>
+                        <ContextMenuItem @select="openPassageInNewTab(passage)">
+                          {{ t("navigation.openInNewTab") }}
+                        </ContextMenuItem>
+                        <ContextMenuItem @select="copyPassageLink(passage)">
+                          {{ t("navigation.copyLink") }}
+                        </ContextMenuItem>
+                      </ContextMenuContent>
+                    </ContextMenu>
                   </li>
                 </ul>
               </li>

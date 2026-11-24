@@ -104,7 +104,14 @@
     "panelTitle": "導航",
     "openSettings": "打開語言和主題設置",
     "closeSettings": "關閉語言和主題設置",
-    "settingsPanelTitle": "語言和主題設置"
+    "settingsPanelTitle": "語言和主題設置",
+    "searchLabel": "搜尋網站",
+    "searchPlaceholder": "搜尋頁面…",
+    "searchEmpty": "找不到符合的頁面",
+    "openInNewTab": "在新分頁開啟",
+    "copyLink": "複製連結",
+    "linkCopied": "連結已複製",
+    "linkCopyFailed": "複製連結失敗"
   },
   "home": {
     "eyebrow": {
@@ -151,6 +158,7 @@
     "collectionWorks": "全部作品",
     "searchPlaceholder": "搜尋作品",
     "noSearchResults": "沒有找到符合的作品。",
+    "noSearchResultsDescription": "嘗試調整搜索關鍵詞或篩選條件，以找到您想要的內容。",
     "collectionEyebrow": "作品集 / {key}",
     "collectionDescription": "共 {count} 篇作品，點擊卡片查看完整內容。",
     "imagePlaceholder": "圖片展示位",
@@ -167,9 +175,18 @@
         "subtitle": "Reading notes",
         "description": "整理讀過的書籍，提煉其中的精華。",
         "entries": [
-          { "text": "生命的意義在於堅持與希望，無論遭遇多少苦難。", "source": "余華《活著》" },
-          { "text": "了解人類歷史的發展，有助於我們更好地理解當下與未來。", "source": "尤瓦爾·赫拉利《人類大歷史》" },
-          { "text": "制定並遵循個人和工作中的原則，可以幫助我們做出更好的決策。", "source": "瑞·達利歐《原則》" }
+          {
+            "text": "生命的意義在於堅持與希望，無論遭遇多少苦難。",
+            "source": "余華《活著》"
+          },
+          {
+            "text": "了解人類歷史的發展，有助於我們更好地理解當下與未來。",
+            "source": "尤瓦爾·赫拉利《人類大歷史》"
+          },
+          {
+            "text": "制定並遵循個人和工作中的原則，可以幫助我們做出更好的決策。",
+            "source": "瑞·達利歐《原則》"
+          }
         ]
       },
       "poems": {
@@ -177,9 +194,17 @@
         "subtitle": "Poem of the day",
         "description": "記錄每天讀到的詩句，感受文字的美。",
         "entries": [
-          { "text": "詩歌是一種美麗的謊言。", "source": "但丁" },
-          { "text": "詩是人類向未來寄發的資訊，詩給人類以朝向理想的勇氣。", "source": "泰戈爾" },
-          { "text": "詩是翻騰的內心之嘆息。" }
+          {
+            "text": "詩歌是一種美麗的謊言。",
+            "source": "但丁"
+          },
+          {
+            "text": "詩是人類向未來寄發的資訊，詩給人類以朝向理想的勇氣。",
+            "source": "泰戈爾"
+          },
+          {
+            "text": "詩是翻騰的內心之嘆息。"
+          }
         ]
       },
       "writings": {
@@ -187,9 +212,15 @@
         "subtitle": "Writing practice",
         "description": "透過寫作提升表達能力，記錄生活點滴。",
         "entries": [
-          { "text": "寫作是思考的延伸，透過文字整理思緒。" },
-          { "text": "堅持每天寫作，可以培養良好的習慣和表達能力。" },
-          { "text": "分享自己的故事，可以激勵和幫助他人。" }
+          {
+            "text": "寫作是思考的延伸，透過文字整理思緒。"
+          },
+          {
+            "text": "堅持每天寫作，可以培養良好的習慣和表達能力。"
+          },
+          {
+            "text": "分享自己的故事，可以激勵和幫助他人。"
+          }
         ]
       }
     }

@@ -68,6 +68,7 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "@nuxtjs/i18n",
     "@nuxtjs/color-mode",
+    "@nuxt/eslint",
   ],
 
   i18n: {
@@ -140,7 +141,8 @@ export default defineNuxtConfig({
 
   compatibilityDate: "2024-04-03",
 
-  css: ["~/assets/main.css"],
+  // vue-sonner v2 将样式独立发布，必须显式引入，否则 Toaster 弹出的 toast 无定位样式（表现为调用无效）
+  css: ["~/assets/main.css", "vue-sonner/style.css"],
 
   app: {
     head: {

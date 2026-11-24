@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Search16Regular, ErrorCircle16Regular } from "@ntkrnl64/fluentui-vue-icons";
+import { Search16Regular, ErrorCircle20Regular } from "@ntkrnl64/fluentui-vue-icons";
 
 interface PortfolioItem {
   id: string;
@@ -77,7 +77,10 @@ useSiteSeo({
 </script>
 
 <template>
-  <LayoutPortfolioPresentation :back-href="localePath('/portfolio')" :headings="headings">
+  <LayoutPortfolioPresentation :breadcrumbs="[
+    { label: t('portfolio.title'), href: localePath('/portfolio') },
+    { label: title },
+  ]" :headings="headings">
     <template #header>
       <header class="page-header page-header--compact w-full max-lg:order-1">
         <p class="page-eyebrow">{{ t("portfolio.collectionEyebrow", { key: collection }) }}</p>
@@ -89,12 +92,13 @@ useSiteSeo({
     <div class="mx-auto w-full max-w-6xl max-lg:order-4">
       <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 id="collection-works" class="text-xl font-semibold">{{ t("portfolio.collectionWorks") }}</h2>
-        <div class="relative w-full sm:max-w-xs">
-          <Search16Regular class="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted"
-            aria-hidden="true" />
-          <Input v-model="search" type="search" :placeholder="t('portfolio.searchPlaceholder')"
-            :aria-label="t('portfolio.searchPlaceholder')" class="pl-9" />
-        </div>
+        <InputGroup class="w-full sm:max-w-xs">
+          <InputGroupAddon>
+            <Search16Regular class="size-4" aria-hidden="true" />
+          </InputGroupAddon>
+          <InputGroupInput v-model="search" type="search" :placeholder="t('portfolio.searchPlaceholder')"
+            :aria-label="t('portfolio.searchPlaceholder')" />
+        </InputGroup>
       </div>
 
       <div v-if="filteredItems.length" class="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -128,10 +132,11 @@ useSiteSeo({
           </div>
         </article>
       </div>
-      <p v-else class="rounded-xl border border-dashed border-border p-8 text-center text-muted">
-        <ErrorCircle16Regular class="size-7 inline-flex" />
-        {{ t("portfolio.noSearchResults") }}
-      </p>
+      <Alert v-else class="border-dashed py-8 items-center justify-center bg-destructive/10 text-destructive">
+        <ErrorCircle20Regular aria-hidden="true" />
+        <AlertTitle class="text-base">{{ t("portfolio.noSearchResults") }}</AlertTitle>
+        <AlertDescription class="mt-1.5 text-sm text-muted">{{ t("portfolio.noSearchResultsDescription") }}</AlertDescription>
+      </Alert>
     </div>
   </LayoutPortfolioPresentation>
 </template>

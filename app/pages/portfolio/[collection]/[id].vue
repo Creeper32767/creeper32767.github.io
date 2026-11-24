@@ -121,11 +121,14 @@ useSiteSeo({
 </script>
 
 <template>
-  <LayoutPortfolioPresentation :back-href="localePath(`/portfolio/${collection}`)" :passages="passages" :current-id="id"
-    :headings="headings">
+  <LayoutPortfolioPresentation :breadcrumbs="[
+    { label: t('portfolio.title'), href: localePath('/portfolio') },
+    { label: collectionTitle, href: localePath(`/portfolio/${collection}`) },
+    { label: title },
+  ]" :passages="passages" :current-id="id" :headings="headings">
     <template #header>
       <AspectRatio :ratio="2 / 1"
-        class="detail-hero mx-auto flex w-full max-w-4xl items-center justify-center overflow-hidden rounded-2xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-700 motion-safe:ease-out max-lg:order-1"
+        class="detail-hero mx-auto flex w-full mb-8 items-center justify-center overflow-hidden rounded-2xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-700 motion-safe:ease-out max-lg:order-1"
         :style="{ viewTransitionName: heroViewTransitionName }">
         <div
           class="text-[clamp(5rem,16vw,10rem)] font-bold text-[color-mix(in_srgb,var(--app-primary)_24%,transparent)]"
@@ -136,20 +139,19 @@ useSiteSeo({
       </AspectRatio>
     </template>
 
-    <article class="mx-auto w-full max-w-4xl max-lg:order-4">
-      <div class="mt-10">
+    <article class="mx-auto w-full max-lg:order-4">
+      <div class="mt-4">
         <template v-if="hasLoadError">
-          <div class="rounded-xl border border-destructive/40 bg-destructive/5 p-6 text-center items-center"
-            role="alert">
-            <h1 class="text-xl font-semibold">
-              <ErrorCircle16Regular class="size-7 inline-flex" />
-              {{ t("portfolio.passageLoadError") }}
-            </h1>
-            <p class="mt-2 text-sm leading-6 text-muted">{{ t("portfolio.passageLoadErrorDescription") }}</p>
-            <Button class="mt-5" type="button" @click="refresh">
+          <Alert variant="destructive" class="items-center p-6 text-center sm:items-start sm:text-left">
+            <ErrorCircle16Regular class="size-7" />
+            <AlertTitle class="text-xl font-semibold">{{ t("portfolio.passageLoadError") }}</AlertTitle>
+            <AlertDescription class="mt-2 leading-6">
+              {{ t("portfolio.passageLoadErrorDescription") }}
+            </AlertDescription>
+            <Button class="col-start-2 mt-5" type="button" @click="refresh">
               {{ t("error.actions.retry") }}
             </Button>
-          </div>
+          </Alert>
         </template>
         <template v-else-if="page">
           <div class="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">

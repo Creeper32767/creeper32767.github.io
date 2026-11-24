@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import type { RouteLocationRaw } from "vue-router";
 import {
-  ChevronDown20Regular,
-  Navigation16Filled,
+  Settings20Regular,
+  Navigation20Filled,
+  Search20Regular,
 } from "@ntkrnl64/fluentui-vue-icons";
 
 export interface NavigationItem {
@@ -64,94 +65,41 @@ const currentThemeLabel = computed(() => {
   const preference = themeModes.find((mode) => mode === colorMode.preference) ?? "system";
   return t(`theme.${preference}`);
 });
-const settingsButtonRef = ref<HTMLButtonElement | null>(null);
-const settingsPanelRef = ref<HTMLElement | null>(null);
+// 移动端设置面板改用 Popover 组件：焦点圈定、Esc 关闭与点击外部关闭均由组件内置处理
+// 站内搜索（Command 面板）：Ctrl / ⌘ + K 全局快捷键唤起
+const isCommandOpen = ref(false);
 
-let previouslyFocused: HTMLElement | null = null;
-
-function onSettingsKeydown(event: KeyboardEvent) {
-  if (event.key === "Escape") {
-    event.preventDefault();
-    isSettingsPanelOpen.value = false;
-    return;
+const commandGroups = computed(() => {
+  const groups = new Map<string, NavigationItem[]>();
+  for (const item of navigationItems.value) {
+    const section = item.section ?? "navigation.panelTitle";
+    const group = groups.get(section) ?? [];
+    group.push(item);
+    groups.set(section, group);
   }
-
-  if (event.key !== "Tab" || !settingsPanelRef.value) {
-    return;
-  }
-
-  const focusable = settingsPanelRef.value.querySelectorAll<HTMLElement>(
-    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-  );
-  if (!focusable.length) {
-    return;
-  }
-
-  const first = focusable[0];
-  const last = focusable[focusable.length - 1];
-  if (!first || !last) {
-    return;
-  }
-
-  const active = document.activeElement;
-  if (event.shiftKey) {
-    if (active === first || !settingsPanelRef.value.contains(active)) {
-      event.preventDefault();
-      last.focus();
-    }
-  } else if (active === last || !settingsPanelRef.value.contains(active)) {
-    event.preventDefault();
-    first.focus();
-  }
-}
-
-function onDocumentPointerdown(event: PointerEvent) {
-  const target = event.target;
-  if (
-    !isSettingsPanelOpen.value ||
-    !(target instanceof Node) ||
-    settingsPanelRef.value?.contains(target) ||
-    settingsButtonRef.value?.contains(target) ||
-    (target instanceof Element && target.closest('[data-slot="select-content"]'))
-  ) {
-    return;
-  }
-
-  isSettingsPanelOpen.value = false;
-}
-
-watch(isSettingsPanelOpen, async (open) => {
-  if (typeof document === "undefined") {
-    return;
-  }
-
-  if (open) {
-    previouslyFocused =
-      (document.activeElement as HTMLElement | null) ?? settingsButtonRef.value;
-    document.addEventListener("keydown", onSettingsKeydown);
-    document.addEventListener("pointerdown", onDocumentPointerdown);
-    await nextTick();
-    settingsPanelRef.value
-      ?.querySelector<HTMLElement>(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      )
-      ?.focus();
-  } else {
-    document.removeEventListener("keydown", onSettingsKeydown);
-    document.removeEventListener("pointerdown", onDocumentPointerdown);
-    (previouslyFocused ?? settingsButtonRef.value)?.focus();
-    previouslyFocused = null;
-  }
+  return Array.from(groups, ([title, items]) => ({ title, items }));
 });
 
-onBeforeUnmount(() => {
-  if (typeof document === "undefined") {
+function runNavigationItem(item: NavigationItem) {
+  isCommandOpen.value = false;
+  if (item.external) {
+    window.open(String(item.to), "_blank", "noopener");
     return;
   }
+  void navigateTo(item.to);
+}
 
-  document.removeEventListener("keydown", onSettingsKeydown);
-  document.removeEventListener("pointerdown", onDocumentPointerdown);
-  (previouslyFocused ?? settingsButtonRef.value)?.focus();
+function onGlobalKeydown(event: KeyboardEvent) {
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+    event.preventDefault();
+    isCommandOpen.value = !isCommandOpen.value;
+  }
+}
+
+onMounted(() => window.addEventListener("keydown", onGlobalKeydown));
+
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", onGlobalKeydown);
 });
 </script>
 
@@ -176,59 +124,73 @@ onBeforeUnmount(() => {
             <CommonLanguageSwitcher />
           </slot>
           <CommonThemeToggle />
+          <Tooltip>
+            <TooltipTrigger as-child>
+              <Button variant="ghost" size="icon" type="button" :aria-label="t('navigation.searchLabel')"
+                @click="isCommandOpen = true">
+                <Search20Regular class="size-5" aria-hidden="true" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{{ t("navigation.searchLabel") }} (Ctrl K)</TooltipContent>
+          </Tooltip>
         </div>
-        <button ref="settingsButtonRef"
-          class="rounded-lg p-2 text-muted transition-colors hover:bg-primary/10 hover:text-primary sm:hidden"
-          type="button" :aria-label="t(isSettingsPanelOpen ? 'navigation.closeSettings' : 'navigation.openSettings')"
-          :title="t(isSettingsPanelOpen ? 'navigation.closeSettings' : 'navigation.openSettings')"
-          :aria-expanded="isSettingsPanelOpen" aria-controls="site-settings-panel"
-          @click="isSettingsPanelOpen = !isSettingsPanelOpen">
-          <span class="block transition-transform duration-250" :class="{ 'rotate-180': isSettingsPanelOpen }">
-            <ChevronDown20Regular class="size-5" aria-hidden="true" />
-          </span>
-        </button>
-        <Button variant="ghost" size="icon" type="button"
-          :aria-label="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')"
-          :title="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')" :aria-expanded="isPanelOpen"
-          aria-controls="site-navigation-panel" @click="isPanelOpen = !isPanelOpen">
-          <Navigation16Filled class="size-5" aria-hidden="true" />
-        </Button>
-      </div>
-      <Transition name="settings-panel">
-        <div v-if="isSettingsPanelOpen" id="site-settings-panel" ref="settingsPanelRef"
-          class="absolute top-full right-5 mt-2 flex flex-col gap-3 rounded-xl border border-border bg-background/95 p-3 shadow-lg backdrop-blur-xl sm:hidden"
-          role="dialog" aria-modal="true" :aria-label="t('navigation.settingsPanelTitle')">
-          <div class="flex items-center justify-between gap-6">
-            <span class="text-sm text-muted">{{ t("language.label") }}</span>
-            <slot name="actions">
-              <CommonLanguageSwitcher />
-            </slot>
-          </div>
-          <div class="flex items-center justify-between gap-6">
-            <span class="text-sm text-muted">{{ t("theme.label") }}</span>
-            <div class="flex items-center gap-2">
-              <span class="text-sm text-muted">{{ currentThemeLabel }}</span>
-              <CommonThemeToggle />
+        <Popover v-model:open="isSettingsPanelOpen">
+          <PopoverTrigger as-child>
+            <Button variant="ghost" size="icon" type="button"
+              class="text-muted hover:bg-primary/10 hover:text-primary sm:hidden"
+              :aria-label="t(isSettingsPanelOpen ? 'navigation.closeSettings' : 'navigation.openSettings')"
+              :title="t(isSettingsPanelOpen ? 'navigation.closeSettings' : 'navigation.openSettings')">
+              <span class="block transition-transform duration-250" :class="{ 'rotate-180': isSettingsPanelOpen }">
+                <Settings20Regular class="size-5" aria-hidden="true" />
+              </span>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent id="site-settings-panel" align="end" side="bottom" class="w-64"
+            :aria-label="t('navigation.settingsPanelTitle')">
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center justify-between gap-6">
+                <span class="text-sm text-muted">{{ t("language.label") }}</span>
+                <slot name="actions">
+                  <CommonLanguageSwitcher />
+                </slot>
+              </div>
+              <div class="flex items-center justify-between gap-6">
+                <span class="text-sm text-muted">{{ t("theme.label") }}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm text-muted">{{ currentThemeLabel }}</span>
+                  <CommonThemeToggle />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </Transition>
+          </PopoverContent>
+        </Popover>
+        <Tooltip>
+          <TooltipTrigger as-child>
+            <Button variant="ghost" size="icon" type="button"
+              :aria-label="t(isPanelOpen ? 'navigation.closePanel' : 'navigation.openPanel')"
+              :aria-expanded="isPanelOpen" aria-controls="site-navigation-panel" @click="isPanelOpen = !isPanelOpen">
+              <Navigation20Filled class="size-5" aria-hidden="true" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>{{ t(isPanelOpen ? "navigation.closePanel" : "navigation.openPanel") }}</TooltipContent>
+        </Tooltip>
+      </div>
     </nav>
     <LayoutSiteNavigationPanel :items="navigationItems" :open="isPanelOpen" @close="isPanelOpen = false" />
+
+    <!-- 站内搜索（Ctrl / ⌘ + K） -->
+    <CommandDialog v-model:open="isCommandOpen" :title="t('navigation.searchLabel')"
+      :description="t('navigation.searchPlaceholder')">
+      <CommandInput :placeholder="t('navigation.searchPlaceholder')" />
+      <CommandList>
+        <CommandEmpty>{{ t("navigation.searchEmpty") }}</CommandEmpty>
+        <CommandGroup v-for="group in commandGroups" :key="group.title" :heading="t(group.title)">
+          <CommandItem v-for="item in group.items" :key="`${item.section}-${item.label}`" :value="t(item.label)"
+            @select="runNavigationItem(item)">
+            {{ t(item.label) }}
+          </CommandItem>
+        </CommandGroup>
+      </CommandList>
+    </CommandDialog>
   </header>
 </template>
-
-<style scoped>
-.settings-panel-enter-active,
-.settings-panel-leave-active {
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.settings-panel-enter-from,
-.settings-panel-leave-to {
-  opacity: 0;
-  transform: translateY(-0.5rem);
-}
-</style>

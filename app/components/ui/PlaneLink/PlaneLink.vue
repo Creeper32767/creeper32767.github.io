@@ -61,7 +61,7 @@ function openLink() {
   if (props.target === "_self") {
     const navigate = () => navigateTo(props.href);
     const viewTransitionDocument = document as Document & {
-      startViewTransition?: (callback: () => void | Promise<unknown>) => unknown;
+      startViewTransition?: (callback: () => unknown) => unknown;
     };
     if (
       props.viewTransitionName &&

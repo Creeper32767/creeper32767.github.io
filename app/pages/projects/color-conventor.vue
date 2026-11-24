@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { Copy20Regular } from "@ntkrnl64/fluentui-vue-icons";
 import { computed, onUnmounted, reactive, ref } from "vue";
+import { toast } from "vue-sonner";
 
 const { t } = useI18n();
 
@@ -61,10 +63,27 @@ const state = reactive<ColorState>({ r: 0, g: 120, b: 212, a: 1, h: 206, s: 100,
 const pasteValue = ref("");
 const pasteFeedback = ref("等待输入…");
 const pasteStatus = ref("idle");
-const copied = ref("");
 const gradientStart = ref("#0078d4");
 const gradientEnd = ref("#00bcf2");
 const gradientAngle = ref(90);
+const sliderPopoverOpen = reactive<Record<SliderKey, boolean>>({
+  r: false,
+  g: false,
+  b: false,
+  h: false,
+  s: false,
+  l: false,
+  a: false,
+});
+const sliderDraft = reactive<Record<SliderKey, string>>({
+  r: "",
+  g: "",
+  b: "",
+  h: "",
+  s: "",
+  l: "",
+  a: "",
+});
 
 type ConversionType = "rgb" | "hsl";
 
@@ -147,12 +166,9 @@ function cancelPendingApply() {
   pendingApply = null;
 }
 
-let copyTimer: number | null = null;
-
 onUnmounted(() => {
   cancelPendingConversion();
   cancelPendingApply();
-  if (copyTimer !== null) window.clearTimeout(copyTimer);
 });
 
 const hex = computed(() => rgbToHex(state.r, state.g, state.b));
@@ -311,11 +327,12 @@ function clampChannel(value: number) {
 
 function applyPaste() {
   if (!pasteValue.value.trim()) {
-    setPasteFeedback("请输入或粘贴颜色值", "error");
+    toast.error("请输入或粘贴颜色值");
     return;
   }
   const applied = applyColor(pasteValue.value);
-  setPasteFeedback(applied ? "已应用此颜色" : "无法解析该颜色", applied ? "success" : "error");
+  if (applied) toast.success("已应用此颜色");
+  else toast.error("无法解析该颜色");
 }
 
 function setPasteFeedback(message: string, status: string) {
@@ -323,17 +340,12 @@ function setPasteFeedback(message: string, status: string) {
   pasteStatus.value = status;
 }
 
-async function copyValue(key: string, value: string) {
+async function copyValue(value: string) {
   try {
     await navigator.clipboard.writeText(value);
-    copied.value = key;
-    if (copyTimer !== null) window.clearTimeout(copyTimer);
-    copyTimer = window.setTimeout(() => {
-      copyTimer = null;
-      if (copied.value === key) copied.value = "";
-    }, 1500);
+    toast.success("已复制到剪贴板");
   } catch {
-    setPasteFeedback("复制失败，请检查浏览器权限", "error");
+    toast.error("复制失败，请检查浏览器权限");
   }
 }
 
@@ -346,8 +358,9 @@ function selectVariation(variation: Variation) {
   updateFromRgb();
 }
 
-function handleSliderInput(key: SliderKey, event: Event) {
-  const value = Number((event.target as HTMLInputElement).value);
+function handleSliderUpdate(key: SliderKey, values: number[] | undefined) {
+  const value = values?.[0];
+  if (value === undefined) return;
   scheduleConversion(key === "h" || key === "s" || key === "l" ? "hsl" : "rgb", { key, value });
 }
 
@@ -357,6 +370,29 @@ function getSliderValue(item: { key: SliderKey }) {
 
 function getSliderDisplay(item: { key: SliderKey }) {
   return item.key === "a" ? state.a.toFixed(2) : state[item.key];
+}
+
+function getEditableSliderValue(item: { key: SliderKey }) {
+  return item.key === "a" ? state.a.toFixed(2) : String(state[item.key]);
+}
+
+function openSliderEditor(item: { key: SliderKey }) {
+  sliderDraft[item.key] = getEditableSliderValue(item);
+  sliderPopoverOpen[item.key] = true;
+}
+
+function applyExactSliderValue(item: { key: SliderKey; max: number }) {
+  const parsed = Number(sliderDraft[item.key]);
+  if (!Number.isFinite(parsed)) return;
+
+  if (item.key === "a") {
+    const value = clamp(parsed, 0, 1);
+    handleSliderUpdate(item.key, [value * 100]);
+  } else {
+    const value = clamp(Math.round(parsed), 0, item.max);
+    handleSliderUpdate(item.key, [value]);
+  }
+  sliderPopoverOpen[item.key] = false;
 }
 
 function handleColorInput(event: Event) {
@@ -399,14 +435,35 @@ function clearPaste() {
         <section v-for="group in sliderGroups" :key="group.title"
           class="grid gap-5 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
           <h2 class="text-lg font-semibold">{{ group.title }}</h2>
-          <label v-for="item in group.items" :key="item.key"
-            v-memo="[getSliderValue(item), getSliderDisplay(item)]"
+          <div v-for="item in group.items" :key="item.key"
             class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 text-sm">
-            <span>{{ item.label }}</span>
-            <Input :value="getSliderValue(item)" type="range" min="0" :max="item.max" class="accent-primary"
-              @input="handleSliderInput(item.key, $event)" />
-            <span class="text-right font-mono text-muted">{{ getSliderDisplay(item) }}{{ item.suffix }}</span>
-          </label>
+            <span :id="`slider-label-${item.key}`">{{ item.label }}</span>
+            <Slider :model-value="[getSliderValue(item)]" :max="item.max" :step="1"
+              :aria-labelledby="`slider-label-${item.key}`"
+              @update:model-value="handleSliderUpdate(item.key, $event)" />
+            <Popover :open="sliderPopoverOpen[item.key]" @update:open="sliderPopoverOpen[item.key] = $event">
+              <PopoverTrigger as-child>
+                <button type="button"
+                  class="justify-self-end rounded-md px-1 py-0.5 text-right font-mono text-muted transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  :aria-label="`调整 ${item.label}，当前值 ${getSliderDisplay(item)}${item.suffix}`"
+                  @click="openSliderEditor(item)">
+                  {{ getSliderDisplay(item) }}{{ item.suffix }}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent align="end" class="w-44 p-3">
+                <label class="grid gap-2 text-sm">
+                  <span class="font-medium">调整 {{ item.label }}</span>
+                  <div class="grid grid-cols-[1fr_auto] items-center gap-2">
+                    <Input v-model="sliderDraft[item.key]" type="number" :min="0" :max="item.key === 'a' ? 1 : item.max"
+                      :step="item.key === 'a' ? '0.01' : '1'" :aria-label="`调整 ${item.label}`"
+                      @keydown.enter.prevent="applyExactSliderValue(item)" />
+                    <span v-if="item.suffix" class="text-muted">{{ item.suffix }}</span>
+                  </div>
+                </label>
+                <Button type="button" size="sm" class="mt-3 w-full" @click="applyExactSliderValue(item)">应用</Button>
+              </PopoverContent>
+            </Popover>
+          </div>
         </section>
 
         <section class="grid gap-5 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
@@ -414,15 +471,18 @@ function clearPaste() {
           <div class="h-24 rounded-xl border border-border" :style="{ background: gradientCss }" />
           <div class="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3">
             <Input v-model="gradientStart" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
-            <Input v-model.number="gradientAngle" type="range" min="0" max="360" class="accent-primary" />
+            <Slider :model-value="[gradientAngle]" :max="360" :step="1" aria-label="渐变角度"
+              @update:model-value="gradientAngle = $event?.[0] ?? gradientAngle" />
             <span class="w-12 text-right text-sm text-muted">{{ gradientAngle }}°</span>
             <Input v-model="gradientEnd" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
           </div>
           <div class="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-            <Input :value="gradientCss" readonly class="min-w-0 flex-1" />
-            <Button variant="outline" type="button" @click="copyValue('gradient', gradientCss)">
-              {{ copied === "gradient" ? "已复制" : "复制" }}
-            </Button>
+            <InputGroup>
+              <InputGroupInput :value="gradientCss" readonly class="min-w-0 font-mono" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton variant="outline" @click="copyValue(gradientCss)">复制</InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
           </div>
         </section>
       </div>
@@ -430,7 +490,8 @@ function clearPaste() {
       <div class="grid min-w-0 content-start gap-6">
         <section class="overflow-hidden rounded-2xl border border-border bg-background/70 shadow-sm">
           <div class="h-48" :style="{ backgroundColor: rgba }" />
-          <div class="grid grid-cols-2 border-t border-border justify-items-center p-5 text-sm" :style="{ backgroundColor: rgba }">
+          <div class="grid grid-cols-2 border-t border-border justify-items-center p-5 text-sm"
+            :style="{ backgroundColor: rgba }">
             <span class="text-white drop-shadow">White Text</span>
             <span class="text-black">Black Text</span>
           </div>
@@ -440,32 +501,30 @@ function clearPaste() {
           <h2 class="text-lg font-semibold">粘贴颜色代码并更新</h2>
           <p class="text-sm leading-6 text-muted">将任意 HEX、RGB、HSL、HSLA 或 CSS 颜色字符串粘贴到下方，点击“应用颜色”即可同步所有数值与预览。
           </p>
-          <Textarea v-model="pasteValue" class="min-h-24"
-            placeholder="#0078d4 或 rgb(0,120,212) 或 hsl(206,100%,42%)" @input="handlePasteInput"
-            @keydown.meta.enter.prevent="applyPaste" @keydown.ctrl.enter.prevent="applyPaste" />
+          <Textarea v-model="pasteValue" class="min-h-24" placeholder="#0078d4 或 rgb(0,120,212) 或 hsl(206,100%,42%)"
+            @input="handlePasteInput" @keydown.meta.enter.prevent="applyPaste"
+            @keydown.ctrl.enter.prevent="applyPaste" />
           <div class="grid grid-cols-[auto_auto_1fr] items-center gap-3">
             <Button type="button" @click="applyPaste">应用颜色</Button>
             <Button variant="outline" type="button" @click="clearPaste">清空</Button>
-            <span class="text-sm"
-              :class="{ 'text-green-600': pasteStatus === 'success', 'text-red-600': pasteStatus === 'error', 'text-muted': pasteStatus === 'idle' }">{{
-                pasteFeedback }}</span>
+            <span class="text-sm text-muted">{{ pasteFeedback }}</span>
           </div>
         </section>
 
         <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
           <h2 class="text-lg font-semibold">色调变化 (点击应用)</h2>
           <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div v-for="variation in variations" :key="variation.label"
-              v-memo="[variation.r, variation.g, variation.b, copied]"
+            <div v-for="variation in variations" :key="variation.label" v-memo="[variation.r, variation.g, variation.b]"
               class="group relative h-20 cursor-pointer rounded-lg p-2 text-xs text-white shadow-sm transition hover:-translate-y-0.5"
               :style="{ backgroundColor: `rgb(${variation.r}, ${variation.g}, ${variation.b})` }"
               :title="`点击应用：rgb(${variation.r}, ${variation.g}, ${variation.b})`" @click="selectVariation(variation)">
               <span class="drop-shadow">{{ variation.label }}</span>
               <Button variant="ghost" size="icon-xs"
                 class="absolute right-1 bottom-1 rounded bg-black/20 text-white opacity-0 transition group-hover:opacity-100"
-                title="复制 HEX" type="button"
-                @click.stop="copyValue(`variation-${variation.label}`, rgbToHex(variation.r, variation.g, variation.b).toUpperCase())">{{
-                  copied === `variation-${variation.label}` ? "✓" : "❐" }}</Button>
+                aria-label="复制 HEX" type="button"
+                @click.stop="copyValue(rgbToHex(variation.r, variation.g, variation.b).toUpperCase())">
+                <Copy20Regular class="size-3.5" />
+              </Button>
             </div>
           </div>
         </section>
@@ -473,19 +532,16 @@ function clearPaste() {
         <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
           <h2 class="text-lg font-semibold">颜色代码</h2>
           <div class="grid gap-4 sm:grid-cols-2">
-            <div v-for="output in outputValues" :key="output.key" v-memo="[output.value, copied]"
-              class="grid gap-2">
+            <div v-for="output in outputValues" :key="output.key" v-memo="[output.value]" class="grid gap-2">
               <label class="text-sm font-medium">{{ output.label }}</label>
-              <div class="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
-                <Input :value="output.value" :placeholder="output.placeholder"
-                  class="min-w-0 font-mono"
-                  @change="handleOutputChange"
-                  @keydown.ctrl.enter.prevent="handleOutputChange"
+              <InputGroup>
+                <InputGroupInput :value="output.value" :placeholder="output.placeholder" class="min-w-0 font-mono"
+                  @change="handleOutputChange" @keydown.ctrl.enter.prevent="handleOutputChange"
                   @keydown.meta.enter.prevent="handleOutputChange" />
-                <Button variant="outline" type="button" @click="copyValue(output.key, output.value)">
-                  {{ copied === output.key ? "已复制" : "复制" }}
-                </Button>
-              </div>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton variant="outline" @click="copyValue(output.value)">复制</InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
             </div>
           </div>
         </section>
