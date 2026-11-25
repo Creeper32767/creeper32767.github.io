@@ -421,20 +421,29 @@ function clearPaste() {
       <p class="page-description">{{ t("pageHeaders.colorConverter.description") }}</p>
     </header>
 
-    <main class="grid items-start gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-      <div class="grid min-w-0 content-start gap-6">
-        <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
-          <h2 class="text-lg font-semibold">视觉调色</h2>
-          <label class="grid cursor-pointer grid-cols-[auto_1fr] items-center gap-4 rounded-xl border border-input p-4">
-            <Input :value="hex" type="color" class="h-14 w-20 cursor-pointer rounded-lg border-0 bg-transparent"
-              @input="handleColorInput" />
-            <span class="text-sm text-muted">点击选择颜色</span>
-          </label>
-        </section>
+    <main class="grid items-start gap-6 md:grid-cols-2">
+      <section class="overflow-hidden rounded-2xl border border-border bg-background/70 shadow-sm">
+        <div class="h-48" :style="{ backgroundColor: rgba }" />
+        <div class="grid grid-cols-2 border-t border-border justify-items-center p-5 text-sm"
+          :style="{ backgroundColor: rgba }">
+          <span class="text-white drop-shadow">White Text</span>
+          <span class="text-black">Black Text</span>
+        </div>
+      </section>
 
-        <section v-for="group in sliderGroups" :key="group.title"
-          class="grid gap-5 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
-          <h2 class="text-lg font-semibold">{{ group.title }}</h2>
+      <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
+        <h2 class="text-lg font-semibold">视觉调色</h2>
+        <label class="grid cursor-pointer grid-cols-[auto_1fr] items-center gap-4 rounded-xl border border-input p-4">
+          <Input :value="hex" type="color" class="h-14 w-20 cursor-pointer rounded-lg border-0 bg-transparent"
+            @input="handleColorInput" />
+          <span class="text-sm text-muted">点击选择颜色</span>
+        </label>
+      </section>
+
+      <section class="grid gap-5 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
+        <h2 class="text-lg font-semibold">颜色调整</h2>
+        <div v-for="group in sliderGroups" :key="group.title" class="grid gap-3">
+          <h3 class="text-sm font-medium">{{ group.title }}</h3>
           <div v-for="item in group.items" :key="item.key"
             class="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 text-sm">
             <span :id="`slider-label-${item.key}`">{{ item.label }}</span>
@@ -464,88 +473,75 @@ function clearPaste() {
               </PopoverContent>
             </Popover>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="grid gap-5 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
-          <h2 class="text-lg font-semibold">线性渐变生成器</h2>
-          <div class="h-24 rounded-xl border border-border" :style="{ background: gradientCss }" />
-          <div class="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3">
-            <Input v-model="gradientStart" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
-            <Slider :model-value="[gradientAngle]" :max="360" :step="1" aria-label="渐变角度"
-              @update:model-value="gradientAngle = $event?.[0] ?? gradientAngle" />
-            <span class="w-12 text-right text-sm text-muted">{{ gradientAngle }}°</span>
-            <Input v-model="gradientEnd" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
+      <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
+        <h2 class="text-lg font-semibold">色调变化</h2>
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div v-for="variation in variations" :key="variation.label" v-memo="[variation.r, variation.g, variation.b]"
+            class="group relative h-20 cursor-pointer rounded-lg p-2 text-xs text-white shadow-sm transition hover:-translate-y-0.5"
+            :style="{ backgroundColor: `rgb(${variation.r}, ${variation.g}, ${variation.b})` }"
+            :title="`点击应用：rgb(${variation.r}, ${variation.g}, ${variation.b})`" @click="selectVariation(variation)">
+            <span class="drop-shadow">{{ variation.label }}</span>
+            <Button variant="ghost" size="icon-xs"
+              class="absolute right-1 bottom-1 rounded bg-black/20 text-white opacity-0 transition group-hover:opacity-100"
+              aria-label="复制 HEX" type="button"
+              @click.stop="copyValue(rgbToHex(variation.r, variation.g, variation.b).toUpperCase())">
+              <Copy20Regular class="size-3.5" />
+            </Button>
           </div>
-          <div class="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
+        </div>
+      </section>
+
+      <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
+        <h2 class="text-lg font-semibold">颜色代码</h2>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div v-for="output in outputValues" :key="output.key" v-memo="[output.value]" class="grid gap-2">
+            <label class="text-sm font-medium">{{ output.label }}</label>
             <InputGroup>
-              <InputGroupInput :value="gradientCss" readonly class="min-w-0 font-mono" />
+              <InputGroupInput :value="output.value" :placeholder="output.placeholder" class="min-w-0 font-mono"
+                @change="handleOutputChange" @keydown.ctrl.enter.prevent="handleOutputChange"
+                @keydown.meta.enter.prevent="handleOutputChange" />
               <InputGroupAddon align="inline-end">
-                <InputGroupButton variant="outline" @click="copyValue(gradientCss)">复制</InputGroupButton>
+                <InputGroupButton variant="outline" @click="copyValue(output.value)">复制</InputGroupButton>
               </InputGroupAddon>
             </InputGroup>
           </div>
-        </section>
-      </div>
-
-      <div class="grid min-w-0 content-start gap-6">
-        <section class="overflow-hidden rounded-2xl border border-border bg-background/70 shadow-sm">
-          <div class="h-48" :style="{ backgroundColor: rgba }" />
-          <div class="grid grid-cols-2 border-t border-border justify-items-center p-5 text-sm"
-            :style="{ backgroundColor: rgba }">
-            <span class="text-white drop-shadow">White Text</span>
-            <span class="text-black">Black Text</span>
-          </div>
-        </section>
-
-        <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
-          <h2 class="text-lg font-semibold">粘贴颜色代码并更新</h2>
-          <p class="text-sm leading-6 text-muted">将任意 HEX、RGB、HSL、HSLA 或 CSS 颜色字符串粘贴到下方，点击“应用颜色”即可同步所有数值与预览。
-          </p>
-          <Textarea v-model="pasteValue" class="min-h-24" placeholder="#0078d4 或 rgb(0,120,212) 或 hsl(206,100%,42%)"
-            @input="handlePasteInput" @keydown.meta.enter.prevent="applyPaste"
-            @keydown.ctrl.enter.prevent="applyPaste" />
+        </div>
+        <div class="grid gap-3 border-t border-border pt-5">
+          <h3 class="text-base font-semibold">应用自定义颜色</h3>
+          <p class="text-sm leading-6 text-muted">粘贴 HEX、RGB、HSL 或 CSS 颜色代码，然后应用到预览和颜色调整。</p>
+          <Input v-model="pasteValue" type="text" class="w-full" aria-label="粘贴颜色代码"
+            placeholder="#0078d4 或 rgb(0,120,212) 或 hsl(206,100%,42%)" @input="handlePasteInput"
+            @keydown.enter.prevent="applyPaste" />
           <div class="grid grid-cols-[auto_auto_1fr] items-center gap-3">
             <Button type="button" @click="applyPaste">应用颜色</Button>
             <Button variant="outline" type="button" @click="clearPaste">清空</Button>
             <span class="text-sm text-muted">{{ pasteFeedback }}</span>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
-          <h2 class="text-lg font-semibold">色调变化 (点击应用)</h2>
-          <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div v-for="variation in variations" :key="variation.label" v-memo="[variation.r, variation.g, variation.b]"
-              class="group relative h-20 cursor-pointer rounded-lg p-2 text-xs text-white shadow-sm transition hover:-translate-y-0.5"
-              :style="{ backgroundColor: `rgb(${variation.r}, ${variation.g}, ${variation.b})` }"
-              :title="`点击应用：rgb(${variation.r}, ${variation.g}, ${variation.b})`" @click="selectVariation(variation)">
-              <span class="drop-shadow">{{ variation.label }}</span>
-              <Button variant="ghost" size="icon-xs"
-                class="absolute right-1 bottom-1 rounded bg-black/20 text-white opacity-0 transition group-hover:opacity-100"
-                aria-label="复制 HEX" type="button"
-                @click.stop="copyValue(rgbToHex(variation.r, variation.g, variation.b).toUpperCase())">
-                <Copy20Regular class="size-3.5" />
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        <section class="grid gap-4 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
-          <h2 class="text-lg font-semibold">颜色代码</h2>
-          <div class="grid gap-4 sm:grid-cols-2">
-            <div v-for="output in outputValues" :key="output.key" v-memo="[output.value]" class="grid gap-2">
-              <label class="text-sm font-medium">{{ output.label }}</label>
-              <InputGroup>
-                <InputGroupInput :value="output.value" :placeholder="output.placeholder" class="min-w-0 font-mono"
-                  @change="handleOutputChange" @keydown.ctrl.enter.prevent="handleOutputChange"
-                  @keydown.meta.enter.prevent="handleOutputChange" />
-                <InputGroupAddon align="inline-end">
-                  <InputGroupButton variant="outline" @click="copyValue(output.value)">复制</InputGroupButton>
-                </InputGroupAddon>
-              </InputGroup>
-            </div>
-          </div>
-        </section>
-      </div>
+      <section class="grid gap-5 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
+        <h2 class="text-lg font-semibold">线性渐变生成器</h2>
+        <div class="h-24 rounded-xl border border-border" :style="{ background: gradientCss }" />
+        <div class="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-3">
+          <Input v-model="gradientStart" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
+          <Slider :model-value="[gradientAngle]" :max="360" :step="1" aria-label="渐变角度"
+            @update:model-value="gradientAngle = $event?.[0] ?? gradientAngle" />
+          <span class="w-12 text-right text-sm text-muted">{{ gradientAngle }}°</span>
+          <Input v-model="gradientEnd" type="color" class="h-9 w-12 cursor-pointer rounded border border-input" />
+        </div>
+        <div class="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
+          <InputGroup>
+            <InputGroupInput :value="gradientCss" readonly class="min-w-0 font-mono" />
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton variant="outline" @click="copyValue(gradientCss)">复制</InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
+      </section>
     </main>
   </div>
 </template>

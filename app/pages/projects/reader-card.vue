@@ -497,7 +497,7 @@ async function exportCard() {
         <p class="page-description">{{ t("pageHeaders.readerCard.description") }}</p>
       </header>
 
-      <div class="grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+      <div class="grid gap-8 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
         <section class="space-y-6 rounded-2xl border border-border bg-background/70 p-6 shadow-sm">
           <div>
             <h2 class="text-xl font-semibold">卡片内容</h2>
@@ -680,7 +680,7 @@ async function exportCard() {
           </div>
         </section>
 
-        <section class="lg:sticky lg:top-28 lg:self-start">
+        <section class="md:sticky md:top-28 md:self-start">
           <div ref="cardRef"
             class="relative min-h-140 overflow-hidden rounded-4xl border border-border px-7 py-8 shadow-[0_20px_55px_rgba(15,23,42,0.1)] sm:min-h-155 sm:p-12"
             :style="{
