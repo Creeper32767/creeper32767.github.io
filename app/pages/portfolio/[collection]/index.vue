@@ -1,58 +1,22 @@
 <script setup lang="ts">
 import { Search16Regular, ErrorCircle20Regular } from "@ntkrnl64/fluentui-vue-icons";
 
-interface PortfolioItem {
-  id: string;
-  title: string;
-  collection: string;
-  author?: string;
-  dynasty?: string;
-  date?: string;
-  tags?: string[];
-  excerpt?: string;
-  wordCount?: number;
-  url: string;
-}
-
-interface CollectionMeta {
-  collection: string;
-  count: number;
-  items: PortfolioItem[];
-}
-
 const route = useRoute();
-const { t, te } = useI18n();
+const { t } = useI18n();
 const localePath = useLocalePath();
 
 const collection = computed(() => String(route.params.collection));
 
-const { data: meta, error: metaError } = await useAsyncData(
-  () => `portfolio-meta-${collection.value}`,
-  async () => {
-    const loader = usePortfolioMeta(`${collection.value}.json`);
-    if (!loader) throw new Error("Collection not found");
-    return await (loader as () => Promise<CollectionMeta>)();
-  },
-  { watch: [collection] },
-);
+const { data: meta, error: metaError } = await usePortfolioCollectionMeta(collection);
 
 if (metaError.value) {
   throw createError({ statusCode: 404, statusMessage: "Collection not found", fatal: true });
 }
 
-const title = computed(() => t(`portfolio.collections.${collection.value}.title`));
+const title = usePortfolioCollectionTitle(collection);
 const items = computed(() => meta.value?.items ?? []);
-const tagLabel = (tag: string) => {
-  const key = `portfolio.tags.${tag}`;
-  return te(key) ? t(key) : tag;
-};
-const passages = computed(() =>
-  items.value.map((item) => ({
-    id: item.id,
-    title: item.title,
-    url: localePath(`/portfolio/${collection.value}/${encodeURIComponent(item.id)}`),
-  })),
-);
+const tagLabel = usePortfolioTagLabel();
+const passages = usePortfolioPassages(collection, items);
 const search = ref("");
 const filteredItems = computed(() => {
   const query = search.value.trim().toLocaleLowerCase();
@@ -130,16 +94,16 @@ useSiteSeo({
             <p v-if="item.author || item.date" class="mt-2 text-xs text-muted">
               {{ item.author }}<span v-if="item.author && item.date"> · </span>{{ item.date }}
             </p>
-            <p v-if="typeof item.wordCount === 'number'" class="mt-2 text-xs text-muted">
+            <p class="mt-4 line-clamp-3 text-sm leading-7 text-muted">
+              {{ item.excerpt || t("portfolio.emptyExcerpt") }}
+            </p>
+            <p v-if="typeof item.wordCount === 'number'" class="mt-8 text-right text-xs text-muted">
               {{ t("portfolio.readingStats", {
                 count: item.wordCount,
                 minutes: Math.max(1, Math.ceil(item.wordCount / 200)),
               }) }}
             </p>
-            <p class="mt-4 line-clamp-3 text-sm leading-7 text-muted">
-              {{ item.excerpt || t("portfolio.emptyExcerpt") }}
-            </p>
-            <div class="mt-8 flex flex-wrap justify-end gap-2">
+            <div class="mt-4 flex flex-wrap justify-end gap-2">
               <Badge v-for="tag in (item.tags ?? []).slice(0, 3)" :key="tag" variant="outline">{{ tagLabel(tag) }}
               </Badge>
             </div>

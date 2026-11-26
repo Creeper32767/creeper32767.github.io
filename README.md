@@ -56,6 +56,8 @@ pnpm dev
 
 The site is available at [http://localhost:3000](http://localhost:3000).
 
+Portfolio metadata in `meta/` is generated from Markdown frontmatter and content. The generator runs automatically before development, builds, and static generation; run it directly with `pnpm metadata:generate` when needed.
+
 ### Production
 
 Build the application:

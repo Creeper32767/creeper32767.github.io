@@ -3,7 +3,7 @@ import { ErrorCircle16Regular } from "@ntkrnl64/fluentui-vue-icons";
 import type { TocLink } from "@nuxt/content";
 
 const route = useRoute();
-const { t, te } = useI18n();
+const { t } = useI18n();
 const localePath = useLocalePath();
 
 const collection = computed(() => String(route.params.collection));
@@ -14,21 +14,11 @@ const heroViewTransitionName = computed(() =>
     .join("-")}`,
 );
 
-const { data: collectionMeta } = await useAsyncData(
-  `portfolio-detail-meta-${collection.value}`,
-  async () => {
-    const loader = usePortfolioMeta(`${collection.value}.json`);
-    if (!loader) throw new Error("Collection not found");
-    return await (loader as () => Promise<{ items: Array<{ id: string; title: string }> }>)();
-  },
-  { watch: [collection] },
-);
+const { data: collectionMeta } = await usePortfolioCollectionMeta(collection);
 
-const passages = computed(() =>
-  collectionMeta.value?.items.map((item) => ({
-    ...item,
-    url: localePath(`/portfolio/${collection.value}/${encodeURIComponent(item.id)}`),
-  })) ?? [],
+const passages = usePortfolioPassages(
+  collection,
+  () => collectionMeta.value?.items,
 );
 
 const { data: page, status, error, refresh } = await useAsyncData(
@@ -68,34 +58,11 @@ if (!error.value && !page.value && status.value === "success") {
 
 const hasLoadError = computed(() => Boolean(error.value));
 const title = computed(() => page.value?.title ?? id.value);
-const collectionTitle = computed(() =>
-  t(`portfolio.collections.${collection.value}.title`),
-);
+const collectionTitle = usePortfolioCollectionTitle(collection);
 
-const tags = computed(() => {
-  const value = (page.value as { tags?: unknown } | null)?.tags;
-  return Array.isArray(value) ? value.filter((tag): tag is string => typeof tag === "string") : [];
-});
-const tagLabel = (tag: string) => {
-  const key = `portfolio.tags.${tag}`;
-  return te(key) ? t(key) : tag;
-};
-const metadata = computed(() => {
-  const value = page.value as {
-    author?: unknown;
-    dynasty?: unknown;
-    date?: unknown;
-  } | null;
-  const date = value?.date instanceof Date
-    ? value.date.toISOString().slice(0, 10)
-    : typeof value?.date === "string" ? value.date : undefined;
-
-  return [
-    { label: "author", value: typeof value?.author === "string" ? value.author : undefined },
-    { label: "dynasty", value: typeof value?.dynasty === "string" ? value.dynasty : undefined },
-    { label: "date", value: date },
-  ].filter((item): item is { label: string; value: string } => Boolean(item.value));
-});
+const tags = usePortfolioTags(page);
+const tagLabel = usePortfolioTagLabel();
+const metadata = usePortfolioItemMetadata(page);
 
 const headings = computed(() => {
   const result: Array<{ id: string; title: string; level: number }> = [];
