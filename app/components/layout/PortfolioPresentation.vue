@@ -102,31 +102,18 @@ async function copyPassageLink(passage: Passage) {
 
 <template>
   <main class="portfolio-presentation mx-auto w-[calc(100%-2rem)] flex-1 py-12 lg:mx-0 lg:w-full">
-    <div v-if="props.passages.length || props.headings.length"
+    <div v-if="props.breadcrumbs.length || props.passages.length || props.headings.length"
       class="grid grid-cols-1 items-start lg:grid-cols-[minmax(0,12rem)_minmax(0,1fr)_minmax(0,12rem)]">
       <aside
-        class="max-lg:order-3 max-lg:static max-lg:mb-8 max-lg:max-h-none max-lg:border-b max-lg:border-border max-lg:pt-4 lg:sticky lg:top-30 lg:max-h-[calc(100vh-7.5rem)] lg:overflow-y-auto lg:border-r lg:border-border lg:px-4">
-        <Breadcrumb v-if="props.breadcrumbs.length" class="mb-12 max-lg:mb-4">
-          <BreadcrumbList class="flex-wrap">
-            <template v-for="(breadcrumb, index) in props.breadcrumbs" :key="breadcrumb.label">
-              <BreadcrumbSeparator v-if="index" />
-              <BreadcrumbItem>
-                <BreadcrumbLink v-if="breadcrumb.href" as-child>
-                  <NuxtLink :to="breadcrumb.href">{{ breadcrumb.label }}</NuxtLink>
-                </BreadcrumbLink>
-                <BreadcrumbPage v-else>{{ breadcrumb.label }}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </template>
-          </BreadcrumbList>
-        </Breadcrumb>
-
-        <template v-if="props.passages.length">
+        class="flex flex-col max-lg:order-3 max-lg:static max-lg:mb-8 max-lg:max-h-none lg:sticky lg:top-30 lg:max-h-[calc(100vh-7.5rem)] lg:flex-row lg:gap-4 lg:overflow-y-auto lg:px-4 lg:pr-0">
+        <Separator orientation="horizontal" class="max-lg:-mt-px lg:hidden" />
+        <div v-if="props.passages.length" class="min-w-0 flex-1 max-lg:pt-4">
           <h2 class="mb-3 text-[0.7rem] font-bold uppercase tracking-widest text-muted">
             {{ t("portfolio.allPassages") }}
           </h2>
           <nav :aria-label="t('portfolio.allPassages')">
             <ul
-              class="space-y-2 max-lg:flex max-lg:max-h-30 max-lg:flex-wrap max-lg:gap-x-2 max-lg:gap-y-1 max-lg:overflow-y-auto max-lg:pr-1 scrollbar-thin">
+              class="mb-4 space-y-2 max-lg:flex max-lg:max-h-30 max-lg:flex-wrap max-lg:gap-x-2 max-lg:gap-y-1 max-lg:overflow-y-auto max-lg:pr-1 scrollbar-thin">
               <li v-for="group in passageGroups" :key="group.initial" class="max-lg:w-full">
                 <div class="mb-1 flex items-center gap-2 max-lg:mb-0 max-lg:inline-flex max-lg:align-middle">
                   <span class="text-[0.65rem] font-bold text-primary">{{ group.initial }}</span>
@@ -157,7 +144,10 @@ async function copyPassageLink(passage: Passage) {
               </li>
             </ul>
           </nav>
-        </template>
+        </div>
+        <Separator v-if="props.passages.length" orientation="horizontal" class="lg:hidden" />
+        <Separator v-if="props.passages.length" orientation="vertical"
+          class="hidden lg:block lg:h-auto lg:self-stretch" />
       </aside>
 
       <section class="mx-auto w-full min-w-0 max-w-6xl px-8 max-lg:w-full max-lg:px-0 max-lg:contents">
@@ -165,24 +155,48 @@ async function copyPassageLink(passage: Passage) {
         <slot />
       </section>
 
-      <aside v-if="props.headings.length"
-        class="max-lg:order-2 max-lg:static max-lg:max-h-none max-lg:border-l-0 max-lg:border-t max-lg:border-border max-lg:pb-4 lg:sticky lg:top-30 lg:max-h-[calc(100vh-7.5rem)] lg:overflow-y-auto lg:border-l lg:border-border lg:px-4">
-        <h2 class="mt-4 mb-6 text-lg font-bold uppercase tracking-widest text-muted">
-          {{ t("portfolio.onThisPage") }}
-        </h2>
-        <nav :aria-label="t('portfolio.onThisPage')">
-          <ul class="space-y-2.5 max-lg:flex max-lg:flex-wrap max-lg:gap-2">
-            <li v-for="heading in props.headings" :key="heading.id">
-              <Badge as="a" :href="`#${heading.id}`" variant="outline" target="_self"
-                class="max-w-full wrap-anywhere px-2.5 py-1.5 text-[0.75rem] font-normal leading-normal text-muted hover:border-primary hover:text-primary max-lg:text-[0.8rem]"
-                :class="heading.level >= 3 ? 'lg:ml-2' : ''">
-                {{ heading.title }}
-              </Badge>
-            </li>
-          </ul>
-        </nav>
+      <aside
+        class="flex flex-col max-lg:order-2 max-lg:static max-lg:max-h-none lg:sticky lg:top-30 lg:max-h-[calc(100vh-7.5rem)] lg:flex-row lg:gap-4 lg:overflow-y-auto lg:pl-0 lg:pr-4">
+        <Separator orientation="horizontal" class="mb-4 lg:hidden" />
+        <Separator v-if="props.breadcrumbs.length || props.headings.length" orientation="vertical"
+          class="hidden lg:block lg:h-auto lg:self-stretch" />
+        <div v-if="props.breadcrumbs.length || props.headings.length" class="min-w-0 flex-1 max-lg:pb-4">
+          <Breadcrumb v-if="props.breadcrumbs.length" class="mt-4 mb-8 max-lg:mt-0 max-lg:mb-4">
+            <BreadcrumbList class="flex-wrap">
+              <template v-for="(breadcrumb, index) in props.breadcrumbs" :key="breadcrumb.label">
+                <BreadcrumbSeparator v-if="index" />
+                <BreadcrumbItem>
+                  <BreadcrumbLink v-if="breadcrumb.href" as-child>
+                    <NuxtLink :to="breadcrumb.href">{{ breadcrumb.label }}</NuxtLink>
+                  </BreadcrumbLink>
+                  <BreadcrumbPage v-else>{{ breadcrumb.label }}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </template>
+            </BreadcrumbList>
+          </Breadcrumb>
+
+          <template v-if="props.headings.length">
+            <h2 class="mb-6 text-lg font-bold uppercase tracking-widest text-muted">
+              {{ t("portfolio.onThisPage") }}
+            </h2>
+            <nav :aria-label="t('portfolio.onThisPage')">
+              <ul class="space-y-2.5 max-lg:flex max-lg:flex-wrap max-lg:gap-2">
+                <li v-for="heading in props.headings" :key="heading.id">
+                  <Badge as="a" :href="`#${heading.id}`" variant="outline" target="_self"
+                    class="max-w-full wrap-anywhere px-2.5 py-1.5 text-[0.75rem] font-normal leading-normal text-muted hover:border-primary hover:text-primary max-lg:text-[0.8rem]"
+                    :class="heading.level >= 3 ? 'lg:ml-2' : ''">
+                    {{ heading.title }}
+                  </Badge>
+                </li>
+              </ul>
+            </nav>
+          </template>
+        </div>
+        <Separator v-if="props.breadcrumbs.length || props.headings.length" orientation="horizontal"
+          class="lg:hidden" />
       </aside>
     </div>
+
     <slot v-else />
   </main>
 </template>

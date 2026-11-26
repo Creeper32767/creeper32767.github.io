@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ErrorCircle16Regular } from "@ntkrnl64/fluentui-vue-icons";
+import type { TocLink } from "@nuxt/content";
 
 const route = useRoute();
 const { t } = useI18n();
@@ -76,33 +77,19 @@ const tags = computed(() => {
   return Array.isArray(value) ? value.filter((tag): tag is string => typeof tag === "string") : [];
 });
 
-interface ContentNode {
-  tag?: string;
-  props?: { id?: string };
-  children?: ContentNode[];
-  value?: string;
-}
-
-const headingText = (node: ContentNode): string =>
-  node.value ?? (node.children ?? []).map(headingText).join("");
-
-const slugify = (value: string): string =>
-  value.toLowerCase().trim().replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s+/g, "-");
-
 const headings = computed(() => {
   const result: Array<{ id: string; title: string; level: number }> = [];
-  const visit = (node: ContentNode) => {
-    if (node.tag && /^h[1-6]$/.test(node.tag)) {
-      const title = headingText(node);
+  const visit = (links: TocLink[]) => {
+    for (const link of links) {
       result.push({
-        id: node.props?.id ?? slugify(title),
-        title,
-        level: Number(node.tag.slice(1)),
+        id: link.id,
+        title: link.text,
+        level: link.depth,
       });
+      if (link.children) visit(link.children);
     }
-    node.children?.forEach(visit);
   };
-  visit((page.value?.body ?? {}) as ContentNode);
+  visit(page.value?.body.toc?.links ?? []);
   return result;
 });
 

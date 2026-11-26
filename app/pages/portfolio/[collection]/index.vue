@@ -42,6 +42,13 @@ if (metaError.value) {
 
 const title = computed(() => t(`portfolio.collections.${collection.value}.title`));
 const items = computed(() => meta.value?.items ?? []);
+const passages = computed(() =>
+  items.value.map((item) => ({
+    id: item.id,
+    title: item.title,
+    url: localePath(`/portfolio/${collection.value}/${encodeURIComponent(item.id)}`),
+  })),
+);
 const search = ref("");
 const filteredItems = computed(() => {
   const query = search.value.trim().toLocaleLowerCase();
@@ -80,7 +87,7 @@ useSiteSeo({
   <LayoutPortfolioPresentation :breadcrumbs="[
     { label: t('portfolio.title'), href: localePath('/portfolio') },
     { label: title },
-  ]" :headings="headings">
+  ]" :passages="passages" :headings="headings">
     <template #header>
       <header class="page-header page-header--compact w-full max-lg:order-1">
         <p class="page-eyebrow">{{ t("portfolio.collectionEyebrow", { key: collection }) }}</p>
