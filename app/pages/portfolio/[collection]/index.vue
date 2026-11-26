@@ -21,7 +21,7 @@ interface CollectionMeta {
 }
 
 const route = useRoute();
-const { t } = useI18n();
+const { t, te } = useI18n();
 const localePath = useLocalePath();
 
 const collection = computed(() => String(route.params.collection));
@@ -42,6 +42,10 @@ if (metaError.value) {
 
 const title = computed(() => t(`portfolio.collections.${collection.value}.title`));
 const items = computed(() => meta.value?.items ?? []);
+const tagLabel = (tag: string) => {
+  const key = `portfolio.tags.${tag}`;
+  return te(key) ? t(key) : tag;
+};
 const passages = computed(() =>
   items.value.map((item) => ({
     id: item.id,
@@ -126,11 +130,18 @@ useSiteSeo({
             <p v-if="item.author || item.date" class="mt-2 text-xs text-muted">
               {{ item.author }}<span v-if="item.author && item.date"> · </span>{{ item.date }}
             </p>
+            <p v-if="typeof item.wordCount === 'number'" class="mt-2 text-xs text-muted">
+              {{ t("portfolio.readingStats", {
+                count: item.wordCount,
+                minutes: Math.max(1, Math.ceil(item.wordCount / 200)),
+              }) }}
+            </p>
             <p class="mt-4 line-clamp-3 text-sm leading-7 text-muted">
               {{ item.excerpt || t("portfolio.emptyExcerpt") }}
             </p>
             <div class="mt-8 flex flex-wrap justify-end gap-2">
-              <Badge v-for="tag in (item.tags ?? []).slice(0, 3)" :key="tag" variant="outline">{{ tag }}</Badge>
+              <Badge v-for="tag in (item.tags ?? []).slice(0, 3)" :key="tag" variant="outline">{{ tagLabel(tag) }}
+              </Badge>
             </div>
             <PlaneLink :href="localePath(`/portfolio/${collection}/${encodeURIComponent(item.id)}`)" target="_self"
               class="mt-4 w-full bg-primary shadow-sm" :view-transition-name="heroViewTransitionName(item.id)">
@@ -142,7 +153,8 @@ useSiteSeo({
       <Alert v-else class="border-dashed py-8 items-center justify-center bg-destructive/10 text-destructive">
         <ErrorCircle20Regular aria-hidden="true" />
         <AlertTitle class="text-base">{{ t("portfolio.noSearchResults") }}</AlertTitle>
-        <AlertDescription class="mt-1.5 text-sm text-muted">{{ t("portfolio.noSearchResultsDescription") }}</AlertDescription>
+        <AlertDescription class="mt-1.5 text-sm text-muted">{{ t("portfolio.noSearchResultsDescription") }}
+        </AlertDescription>
       </Alert>
     </div>
   </LayoutPortfolioPresentation>

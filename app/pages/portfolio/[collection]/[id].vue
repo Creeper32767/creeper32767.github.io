@@ -3,7 +3,7 @@ import { ErrorCircle16Regular } from "@ntkrnl64/fluentui-vue-icons";
 import type { TocLink } from "@nuxt/content";
 
 const route = useRoute();
-const { t } = useI18n();
+const { t, te } = useI18n();
 const localePath = useLocalePath();
 
 const collection = computed(() => String(route.params.collection));
@@ -76,6 +76,26 @@ const tags = computed(() => {
   const value = (page.value as { tags?: unknown } | null)?.tags;
   return Array.isArray(value) ? value.filter((tag): tag is string => typeof tag === "string") : [];
 });
+const tagLabel = (tag: string) => {
+  const key = `portfolio.tags.${tag}`;
+  return te(key) ? t(key) : tag;
+};
+const metadata = computed(() => {
+  const value = page.value as {
+    author?: unknown;
+    dynasty?: unknown;
+    date?: unknown;
+  } | null;
+  const date = value?.date instanceof Date
+    ? value.date.toISOString().slice(0, 10)
+    : typeof value?.date === "string" ? value.date : undefined;
+
+  return [
+    { label: "author", value: typeof value?.author === "string" ? value.author : undefined },
+    { label: "dynasty", value: typeof value?.dynasty === "string" ? value.dynasty : undefined },
+    { label: "date", value: date },
+  ].filter((item): item is { label: string; value: string } => Boolean(item.value));
+});
 
 const headings = computed(() => {
   const result: Array<{ id: string; title: string; level: number }> = [];
@@ -146,10 +166,19 @@ useSiteSeo({
               <p class="page-eyebrow mb-2">{{ collection }}</p>
               <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{{ page.title }}</h1>
             </div>
-            <div class="flex flex-wrap gap-2">
-              <Badge v-for="tag in tags" :key="tag" variant="secondary">{{ tag }}</Badge>
-            </div>
           </div>
+          <section v-if="metadata.length || tags.length" class="mb-8 rounded-xl border border-border p-5">
+            <h2 class="mb-4 text-lg font-semibold">{{ t("portfolio.metadata") }}</h2>
+            <dl v-if="metadata.length" class="grid gap-3 sm:grid-cols-2">
+              <div v-for="item in metadata" :key="item.label">
+                <dt class="text-sm text-muted">{{ t(`portfolio.metadataFields.${item.label}`) }}</dt>
+                <dd class="font-medium">{{ item.value }}</dd>
+              </div>
+            </dl>
+            <div v-if="tags.length" class="mt-4 flex flex-wrap gap-2">
+              <Badge v-for="tag in tags" :key="tag" variant="secondary">{{ tagLabel(tag) }}</Badge>
+            </div>
+          </section>
           <ContentRenderer :value="page"
             class="text-base leading-8 text-foreground [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_p]:my-5" />
         </template>
