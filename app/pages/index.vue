@@ -32,8 +32,13 @@ onMounted(() => {
   <div>
     <main id="home" class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
       <header class="page-header page-header--centered page-header--compact flex flex-col items-center">
-        <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
-          class="mb-5 size-24 rounded-full border-4 border-white object-cover shadow-lg" />
+        <Avatar class="mb-5 size-24 border-4 border-white shadow-lg">
+          <AvatarImage as-child src="/images/haley-avatar.webp">
+            <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
+              class="aspect-square size-full object-cover" />
+          </AvatarImage>
+          <AvatarFallback class="bg-primary/10 text-2xl font-semibold text-primary">H</AvatarFallback>
+        </Avatar>
         <ClientOnly>
           <span class="mb-3 rounded bg-primary/5 p-2 text-xs font-bold tracking-[0.04em] text-primary">{{ t(greetingKey)
             }}</span>
@@ -84,8 +89,13 @@ onMounted(() => {
         <h2 class="mb-6 text-3xl font-bold">{{ t("home.aboutTitle") }}</h2>
         <ItemGroup
           class="flex flex-col gap-6 rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur sm:flex-row sm:items-center">
-          <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
-            class="size-24 rounded-full object-cover" />
+          <Avatar class="size-24">
+            <AvatarImage as-child src="/images/haley-avatar.webp">
+              <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
+                class="aspect-square size-full object-cover" />
+            </AvatarImage>
+            <AvatarFallback class="bg-primary/10 text-2xl font-semibold text-primary">H</AvatarFallback>
+          </Avatar>
           <div>
             <h3 class="text-xl font-semibold">{{ t("home.title") }}</h3>
             <p class="mt-2 text-muted">{{ t("home.bio") }}</p>
@@ -108,8 +118,13 @@ onMounted(() => {
         <h2 class="mb-6 text-3xl font-bold">{{ t("home.organizationTitle") }}</h2>
         <div
           class="flex flex-col gap-6 rounded-2xl border border-border bg-background/60 p-6 shadow-sm backdrop-blur sm:flex-row sm:items-center">
-          <NuxtImg src="/images/cosmo-avatar.webp" alt="SMS-COSMO Avatar" width="96" preset="avatar" height="96"
-            class="h-24 w-24 rounded-full object-cover" />
+          <Avatar class="size-24">
+            <AvatarImage as-child src="/images/cosmo-avatar.webp">
+              <NuxtImg src="/images/cosmo-avatar.webp" alt="SMS-COSMO Avatar" width="96" height="96" preset="avatar"
+                class="aspect-square size-full object-cover" />
+            </AvatarImage>
+            <AvatarFallback class="bg-primary/10 text-2xl font-semibold text-primary">S</AvatarFallback>
+          </Avatar>
           <div>
             <h3 class="text-xl font-semibold">SMS-COSMO</h3>
             <p class="mt-2 text-muted">{{ t("home.organizationDescription") }}</p>

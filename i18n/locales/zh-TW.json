@@ -166,6 +166,9 @@
     "passageLoadError": "無法載入此作品",
     "passageLoadErrorDescription": "載入失敗，請重試。",
     "metadata": "作品資訊",
+    "licenseTitle": "授權與署名",
+    "licenseDescription": "您可以基於任何目的分享及改編本作品，但須給予適當署名、提供授權條款連結，並註明是否曾修改。",
+    "licenseReference": "參見創用 CC 姓名標示 4.0 國際（CC BY 4.0）",
     "metadataFields": {
       "author": "作者",
       "dynasty": "朝代",

@@ -103,10 +103,10 @@ useSiteSeo();
               </strong>
             </li>
           </ul>
-          <PlaneLink :href="localePath(`/portfolio/${collection.key}`)" target="_self"
+          <TransitionLink :href="localePath(`/portfolio/${collection.key}`)" target="_self"
             class="mt-8 w-full bg-primary shadow-sm" :aria-label="`浏览${collection.title}`">
             {{ t("portfolio.browse") }}
-          </PlaneLink>
+          </TransitionLink>
         </article>
       </div>
     </div>

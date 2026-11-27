@@ -101,7 +101,8 @@ async function copyPassageLink(passage: Passage) {
 </script>
 
 <template>
-  <main class="portfolio-presentation mx-auto w-[calc(100%-2rem)] flex-1 py-12 lg:mx-0 lg:w-full">
+  <main class="portfolio-presentation mx-auto w-[calc(100%-2rem)] flex-1 py-12 lg:mx-0 lg:w-full"
+    data-transition-content>
     <div v-if="props.breadcrumbs.length || props.passages.length || props.headings.length"
       class="grid grid-cols-1 items-start lg:grid-cols-[minmax(0,12rem)_minmax(0,1fr)_minmax(0,12rem)]">
       <aside

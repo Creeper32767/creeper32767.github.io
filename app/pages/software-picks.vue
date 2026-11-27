@@ -280,11 +280,11 @@ function actionLabel(software: Software): string {
                 <h3 class="text-xl font-semibold">{{ software.name }}</h3>
                 <p class="mt-3 flex-1 text-sm leading-7 text-muted">{{ software.description }}</p>
               </div>
-              <PlaneLink :href="software.href" class="mt-6 w-full bg-primary shadow-sm"
+              <TransitionLink :href="software.href" class="mt-6 w-full bg-primary shadow-sm"
                 :aria-label="`${actionLabel(software)} ${software.name}`">
                 {{ actionLabel(software) }}
                 <Open16Regular class="size-4" aria-hidden="true" />
-              </PlaneLink>
+              </TransitionLink>
             </article>
           </div>
         </section>

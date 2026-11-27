@@ -166,6 +166,9 @@
     "passageLoadError": "Unable to load this work",
     "passageLoadErrorDescription": "The work could not be loaded. Please try again.",
     "metadata": "About this work",
+    "licenseTitle": "License and attribution",
+    "licenseDescription": "You may share and adapt this work for any purpose, provided you give appropriate credit, link to the license, and indicate if changes were made.",
+    "licenseReference": "Refer to Creative Commons Attribution 4.0 International (CC BY 4.0)",
     "metadataFields": {
       "author": "Author",
       "dynasty": "Dynasty",

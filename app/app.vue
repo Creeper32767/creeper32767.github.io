@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import HeroTransitionLayer from "~/components/ui/transition-link/HeroTransitionLayer.vue";
+
 useSiteSeo();
 // @nuxtjs/i18n 的 useLocaleHead 负责按当前语言写入 <html lang>、hreflang 备用链接、canonical 与 og:locale
 useHead(useLocaleHead());
@@ -35,6 +37,7 @@ watch(
     <NuxtRouteAnnouncer />
     <LayoutDefault>
       <NuxtPage />
+      <HeroTransitionLayer />
     </LayoutDefault>
     <!-- 全局 toast：跟随 @nuxtjs/color-mode 的实际生效主题 -->
     <Toaster :theme="colorMode === 'dark' ? 'dark' : 'light'" position="top-center" rich-colors close-button />

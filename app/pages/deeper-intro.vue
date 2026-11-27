@@ -67,7 +67,7 @@ const contacts: Contact[] = [
   { name: "💻 GitHub", handle: "@Creeper32767", label: "访问 GitHub 个人主页", href: "https://github.com/Creeper32767" },
   { name: "✖️ X", handle: "@ConsoleCreeper", label: "访问 X 个人主页", href: "https://x.com/ConsoleCreeper" },
   { name: "🐾 兽频道 Fursuit.tv", handle: "@Creeper32767", label: "访问 Fursuit.tv 个人主页", href: "https://fursuit.tv/@Creeper32767" },
-  { name: "💬 QQ", handle: "No. 1557706911", label: "欢迎扩列！", href: "https://wpa.qq.com/msgrd?v=3&uin=1557706911&site=qq&menu=yes" },
+  { name: "💬 QQ", handle: "No. 1557706911", label: "欢迎扩列！", href: "https://qm.qq.com/q/z0qbPFCvlK" },
 ];
 
 interface Channel {
@@ -84,7 +84,7 @@ const channels: Channel[] = [
 
 const typewriterLines = [
   "欢迎来到我的观测报告，这里记录着一只虎斑猫的阅读、游戏与生活碎片。",
-  "我是渡昕，也被称为 Kitten Haley。",
+  "我是渡昕，也可以叫我 Kitten Haley。",
   "在这里，你会发现我对书籍的热爱、对游戏的独特见解，以及我作为一个开发者的点滴。",
   "希望这些内容能让你更了解我，感谢你的到来！",
 ] as const;
@@ -162,7 +162,7 @@ onBeforeUnmount(() => {
         class="intro-banner relative mb-10 min-h-32 overflow-hidden rounded-2xl border border-primary/25 bg-(image:--banner-gradient) p-4 shadow-[0_0.75rem_2rem_rgb(15_23_42/0.12)] after:pointer-events-none after:absolute after:-right-12 after:-bottom-20 after:size-48 after:rounded-full after:bg-white/18 sm:px-6 sm:py-5">
         <p class="font-mono text-sm text-primary">🐾 自介条载入中... |･ω･｀) 这是一只猫的观测报告 🐾</p>
         <p
-          class="mt-4 inline-flex min-h-8 items-center rounded-full bg-black/[0.14] px-[0.8rem] py-[0.35rem] font-semibold leading-normal text-white after:ml-[0.4rem] after:h-[1.2rem] after:w-[0.12rem] after:animate-[cursor-blink_1s_steps(2,jump-none)_infinite] after:bg-current after:content-[''] motion-reduce:after:animate-none max-sm:w-full max-sm:rounded-xl max-sm:text-sm">
+          class="mt-4 inline-block min-h-8 rounded-full bg-black/[0.14] px-[0.8rem] py-[0.35rem] font-semibold leading-normal text-white after:relative after:top-[0.3em] after:ml-[0.4rem] after:inline-block after:h-[1.2rem] after:w-[0.12rem] after:animate-[cursor-blink_1s_steps(2,jump-none)_infinite] after:bg-current after:content-[''] motion-reduce:after:animate-none max-sm:w-full max-sm:rounded-xl max-sm:text-sm">
           {{ typewriterText }}
         </p>
       </section>
@@ -193,10 +193,10 @@ onBeforeUnmount(() => {
             <article v-for="contact in contacts" :key="contact.name" :class="cardItemClass">
               <h3 class="font-semibold">{{ contact.name }}</h3>
               <p class="mt-2 font-mono text-sm text-muted">{{ contact.handle }}</p>
-              <PlaneLink :href="contact.href" class="mt-3 w-full bg-primary shadow-sm">
+              <TransitionLink :href="contact.href" class="mt-3 w-full bg-primary shadow-sm">
                 {{ contact.label }}
                 <Open16Regular class="size-4" aria-hidden="true" />
-              </PlaneLink>
+              </TransitionLink>
             </article>
             <article :class="cardItemClass">
               <h3 class="font-semibold">🤝 线下 / 好友</h3>

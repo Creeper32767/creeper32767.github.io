@@ -166,6 +166,9 @@
     "passageLoadError": "作品を読み込めません",
     "passageLoadErrorDescription": "読み込みに失敗しました。もう一度お試しください。",
     "metadata": "作品情報",
+    "licenseTitle": "ライセンスとクレジット",
+    "licenseDescription": "適切なクレジットを表示し、ライセンスへのリンクを提供し、変更の有無を示すことで、あらゆる目的で共有・改変できます。",
+    "licenseReference": "参見クリエイティブ・コモンズ 表示 4.0 国際（CC BY 4.0）",
     "metadataFields": {
       "author": "作者",
       "dynasty": "時代",

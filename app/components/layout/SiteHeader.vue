@@ -104,15 +104,20 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <header class="h-24 max-sm:h-36">
+  <header class="h-24 max-sm:h-36" data-transition-static>
     <nav
       class="fixed top-4 left-1/2 z-50 flex min-h-16 w-[calc(100%-2rem)] sm:max-w-4/5 -translate-x-1/2 flex-col items-stretch gap-3 rounded-2xl border border-border/70 bg-background/80 px-5 py-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl supports-backdrop-filter:bg-background/65 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-0">
       <div class="order-1 flex w-full items-center justify-between sm:contents">
         <slot name="brand">
           <NuxtLink class="flex items-center gap-3 text-foreground" :to="localePath('/')"
             aria-label="Creeper32767 home">
-            <NuxtImg preload src="/images/haley-avatar.webp" alt="Creeper32767 Logo" width="96" height="96"
-              preset="avatar" class="h-10 w-10 rounded-full border-2 border-white object-cover shadow-sm" />
+            <Avatar class="size-10 border-2 border-white shadow-sm">
+              <AvatarImage as-child src="/images/haley-avatar.webp">
+                <NuxtImg preload src="/images/haley-avatar.webp" alt="Creeper32767 Logo" width="96" height="96"
+                  preset="avatar" class="aspect-square size-full object-cover" />
+              </AvatarImage>
+              <AvatarFallback class="bg-primary/10 text-sm font-semibold text-primary">H</AvatarFallback>
+            </Avatar>
             <span class="text-lg font-bold tracking-tight">Creeper32767</span>
           </NuxtLink>
         </slot>

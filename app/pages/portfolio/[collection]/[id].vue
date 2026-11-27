@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { ErrorCircle16Regular } from "@ntkrnl64/fluentui-vue-icons";
+import {
+  DocumentText16Regular,
+  ErrorCircle16Regular,
+  Open16Regular,
+} from "@ntkrnl64/fluentui-vue-icons";
 import type { TocLink } from "@nuxt/content";
+
+definePageMeta({ pageTransition: false });
 
 const route = useRoute();
 const { t } = useI18n();
@@ -8,11 +14,7 @@ const localePath = useLocalePath();
 
 const collection = computed(() => String(route.params.collection));
 const id = computed(() => String(route.params.id));
-const heroViewTransitionName = computed(() =>
-  `portfolio-hero-${Array.from(`${collection.value}/${id.value}`)
-    .map((character) => character.charCodeAt(0).toString(16))
-    .join("-")}`,
-);
+const sharedHeroId = computed(() => `portfolio-${collection.value}/${id.value}`);
 
 const { data: collectionMeta } = await usePortfolioCollectionMeta(collection);
 
@@ -102,8 +104,8 @@ useSiteSeo({
   ]" :passages="passages" :current-id="id" :headings="headings">
     <template #header>
       <AspectRatio :ratio="2 / 1"
-        class="detail-hero mx-auto flex w-full mb-8 items-center justify-center overflow-hidden rounded-2xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-700 motion-safe:ease-out max-lg:order-1"
-        :style="{ viewTransitionName: heroViewTransitionName }">
+        class="detail-hero mx-auto mb-8 flex w-full items-center justify-center overflow-hidden rounded-2xl max-lg:order-1"
+        :data-shared-id="sharedHeroId">
         <div
           class="text-[clamp(5rem,16vw,10rem)] font-bold text-[color-mix(in_srgb,var(--app-primary)_24%,transparent)]"
           aria-hidden="true">{{ title.slice(0, 1) }}</div>
@@ -131,7 +133,9 @@ useSiteSeo({
           <div class="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
             <div>
               <p class="page-eyebrow mb-2">{{ collection }}</p>
-              <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">{{ page.title }}</h1>
+              <h1 class="text-4xl font-bold tracking-tight sm:text-5xl" tabindex="-1" data-transition-heading>
+                {{ page.title }}
+              </h1>
             </div>
           </div>
           <section v-if="metadata.length || tags.length" class="mb-8 rounded-xl border border-border p-5">
@@ -148,6 +152,21 @@ useSiteSeo({
           </section>
           <ContentRenderer :value="page"
             class="text-base leading-8 text-foreground [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_p]:my-5" />
+          <aside class="mt-10 rounded-xl border border-border bg-muted/20 p-5 text-sm leading-6 text-muted"
+            :aria-label="t('portfolio.licenseTitle')">
+            <h2 class="font-semibold text-foreground">
+              <DocumentText16Regular class="inline-block size-4 align-[-0.2em]" aria-hidden="true" />
+              {{ t("portfolio.licenseTitle") }}
+            </h2>
+            <p class="mt-2">{{ t("portfolio.licenseDescription") }}</p>
+            <p class="mt-2">
+              <NuxtLink to="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer"
+                class="font-medium text-primary underline underline-offset-4">
+                {{ t("portfolio.licenseReference") }}
+                <Open16Regular class="inline-block size-4 align-[-0.2em]" aria-hidden="true" />
+              </NuxtLink>
+            </p>
+          </aside>
         </template>
         <template v-else>
           <Skeleton class="h-12 w-3/4" />

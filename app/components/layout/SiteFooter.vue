@@ -42,14 +42,19 @@ const socialLinks = [
 </script>
 
 <template>
-  <footer class="mt-16 border-t border-border bg-background/60">
+  <footer class="mt-16 border-t border-border bg-background/60" data-transition-static>
     <div class="mx-auto w-[calc(100%-2rem)] max-w-6xl py-12 sm:py-14">
       <div class="grid gap-20 sm:grid-cols-[2fr_1fr_1fr_1fr]">
         <div>
           <NuxtLink class="inline-flex items-center gap-3 text-lg font-bold tracking-tight text-foreground"
             :to="localePath('/')">
-            <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
-              class="h-10 w-10 rounded-full border border-border object-cover" />
+            <Avatar class="size-10 border border-border">
+              <AvatarImage as-child src="/images/haley-avatar.webp">
+                <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
+                  class="aspect-square size-full object-cover" />
+              </AvatarImage>
+              <AvatarFallback class="bg-primary/10 text-sm font-semibold text-primary">H</AvatarFallback>
+            </Avatar>
             Creeper32767
           </NuxtLink>
           <p class="mt-4 max-w-xl text-sm leading-7 text-muted">

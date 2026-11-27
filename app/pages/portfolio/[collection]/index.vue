@@ -6,6 +6,7 @@ const { t } = useI18n();
 const localePath = useLocalePath();
 
 const collection = computed(() => String(route.params.collection));
+definePageMeta({ pageTransition: false });
 
 const { data: meta, error: metaError } = await usePortfolioCollectionMeta(collection);
 
@@ -28,10 +29,7 @@ const filteredItems = computed(() => {
   );
 });
 
-const heroViewTransitionName = (itemId: string) =>
-  `portfolio-hero-${Array.from(`${collection.value}/${itemId}`)
-    .map((character) => character.charCodeAt(0).toString(16))
-    .join("-")}`;
+const sharedHeroId = (itemId: string) => `portfolio-${collection.value}/${itemId}`;
 
 const headings = computed(() => [
   { id: "collection-title", title: title.value, level: 1 },
@@ -77,11 +75,14 @@ useSiteSeo({
       </div>
 
       <div v-if="filteredItems.length" class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <article v-for="item in filteredItems" :key="item.id"
-          class="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background/60 shadow-sm backdrop-blur transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-primary/35 hover:shadow-lg">
+        <TransitionLink v-for="item in filteredItems" :key="item.id"
+          :href="localePath(`/portfolio/${collection}/${encodeURIComponent(item.id)}`)" target="_self"
+          unstyled
+          class="group flex w-full flex-col overflow-hidden rounded-2xl border border-border bg-background/60 text-left text-foreground shadow-sm backdrop-blur transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-primary/35 hover:shadow-lg"
+          :shared-id="sharedHeroId(item.id)" :aria-label="`${t('portfolio.readMore')}: ${item.title}`"
+          :data-shared-id="sharedHeroId(item.id)">
           <AspectRatio :ratio="16 / 9"
-            class="portfolio-placeholder flex w-full items-center justify-center overflow-hidden"
-            :style="{ viewTransitionName: heroViewTransitionName(item.id) }">
+            class="portfolio-placeholder flex w-full items-center justify-center overflow-hidden">
             <div
               class="text-[clamp(4rem,12vw,7rem)] font-bold text-[color-mix(in_srgb,var(--app-primary)_20%,transparent)] transition-transform duration-300 group-hover:scale-[1.08]"
               aria-hidden="true">{{ item.title.slice(0, 1) }}</div>
@@ -107,12 +108,12 @@ useSiteSeo({
               <Badge v-for="tag in (item.tags ?? []).slice(0, 3)" :key="tag" variant="outline">{{ tagLabel(tag) }}
               </Badge>
             </div>
-            <PlaneLink :href="localePath(`/portfolio/${collection}/${encodeURIComponent(item.id)}`)" target="_self"
-              class="mt-4 w-full bg-primary shadow-sm" :view-transition-name="heroViewTransitionName(item.id)">
+            <span
+              class="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-hover">
               {{ t("portfolio.readMore") }}
-            </PlaneLink>
+            </span>
           </div>
-        </article>
+        </TransitionLink>
       </div>
       <Alert v-else class="border-dashed py-8 items-center justify-center bg-destructive/10 text-destructive">
         <ErrorCircle20Regular aria-hidden="true" />

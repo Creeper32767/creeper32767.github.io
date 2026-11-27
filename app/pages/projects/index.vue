@@ -139,11 +139,11 @@ const sections: ProjectSection[] = [
                 </p>
               </div>
 
-              <PlaneLink :href="project.external ? project.href : localePath(project.href)" :target="project.external ? '_blank' : '_self'"
+              <TransitionLink :href="project.external ? project.href : localePath(project.href)" :target="project.external ? '_blank' : '_self'"
                 class="mt-6 w-full bg-primary shadow-sm" :aria-label="`${project.action}：${project.name}`">
                 {{ project.action }}
                 <Open16Regular v-if="project.external" class="size-4" aria-hidden="true" />
-              </PlaneLink>
+              </TransitionLink>
             </article>
           </div>
         </section>
