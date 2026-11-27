@@ -100,7 +100,9 @@ function retry() {
         }" />
     </div>
 
-    <LayoutSiteHeader />
+    <TooltipProvider>
+      <LayoutSiteHeader />
+    </TooltipProvider>
 
     <main class="relative z-10 flex flex-1 items-center justify-center px-6 py-12 text-center">
       <section class="max-w-2xl" role="alert" aria-live="polite">
