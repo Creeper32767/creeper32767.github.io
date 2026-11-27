@@ -159,10 +159,10 @@ onBeforeUnmount(() => {
       </header>
 
       <section
-        class="intro-banner relative mb-10 min-h-32 overflow-hidden rounded-2xl border border-primary/25 bg-(image:--banner-gradient) p-4 shadow-[0_0.75rem_2rem_rgb(15_23_42/0.12)] after:pointer-events-none after:absolute after:-right-12 after:-bottom-20 after:size-48 after:rounded-full after:bg-white/18 sm:px-6 sm:py-5">
-        <p class="font-mono text-sm text-primary">🐾 自介条载入中... |･ω･｀) 这是一只猫的观测报告 🐾</p>
+        class="intro-banner relative mb-10 min-h-32 overflow-hidden rounded-2xl border border-primary/25 bg-(image:--banner-gradient) p-4 shadow-[0_0.75rem_2rem_rgb(15_23_42/0.12)] after:pointer-events-none after:absolute after:-right-12 after:-bottom-20 after:size-48 after:rounded-full after:bg-primary/10 sm:px-6 sm:py-5">
+        <p class="font-mono text-sm text-ink">🐾 自介条载入中... |･ω･｀) 这是一只猫的观测报告 🐾</p>
         <p
-          class="mt-4 inline-block min-h-8 rounded-full bg-black/[0.14] px-[0.8rem] py-[0.35rem] font-semibold leading-normal text-white after:relative after:top-[0.3em] after:ml-[0.4rem] after:inline-block after:h-[1.2rem] after:w-[0.12rem] after:animate-[cursor-blink_1s_steps(2,jump-none)_infinite] after:bg-current after:content-[''] motion-reduce:after:animate-none max-sm:w-full max-sm:rounded-xl max-sm:text-sm">
+          class="mt-4 inline-block min-h-8 rounded-full bg-primary px-[0.8rem] py-[0.35rem] font-semibold leading-normal text-primary-foreground after:relative after:top-[0.3em] after:ml-[0.4rem] after:inline-block after:h-[1.2rem] after:w-[0.12rem] after:animate-[cursor-blink_1s_steps(2,jump-none)_infinite] after:bg-current after:content-[''] motion-reduce:after:animate-none max-sm:w-full max-sm:rounded-xl max-sm:text-sm">
           {{ typewriterText }}
         </p>
       </section>
@@ -234,18 +234,10 @@ onBeforeUnmount(() => {
 <style scoped>
 .intro-banner {
   --banner-gradient:
-    radial-gradient(circle at 90% 100%, rgb(255 255 255 / 0.5), transparent 35%),
+    radial-gradient(circle at 90% 100%, color-mix(in oklch, var(--app-primary) 12%, transparent), transparent 35%),
     linear-gradient(110deg,
-      color-mix(in srgb, var(--app-primary) 80%, white),
-      color-mix(in srgb, var(--app-primary) 55%, white));
-}
-
-:global(.dark) .intro-banner {
-  --banner-gradient:
-    radial-gradient(circle at 90% 100%, rgb(255 255 255 / 0.12), transparent 35%),
-    linear-gradient(110deg,
-      color-mix(in srgb, var(--app-primary) 75%, #111827),
-      color-mix(in srgb, var(--app-primary) 45%, #111827));
+      color-mix(in oklch, var(--app-primary) 24%, var(--app-surface)),
+      color-mix(in oklch, var(--app-primary) 12%, var(--app-surface)));
 }
 
 @keyframes cursor-blink {

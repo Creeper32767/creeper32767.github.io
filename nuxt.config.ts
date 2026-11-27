@@ -135,6 +135,7 @@ export default defineNuxtConfig({
     preference: "system",
     fallback: "system",
     classSuffix: "",
+    dataValue: "theme",
   },
 
   devtools: { enabled: true },

@@ -105,11 +105,17 @@ useSiteSeo({
               }) }}
             </p>
             <div class="mt-4 flex flex-wrap justify-end gap-2">
-              <Badge v-for="tag in (item.tags ?? []).slice(0, 3)" :key="tag" variant="outline">{{ tagLabel(tag) }}
+              <Badge
+                v-for="tag in (item.tags ?? []).slice(0, 3)"
+                :key="tag"
+                variant="outline"
+                class="border-badge-pink-border bg-badge-pink-bg px-2.5 py-1 font-semibold leading-none tracking-wide text-badge-pink-text"
+              >
+                {{ tagLabel(tag) }}
               </Badge>
             </div>
             <span
-              class="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-hover">
+              class="mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover">
               {{ t("portfolio.readMore") }}
             </span>
           </div>

@@ -133,7 +133,8 @@ useSiteSeo({
           <div class="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
             <div>
               <p class="page-eyebrow mb-2">{{ collection }}</p>
-              <h1 class="text-4xl font-bold tracking-tight sm:text-5xl" tabindex="-1" data-transition-heading>
+              <h1 class="text-4xl font-bold tracking-tight focus:outline-none sm:text-5xl" tabindex="-1"
+                data-transition-heading>
                 {{ page.title }}
               </h1>
             </div>
@@ -147,12 +148,15 @@ useSiteSeo({
               </div>
             </dl>
             <div v-if="tags.length" class="mt-4 flex flex-wrap gap-2">
-              <Badge v-for="tag in tags" :key="tag" variant="secondary">{{ tagLabel(tag) }}</Badge>
+              <Badge v-for="tag in tags" :key="tag" variant="secondary"
+                class="border-badge-pink-border bg-badge-pink-bg px-2.5 py-1 font-semibold leading-none tracking-wide text-badge-pink-text">
+                {{ tagLabel(tag) }}
+              </Badge>
             </div>
           </section>
           <ContentRenderer :value="page"
             class="text-base leading-8 text-foreground [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_p]:my-5" />
-          <aside class="mt-10 rounded-xl border border-border bg-muted/20 p-5 text-sm leading-6 text-muted"
+          <aside class="mt-10 rounded-xl border border-border bg-surface-2 p-5 text-sm leading-6 text-muted"
             :aria-label="t('portfolio.licenseTitle')">
             <h2 class="font-semibold text-foreground">
               <DocumentText16Regular class="inline-block size-4 align-[-0.2em]" aria-hidden="true" />
@@ -161,7 +165,7 @@ useSiteSeo({
             <p class="mt-2">{{ t("portfolio.licenseDescription") }}</p>
             <p class="mt-2">
               <NuxtLink to="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer"
-                class="font-medium text-primary underline underline-offset-4">
+                class="font-medium text-link underline decoration-decor underline-offset-4 transition-colors hover:text-link-hover focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-surface-2">
                 {{ t("portfolio.licenseReference") }}
                 <Open16Regular class="inline-block size-4 align-[-0.2em]" aria-hidden="true" />
               </NuxtLink>

@@ -83,10 +83,10 @@ function handleExternalClick(event: MouseEvent) {
   <NuxtLink v-if="target === '_self'" v-slot="{ href: resolvedHref, navigate }" :to="href" custom>
     <a v-bind="$attrs" :href="resolvedHref ?? undefined" :target="target" :rel="rel"
       :aria-disabled="disabled || undefined" :tabindex="disabled ? -1 : undefined"
-      class="outline-none focus-visible:ring-2 focus-visible:ring-primary/50" :class="[
+      class="outline-none focus-visible:ring-2 focus-visible:ring-focus" :class="[
         unstyled
           ? 'active:scale-[0.99]'
-          : 'inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-white transition-[color,background-color,transform] hover:bg-primary-hover active:scale-[0.97]',
+          : 'inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-primary-foreground transition-[color,background-color,transform] hover:bg-primary-hover active:scale-[0.97]',
         { 'pointer-events-none cursor-not-allowed opacity-50': disabled },
       ]" @click="handleInternalClick($event, navigate)">
       <slot />
@@ -94,11 +94,11 @@ function handleExternalClick(event: MouseEvent) {
   </NuxtLink>
   <a v-else v-bind="$attrs" :href="disabled ? undefined : href" :target="target"
     :rel="rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined)" :aria-disabled="disabled || undefined"
-    :tabindex="disabled ? -1 : undefined" class="outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+    :tabindex="disabled ? -1 : undefined" class="outline-none focus-visible:ring-2 focus-visible:ring-focus"
     :class="[
       unstyled
         ? 'active:scale-[0.99]'
-        : 'inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-white transition-[color,background-color,transform] hover:bg-primary-hover active:scale-[0.97]',
+        : 'inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium text-primary-foreground transition-[color,background-color,transform] hover:bg-primary-hover active:scale-[0.97]',
       { 'pointer-events-none cursor-not-allowed opacity-50': disabled },
     ]" @click="handleExternalClick">
     <slot />

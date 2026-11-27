@@ -32,7 +32,7 @@ onMounted(() => {
   <div>
     <main id="home" class="mx-auto w-[calc(100%-2rem)] max-w-6xl flex-1 py-12 sm:py-16">
       <header class="page-header page-header--centered page-header--compact flex flex-col items-center">
-        <Avatar class="mb-5 size-24 border-4 border-white shadow-lg">
+        <Avatar class="mb-5 size-24 border-4 border-background shadow-lg">
           <AvatarImage as-child src="/images/haley-avatar.webp">
             <NuxtImg src="/images/haley-avatar.webp" alt="Haley Avatar" width="96" height="96" preset="avatar"
               class="aspect-square size-full object-cover" />

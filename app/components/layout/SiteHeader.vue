@@ -111,7 +111,7 @@ onBeforeUnmount(() => {
         <slot name="brand">
           <NuxtLink class="flex items-center gap-3 text-foreground" :to="localePath('/')"
             aria-label="Creeper32767 home">
-            <Avatar class="size-10 border-2 border-white shadow-sm">
+            <Avatar class="size-10 border-2 border-background shadow-sm">
               <AvatarImage as-child src="/images/haley-avatar.webp">
                 <NuxtImg preload src="/images/haley-avatar.webp" alt="Creeper32767 Logo" width="96" height="96"
                   preset="avatar" class="aspect-square size-full object-cover" />
