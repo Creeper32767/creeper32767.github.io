@@ -8,7 +8,12 @@
       "title": "自由在高处",
       "collection": "books",
       "author": "熊培云",
-      "tags": ["argumentation", "society", "history", "philosophy"],
+      "tags": [
+        "argumentation",
+        "society",
+        "history",
+        "philosophy"
+      ],
       "path": "content/books/自由在高处.md",
       "url": "/portfolio/books/%E8%87%AA%E7%94%B1%E5%9C%A8%E9%AB%98%E5%A4%84",
       "excerpt": "“追求真理，但不强加于人”，或者说“我的真理以你不接受为边界”。 国家和个人有边…",
